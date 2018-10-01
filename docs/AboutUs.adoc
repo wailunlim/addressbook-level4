@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Heart² was developed by the F10-3 team. +
+Heart² was developed by the F10-3 team of NUS School of Computing AY18/19. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
