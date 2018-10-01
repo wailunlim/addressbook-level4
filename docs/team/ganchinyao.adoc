@@ -13,14 +13,14 @@ Heart² is a desktop wedding application used for matching service providers to 
 
 == Summary of contributions
 
-* *Major enhancement*: 
-** What it does: 
-** Justification: 
-** Highlights: 
+* *Major enhancement*:
+** What it does:
+** Justification:
+** Highlights:
 
-* *Minor enhancement*: 
+* *Minor enhancement*:
 
-* *Code contributed*: 
+* *Code contributed*:
 
 * *Other contributions*:
 
