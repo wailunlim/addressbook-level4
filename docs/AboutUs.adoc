@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Dong SiJi
 image::dongsiji.png[width="150", align="left"]
-{empty}[https://github.com/dongsiji[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/dongsiji[github]] [<<dongsiji#, portfolio>>]
 
 Role: In charge of ...
 
@@ -20,7 +20,7 @@ Role: In charge of ...
 
 === Gan Chin Yao
 image::NightYeti.png[width="150", align="left"]
-{empty}[http://github.com/NightYeti[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/NightYeti[github]] [<<ganchinyao#, portfolio>>]
 
 Role: In charge of ...
 
@@ -28,7 +28,7 @@ Role: In charge of ...
 
 === Liau Jian Jie
 image::liaujianjie.png[width="150", align="left"]
-{empty}[http://github.com/liaujianjie[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/liaujianjie[github]] [<<liaujianjie#, portfolio>>]
 
 Role: In charge of ...
 
@@ -36,7 +36,7 @@ Role: In charge of ...
 
 === Lim Wai Lun
 image::wailunlim.png[width="150", align="left"]
-{empty}[http://github.com/wailunlim[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/wailunlim[github]] [<<limwailun#, portfolio>>]
 
 Role: In charge of ...
 
@@ -44,7 +44,7 @@ Role: In charge of ...
 
 === Ng Ee Hooi
 image::eehooi.png[width="150", align="left"]
-{empty}[http://github.com/eehooi[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/eehooi[github]] [<<ngeehooi#, portfolio>>]
 
 Role: In charge of ...
 
