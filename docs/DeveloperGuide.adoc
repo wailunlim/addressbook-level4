@@ -849,35 +849,139 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Heart²` application, and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Client/Service Provider
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a new Client/Service Provider
+2.  System recognises the command
+3.  System adds the new Client/Service Provider into the database
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The new Client/Service Provider's syntax is not entered correct.
++
+[none]
+** 2a1. System shows a feedback to the user that the Client/Service Provider was not entered correctly.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+=== Use case: Update Client/Service Provider
+
+*MSS*
+
+1.  User requests to update an existing Client/Service Provider
+2.  System recognises the command
+3.  System updates the existing Client/Service Provider according to the User's requests
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Client/Service Provider does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+
+[discrete]
+=== Use case: Delete Client/Service Provider
+
+*MSS*
+
+1.  User requests to delete an existing Client/Service Provider
+2.  System recognises the command
+3.  System deletes the Client/Service Provider specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Client/Service Provider does not exist.
++
+[none]
+** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User requests to log in with his username and password
+2.  System validates the information entered and allows the user access to the System
+3.  User is successfully logged in
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The system determines that the username is incorrect
+
++
+[none]
+** 1a1. The system display an error message
++
+[none]
+** 1a2. The system prompts the user to re-enter his username
++
+[none]
+** Use case resumes from step 1.
+
+[none]
+* 1b. The system determines that the password is incorrect
+
++
+[none]
+** 1b1. The system will request the user to re-enter his password
++
+[none]
+** 1b2. The user attempts to enter his password
++
+[none]
+*** 1b2.1 The system determines that the password is incorrect
++
+[none]
+*** 1b2.2 The system provides the option for user to retrieve his forgotten password.
++
+[none]
+** Steps 1b1 and 1b2 are repeated until the user enters his correct password
++
+[none]
+** Use case resumes from step 3.
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Logout
+
+*MSS*
+
+1.  User requests to logout from the System
+2.  System recognises the command
+3.  System logs User out
+4.  User is successfully logged out
++
+Use case ends.
+
+
 
 [appendix]
 == Non Functional Requirements
