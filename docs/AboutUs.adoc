@@ -19,7 +19,7 @@ Role: In charge of listing, searching components.
 '''
 
 === Gan Chin Yao
-image::NightYeti.png[width="150", align="left"]
+image::nightyeti.png[width="150", align="left"]
 {empty}[http://github.com/NightYeti[github]] [<<ganchinyao#, portfolio>>]
 
 Role: In charge of login, autocomplete components.
