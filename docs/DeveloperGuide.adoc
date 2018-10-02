@@ -849,35 +849,241 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Heart²` application, and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Client/Service Provider
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a new Client/Service Provider
+2.  System recognises the command
+3.  System adds the new Client/Service Provider into the database
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The new Client/Service Provider's syntax is not entered correct.
++
+[none]
+** 2a1. System shows a feedback to the user that the Client/Service Provider was not entered correctly.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+=== Use case: Update Client/Service Provider
+
+*MSS*
+
+1.  User requests to update an existing Client/Service Provider
+2.  System recognises the command
+3.  System updates the existing Client/Service Provider according to the User's requests
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Client/Service Provider does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+
+[discrete]
+=== Use case: Delete Client/Service Provider
+
+*MSS*
+
+1.  User requests to delete an existing Client/Service Provider
+2.  System recognises the command
+3.  System deletes the Client/Service Provider specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Client/Service Provider does not exist.
++
+[none]
+** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User requests to log in with his username and password
+2.  System validates the information entered and allows the user access to the System
+3.  User is successfully logged in
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The system determines that the username is incorrect
+
++
+[none]
+** 1a1. The system display an error message
++
+[none]
+** 1a2. The system prompts the user to re-enter his username
++
+[none]
+** Use case resumes from step 1.
+
+[none]
+* 1b. The system determines that the password is incorrect
+
++
+[none]
+** 1b1. The system will request the user to re-enter his password
++
+[none]
+** 1b2. The user attempts to enter his password
++
+[none]
+*** 1b2.1 The system determines that the password is incorrect
++
+[none]
+*** 1b2.2 The system provides the option for user to retrieve his forgotten password.
++
+[none]
+** Steps 1b1 and 1b2 are repeated until the user enters his correct password
++
+[none]
+** Use case resumes from step 3.
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Logout
+
+*MSS*
+
+1.  User requests to logout from the System
+2.  System recognises the command
+3.  System logs User out
+4.  User is successfully logged out
++
+Use case ends.
+
+[discrete]
+=== Use case: List all the Clients or Service Providers
+
+*MSS*
+
+1.  User enters the list command and requests to view either all the Clients, or all the Service Providers
+2.  System recognises the list command
+3.  System returns either a list with all the Clients' names and contact numbers, or all the Service Providers' names and contact numbers
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. There is no Client or no Service Provider available
++
+[none]
+** 3a1. System recognises that there is no Client or Service Provider’s data
+
++
+[none]
+** 3a2. System returns a message to feedback to User that no Client or no Service Provider exist
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Filter and show a specific Client’s or Service Provider’s info
+
+*MSS*
+
+1.  User requests to view either a specific Client’s or the Service Provider’s info
+2.  The System recognises the command
+3.  The System displays the info related to the party back to the user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters a Client or Service Provider that does not exist
++
+[none]
+** 1a1. System does not recognise the client or service provider
++
+[none]
+** 1a2. System prompts the User that such a Client or Service Provider does not exist
++
+Use case ends.
+
+
+=== Use case: Match the most suitable Service Provider to a Client's needs
+
+*MSS*
+
+1.  User attempts to match a Client's need to an available Service Provider
+2.  System recognises the match command
+3.  System matches a Service Provider that it deemed the most suitable to the Client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The Client has no need. That is to say, the Client is not looking for any Service Provider
++
+[none]
+** 1a1. System recognises that the Client has no need, and return a message to feedback to the User
++
+Use case ends.
+[none]
++
+* 3a. There is no Service Provider available that matches the Client's need
++
+[none]
+** 3a1. System feedback to the User that no Service Provider is available for the current Client's need
++
+Use case ends.
+
+
+=== Use case: Auto-complete typed command
+
+*MSS*
+
+1.  User types a letter (or letters) into the command line
+2.  System recognises the letter(s) typed
+3.  System suggests a list of commands that starts with the letter(s) that the User has typed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. There is no command that starts with the letter(s) that the User has typed
++
+[none]
+** 3a1. System does not suggest anything to the User
++
+Use case ends.
+
+
+
 
 [appendix]
 == Non Functional Requirements
