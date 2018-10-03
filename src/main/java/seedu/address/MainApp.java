@@ -203,6 +203,10 @@ public class MainApp extends Application {
         stop();
     }
 
+    /**
+     * The main entry of the application.
+     * @param args not accepting arguments
+     */
     public static void main(String[] args) {
         UserAuthenticationManager.logIn();
 
