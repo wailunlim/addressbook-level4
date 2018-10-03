@@ -1093,6 +1093,7 @@ Use case ends.
 .  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Application should only be available for Wedding Managers with login credentials
 .  Application should be available 24hrs everyday without down time
+.  Data stored into the Application should be available to Users without corruption
 
 [Discrete]
 ==== Performance
@@ -1117,7 +1118,7 @@ Use case ends.
 [Discrete]
 ==== Data Integrity
 .  Only authorized Users with specific login credentials should be able to add, update, or delete data directly from the Application.
-
+.  All monetary amounts should be accurate to 2 decimal places.
 
 
 
