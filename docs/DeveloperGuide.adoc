@@ -1032,7 +1032,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 === Use case: Match the most suitable Service Provider to a Client's needs
 
 *MSS*
@@ -1061,7 +1061,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 === Use case: Auto-complete typed command
 
 *MSS*
