@@ -860,8 +860,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |profit-motivated marketing head |calculate the rough estimate of the cost of each project |source for service providers that would maximise my profits
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
