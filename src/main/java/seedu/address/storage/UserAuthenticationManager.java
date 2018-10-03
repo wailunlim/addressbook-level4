@@ -6,12 +6,12 @@ package seedu.address.storage;
  */
 public class UserAuthenticationManager {
     /**
-     * Indicate if user has successfully logged in
+     * Indicate if user has successfully logged in.
      */
     private static boolean loginSuccess;
 
     /**
-     * Prevents user from instantiating an object of UserAuthenticationManager
+     * Prevents user from instantiating an object of UserAuthenticationManager.
      */
     private UserAuthenticationManager() {
     }

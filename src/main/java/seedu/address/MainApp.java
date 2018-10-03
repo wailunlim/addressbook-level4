@@ -30,9 +30,9 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserAuthenticationManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
-import seedu.address.storage.UserAuthenticationManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -207,7 +207,7 @@ public class MainApp extends Application {
         UserAuthenticationManager.logIn();
 
         //TODO add login logic here
-        if(UserAuthenticationManager.getLoginSuccess()) {
+        if (UserAuthenticationManager.getLoginSuccess()) {
             launch(args);
         }
     }
