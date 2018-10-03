@@ -851,9 +851,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |organised project manager|access clients and service providers separately |I can look through their data more efficiently
 
-|`* *` |efficient project manager |create templates |I can easily serve customers of similar request types
-
 |`* *` |modular project manager|offer packages to clients |clients with no particular preferences can be attended to efficiently
+
+|`*` |efficient project manager |create templates |I can easily serve customers of similar request types
 
 |`*` |customer-first project manager |have a ratings and feedback system given by clients for the service providers |I can sieve out the better service providers for future clients
 
