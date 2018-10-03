@@ -1131,6 +1131,18 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[client]] Client::
+The Client is the primary receiver and the party that requires the services of the Project Manager and Service Providers. The Client puts up requests to the Project Manager to handle their wedding event.
+
+[[service-provider]] Service Provider::
+The Service Providers are what the Project Manager needs to connect his Clients to, to fulfil the Clients' needs and wants. Service Providers provide goods and services required for the clients’ weddings and they depend on the Project Manager to look for suitable Clients.
+
+[[project-manager]] Project Manager::
+The User of the application; the Project Manager of a wedding planning company that needs to engage his Clients with his Service Providers, managing a large amount of wedding requests at a time.
+
+[[event]] Event::
+A single request related to the wedding that the Client expects. The Project Manager plans for and provide this request from a Service Provider. The event encapsulates many different services, such as: wedding photography, formal wedding attire rental, banquet catering, invitation printing, and many others.
+
 [appendix]
 == Product Survey
 
