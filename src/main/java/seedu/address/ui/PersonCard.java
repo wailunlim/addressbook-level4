@@ -47,7 +47,38 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        assignTags(person);
+    }
+
+    /**
+     * Assigns all tags for the person with a label.
+     *
+     * @param person Current person to assign tags to
+     */
+    private void assignTags(Person person) {
+        person.getTags().forEach(tag -> {
+            Label tagLabel = createLabelforTag(tag.tagName);
+            tags.getChildren().add(tagLabel);
+        });
+    }
+
+    /**
+     * Creates a label for the tag. Label is set to grey if the tag indicates price.
+     * Otherwise, it would be set to pink as default.
+     *
+     * @param tagName Name of the tag
+     * @return new Label for the tag
+     */
+    private Label createLabelforTag(String tagName) {
+        Label tagLabel = new Label(tagName);
+
+        if (tagName.toLowerCase().contains("price")) {
+            tagLabel.getStyleClass().add("grey");
+        } else {
+            tagLabel.getStyleClass().add("pink");
+        }
+
+        return tagLabel;
     }
 
     @Override
