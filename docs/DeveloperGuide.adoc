@@ -815,13 +815,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+* has a need to plan for events (weddings)
 * has a need to manage a significant number of contacts
+* has a need to link contacts together
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: simplify the process of wedding management for the user, his clients and service providers
 
 [appendix]
 == User Stories
