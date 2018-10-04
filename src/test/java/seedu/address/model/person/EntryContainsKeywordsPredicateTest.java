@@ -25,7 +25,8 @@ public class EntryContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        EntryContainsKeywordsPredicate firstPredicateCopy = new EntryContainsKeywordsPredicate(firstPredicateKeywordList);
+        EntryContainsKeywordsPredicate firstPredicateCopy =
+                new EntryContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +42,8 @@ public class EntryContainsKeywordsPredicateTest {
     @Test
     public void test_entryContainsKeywords_returnsTrue() {
         // One keyword
-        EntryContainsKeywordsPredicate predicate = new EntryContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        EntryContainsKeywordsPredicate predicate =
+                new EntryContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
