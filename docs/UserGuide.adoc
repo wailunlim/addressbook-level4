@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Heart² - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,8 @@ By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Heart² is a software for wedding planning agencies to efficiently manage clients' and agency companies' profiles. Finding suitable wedding service providers for couples is just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
+Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
+You can find suitable wedding service providers for couples is just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
 
