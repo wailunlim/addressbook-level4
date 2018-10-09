@@ -1,23 +1,27 @@
 package seedu.address.model.account;
 
+/**
+ * Account class represents a single Account that comprises of a username,
+ * password, and role associated with an account.
+ */
 public class Account {
-    private String userName;
+    private String username;
     private String password;
     private Role role;
 
-    public Account(String userName, String password) {
-        this.userName = userName;
+    public Account(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public Account(String userName, String password, Role role) {
-        this.userName = userName;
+    public Account(String username, String password, Role role) {
+        this.username = username;
         this.password = password;
         this.role = role;
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public String getPassword() {
@@ -30,7 +34,7 @@ public class Account {
 
     /**
      * An Account is equal to another Account if both of them have the
-     * same userName, password, and role.
+     * same username, password, and role.
      * @param other Other Account to compare
      * @return true if both Accounts are equal, false otherwise.
      */
@@ -45,7 +49,7 @@ public class Account {
         }
 
         Account otherAccount = (Account) other;
-        return otherAccount.getUserName().equals(this.userName)
+        return otherAccount.getUserName().equals(this.username)
                 && otherAccount.getPassword().equals(this.password)
                 && otherAccount.getRole().equals(this.role);
     }

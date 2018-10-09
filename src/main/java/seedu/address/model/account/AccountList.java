@@ -1,12 +1,12 @@
 package seedu.address.model.account;
-
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-
+import static java.util.Objects.requireNonNull;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * AccountList represents the entire list of accounts that were created
+ * and stored in the local database. Currently, all username and password are
+ * stored locally in a xml file without encryption.
+ */
 public class AccountList {
     private List<Account> accountList;
 

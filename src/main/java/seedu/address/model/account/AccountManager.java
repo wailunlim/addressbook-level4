@@ -1,11 +1,19 @@
 package seedu.address.model.account;
 
+/**
+ * This class is used for account related purposes, in particular, login,
+ * logout, create new account, and forgotten password.
+ */
 public class AccountManager {
     private static AccountList accountList;
     /**
      * Indicate if user has successfully logged in.
      */
     private static boolean loginSuccess;
+
+    public AccountManager() {
+        loginSuccess = false;
+    }
 
     public static Account getRootAccount() {
         return new Account("rootUser", "rootPassword");
@@ -17,10 +25,6 @@ public class AccountManager {
         AccountManager.accountList = accountList;
 
         return accountList;
-    }
-
-    public AccountManager() {
-        loginSuccess = false;
     }
 
     /**
