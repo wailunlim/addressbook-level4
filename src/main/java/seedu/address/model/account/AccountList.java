@@ -1,5 +1,6 @@
 package seedu.address.model.account;
 import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 /**
