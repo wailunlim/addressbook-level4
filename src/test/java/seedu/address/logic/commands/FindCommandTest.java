@@ -20,7 +20,6 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
