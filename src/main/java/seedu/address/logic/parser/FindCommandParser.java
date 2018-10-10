@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.EntryContainsKeywordsPredicate;
@@ -19,7 +19,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         String trimmedArgs = args.trim();
 
         if (trimmedArgs.isEmpty()) {
-            return new FindCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()));
+            return new FindCommand(new EntryContainsKeywordsPredicate(Collections.emptyList()));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
