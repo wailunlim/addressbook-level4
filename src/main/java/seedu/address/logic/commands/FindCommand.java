@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -29,15 +31,11 @@ public class FindCommand extends Command {
         this.predicate = predicate;
     }
 
-    public FindCommand() {
-        this.predicate = null;
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        if (predicate == null) {
+        if (predicate.equals(new EntryContainsKeywordsPredicate(new ArrayList<>()))) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(MESSAGE_SUCCESS);
         }
