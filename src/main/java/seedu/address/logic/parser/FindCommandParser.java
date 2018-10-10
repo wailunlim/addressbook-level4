@@ -18,7 +18,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) {
         String trimmedArgs = args.trim();
 
-        if(trimmedArgs.isEmpty()) {
+        if (trimmedArgs.isEmpty()) {
             return new FindCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()));
         }
 
