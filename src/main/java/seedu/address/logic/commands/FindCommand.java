@@ -18,8 +18,6 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
@@ -37,7 +35,7 @@ public class FindCommand extends Command {
 
         if (predicate.equals(new EntryContainsKeywordsPredicate(Collections.emptyList()))) {
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(Messages.MESSAGE_LIST_ALL_PERSON);
         }
 
         model.updateFilteredPersonList(predicate);
