@@ -1,11 +1,12 @@
 package seedu.address.storage;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 
-import java.io.IOException;
-import java.nio.file.Path;
 
 /**
  * An interface used to manage storing of Account details. Currently, all Account
