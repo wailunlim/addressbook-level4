@@ -14,5 +14,5 @@ public interface Searchable {
      * @param queryString      Query string
      * @return
      */
-    public List<Searchable> search(Stream<Searchable> searchableStream, String queryString);
+    List<Searchable> search(Stream<Searchable> searchableStream, String queryString);
 }

@@ -18,6 +18,10 @@ public class EntryContainsKeywordsPredicate implements Predicate<Contact> {
 
     @Override
     public boolean test(Contact contact) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
+
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(contact.toString(), keyword));
     }

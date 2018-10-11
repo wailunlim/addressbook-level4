@@ -41,9 +41,12 @@ public class EntryContainsKeywordsPredicateTest {
 
     @Test
     public void test_entryContainsKeywords_returnsTrue() {
+        // Zero keywords
+        EntryContainsKeywordsPredicate predicate = new EntryContainsKeywordsPredicate(Collections.emptyList());
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").build()));
+
         // One keyword
-        EntryContainsKeywordsPredicate predicate =
-                new EntryContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        predicate = new EntryContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
@@ -73,12 +76,8 @@ public class EntryContainsKeywordsPredicateTest {
 
     @Test
     public void test_entryDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        EntryContainsKeywordsPredicate predicate = new EntryContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
-
         // Non-matching keyword
-        predicate = new EntryContainsKeywordsPredicate(Arrays.asList("Carol"));
+        EntryContainsKeywordsPredicate predicate = new EntryContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name

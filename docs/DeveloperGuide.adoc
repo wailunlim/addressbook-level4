@@ -886,18 +886,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to add a new Client/Service Provider
-2.  System recognises the command
-3.  System adds the new Client/Service Provider into the database
+2.  System adds the new Client/Service Provider into the database
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The new Client/Service Provider's syntax is not entered correct.
+* 1a. The new Client/Service Provider's syntax is not entered correct.
 +
 [none]
-** 2a1. System shows a feedback to the user that the Client/Service Provider was not entered correctly.
+** 1a1. System shows a feedback to the user that the Client/Service Provider was not entered correctly.
 +
 Use case ends.
 
@@ -908,18 +907,17 @@ Use case ends.
 *MSS*
 
 1.  User requests to update an existing Client/Service Provider
-2.  System recognises the command
-3.  System updates the existing Client/Service Provider according to the User's requests
+2.  System updates the existing Client/Service Provider according to the User's requests
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Client/Service Provider does not exist.
+* 1a. The Client/Service Provider does not exist.
 +
 [none]
-** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist.
+** 1a1. System shows a feedback to the user that the Client/Service Provider does not exist.
 +
 Use case ends.
 
@@ -930,18 +928,17 @@ Use case ends.
 *MSS*
 
 1.  User requests to delete an existing Client/Service Provider
-2.  System recognises the command
-3.  System deletes the Client/Service Provider specified
+2.  System deletes the Client/Service Provider specified
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Client/Service Provider does not exist.
+* 1a. The Client/Service Provider does not exist.
 +
 [none]
-** 2a1. System shows a feedback to the user that the Client/Service Provider does not exist
+** 1a1. System shows a feedback to the user that the Client/Service Provider does not exist
 +
 Use case ends.
 
@@ -960,20 +957,17 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The system determines that the username is incorrect
+* 1a. User enters an incorrect username
 
 +
 [none]
-** 1a1. The system display an error message
-+
-[none]
-** 1a2. The system prompts the user to re-enter his username
+** 1a1. The system display an error message and prompts the user to re-enter his username
 +
 [none]
 ** Use case resumes from step 1.
 
 [none]
-* 1b. The system determines that the password is incorrect
+* 1b. User enters an incorrect password
 
 +
 [none]
@@ -983,10 +977,7 @@ Use case ends.
 ** 1b2. The user attempts to enter his password
 +
 [none]
-*** 1b2.1 The system determines that the password is incorrect
-+
-[none]
-*** 1b2.2 The system provides the option for user to retrieve his forgotten password.
+*** 1b2.1 The system determines that the password is incorrect and provides the option for user to retrieve his forgotten password
 +
 [none]
 ** Steps 1b1 and 1b2 are repeated until the user enters his correct password
@@ -1004,9 +995,8 @@ Use case ends.
 *MSS*
 
 1.  User requests to logout from the System
-2.  System recognises the command
-3.  System logs User out
-4.  User is successfully logged out
+2.  System logs User out
+3.  User is successfully logged out
 +
 Use case ends.
 
@@ -1016,22 +1006,17 @@ Use case ends.
 *MSS*
 
 1.  User enters the list command and requests to view either all the Clients, or all the Service Providers
-2.  System recognises the list command
-3.  System returns either a list with all the Clients' names and contact numbers, or all the Service Providers' names and contact numbers
+2.  System returns either a list with all the Clients' names and contact numbers, or all the Service Providers' names and contact numbers
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. There is no Client or no Service Provider available
+* 2a. There is no Client or no Service Provider available
 +
 [none]
-** 3a1. System recognises that there is no Client or Service Provider’s data
-
-+
-[none]
-** 3a2. System returns a message to feedback to User that no Client or no Service Provider exist
+** 2a1. System returns a message to feedback to User that no Client or no Service Provider exist
 
 +
 Use case ends.
@@ -1043,8 +1028,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to view either a specific Client’s or the Service Provider’s info
-2.  The System recognises the command
-3.  The System displays the info related to the party back to the user
+2.  The System displays the info related to the party back to the user
 +
 Use case ends.
 
@@ -1054,10 +1038,7 @@ Use case ends.
 * 1a. User enters a Client or Service Provider that does not exist
 +
 [none]
-** 1a1. System does not recognise the client or service provider
-+
-[none]
-** 1a2. System prompts the User that such a Client or Service Provider does not exist
+** 1a1. System prompts the User that such a Client or Service Provider does not exist
 +
 Use case ends.
 
@@ -1067,7 +1048,6 @@ Use case ends.
 *MSS*
 
 1.  User attempts to match a Client's need to an available Service Provider
-2.  System recognises the match command
 3.  System matches a Service Provider that it deemed the most suitable to the Client
 +
 Use case ends.
@@ -1083,10 +1063,10 @@ Use case ends.
 Use case ends.
 [none]
 +
-* 3a. There is no Service Provider available that matches the Client's need
+* 2a. There is no Service Provider available that matches the Client's need
 +
 [none]
-** 3a1. System feedback to the User that no Service Provider is available for the current Client's need
+** 2a1. System feedback to the User that no Service Provider is available for the current Client's need
 +
 Use case ends.
 
@@ -1096,18 +1076,17 @@ Use case ends.
 *MSS*
 
 1.  User types a letter (or letters) into the command line
-2.  System recognises the letter(s) typed
-3.  System suggests a list of commands that starts with the letter(s) that the User has typed
+2.  System suggests a list of commands that starts with the letter(s) that the User has typed
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. There is no command that starts with the letter(s) that the User has typed
+* 2a. There is no command that starts with the letter(s) that the User has typed
 +
 [none]
-** 3a1. System does not suggest anything to the User
+** 2a1. System does not suggest anything to the User
 +
 Use case ends.
 
@@ -1176,6 +1155,8 @@ A single request related to the wedding that the Client expects. The Project Man
 == Product Survey
 
 *Product Name*
+
+(This section is to be filled in later)
 
 Author: ...
 
