@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a person to the address book.
@@ -37,14 +37,14 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Contact toAdd;
+    private final Person toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Contact contact) {
-        requireNonNull(contact);
-        toAdd = contact;
+    public AddCommand(Person person) {
+        requireNonNull(person);
+        toAdd = person;
     }
 
     @Override
