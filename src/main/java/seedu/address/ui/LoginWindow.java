@@ -51,8 +51,12 @@ public class LoginWindow extends UiPart<Stage> {
         this.logic = logic;
     }
 
+    /**
+     * Login authentication for users with access.
+     * @param actionEvent Button click event to Login
+     */
     @FXML
-    private void Login(ActionEvent actionEvent) {
+    private void login(ActionEvent actionEvent) {
         // Search for user in AccountList and match the password
         // Temporary login check
         if (usernamePlaceholder.getText().equals("user")
