@@ -17,6 +17,10 @@ public class EntryContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
+
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.toString(), keyword));
     }
