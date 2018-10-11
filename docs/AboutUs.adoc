@@ -14,7 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::dongsiji.png[width="150", align="left"]
 {empty}[https://github.com/dongsiji[github]] [<<dongsiji#, portfolio>>]
 
-Role: In charge of listing, searching components.
+Role: developer +
+Component: listing, searching
 
 '''
 
@@ -22,7 +23,8 @@ Role: In charge of listing, searching components.
 image::nightyeti.png[width="150", align="left"]
 {empty}[http://github.com/NightYeti[github]] [<<ganchinyao#, portfolio>>]
 
-Role: In charge of login, autocomplete components.
+Role: developer +
+Component: login, autocomplete
 
 '''
 
@@ -30,7 +32,8 @@ Role: In charge of login, autocomplete components.
 image::liaujianjie.png[width="150", align="left"]
 {empty}[http://github.com/liaujianjie[github]] [<<liaujianjie#, portfolio>>]
 
-Role: In charge of services, matching components.
+Role: developer +
+Component: services, matching
 
 '''
 
@@ -38,7 +41,8 @@ Role: In charge of services, matching components.
 image::wailunlim.png[width="150", align="left"]
 {empty}[http://github.com/wailunlim[github]] [<<limwailun#, portfolio>>]
 
-Role: In charge of add, update and delete components.
+Role: developer +
+Component: add, update and delete
 
 '''
 
@@ -46,6 +50,7 @@ Role: In charge of add, update and delete components.
 image::eehooi.png[width="150", align="left"]
 {empty}[http://github.com/eehooi[github]] [<<ngeehooi#, portfolio>>]
 
-Role: In charge of UI, matching components.
+Role: developer +
+Component: UI, matching
 
 '''
