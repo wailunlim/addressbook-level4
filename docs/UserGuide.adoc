@@ -52,18 +52,23 @@ Format: `help`
 
 === Signing in : `signin`
 
-Securely signs in the user to access the system +
+Securely signs in the user to access the system. +
 Format: `signin u/USERNAME p/PASSWORD`
 
 === Signing out : `signout`
 
+Securely signs the user out of the system. +
 Format: `signout`
 
-=== Manipulating a client: `client`
+=== Manipulating all clients: `client`
 
 ==== Creating a client
 
+Registers a client and his/her particulars into the database. +
 Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
+
+Examples:
+* `client add n\John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 
 ==== Listing and searching for clients
 
@@ -73,10 +78,13 @@ Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_AD
 Examples:
 
 * `client list`
-* `client list n/John Doe`
+* `client list n/John Doe` (lists all clients that matches the name "John Doe")
+
+=== Manipulating a specific client: `client#ID`
 
 ==== Viewing a client
 
+View the detailed information about a specific client by his/her ID. +
 Format: `client#ID view`
 
 Example:
@@ -85,37 +93,83 @@ Example:
 
 ==== Deleting a client
 
+Deletes a client by his/her ID. +
 Format: `client#ID delete`
+
+Example:
+
+* `client#123 delete`
 
 ==== Updating a client profile
 
+Updates a client profile by his/her ID. +
 Format: `client#ID updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
+
+Examples:
+
+* `client#123 updateprofile p/98765432` (updates `client#123`'s phone number)
+* `client#123 updateprofile n/Jane Doe e/janedoe@gmail.com` (updates `client#123`'s name and email address)
 
 ==== Adding a service request by a client
 
+Requests a service for a client for a particular budget in Singapore Dollars (SGD). +
 Format: `client#ID addservice t/SERVICE_TYPE p/SERVICE_BUDGET`
 
-=== Manipulating a service provider: `serviceprovider`
+Service Types `SERVICE_TYPE`:
+
+* `photography`
+* `catering`
+* `hosting`
+
+Example:
+
+* `client#ID addservice t/photography p/2000`
+* `client#ID addservice t/catering p/10000`
+
+=== Manipulating all service providers: `serviceprovider`
 
 ==== Creating a service provider
 
+Registers a service provider to the system. +
 Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS`
+
+Examples:
+* `serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
+
+=== Manipulating a specific service provider: `serviceprovider#ID`
 
 ==== Viewing a service provider
 
+View the detailed information of a service provider by its ID. +
 Format: `serviceprovider$ID view`
+
+Examples:
+
+* `serviceprovider#123 view`
 
 ==== Deleting a service provider
 
+Deletes a service provider by its ID. +
 Format: `serviceprovider#ID delete`
+
+Examples:
+
+* `serviceprovider#123 delete`
 
 ==== Updating a service provider profile
 
+Updates the details of a service provider by its ID. +
 Format: `serviceprovider#ID updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS]`
 
 ==== Adding a service type supported by service provider
 
+Adds a service type supported by the service provider by its ID in Singapore Dollars (SGD). +
 Format: `serviceprovider#ID addservice t/SERVICE_TYPE p/SERVICE_COST_ESTIMATE`
+
+Examples:
+
+* `serviceprovider#123 addservice t/photography p/2000`
+* `serviceprovider#123 addservice t/catering p/10000`
 
 === Listing entered commands: `history`
 
