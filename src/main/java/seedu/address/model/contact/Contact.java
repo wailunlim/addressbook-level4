@@ -1,5 +1,9 @@
 package seedu.address.model.contact;
 
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
+
 /**
  * An interface to be implemented by the client and the service provider. The Addressbook will use this interface
  *     to retrieve details of the contact.
@@ -18,4 +22,6 @@ public interface Contact {
     // get the phone number of the contact
     Phone getPhone();
 
+    // Get the tag set
+    Set<Tag> getTags();
 }
