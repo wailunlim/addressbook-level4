@@ -75,16 +75,16 @@ public class Person implements Contact {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Contact)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Contact otherContact = (Contact) other;
+        return otherContact.getName().equals(getName())
+                && otherContact.getPhone().equals(getPhone())
+                && otherContact.getEmail().equals(getEmail())
+                && otherContact.getAddress().equals(getAddress())
+                && otherContact.getTags().equals(getTags());
     }
 
     @Override
