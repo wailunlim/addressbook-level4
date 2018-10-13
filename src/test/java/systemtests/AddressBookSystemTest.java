@@ -141,7 +141,8 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(FindCommand.COMMAND_WORD);
+        //TODO: update the input to this
+        executeCommand("client " + FindCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getContactList().size(), getModel().getFilteredContactList().size());
     }
 
@@ -149,7 +150,8 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        //TODO: update and create tests to reflect client and serviceprovider
+        executeCommand("client " + FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredContactList().size() < getModel().getAddressBook().getContactList().size());
     }
 

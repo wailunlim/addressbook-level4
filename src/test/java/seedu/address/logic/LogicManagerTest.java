@@ -34,15 +34,16 @@ public class LogicManagerTest {
     }
 
     @Test
+    //TODO: update deleteCommand
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "client delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
-        String findCommand = FindCommand.COMMAND_WORD;
+        String findCommand = "client " + FindCommand.COMMAND_WORD;
         assertCommandSuccess(findCommand, MESSAGE_LIST_ALL_PERSON, model);
         assertHistoryCorrect(findCommand);
     }

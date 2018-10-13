@@ -52,9 +52,10 @@ public class AddressBookParserTest {
     }
 
     @Test
+    //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+                "client " + DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
@@ -74,11 +75,12 @@ public class AddressBookParserTest {
     }
 
     @Test
+    // TODO: update to the new input after changing and finalising parser
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                // TODO: update to the new input after changing and finalising parser
-                FindCommand.COMMAND_WORD + " client " + keywords.stream().collect(Collectors.joining(" ")));
+                "client " + FindCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new EntryContainsKeywordsPredicate(keywords)), command);
     }
 
