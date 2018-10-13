@@ -17,9 +17,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
-import seedu.address.model.contact.UniqueContactList;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueContactListTest {
