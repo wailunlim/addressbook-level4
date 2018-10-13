@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the address-book level
@@ -43,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the contact list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.
      */
-    public void setContacts(List<Contact> contacts) {
+    private void setContacts(List<Contact> contacts) {
         this.contacts.setContacts(contacts);
     }
 
