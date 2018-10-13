@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.uniqueContactList;
+import seedu.address.model.contact.UniqueContactList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,7 @@ import seedu.address.model.contact.uniqueContactList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final uniqueContactList persons;
+    private final UniqueContactList<Contact> persons;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new uniqueContactList();
+        persons = new UniqueContactList<>();
     }
 
     public AddressBook() {}

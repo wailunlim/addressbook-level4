@@ -23,14 +23,14 @@ import seedu.address.model.contact.exceptions.DuplicateContactException;
  *
  * @see Contact#isSameContact(Contact)
  */
-public class uniqueContactList implements Iterable<Contact> {
+public class UniqueContactList<T extends Contact> implements Iterable<T> {
 
-    private final ObservableList<Contact> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent contact as the given argument.
      */
-    public boolean contains(Contact toCheck) {
+    public boolean contains(T toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameContact);
     }
@@ -39,7 +39,7 @@ public class uniqueContactList implements Iterable<Contact> {
      * Adds a contact to the list.
      * The contact must not already exist in the list.
      */
-    public void add(Contact toAdd) {
+    public void add(T toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateContactException();
@@ -52,7 +52,7 @@ public class uniqueContactList implements Iterable<Contact> {
      * {@code target} must exist in the list.
      * The contact identity of {@code editedContact} must not be the same as another existing contact in the list.
      */
-    public void setContact(Contact target, Contact editedContact) {
+    public void setContact(T target, T editedContact) {
         requireAllNonNull(target, editedContact);
 
         int index = internalList.indexOf(target);
@@ -71,14 +71,14 @@ public class uniqueContactList implements Iterable<Contact> {
      * Removes the equivalent contact from the list.
      * The contact must exist in the list.
      */
-    public void remove(Contact toRemove) {
+    public void remove(T toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ContactNotFoundException();
         }
     }
 
-    public void setContacts(uniqueContactList replacement) {
+    public void setContacts(UniqueContactList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,7 +87,7 @@ public class uniqueContactList implements Iterable<Contact> {
      * Replaces the contents of this list with {@code contacts}.
      * {@code contacts} must not contain duplicate contacts.
      */
-    public void setContacts(List<Contact> contacts) {
+    public void setContacts(List<T> contacts) {
         requireAllNonNull(contacts);
         if (!contactsAreUnique(contacts)) {
             throw new DuplicateContactException();
@@ -99,20 +99,20 @@ public class uniqueContactList implements Iterable<Contact> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Contact> asUnmodifiableObservableList() {
+    public ObservableList<T> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<Contact> iterator() {
+    public Iterator<T> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof uniqueContactList // instanceof handles nulls
-                        && internalList.equals(((uniqueContactList) other).internalList));
+                || (other instanceof UniqueContactList // instanceof handles nulls
+                        && internalList.equals(((UniqueContactList) other).internalList));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class uniqueContactList implements Iterable<Contact> {
     /**
      * Returns true if {@code contacts} contains only unique contacts.
      */
-    private boolean contactsAreUnique(List<Contact> contacts) {
+    private boolean contactsAreUnique(List<T> contacts) {
         for (int i = 0; i < contacts.size() - 1; i++) {
             for (int j = i + 1; j < contacts.size(); j++) {
                 if (contacts.get(i).isSameContact(contacts.get(j))) {

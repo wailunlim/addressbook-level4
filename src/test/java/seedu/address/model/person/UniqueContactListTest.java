@@ -19,14 +19,14 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
-import seedu.address.model.contact.uniqueContactList;
+import seedu.address.model.contact.UniqueContactList;
 import seedu.address.testutil.PersonBuilder;
 
-public class uniqueContactListTest {
+public class UniqueContactListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final uniqueContactList uniqueContactList = new uniqueContactList();
+    private final UniqueContactList<Contact> uniqueContactList = new UniqueContactList<>();
 
     @Test
     public void contains_nullContact_throwsNullPointerException() {
@@ -88,7 +88,7 @@ public class uniqueContactListTest {
     public void setContact_editedContactIsSamePerson_success() {
         uniqueContactList.add(ALICE);
         uniqueContactList.setContact(ALICE, ALICE);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         expectedUniqueContactList.add(ALICE);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
@@ -99,7 +99,7 @@ public class uniqueContactListTest {
         Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueContactList.setContact(ALICE, editedAlice);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         expectedUniqueContactList.add(editedAlice);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
@@ -108,7 +108,7 @@ public class uniqueContactListTest {
     public void setContact_editedContactHasDifferentIdentity_success() {
         uniqueContactList.add(ALICE);
         uniqueContactList.setContact(ALICE, BOB);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         expectedUniqueContactList.add(BOB);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
@@ -137,20 +137,20 @@ public class uniqueContactListTest {
     public void remove_existingContact_removesContact() {
         uniqueContactList.add(ALICE);
         uniqueContactList.remove(ALICE);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
 
     @Test
     public void setContacts_nullUniqueContactList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueContactList.setContacts((uniqueContactList) null);
+        uniqueContactList.setContacts((UniqueContactList<Contact>) null);
     }
 
     @Test
     public void setContacts_uniqueContactList_replacesOwnListWithProvidedUniqueContactList() {
         uniqueContactList.add(ALICE);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         expectedUniqueContactList.add(BOB);
         uniqueContactList.setContacts(expectedUniqueContactList);
         assertEquals(expectedUniqueContactList, uniqueContactList);
@@ -167,7 +167,7 @@ public class uniqueContactListTest {
         uniqueContactList.add(ALICE);
         List<Contact> contactList = Collections.singletonList(BOB);
         uniqueContactList.setContacts(contactList);
-        uniqueContactList expectedUniqueContactList = new uniqueContactList();
+        UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
         expectedUniqueContactList.add(BOB);
         assertEquals(expectedUniqueContactList, uniqueContactList);
     }
