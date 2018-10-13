@@ -20,8 +20,6 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.contact.uniqueContactList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class uniqueContactListTest {
@@ -31,24 +29,24 @@ public class uniqueContactListTest {
     private final uniqueContactList uniqueContactList = new uniqueContactList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.contains(null);
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_contactNotInList_returnsFalse() {
         assertFalse(uniqueContactList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_contactInList_returnsTrue() {
         uniqueContactList.add(ALICE);
         assertTrue(uniqueContactList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_contactWithSameIdentityFieldsInList_returnsTrue() {
         uniqueContactList.add(ALICE);
         Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -56,7 +54,7 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.add(null);
     }
@@ -69,25 +67,25 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setContact_nullTargetContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.setContact(null, ALICE);
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setContact_nullEditedContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.setContact(ALICE, null);
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+    public void setContact_targetContactNotInList_throwsContactNotFoundException() {
+        thrown.expect(ContactNotFoundException.class);
         uniqueContactList.setContact(ALICE, ALICE);
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setContact_editedContactIsSamePerson_success() {
         uniqueContactList.add(ALICE);
         uniqueContactList.setContact(ALICE, ALICE);
         uniqueContactList expectedUniqueContactList = new uniqueContactList();
@@ -96,7 +94,7 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setContact_editedContactHasSameIdentity_success() {
         uniqueContactList.add(ALICE);
         Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -107,7 +105,7 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setContact_editedContactHasDifferentIdentity_success() {
         uniqueContactList.add(ALICE);
         uniqueContactList.setContact(ALICE, BOB);
         uniqueContactList expectedUniqueContactList = new uniqueContactList();
@@ -116,15 +114,15 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setContact_editedContactHasNonUniqueIdentity_throwsDuplicateContactException() {
         uniqueContactList.add(ALICE);
         uniqueContactList.add(BOB);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateContactException.class);
         uniqueContactList.setContact(ALICE, BOB);
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.remove(null);
     }
@@ -136,7 +134,7 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingContact_removesContact() {
         uniqueContactList.add(ALICE);
         uniqueContactList.remove(ALICE);
         uniqueContactList expectedUniqueContactList = new uniqueContactList();
@@ -144,13 +142,13 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setContacts_nullUniqueContactList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.setContacts((uniqueContactList) null);
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setContacts_uniqueContactList_replacesOwnListWithProvidedUniqueContactList() {
         uniqueContactList.add(ALICE);
         uniqueContactList expectedUniqueContactList = new uniqueContactList();
         expectedUniqueContactList.add(BOB);
@@ -159,13 +157,13 @@ public class uniqueContactListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setContacts_nullList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueContactList.setContacts((List<Contact>) null);
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setContacts_list_replacesOwnListWithProvidedList() {
         uniqueContactList.add(ALICE);
         List<Contact> contactList = Collections.singletonList(BOB);
         uniqueContactList.setContacts(contactList);
