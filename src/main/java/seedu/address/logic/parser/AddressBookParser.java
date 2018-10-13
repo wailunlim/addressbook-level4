@@ -30,8 +30,8 @@ public class AddressBookParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern SECONDARY_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>[a-zA-Z]+)(?<identifier>[#\\d]+)?[\\s]?(?<helperCommandWord>[a-zA-Z]+)?" +
-                    "(?<arguments>.*)");
+            Pattern.compile("(?<commandWord>[a-zA-Z]+)(?<identifier>[#\\d]+)?[\\s]?(?<helperCommandWord>[a-zA-Z]+)?"
+                    + "(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -52,7 +52,7 @@ public class AddressBookParser {
         final String helperCommandWord = matcher.group("helperCommandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        //TODO: abstract out "client" string here
+        //TODO: abstract out "client" string here and tidy up code here
         case "client":
             switch (helperCommandWord) {
             case AddCommand.COMMAND_WORD:

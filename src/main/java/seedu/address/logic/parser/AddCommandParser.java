@@ -24,6 +24,13 @@ public abstract class AddCommandParser implements Parser<AddCommand> {
      */
     public abstract AddCommand parse(String args) throws ParseException;
 
+    /**
+     * Creates a {@code ArgumentMultimap} using the arguments from the input.
+     * @param args The arguments from the input
+     * @return the {@code ArgumentMultimap} generated using the input arguments.
+     * @throws ParseException If a legal {@code ArgumentMultimap} is not able to be created due to an invalid command
+     *     format.
+     */
     protected ArgumentMultimap createLegalArgumentMultimap(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
