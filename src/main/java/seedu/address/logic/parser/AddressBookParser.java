@@ -52,8 +52,14 @@ public class AddressBookParser {
         final String helperCommandWord = matcher.group("helperCommandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-            return new AddClientCommandParser().parse(arguments);
+        //TODO: abstract out "client" string here
+        case "client":
+            switch (helperCommandWord) {
+            case AddCommand.COMMAND_WORD:
+                return new AddClientCommandParser().parse(arguments);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
