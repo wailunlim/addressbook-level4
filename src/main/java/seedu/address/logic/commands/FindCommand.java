@@ -34,13 +34,13 @@ public class FindCommand extends Command {
         requireNonNull(model);
 
         if (predicate.equals(new EntryContainsKeywordsPredicate(Collections.emptyList()))) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(Messages.MESSAGE_LIST_ALL_PERSON);
         }
 
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredContactList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
     }
 
     @Override
