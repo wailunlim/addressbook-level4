@@ -41,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Contact contactInList = model.getAddressBook().getPersonList().get(0);
+        Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
