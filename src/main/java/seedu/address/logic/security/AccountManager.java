@@ -1,4 +1,7 @@
-package seedu.address.model.account;
+package seedu.address.logic.security;
+
+import seedu.address.model.account.Account;
+import seedu.address.model.account.AccountList;
 
 /**
  * This class is used for account related purposes, in particular, login,
