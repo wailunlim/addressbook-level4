@@ -57,8 +57,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditContactDescriptor DESC_AMY;
+    public static final EditCommand.EditContactDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -100,7 +100,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Contact> expectedFilteredList = new ArrayList<>(actualModel.getFilteredContactList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -110,7 +110,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -120,21 +120,21 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());
 
-        Contact contact = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
         final String[] splitName = contact.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new EntryContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredContactList(new EntryContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredContactList().size());
     }
 
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Contact firstContact = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstContact);
+        Contact firstContact = model.getFilteredContactList().get(0);
+        model.deleteContact(firstContact);
         model.commitAddressBook();
     }
 

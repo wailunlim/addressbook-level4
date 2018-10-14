@@ -29,6 +29,9 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern SECONDARY_COMMAND_FORMAT =
+            Pattern.compile("(?<commandWord>[a-zA-Z]+)(?<identifier>[#\\d]+)?[\\s]?(?<helperCommandWord>[a-zA-Z]+)?"
+                    + "(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -38,17 +41,29 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher matcher = SECONDARY_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
+            //TODO: update HelpCommand.MESSAGE_USAGE
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
+        final String identifier = matcher.group("identifier");
+        final String helperCommandWord = matcher.group("helperCommandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        //TODO: abstract out "client" string here and tidy up code here
+        case "client":
+            switch (helperCommandWord) {
+            case AddCommand.COMMAND_WORD:
+                return new AddClientCommandParser().parse(arguments);
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -56,14 +71,8 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

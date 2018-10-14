@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 /**
- * Adds a person to the address book.
+ * Adds a contact to the address book.
  */
 public class AddCommand extends Command {
 
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
     private final Contact toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Contact}
      */
     public AddCommand(Contact contact) {
         requireNonNull(contact);
@@ -51,11 +51,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasContact(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        model.addContact(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
