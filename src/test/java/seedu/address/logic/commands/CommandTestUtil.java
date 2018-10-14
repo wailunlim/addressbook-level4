@@ -21,7 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.account.Role;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.person.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**

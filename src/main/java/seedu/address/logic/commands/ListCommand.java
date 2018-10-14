@@ -8,24 +8,24 @@ import java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final EntryContainsKeywordsPredicate predicate;
 
-    public FindCommand(EntryContainsKeywordsPredicate predicate) {
+    public ListCommand(EntryContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -46,7 +46,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof ListCommand // instanceof handles nulls
+                && predicate.equals(((ListCommand) other).predicate)); // state check
     }
 }
