@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
-import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the address-book level
