@@ -33,7 +33,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         Optional<String> username = argMultimap.getValue(LoginCommand.PREFIX_USERNNAME);
         Optional<String> password = argMultimap.getValue(LoginCommand.PREFIX_PASSWORD);
 
-        if(username.isPresent() && password.isPresent()) {
+        if (username.isPresent() && password.isPresent()) {
             Account account = new Account(username.get(), password.get());
             return new LoginCommand(account);
         }

@@ -16,7 +16,7 @@ import seedu.address.storage.XmlAccountStorage;
 /**
  * Log user in with his username and password to gain admin access to the system.
  */
-public class LoginCommand extends Command{
+public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
     public static final Prefix PREFIX_USERNNAME = new Prefix("u/");
     public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
@@ -45,7 +45,7 @@ public class LoginCommand extends Command{
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            if(accountStorage.getAccountList().hasAccount(account)) {
+            if (accountStorage.getAccountList().hasAccount(account)) {
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         } catch (DataConversionException e) {
