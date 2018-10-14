@@ -50,15 +50,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Signing in : `signin`
+=== Logging in : `login`
 
-Securely signs in the user to access the system. +
-Format: `signin u/USERNAME p/PASSWORD`
+Securely logs in the user to access the system. +
+Format: `login u/USERNAME p/PASSWORD`
 
-=== Signing out : `signout`
+=== Logging out : `logout`
 
-Securely signs the user out of the system. +
-Format: `signout`
+Securely logs the user out of the system. +
+Format: `logout`
 
 === Manipulating all clients: `client`
 
@@ -68,7 +68,7 @@ Registers a client and his/her particulars into the database. +
 Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
 
 Examples:
-* `client add n\John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
+* `client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 
 ==== Listing and searching for clients
 
@@ -180,6 +180,16 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+=== Undo the previous command: 'undo'
+
+Undo the most recent command. +
+Format: `undo`
+
+=== Redo the most recent command undone: 'redo'
+
+Redo the most recent command that was undone by undo. +
+Format: `redo`
 
 === Exiting the program : `exit`
 
