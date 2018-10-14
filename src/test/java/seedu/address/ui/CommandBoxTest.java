@@ -93,7 +93,7 @@ public class CommandBoxTest extends GuiUnitTest {
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
         //TODO: update thirdCommand input
-        String thirdCommand = "client find";
+        String thirdCommand = "client list";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
@@ -121,7 +121,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "find";
+        String thirdCommand = "client list";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);
