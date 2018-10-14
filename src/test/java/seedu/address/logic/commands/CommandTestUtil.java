@@ -87,7 +87,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException |LackOfPrivilegeException ce) {
+        } catch (CommandException | LackOfPrivilegeException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
