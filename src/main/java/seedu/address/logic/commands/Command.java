@@ -20,5 +20,6 @@ public abstract class Command {
      * @throws LackOfPrivilegeException If user account does not possess the required privilege
      * to execute that command.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException, LackOfPrivilegeException;
+    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException,
+            LackOfPrivilegeException;
 }

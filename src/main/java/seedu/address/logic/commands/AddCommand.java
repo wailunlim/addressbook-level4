@@ -11,8 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.account.Role;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 
 /**
  * Adds a contact to the address book.
@@ -50,7 +50,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException, LackOfPrivilegeException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException,
+            LackOfPrivilegeException {
         requireNonNull(model);
 
         if (!Role.hasWritePrivilege()) {

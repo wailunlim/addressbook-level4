@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
-import seedu.address.model.account.Role;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.account.Role;
 
 /**
  * Clears the address book.

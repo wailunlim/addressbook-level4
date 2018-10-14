@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.account.Account;
-import seedu.address.model.account.AccountList;
 import seedu.address.model.account.Role;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
