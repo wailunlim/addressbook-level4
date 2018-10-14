@@ -50,15 +50,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Signing in : `signin`
+=== Logging in : `login`
 
-Securely signs in the user to access the system. +
-Format: `signin u/USERNAME p/PASSWORD`
+Securely logs in the user to access the system. +
+Format: `login u/USERNAME p/PASSWORD`
 
-=== Signing out : `signout`
+=== Logging out : `logout`
 
-Securely signs the user out of the system. +
-Format: `signout`
+Securely logs the user out of the system. +
+Format: `logout`
 
 === Manipulating all clients: `client`
 
