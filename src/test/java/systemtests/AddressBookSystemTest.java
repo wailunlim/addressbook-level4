@@ -35,7 +35,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -142,7 +142,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         //TODO: update the input to this
-        executeCommand("client " + FindCommand.COMMAND_WORD);
+        executeCommand("client " + ListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getContactList().size(), getModel().getFilteredContactList().size());
     }
 
@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         //TODO: update and create tests to reflect client and serviceprovider
-        executeCommand("client " + FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand("client " + ListCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredContactList().size() < getModel().getAddressBook().getContactList().size());
     }
 
