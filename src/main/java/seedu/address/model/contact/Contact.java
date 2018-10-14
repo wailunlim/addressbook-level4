@@ -10,8 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * An interface to be implemented by the client and the service provider. The Addressbook will use this interface
- *     to retrieve details of the contact.
+ * An abstract class the client and the service provider inherits.
  */
 public abstract class Contact {
     // Identity fields
