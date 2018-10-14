@@ -15,10 +15,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.security.AccountManager;
 
 /**
  * Parses user input.
@@ -34,7 +36,36 @@ public class AddressBookParser {
                     + "(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses user input into command for execution. This method is use before user has successfully logged in.
+     * @param userInput full user input string.
+     * @return the command based on the user input.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
+    public Command parseCommandBeforeLoggedIn(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+
+    /**
+     * Parses user input into command for execution. This method will only be called after
+     * user has successfully log in.
      *
      * @param userInput full user input string
      * @return the command based on the user input
@@ -93,5 +124,4 @@ public class AddressBookParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

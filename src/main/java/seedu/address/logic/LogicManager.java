@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -33,7 +34,12 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command;
+            if (AccountManager.isLoginSuccess()) {
+                command = addressBookParser.parseCommand(commandText);
+            } else {
+                command = addressBookParser.parseCommandBeforeLoggedIn(commandText);
+            }
             return command.execute(model, history);
         } finally {
             history.add(commandText);

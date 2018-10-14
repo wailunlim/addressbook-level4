@@ -209,6 +209,9 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    /**
+     * Initialize the storage used and populate default root password if file does not exist.
+     */
     private static void initAccountStorage() {
         AccountStorage accountStorage = new XmlAccountStorage();
         accountStorage.populateRootAccount(AccountManager.getRootAccount());

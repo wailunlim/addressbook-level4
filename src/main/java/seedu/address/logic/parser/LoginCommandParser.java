@@ -21,6 +21,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
      */
     @Override
     public LoginCommand parse(String userInput) throws ParseException {
+        System.out.println("userinput: " + userInput);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput,
                 LoginCommand.PREFIX_USERNNAME, LoginCommand.PREFIX_PASSWORD);
 
