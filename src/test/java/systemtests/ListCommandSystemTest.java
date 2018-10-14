@@ -26,7 +26,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
     //TODO: add cases for serviceproviders and update the input commands
 
     @Test
-    public void find() {
+    public void list() {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */

@@ -15,7 +15,7 @@ public class ListCommandParserTest {
     private ListCommandParser parser = new ListCommandParser();
 
     @Test
-    public void parse_emptyArg_returnsFindCommand() {
+    public void parse_emptyArg_returnsListCommand() {
         ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()));
 
         // empty string
@@ -29,7 +29,7 @@ public class ListCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsListCommand() {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand =
                 new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
