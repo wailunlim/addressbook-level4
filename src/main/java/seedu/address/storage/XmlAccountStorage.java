@@ -1,11 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.account.Account;
-import seedu.address.model.account.AccountList;
+import static java.util.Objects.requireNonNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,11 +9,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.account.Account;
+import seedu.address.model.account.AccountList;
 
+/**
+ * A class to access Account data stored as an xml file on the hard disk.
+ */
 public class XmlAccountStorage implements AccountStorage {
-    private Path accountListPath = Paths.get("data" , "accountlist.xml");
     private static final Logger logger = LogsCenter.getLogger(XmlAccountStorage.class);
+
+    private Path accountListPath = Paths.get("data" , "accountlist.xml");
 
     public XmlAccountStorage() {
     }
@@ -30,7 +34,7 @@ public class XmlAccountStorage implements AccountStorage {
 
     @Override
     public AccountList getAccountList() throws DataConversionException,
-            FileNotFoundException{
+            FileNotFoundException {
         return getAccountList(accountListPath);
     }
 
