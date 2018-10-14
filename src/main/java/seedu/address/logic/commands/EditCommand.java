@@ -19,7 +19,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.Model;
+import seedu.address.model.account.Role;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -68,8 +70,13 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException, LackOfPrivilegeException {
         requireNonNull(model);
+
+        if (!Role.hasWritePrivilege()) {
+            throw new LackOfPrivilegeException(COMMAND_WORD);
+        }
+
         List<Contact> lastShownList = model.getFilteredContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

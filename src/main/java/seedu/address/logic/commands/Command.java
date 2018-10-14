@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.Model;
 
 /**
@@ -16,7 +17,8 @@ public abstract class Command {
      * @param history {@code CommandHistory} which the command should operate on.
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
+     * @throws LackOfPrivilegeException If user account does not possess the required privilege
+     * to execute that command.
      */
-    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
-
+    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException, LackOfPrivilegeException;
 }
