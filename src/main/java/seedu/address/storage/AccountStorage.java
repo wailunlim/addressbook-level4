@@ -52,4 +52,11 @@ public interface AccountStorage {
      * @throws IOException if the file or directory cannot be created.
      */
     void saveAccount(Account account, Path filePath) throws IOException;
+
+    /**
+     * Create a root (default) account such that the very first user can login
+     * to the system with this root account.
+     * @param account The root account.
+     */
+    void populateRootAccount(Account account);
 }

@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.logic.security.AccountManager;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 
@@ -44,7 +45,7 @@ public class XmlAccountStorage implements AccountStorage {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("Account file " + filePath + " not found");
+            logger.info("Account file " + filePath + " not found. Creating a default file.");
             return null;
         }
 
@@ -69,5 +70,14 @@ public class XmlAccountStorage implements AccountStorage {
 
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccount(account));
+    }
+
+    @Override
+    public void populateRootAccount(Account account) {
+        try {
+            saveAccount(account);
+        } catch (IOException e) {
+            logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
+        }
     }
 }

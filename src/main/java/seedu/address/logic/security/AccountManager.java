@@ -18,6 +18,10 @@ public class AccountManager {
         loginSuccess = false;
     }
 
+    /**
+     * The root user account hardcoded.
+     * @return
+     */
     public static Account getRootAccount() {
         return new Account("rootUser", "rootPassword");
     }
