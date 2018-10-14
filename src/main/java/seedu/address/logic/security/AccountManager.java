@@ -77,7 +77,7 @@ public class AccountManager {
         return isLoginSuccess();
     }
 
-    private void setCurrentUserRole(Role role) {
+    public static void setCurrentUserRole(Role role) {
         userRole = role;
     }
 
