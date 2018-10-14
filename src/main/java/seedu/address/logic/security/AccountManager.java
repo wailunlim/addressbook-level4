@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.account.Account;
-import seedu.address.model.account.AccountList;
+import seedu.address.model.account.Role;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
 
@@ -15,13 +15,16 @@ import seedu.address.storage.XmlAccountStorage;
  * logout, create new account, and forgotten password.
  */
 public class AccountManager {
-    private static AccountList accountList;
     /**
      * Indicate if user has successfully logged in.
      * TODO Set it to false during production.
      * TODO We set it to True now so we do not have to keep logging in during development.
      */
     private static boolean loginSuccess = true;
+
+    // TODO erase away Role.SUPER_USER in production. We set it to Role.SUPER_USER during
+    // TODO development to allow developer to have all privileges to all commands.
+    private static Role userRole = Role.SUPER_USER;
 
     private static final Logger logger = LogsCenter.getLogger(AccountManager.class);
 
@@ -36,15 +39,7 @@ public class AccountManager {
      * @return
      */
     public static Account getRootAccount() {
-        return new Account("rootUser", "rootPassword");
-    }
-
-    public static AccountList getDefaultAccountList() {
-        AccountList accountList = new AccountList();
-        accountList.addAccount(getRootAccount());
-        AccountManager.accountList = accountList;
-
-        return accountList;
+        return new Account("rootUser", "rootPassword", Role.SUPER_USER);
     }
 
     /**
@@ -71,6 +66,7 @@ public class AccountManager {
         try {
             if (accountStorage.getAccountList().hasAccount(account)) {
                 setLoginSuccess();
+                setCurrentUserRole(account.getRole());
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format");
@@ -79,5 +75,13 @@ public class AccountManager {
         }
 
         return isLoginSuccess();
+    }
+
+    public static void setCurrentUserRole(Role role) {
+        userRole = role;
+    }
+
+    public static Role getCurrentUserRole() {
+        return userRole;
     }
 }

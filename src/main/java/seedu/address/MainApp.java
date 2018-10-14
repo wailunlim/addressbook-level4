@@ -222,6 +222,5 @@ public class MainApp extends Application {
     private static void initAccountStorage() {
         AccountStorage accountStorage = new XmlAccountStorage();
         accountStorage.populateRootAccount(AccountManager.getRootAccount());
-
     }
 }

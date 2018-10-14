@@ -8,7 +8,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.Model;
+import seedu.address.model.account.Role;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -32,8 +34,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException,
+            LackOfPrivilegeException {
         requireNonNull(model);
+
+        if (!Role.hasDeletePrivilege()) {
+            throw new LackOfPrivilegeException(COMMAND_WORD);
+        }
+
         List<Contact> lastShownList = model.getFilteredContactList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

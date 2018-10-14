@@ -15,8 +15,11 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
+import seedu.address.logic.security.AccountManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.account.Role;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.person.EntryContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -79,11 +82,12 @@ public class CommandTestUtil {
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
+            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException ce) {
+        } catch (CommandException | LackOfPrivilegeException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -105,9 +109,10 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
+            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
+        } catch (CommandException | LackOfPrivilegeException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
