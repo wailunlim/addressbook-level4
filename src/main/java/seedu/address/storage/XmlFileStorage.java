@@ -36,4 +36,27 @@ public class XmlFileStorage {
         }
     }
 
+    /**
+     * Saves the given account data to the specified file.
+     */
+    public static void saveAccountDataToFile(Path file, XmlSerializableAccount account)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, account);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Returns account list in the file or an empty account list
+     */
+    public static XmlSerializableAccount loadAccountDataFromSaveFile(Path file) throws DataConversionException,
+            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableAccount.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
 }
