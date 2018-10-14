@@ -1,6 +1,7 @@
 package seedu.address.model.account;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,6 +11,10 @@ import java.util.List;
  */
 public class AccountList {
     private List<Account> accountList;
+
+    public AccountList() {
+        accountList = new ArrayList<>();
+    }
 
     public List<Account> getAccountList() {
         return accountList;

@@ -12,7 +12,7 @@ import seedu.address.model.account.Role;
  */
 public class XmlAdaptedAccount {
     @XmlElement(required = true)
-    private String userName;
+    private String username;
     @XmlElement(required = true)
     private String password;
     @XmlElement(required = true)
@@ -27,8 +27,8 @@ public class XmlAdaptedAccount {
     /**
      * Constructs an {@code XmlAdaptedAccount} with the given account details.
      */
-    public XmlAdaptedAccount(String userName, String password, Role role) {
-        this.userName = userName;
+    public XmlAdaptedAccount(String username, String password, Role role) {
+        this.username = username;
         this.password = password;
         this.role = role;
     }
@@ -39,7 +39,7 @@ public class XmlAdaptedAccount {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedAccount(Account source) {
-        userName = source.getUserName();
+        username = source.getUserName();
         password = source.getPassword();
         role = source.getRole();
     }
@@ -51,7 +51,7 @@ public class XmlAdaptedAccount {
      */
     public Account toModelType() throws IllegalValueException {
 
-        if (userName == null) {
+        if (username == null) {
             throw new IllegalValueException("Username is null.");
         }
         if (password == null) {
@@ -62,7 +62,7 @@ public class XmlAdaptedAccount {
             throw new IllegalValueException("Role is null.");
         }
 
-        return new Account(userName, password, role);
+        return new Account(username, password, role);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class XmlAdaptedAccount {
         }
 
         XmlAdaptedAccount otherAccount = (XmlAdaptedAccount) other;
-        return Objects.equals(userName, otherAccount.userName)
+        return Objects.equals(username, otherAccount.username)
                 && Objects.equals(password, otherAccount.password)
                 && Objects.equals(role, otherAccount.role);
     }

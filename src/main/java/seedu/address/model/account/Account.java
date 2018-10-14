@@ -12,6 +12,7 @@ public class Account {
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
+        this.role = Role.READ_ONLY_USER;
     }
 
     public Account(String username, String password, Role role) {
