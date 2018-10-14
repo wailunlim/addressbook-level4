@@ -18,7 +18,8 @@ public class AccountManager {
     private static AccountList accountList;
     /**
      * Indicate if user has successfully logged in.
-     * TODO Set it to false during production. We set it to True now so we do not have to keep logging in during development.
+     * TODO Set it to false during production.
+     * TODO We set it to True now so we do not have to keep logging in during development.
      */
     private static boolean loginSuccess = true;
 

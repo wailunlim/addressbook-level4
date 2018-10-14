@@ -35,7 +35,7 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         AccountManager accountManager = new AccountManager();
-        if(accountManager.loginWithAccountSucceed(account)) {
+        if (accountManager.loginWithAccountSucceed(account)) {
             return new CommandResult(MESSAGE_SUCCESS);
         }
 

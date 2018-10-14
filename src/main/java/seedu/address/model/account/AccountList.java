@@ -12,12 +12,12 @@ import java.util.List;
 public class AccountList {
     private List<Account> accountList;
 
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
     public AccountList() {
         accountList = new ArrayList<>();
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
     public void addAccount(Account account) {
