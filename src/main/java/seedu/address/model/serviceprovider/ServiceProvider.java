@@ -10,6 +10,10 @@ import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a ServiceProvider in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class ServiceProvider extends Contact {
 
     /**
