@@ -81,7 +81,7 @@ public class XmlAccountStorage implements AccountStorage {
     public void populateRootAccountIfMissing(Account account) {
         requireNonNull(account);
 
-        if(!FileUtil.isFileExists(accountListPath)) {
+        if (!FileUtil.isFileExists(accountListPath)) {
             try {
                 FileUtil.createFile(accountListPath);
                 AccountList accountList = new AccountList();

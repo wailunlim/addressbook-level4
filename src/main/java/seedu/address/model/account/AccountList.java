@@ -46,9 +46,14 @@ public class AccountList {
         return indexOfAccount(account) != -1;
     }
 
+    /**
+     * Check if the accountList contains the username.
+     * @param username The username to be checked.
+     * @return true if accountList contains the username, false otherwise.
+     */
     public boolean hasUserName(String username) {
         requireNonNull(username);
-        for(Account account : accountList) {
+        for (Account account : accountList) {
             if (account.getUserName().equalsIgnoreCase(username)) {
                 return true;
             }

@@ -34,8 +34,9 @@ public class RegisterAccountCommand extends Command {
             + PREFIX_ROLE + "superuser ";
 
     public static final String MESSAGE_SUCCESS = "Successfully registered the account.";
-    public static final String MESSAGE_FAILURE = "Failed to register the new account. Please make sure to use only \"r/superuser\" " +
-            "or r/readonlyuser\" for role.";
+    public static final String MESSAGE_FAILURE = "Failed to register the new account. "
+            + "Please make sure to use only \"r/superuser\" "
+            + "or r/readonlyuser\" for role.";
     public static final String MESSAGE_FAILURE_DUPLICATE = "Username is taken. Please try again with another username.";
 
     private Account account;
@@ -45,7 +46,8 @@ public class RegisterAccountCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException, LackOfPrivilegeException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException,
+            LackOfPrivilegeException {
         if (!Role.hasAccountCreationPrivilege()) {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }

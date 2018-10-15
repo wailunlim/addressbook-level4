@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -7,8 +9,6 @@ import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parse input arguments.
@@ -28,7 +28,8 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
         if (!arePrefixesPresent(argMultimap, RegisterAccountCommand.PREFIX_USERNNAME,
                 RegisterAccountCommand.PREFIX_PASSWORD, RegisterAccountCommand.PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterAccountCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RegisterAccountCommand.MESSAGE_USAGE));
         }
 
         Optional<String> username = argMultimap.getValue(RegisterAccountCommand.PREFIX_USERNNAME);
