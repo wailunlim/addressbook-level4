@@ -31,4 +31,15 @@ public class AccountList {
         requireNonNull(account);
         return accountList.contains(account);
     }
+
+    public boolean hasUserName(String username) {
+        requireNonNull(username);
+        for(Account account : accountList) {
+            if (account.getUserName().equalsIgnoreCase(username)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

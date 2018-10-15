@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
@@ -9,8 +12,6 @@ import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
-
-import java.io.IOException;
 
 /**
  * Register a new account and save the account into database. Only a SUPER_USER account
@@ -35,6 +36,7 @@ public class RegisterAccountCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Successfully registered the account.";
     public static final String MESSAGE_FAILURE = "Failed to register the new account. Please make sure to use only \"r/superuser\" " +
             "or r/readonlyuser\" for role.";
+    public static final String MESSAGE_FAILURE_DUPLICATE = "Username is taken. Please try again with another username.";
 
     private Account account;
 
@@ -51,9 +53,13 @@ public class RegisterAccountCommand extends Command {
         AccountStorage accountStorage = new XmlAccountStorage();
 
         try {
+            if (accountStorage.getAccountList().hasUserName(account.getUserName())) {
+                throw new CommandException(MESSAGE_FAILURE_DUPLICATE);
+            }
+
             accountStorage.saveAccount(account);
             return new CommandResult(MESSAGE_SUCCESS);
-        } catch (IOException e) {
+        } catch (IOException | DataConversionException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
     }

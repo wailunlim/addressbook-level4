@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
-
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -44,6 +44,8 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
             } else if (roleName.equalsIgnoreCase("readonlyuser")) {
                 Account account = new Account(username.get(), password.get(), Role.READ_ONLY_USER);
                 return new RegisterAccountCommand(account);
+            } else {
+                throw new ParseException("Role should contains only \"superuser\" or \"readonlyuser\".");
             }
         }
 

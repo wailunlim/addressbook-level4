@@ -69,6 +69,7 @@ public class XmlAccountStorage implements AccountStorage {
 
         try {
             AccountList accountList = getAccountList();
+
             accountList.getList().add(account);
             XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccountList(accountList));
         } catch (DataConversionException e) {
