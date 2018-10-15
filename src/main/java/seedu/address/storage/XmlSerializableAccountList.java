@@ -35,10 +35,6 @@ public class XmlSerializableAccountList {
      */
     public XmlSerializableAccountList(AccountList src) {
         this();
-        System.out.println(src.getList().size());
-        for(Account c : src.getList()) {
-            System.out.println(c.getUserName());
-        }
         accounts.addAll(src.getList().stream().map(XmlAdaptedAccount::new).collect(Collectors.toList()));
     }
 

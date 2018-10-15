@@ -73,7 +73,6 @@ public class XmlAccountStorage implements AccountStorage {
             accountList.getList().add(account);
             XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccountList(accountList));
         } catch (DataConversionException e) {
-            System.out.println("fail " + e.getMessage());
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
         }
     }
@@ -89,7 +88,6 @@ public class XmlAccountStorage implements AccountStorage {
                 accountList.addAccount(account);
                 XmlFileStorage.saveAccountDataToFile(accountListPath, new XmlSerializableAccountList(accountList));
             } catch (IOException e) {
-                System.out.println("fail here");
                 logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
             }
         }
