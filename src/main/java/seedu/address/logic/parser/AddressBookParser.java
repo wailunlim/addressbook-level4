@@ -95,9 +95,12 @@ public class AddressBookParser {
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
-
+            
         case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);
+
+        case LoginCommand.COMMAND_WORD:
+            throw new ParseException("Already logged in.");
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
