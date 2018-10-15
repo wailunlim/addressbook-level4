@@ -17,6 +17,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -94,6 +95,8 @@ public class AddressBookParser {
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
+        case RegisterAccountCommand.COMMAND_WORD:
+            return new RegisterAccountCommandParser().parse(arguments);
 
         case LoginCommand.COMMAND_WORD:
             throw new ParseException("Already logged in.");

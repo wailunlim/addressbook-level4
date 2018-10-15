@@ -58,5 +58,5 @@ public interface AccountStorage {
      * to the system with this root account.
      * @param account The root account.
      */
-    void populateRootAccount(Account account);
+    void populateRootAccountIfMissing(Account account);
 }
