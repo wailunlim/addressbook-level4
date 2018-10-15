@@ -39,7 +39,7 @@ public class XmlFileStorage {
     /**
      * Saves the given account data to the specified file.
      */
-    public static void saveAccountDataToFile(Path file, XmlSerializableAccount account)
+    public static void saveAccountDataToFile(Path file, XmlSerializableAccountList account)
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, account);
@@ -51,10 +51,10 @@ public class XmlFileStorage {
     /**
      * Returns account list in the file or an empty account list
      */
-    public static XmlSerializableAccount loadAccountDataFromSaveFile(Path file) throws DataConversionException,
+    public static XmlSerializableAccountList loadAccountDataFromSaveFile(Path file) throws DataConversionException,
             FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableAccount.class);
+            return XmlUtil.getDataFromFile(file, XmlSerializableAccountList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

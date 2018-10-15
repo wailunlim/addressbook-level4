@@ -48,7 +48,7 @@ public class XmlAccountStorage implements AccountStorage {
             return null;
         }
 
-        XmlSerializableAccount xmlAccount = XmlFileStorage.loadAccountDataFromSaveFile(filePath);
+        XmlSerializableAccountList xmlAccount = XmlFileStorage.loadAccountDataFromSaveFile(filePath);
         try {
             return xmlAccount.toModelType();
         } catch (IllegalValueException ive) {
@@ -67,16 +67,30 @@ public class XmlAccountStorage implements AccountStorage {
         requireNonNull(account);
         requireNonNull(filePath);
 
-        FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccount(account));
+        try {
+            AccountList accountList = getAccountList();
+            accountList.getList().add(account);
+            XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccountList(accountList));
+        } catch (DataConversionException e) {
+            System.out.println("fail " + e.getMessage());
+            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+        }
     }
 
     @Override
-    public void populateRootAccount(Account account) {
-        try {
-            saveAccount(account);
-        } catch (IOException e) {
-            logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
+    public void populateRootAccountIfMissing(Account account) {
+        requireNonNull(account);
+
+        if(!FileUtil.isFileExists(accountListPath)) {
+            try {
+                FileUtil.createFile(accountListPath);
+                AccountList accountList = new AccountList();
+                accountList.addAccount(account);
+                XmlFileStorage.saveAccountDataToFile(accountListPath, new XmlSerializableAccountList(accountList));
+            } catch (IOException e) {
+                System.out.println("fail here");
+                logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
+            }
         }
     }
 }

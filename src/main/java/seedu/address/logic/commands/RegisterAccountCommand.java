@@ -17,7 +17,7 @@ import java.io.IOException;
  * can register a new account.
  */
 public class RegisterAccountCommand extends Command {
-    public static final String COMMAND_WORD = "register account";
+    public static final String COMMAND_WORD = "register";
     public static final Prefix PREFIX_USERNNAME = new Prefix("u/");
     public static final Prefix PREFIX_PASSWORD = new Prefix("p/");
     public static final Prefix PREFIX_ROLE = new Prefix("r/");

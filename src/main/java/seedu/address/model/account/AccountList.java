@@ -16,7 +16,7 @@ public class AccountList {
         accountList = new ArrayList<>();
     }
 
-    public List<Account> getAccountList() {
+    public List<Account> getList() {
         return accountList;
     }
 
