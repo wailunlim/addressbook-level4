@@ -28,4 +28,14 @@ public enum Role {
     public static boolean hasDeletePrivilege() {
         return AccountManager.getCurrentUserRole() == SUPER_USER;
     }
+
+    /**
+     * Account creation privilege refers to the ability to create a new account with a
+     * username, password, and specifying a role. A user has account creation privilege
+     * if he is allowed to create a new account, either for himself, or for other people.
+     * @return true if a user has account creation privilege, false otherwise.
+     */
+    public static boolean hasAccountCreationPrivilege() {
+        return AccountManager.getCurrentUserRole() == SUPER_USER;
+    }
 }
