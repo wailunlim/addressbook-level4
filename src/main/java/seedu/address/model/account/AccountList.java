@@ -25,14 +25,22 @@ public class AccountList {
     }
 
     /**
-     * Returns the index of the first occurrence of the specified element in this list,
-     * or -1 if this list does not contain the element
+     * Returns the index of the first occurrence of the given account in this accountList,
+     * or -1 if accountList does not contain the account.
+     * @param account The account to be checked.
+     * @return The index of the first occurrence of the account in the list, or -1 if
+     * accountList does not contain the account.
      */
     public int indexOfAccount(Account account) {
         requireNonNull(account);
         return accountList.indexOf(account);
     }
 
+    /**
+     * Returns true if accountList contains the given account.
+     * @param account The account to be checked.
+     * @return true if the accountList contains the account, false otherwise.
+     */
     public boolean hasAccount(Account account) {
         requireNonNull(account);
         return indexOfAccount(account) != -1;
