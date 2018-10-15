@@ -16,7 +16,7 @@ public class AccountList {
         accountList = new ArrayList<>();
     }
 
-    public List<Account> getAccountList() {
+    public List<Account> getList() {
         return accountList;
     }
 
@@ -25,10 +25,16 @@ public class AccountList {
     }
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the index of the first occurrence of the specified element in this list,
+     * or -1 if this list does not contain the element
      */
+    public int indexOfAccount(Account account) {
+        requireNonNull(account);
+        return accountList.indexOf(account);
+    }
+
     public boolean hasAccount(Account account) {
         requireNonNull(account);
-        return accountList.contains(account);
+        return indexOfAccount(account) != -1;
     }
 }

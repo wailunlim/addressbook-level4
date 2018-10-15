@@ -35,7 +35,7 @@ public class Account {
 
     /**
      * An Account is equal to another Account if both of them have the
-     * same username, password, and role.
+     * same username and password.
      * @param other Other Account to compare
      * @return true if both Accounts are equal, false otherwise.
      */
@@ -51,7 +51,6 @@ public class Account {
 
         Account otherAccount = (Account) other;
         return otherAccount.getUserName().equals(this.username)
-                && otherAccount.getPassword().equals(this.password)
-                && otherAccount.getRole().equals(this.role);
+                && otherAccount.getPassword().equals(this.password);
     }
 }
