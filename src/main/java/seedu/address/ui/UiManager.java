@@ -36,6 +36,8 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    // TODO Instantiate LoginWindow
+    // private LoginWindow loginWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -52,6 +54,9 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
+            // TODO direct successful login to main window
+            // loginWindow = new LoginWindow(primaryStage, config, prefs, logic);
+            // loginWindow.show();
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
@@ -64,6 +69,10 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
+        // TODO Change main window to login window
+        // prefs.updateLastUsedGuiSetting(loginWindow.getCurrentGuiSetting());
+        // loginWindow.hide();
+        // loginWindow.releaseResources();
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
@@ -79,6 +88,8 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        // TODO Change main window to login window
+        // showAlertDialogAndWait(loginWindow.getPrimaryStage(), type, title, headerText, contentText);
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
