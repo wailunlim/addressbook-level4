@@ -23,7 +23,7 @@ public class LoginCommand extends Command {
             + PREFIX_USERNNAME + "heartsquare "
             + PREFIX_PASSWORD + "H3artSquar3";
 
-    public static final String MESSAGE_SUCCESS = "Successfully log in.";
+    public static final String MESSAGE_SUCCESS = "Successfully logged in.";
     public static final String MESSAGE_FAILURE = "Login failed. Please check your username or password and try again.";
 
     private Account account;

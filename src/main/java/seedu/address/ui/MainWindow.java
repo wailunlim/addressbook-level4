@@ -176,6 +176,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        logger.fine("Showing main window.");
         primaryStage.show();
     }
 
