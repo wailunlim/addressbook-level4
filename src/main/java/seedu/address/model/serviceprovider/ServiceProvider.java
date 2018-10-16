@@ -23,29 +23,4 @@ public class ServiceProvider extends Contact {
     public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
     }
-
-    @Override
-    public Name getName() {
-        return name;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
 }
