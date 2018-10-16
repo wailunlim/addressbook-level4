@@ -12,10 +12,10 @@ import seedu.address.model.contact.EntryContainsKeywordsPredicate;
  */
 public class ListClientCommandParser extends ListCommandParser {
 
-    public static final Predicate<Contact> contactFilterClient = contact -> contact instanceof Client;
+    public static final Predicate<Contact> CONTACT_FILTER_CLIENT = contact -> contact instanceof Client;
 
     @Override
     public ListCommand parse(String args) {
-        return new ListCommand(new EntryContainsKeywordsPredicate(getListOfNameKeywords(args)), contactFilterClient);
+        return new ListCommand(new EntryContainsKeywordsPredicate(getListOfNameKeywords(args)), CONTACT_FILTER_CLIENT);
     }
 }

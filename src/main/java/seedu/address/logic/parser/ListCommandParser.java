@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new ListCommand object
