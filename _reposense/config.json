@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "dongsiji",
+      "displayName": "DON...IJI",
+      "authorNames": ["dongsiji"]
+    },
+    {
+      "githubId": "NightYeti",
+      "displayName": "GAN C...N YAO",
+      "authorNames": ["NightYeti", "Gan Chin Yao"]
+    },
+    {
+      "githubId": "liaujianjie",
+      "displayName": "LIAU ...N JIE",
+      "authorNames": ["liaujianjie"]
+    },
+    {
+      "githubId": "wailunlim",
+      "displayName": "LIM W...I LUN",
+      "authorNames": ["wailunlim"]
+    },
+    {
+      "githubId": "eehooi",
+      "displayName": "NG EE... HOOI",
+      "authorNames": ["eehooi"]
+    }
+  ]
+}
