@@ -17,7 +17,8 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_emptyArg_returnsListCommand() {
-        ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()), CONTACT_FILTER_CLIENT);
+        ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()),
+                CONTACT_FILTER_CLIENT);
 
         // empty string
         assertParseSuccess(parser, "", expectedListCommand);
@@ -33,7 +34,8 @@ public class ListCommandParserTest {
     public void parse_validArgs_returnsListCommand() {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand =
-                new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")), CONTACT_FILTER_CLIENT);
+                new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")),
+                        CONTACT_FILTER_CLIENT);
         assertParseSuccess(parser, "Alice Bob", expectedListCommand);
 
         // multiple whitespaces between keywords
