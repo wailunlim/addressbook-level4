@@ -23,4 +23,26 @@ public class ServiceProvider extends Contact {
     public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
     }
+
+    /**
+     * Returns true if both service providers have the same identity and data fields.
+     * This defines a stronger notion of equality between two service providers.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ServiceProvider)) {
+            return false;
+        }
+
+        ServiceProvider otherServiceProvider = (ServiceProvider) other;
+        return otherServiceProvider.getName().equals(getName())
+                && otherServiceProvider.getPhone().equals(getPhone())
+                && otherServiceProvider.getEmail().equals(getEmail())
+                && otherServiceProvider.getAddress().equals(getAddress())
+                && otherServiceProvider.getTags().equals(getTags());
+    }
 }

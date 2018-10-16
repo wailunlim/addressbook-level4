@@ -32,16 +32,15 @@ public class Person extends Contact {
             return true;
         }
 
-        if (!(other instanceof Contact)) {
+        if (!(other instanceof Person)) {
             return false;
         }
 
-        Contact otherContact = (Contact) other;
+        Person otherContact = (Person) other;
         return otherContact.getName().equals(getName())
                 && otherContact.getPhone().equals(getPhone())
                 && otherContact.getEmail().equals(getEmail())
                 && otherContact.getAddress().equals(getAddress())
                 && otherContact.getTags().equals(getTags());
     }
-
 }
