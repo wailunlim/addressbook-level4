@@ -28,6 +28,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.person.Person;
+import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -110,7 +111,11 @@ public class EditCommand extends Command {
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        if (contactToEdit instanceof Person) {
+            return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        } else {
+            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        }
     }
 
     @Override
