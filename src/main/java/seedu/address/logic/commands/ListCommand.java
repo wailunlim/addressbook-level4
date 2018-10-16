@@ -38,11 +38,11 @@ public class ListCommand extends Command {
         requireNonNull(model);
 
         if (predicate.equals(new EntryContainsKeywordsPredicate(Collections.emptyList()))) {
-            model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredContactList(contactFilter);
             return new CommandResult(Messages.MESSAGE_LIST_ALL_PERSON);
         }
 
-        model.updateFilteredContactList(predicate);
+        model.updateFilteredContactList(contact -> contactFilter.test(contact) && predicate.test(contact));
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
     }
