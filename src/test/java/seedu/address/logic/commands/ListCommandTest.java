@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_PERSON;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.ListClientCommandParser.contactFilterClient;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -41,14 +42,14 @@ public class ListCommandTest {
         EntryContainsKeywordsPredicate secondPredicate =
                 new EntryContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ListCommand findFirstCommand = new ListCommand(firstPredicate);
-        ListCommand findSecondCommand = new ListCommand(secondPredicate);
+        ListCommand findFirstCommand = new ListCommand(firstPredicate, contactFilterClient);
+        ListCommand findSecondCommand = new ListCommand(secondPredicate, contactFilterClient);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate);
+        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate, contactFilterClient);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -65,7 +66,7 @@ public class ListCommandTest {
     public void execute_zeroKeywords_everyPersonFound() {
         String expectedMessage = MESSAGE_LIST_ALL_PERSON;
         EntryContainsKeywordsPredicate predicate = preparePredicate(" ");
-        ListCommand command = new ListCommand(predicate);
+        ListCommand command = new ListCommand(predicate, contactFilterClient);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredContactList());
@@ -75,7 +76,7 @@ public class ListCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         EntryContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        ListCommand command = new ListCommand(predicate);
+        ListCommand command = new ListCommand(predicate, contactFilterClient);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredContactList());

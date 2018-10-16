@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ListClientCommandParser.contactFilterClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,11 +13,12 @@ import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 
 public class ListCommandParserTest {
 
-    private ListCommandParser parser = new ListCommandParser();
+    private ListCommandParser parser = new ListClientCommandParser();
 
     @Test
     public void parse_emptyArg_returnsListCommand() {
-        ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()));
+        ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()),
+                contactFilterClient);
 
         // empty string
         assertParseSuccess(parser, "", expectedListCommand);
@@ -32,7 +34,7 @@ public class ListCommandParserTest {
     public void parse_validArgs_returnsListCommand() {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand =
-                new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")), contactFilterClient);
         assertParseSuccess(parser, "Alice Bob", expectedListCommand);
 
         // multiple whitespaces between keywords

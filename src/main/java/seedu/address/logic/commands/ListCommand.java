@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 
 /**
@@ -24,9 +26,11 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final EntryContainsKeywordsPredicate predicate;
+    private final Predicate<Contact> contactFilter;
 
-    public ListCommand(EntryContainsKeywordsPredicate predicate) {
+    public ListCommand(EntryContainsKeywordsPredicate predicate, Predicate<Contact> contactFilter) {
         this.predicate = predicate;
+        this.contactFilter = contactFilter;
     }
 
     @Override
