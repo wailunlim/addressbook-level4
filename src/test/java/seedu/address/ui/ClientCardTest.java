@@ -11,7 +11,7 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonCardTest extends GuiUnitTest {
+public class ClientCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
@@ -33,7 +33,7 @@ public class PersonCardTest extends GuiUnitTest {
         Contact contact = new PersonBuilder().build();
         PersonCard personCard = new PersonCard(contact, 0);
 
-        // same person, same index -> returns true
+        // same client, same index -> returns true
         PersonCard copy = new PersonCard(contact, 0);
         assertTrue(personCard.equals(copy));
 
@@ -46,11 +46,11 @@ public class PersonCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(personCard.equals(0));
 
-        // different person, same index -> returns false
+        // different client, same index -> returns false
         Contact differentContact = new PersonBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentContact, 0)));
 
-        // same person, different index -> returns false
+        // same client, different index -> returns false
         assertFalse(personCard.equals(new PersonCard(contact, 1)));
     }
 
@@ -66,7 +66,7 @@ public class PersonCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
-        // verify person details are displayed correctly
+        // verify client details are displayed correctly
         assertCardDisplaysPerson(expectedContact, personCardHandle);
     }
 }

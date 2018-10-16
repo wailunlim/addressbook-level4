@@ -14,12 +14,12 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Client.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code client}.
      */
     public static String getAddCommand(Contact contact) {
         //TODO: update this input for the add command after finalising parser
@@ -27,7 +27,7 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code client}'s details.
      */
     public static String getPersonDetails(Contact contact) {
         StringBuilder sb = new StringBuilder();

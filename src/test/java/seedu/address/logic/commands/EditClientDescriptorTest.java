@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditPersonDescriptorTest {
+public class EditClientDescriptorTest {
 
     @Test
     public void equals() {

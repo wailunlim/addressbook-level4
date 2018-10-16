@@ -18,7 +18,7 @@ import seedu.address.model.contact.Contact;
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate client(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;

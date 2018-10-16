@@ -8,7 +8,7 @@ import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Client.
  */
 public class XmlAdaptedAccount {
     @XmlElement(required = true)
@@ -34,7 +34,7 @@ public class XmlAdaptedAccount {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Client into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
@@ -47,7 +47,7 @@ public class XmlAdaptedAccount {
     /**
      * Converts this jaxb-friendly adapted account object into the model's Account object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted client
      */
     public Account toModelType() throws IllegalValueException {
 
