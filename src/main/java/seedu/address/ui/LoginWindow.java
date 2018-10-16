@@ -190,7 +190,7 @@ public class LoginWindow extends UiPart<Stage> {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-    
+
     void hide() {
         primaryStage.hide();
     }
