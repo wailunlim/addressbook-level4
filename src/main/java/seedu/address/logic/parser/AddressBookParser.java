@@ -100,21 +100,21 @@ public class AddressBookParser {
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
 
-    case "serviceprovider":
-        switch (helperCommandWord) {
+        case "serviceprovider":
+            switch (helperCommandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddServiceProviderCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddServiceProviderCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListServiceProviderCommandParser().parse(arguments);
+            case ListCommand.COMMAND_WORD:
+                return new ListServiceProviderCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
 
         case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);

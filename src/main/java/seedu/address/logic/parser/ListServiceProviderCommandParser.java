@@ -11,8 +11,8 @@ import seedu.address.model.serviceprovider.ServiceProvider;
  * Parses input arguments and creates a new ListCommand object
  */
 public class ListServiceProviderCommandParser extends ListCommandParser {
-    public static final Predicate<Contact> CONTACT_FILTER_SERVICE_PROVIDER =
-            contact -> contact instanceof ServiceProvider;
+    public static final Predicate<Contact> CONTACT_FILTER_SERVICE_PROVIDER = contact ->
+            contact instanceof ServiceProvider;
 
     @Override
     public ListCommand parse(String args) {

@@ -18,6 +18,9 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddCommand object
+ */
 public class AddServiceProviderCommandParser extends AddCommandParser {
     @Override
     public AddCommand parse(String args) throws ParseException {
