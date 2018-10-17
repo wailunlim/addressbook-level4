@@ -86,15 +86,36 @@ public class AddressBookParser {
         //TODO: abstract out "client" string here and tidy up code here
         case "client":
             switch (helperCommandWord) {
+
             case AddCommand.COMMAND_WORD:
                 return new AddClientCommandParser().parse(arguments);
+
             case ListCommand.COMMAND_WORD:
                 return new ListClientCommandParser().parse(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
+
+    case "serviceprovider":
+        switch (helperCommandWord) {
+
+        case AddCommand.COMMAND_WORD:
+            return new AddClientCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListServiceProviderCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
         case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);
 
