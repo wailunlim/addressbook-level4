@@ -104,7 +104,7 @@ public class AddressBookParser {
         switch (helperCommandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddClientCommandParser().parse(arguments);
+            return new AddServiceProviderCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListServiceProviderCommandParser().parse(arguments);
