@@ -364,6 +364,64 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+=== Login
+
+Before user can use Heart² application, they must first log in with a registered account.
+
+==== Before logging in
+User is presented with a login UI. There are only 2 commands available for user to execute:
+
+* `login` : Login to the system with a username and password
+* `help` : Shows the help panel
+
+==== After logging in
+User is presented with the main-screen UI. User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+
+=== Account creation and account storage
+Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
+
+==== Types of account
+There are 2 types of account:
+
+* `SUPER_USER` : A user that is capable of executing all commands available in the application.
+* `READ_ONLY_USER` : A user that is capable of executing all commands except registering new account, adding, editing, and deleting entries in the database.
+
+These 2 types of accounts are referred as Role and facilitated by the `Role` enum.
+
+The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Role` enum, specifically:
+
+* `boolean hasWritePrivilege()`
+* `boolean hasDeletePrivilege()`
+* `boolean hasAccountCreationPrivilege()`
+
+Commands that prevents a `READ_ONLY_USER` from executing is checked with a condition as such:
+
+`if (!Role.hasWritePrivilege()) {
+throw new LackOfPrivilegeException(COMMAND_WORD);}`
+
+==== Account storage
+By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
+
+The diagram below shows what happen when a user launches the application:
+
+image::accountstoragediagram.png[width="800"]
+
+Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
+
+image::accountcreationdiagram.png[width="800"]
+
+==== Security Considerations
+
+===== Database
+Currently, the list of accounts is stored locally on data/accountlist.xml. For security purposes, we may consider the following implementations in the future for v2.0:
+
+* **Encrypt accountlist.xml:** Prevent direct lookup of the file
+* **Store the file on a server:** Due to project restriction, we are unable to implement this at v1.4.
+
+===== Storing password
+Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
+
+
 == Documentation
 
 We use asciidoc for writing documentation.
