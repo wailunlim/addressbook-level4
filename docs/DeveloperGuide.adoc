@@ -524,6 +524,28 @@ This is done so that users do not need to type in the exact keyword when they wa
 Currently, the `list` command does not take into account of the tags for each contact, and the tags could be used to list different types of clients or service providers, and it is an upcoming feature in v2.0.
 // end::list[]
 
+=== Finding matches between clients and service providers
+
+The application boasts matchmaking features that reduces the (once-laborious) task of matching service providers a single command.
+
+==== High level design
+
+1. On invocation, the matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
+2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
+
+==== Design considerations
+
+===== Aspect: How to fairly distribute jobs between service providers
+* *Alternative 1 (current choice):* Pure random matching
+** Pros: Fair at every selection round, easy implementation
+** Cons: Even job distribution not guaranteed
+* *Alternative 2:* Round robin
+** Pros: Even job distribution guaranteed
+** Cons: Requires keeping count of jobs allocated for each service provider
+* *Alternative 3:* Review/ranking-based distribution
+** Pros: Fair and rewards good performance
+** Cons: Difficult to fine-tune ranking algorithm
+
 == Documentation
 
 We use asciidoc for writing documentation.
