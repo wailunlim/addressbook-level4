@@ -31,7 +31,7 @@ public class ModelHelper {
     }
 
     /**
-     * Returns a predicate that evaluates to true if this {@code Person} equals to {@code other}.
+     * Returns a predicate that evaluates to true if this {@code Client} equals to {@code other}.
      */
     private static Predicate<Contact> getPredicateMatching(Contact other) {
         return person -> person.equals(other);

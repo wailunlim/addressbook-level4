@@ -10,18 +10,18 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.client.Client;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddClientCommandParser extends AddCommandParser {
+public class AddServiceProviderCommandParser extends AddCommandParser {
     @Override
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = createLegalArgumentMultimap(args);
@@ -32,7 +32,7 @@ public class AddClientCommandParser extends AddCommandParser {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Contact contact = new Client(name, phone, email, address, tagList);
+        Contact contact = new ServiceProvider(name, phone, email, address, tagList);
 
         return new AddCommand(contact);
     }

@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Client}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -51,9 +51,9 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Assigns all tags for the person with a label.
+     * Assigns all tags for the client with a label.
      *
-     * @param contact Current person to assign tags to
+     * @param contact Current client to assign tags to
      */
     private void assignTags(Contact contact) {
         contact.getTags().forEach(tag -> {

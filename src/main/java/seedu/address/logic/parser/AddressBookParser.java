@@ -83,18 +83,39 @@ public class AddressBookParser {
         final String helperCommandWord = matcher.group("helperCommandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        //TODO: abstract out "client" string here and tidy up code here
+        //TODO: abstract out "client" and "serviceprovider" string here and tidy up code here
         case "client":
             switch (helperCommandWord) {
+
             case AddCommand.COMMAND_WORD:
                 return new AddClientCommandParser().parse(arguments);
+
             case ListCommand.COMMAND_WORD:
-                return new ListCommandParser().parse(arguments);
+                return new ListClientCommandParser().parse(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
+
+        case "serviceprovider":
+            switch (helperCommandWord) {
+
+            case AddCommand.COMMAND_WORD:
+                return new AddServiceProviderCommandParser().parse(arguments);
+
+            case ListCommand.COMMAND_WORD:
+                return new ListServiceProviderCommandParser().parse(arguments);
+
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+
         case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);
 
@@ -102,6 +123,8 @@ public class AddressBookParser {
             throw new ParseException("Already logged in.");
 
         case EditCommand.COMMAND_WORD:
+            //TODO: edit command right now does edits to current list showing.
+            //TODO: syntax for command should be client#xx/serviceprovider#xx update ...
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:

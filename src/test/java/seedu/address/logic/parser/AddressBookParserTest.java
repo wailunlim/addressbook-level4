@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -81,7 +82,7 @@ public class AddressBookParserTest {
         ListCommand command = (ListCommand) parser.parseCommand(
                 "client " + ListCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new EntryContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new ListCommand(new EntryContainsKeywordsPredicate(keywords), CONTACT_FILTER_CLIENT), command);
     }
 
     @Test
