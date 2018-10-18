@@ -441,6 +441,33 @@ Username is stored in plaintext in accountlist.xml. However, user password is ha
 ** Pros: Easy to implement
 ** Cons: Users are able to see the main UI before login
 
+=== Add clients and service providers feature
+*_Heart²_* allows you to be able to distinguish between clients and service providers.
+
+When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'Client' or a 'ServiceProvider' by appending 'client' or 'serviceprovider' during adding:
+
+* 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
+* 'serviceprovider add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
+
+This facilitates many other features of *_Heart²_* for your convenience!
+
+==== Implementation
+
+The keyword 'client' or 'serviceprovider' is used to determine whether a 'Client' or a 'ServiceProvider' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'ServiceProvider' objects. Filters are then applied based on subsequent commands to select only 'client' or 'serviceprovider' objects.
+
+
+=== Remove clients and service providers feature
+*_Heart²_* allows you to remove 'clients' and 'serviceprovider' if you so wish to!
+
+This can be easily done by specifying the 'client' or 'serviceprovider' at the front:
+
+* 'client remove 1'
+* 'serviceprovider remove 0'
+
+==== Implementation
+
+The keyword 'client' or 'serviceprovider' is used to determine the context of  whether a 'client' or 'serviceprovider' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
+
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
 
