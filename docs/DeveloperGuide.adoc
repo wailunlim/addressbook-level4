@@ -470,6 +470,19 @@ the combination that best suits the client easily
 
 // tag::list[]
 === List Feature
+The user can use the `list` command to list out the various contacts, be it a service provider or a client.
+
+Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+
+==== Implementation
+
+The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
+
+Then, we obtain the list of contacts from the database and convert it to a stream and use the `Predicate` to filter the contacts and display the results.
+
+==== [To do in v2.0] Substring matching
+
+Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead.
 // end::list[]
 
 == Documentation
