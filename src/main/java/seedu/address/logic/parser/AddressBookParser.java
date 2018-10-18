@@ -131,9 +131,9 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
-        case MatchMakeCommand .COMMAND_WORD:
+        case MatchMakeCommand.COMMAND_WORD:
             //TODO: make this a sub-command of client and serviceprovider
-            return new MatchmakeCommandParser().parse(arguments);
+            return new MatchMakeCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
