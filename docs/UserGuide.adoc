@@ -24,8 +24,8 @@ You can find suitable wedding service providers for couples using just a few key
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `heart2.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Wedding Planner.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
