@@ -530,6 +530,8 @@ The application boasts matchmaking features that reduces the (once-laborious) ta
 
 ==== High level design
 
+image::matchmaking.png[width:"800"]
+
 1. On invocation, the matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
 2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
 
