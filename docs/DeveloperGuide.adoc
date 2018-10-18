@@ -365,7 +365,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== Login
+// tag::login[]
+=== Login Feature
 
 Before user can use *_Heart²_*, they must first log in with a registered account.
 
@@ -383,8 +384,10 @@ There are only 2 commands available for user to execute:
 The `LoginWindow` would direct to open the `MainWindow` upon successful login, by parsing in the current `stage`.
 
 User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+// end::login[]
 
-=== Account creation and account storage
+// tag::account[]
+=== Account creation and account storage Feature
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
 
 ==== Types of account
@@ -427,6 +430,7 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 
 ===== Storing password
 Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
+// end::account[]
 
 ==== Design Considerations
 ===== Aspect: When to show the Login UI
@@ -463,6 +467,35 @@ the combination that best suits the client easily
 * *Alternative 2:* Present in a list
 ** Pros: More efficient performance
 ** Cons: Users need to scroll through the list for each service provider individually
+
+// tag::list[]
+=== List Feature
+The user can use the `list` command to list out the various contacts, be it a service provider or a client.
+
+image::ListCommand.png[width="800"]
+
+Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+
+image::ListCommandPhoneNumber.png[width="800"]
+
+==== Implementation
+
+The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
+
+Then, we obtain the list of contacts from the `Model` and convert it to a stream and use the `Predicate` to filter the contacts and display the results.
+
+==== Design considerations
+
+===== Substring matching
+
+Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead by using the `contains()` method in `String`.
+
+This is done so that users do not need to type in the exact keyword when they want to filter the list of contacts and it saves time for the user as well if they make a mistake.
+
+===== Tags
+
+Currently, the `list` command does not take into account of the tags for each contact, and the tags could be used to list different types of clients or service providers, and it is an upcoming feature in v2.0.
+// end::list[]
 
 == Documentation
 
