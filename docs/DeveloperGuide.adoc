@@ -472,17 +472,29 @@ the combination that best suits the client easily
 === List Feature
 The user can use the `list` command to list out the various contacts, be it a service provider or a client.
 
+image::ListCommand.png[width="800"]
+
 Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+
+image::ListCommandPhoneNumber.png[width="800"]
 
 ==== Implementation
 
 The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
 
-Then, we obtain the list of contacts from the database and convert it to a stream and use the `Predicate` to filter the contacts and display the results.
+Then, we obtain the list of contacts from the `Model` and convert it to a stream and use the `Predicate` to filter the contacts and display the results.
 
-==== [To do in v2.0] Substring matching
+==== Design considerations
 
-Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead.
+===== Substring matching
+
+Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead by using the `contains()` method in `String`.
+
+This is done so that users do not need to type in the exact keyword when they want to filter the list of contacts and it saves time for the user as well if they make a mistake.
+
+===== Tags
+
+Currently, the `list` command does not take into account of the tags for each contact, and the tags could be used to list different types of clients or service providers, and it is an upcoming feature in v2.0.
 // end::list[]
 
 == Documentation
