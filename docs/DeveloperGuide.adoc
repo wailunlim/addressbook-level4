@@ -367,7 +367,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 === Login
 
-Before user can use Heart² application, they must first log in with a registered account.
+Before user can use *_Heart²_*, they must first log in with a registered account.
 
 ==== Before logging in
 User is presented with a login UI:
@@ -983,7 +983,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Heart²` application, and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add Client/Service Provider
