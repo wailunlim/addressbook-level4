@@ -185,7 +185,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `LoginWindow` and a `MainWindow`. The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -255,6 +255,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
+Before you start, you'd need to find out how *_Heart²_*'s features work!
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
@@ -369,13 +370,19 @@ Certain properties of the application can be controlled (e.g App name, logging l
 Before user can use Heart² application, they must first log in with a registered account.
 
 ==== Before logging in
-User is presented with a login UI. There are only 2 commands available for user to execute:
+User is presented with a login UI:
+
+image::UiLoginDiagram.png[width="800"]
+
+There are only 2 commands available for user to execute:
 
 * `login` : Login to the system with a username and password
 * `help` : Shows the help panel
 
 ==== After logging in
-User is presented with the main-screen UI. User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+The `LoginWindow` would direct to open the `MainWindow` upon successful login, by parsing in the current `stage`.
+
+User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
 
 === Account creation and account storage
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
@@ -421,6 +428,41 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 ===== Storing password
 Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
 
+==== Design Considerations
+===== Aspect: When to show the Login UI
+* *Alternative 1 (current choice):* Deploy the `LoginWindow` only upon launch.
+** Pros: Similar to existing applications, easier for users to use
+** Cons: Difficult to implement
+* *Alternative 2:* Incorporate `LoginWindow` within `MainWindow`
+** Pros: Easy to implement
+** Cons: Users are able to see the main UI before login
+
+=== Viewing Search Results [Coming in v2.0]
+After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
+
+image::Ui.png[width"800"]
+
+==== Profile
+The client's profile would be displayed on the left, so as to facilitate the user in picking the service
+providers while keeping the requirements in mind.
+
+Data would be extracted from the client's `Contact` and the text would be set at their respective placeholders, with the
+tags at the bottom left.
+
+==== Tabular View
+The results would be listed from the most to the least relevant based on the client's needs.
+Users can then scroll through the list to view the other results in decreasing relevancy.
+
+
+==== Design Considerations
+===== Aspect: How to display search results
+* *Alternative 1 (current choice):* Present in a table
+** Pros: Provides a bird's-eye view of all plausible service providers for the client so that the user can pick
+the combination that best suits the client easily
+** Cons: May have performance issues in terms of extracting of data
+* *Alternative 2:* Present in a list
+** Pros: More efficient performance
+** Cons: Users need to scroll through the list for each service provider individually
 
 == Documentation
 
