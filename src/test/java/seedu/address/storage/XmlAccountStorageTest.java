@@ -65,7 +65,7 @@ public class XmlAccountStorageTest {
     @Test
     public void getAccountList_invalidAndValidUsername_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        getAccountList("InvalidAndValidUsernameAccountList copy.xml");
+        getAccountList("InvalidAndValidUsernameAccountList.xml");
     }
 
     @Test
