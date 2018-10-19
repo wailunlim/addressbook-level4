@@ -122,15 +122,15 @@ public class XmlAccountStorageTest {
         saveAccount(TypicalAccount.SIMUN, null);
     }
 
-//    @Test
-//    public void saveAccount_invalidAccount_throwsNullPointerException() {
-//        thrown.expect(NullPointerException.class);
-//        try {
-//            new XmlAccountStorage(TEST_ACCOUNTLIST_PATH).saveAccount(TypicalAccount.INVALID_ACCOUNT);
-//        } catch (IOException e) {
-//            throw new AssertionError("There should not be an error writing to the file.", e);
-//        }
-//    }
+    @Test
+    public void saveAccount_invalidAccount_throwsNullPointerException() {
+        thrown.expect(IllegalArgumentException.class);
+        try {
+            new XmlAccountStorage(TEST_ACCOUNTLIST_PATH).saveAccount(TypicalAccount.EMPTYUSERNAME_ACCOUNT);
+        } catch (IOException e) {
+            throw new AssertionError("There should not be an error writing to the file.", e);
+        }
+    }
 
     @Test
     public void saveAccount_accountListOnlyContainsRootAccount() {
