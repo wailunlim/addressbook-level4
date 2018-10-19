@@ -5,6 +5,10 @@ package seedu.address.model.account;
  * password, and role associated with an account.
  */
 public class Account {
+    public static final String USERNAME_CONSTRAINT = "Username cannot be empty.";
+    public static final String PASSWORD_CONSTRAINT = "Password cannot be empty.";
+    public static final String ROLE_CONSTRAINT = "Role is not specified.";
+
     private String username;
     private String password;
     private Role role;
