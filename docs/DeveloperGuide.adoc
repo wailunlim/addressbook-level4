@@ -509,7 +509,8 @@ image::ListCommandPhoneNumber.png[width="800"]
 
 The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
 
-Then, we obtain the list of contacts from the `Model` and convert it to a stream and use the `Predicate` to filter the contacts and display the results.
+We then use a `FilteredList` using the `Predicate` to filter out the contacts.
+
 
 ==== Design considerations
 
