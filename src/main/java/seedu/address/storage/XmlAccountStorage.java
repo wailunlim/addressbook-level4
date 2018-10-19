@@ -27,6 +27,10 @@ public class XmlAccountStorage implements AccountStorage {
     public XmlAccountStorage() {
     }
 
+    public XmlAccountStorage(Path path) {
+        accountListPath = path;
+    }
+
     @Override
     public Path getAccountStorageFilePath() {
         return accountListPath;

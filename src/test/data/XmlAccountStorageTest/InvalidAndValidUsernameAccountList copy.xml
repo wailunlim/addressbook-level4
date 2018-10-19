@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accountmanager>
+    <!-- This account is valid -->
+    <accounts>
+        <username>rootUser</username>
+        <password>rootPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+    
+    <!-- This account is invalid as username is empty -->
+    <accounts>
+        <username></username>
+        <password>password</password>
+        <role>READ_ONLY_USER</role>
+    </accounts>
+</accountmanager>
