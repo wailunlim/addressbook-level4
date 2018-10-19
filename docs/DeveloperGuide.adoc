@@ -444,7 +444,7 @@ Username is stored in plaintext in accountlist.xml. However, user password is ha
 === Add clients and service providers feature
 *_Heart²_* allows you to be able to distinguish between clients and service providers.
 
-When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'Client' or a 'ServiceProvider' by appending 'client' or 'serviceprovider' during adding:
+When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'serviceprovider' by appending 'client' or 'serviceprovider' during adding:
 
 * 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
 * 'serviceprovider add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
