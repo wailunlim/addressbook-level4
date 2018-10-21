@@ -30,7 +30,7 @@ public class AccountListTest {
     }
 
     @Test
-    public void indexOfAccount_nullAccount() {
+    public void indexOfAccount_nullAccount_throwsNullPointerException() {
         AccountList accountList = new AccountList();
         accountList.addAccount(TypicalAccount.ROOTACCOUNT);
         thrown.expect(NullPointerException.class);
@@ -58,7 +58,7 @@ public class AccountListTest {
     }
 
     @Test
-    public void hasAccount_nullAccount() {
+    public void hasAccount_nullAccount_throwsNullPointerException() {
         AccountList accountList = new AccountList();
         accountList.addAccount(TypicalAccount.ROOTACCOUNT);
         thrown.expect(NullPointerException.class);
@@ -76,7 +76,7 @@ public class AccountListTest {
     }
 
     @Test
-    public void hasUserName_nullUsername() {
+    public void hasUserName_nullUsername_throwsNullPointerException() {
         AccountList accountList = new AccountList();
         thrown.expect(NullPointerException.class);
         accountList.hasAccount(null);
