@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accountmanager>
+    <accounts>
+        <username>rootUser</username>
+        <password>rootPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+    <!-- Invalid account with empty username -->
+    <accounts>
+        <username></username>
+        <password>@myPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+   </accountmanager>

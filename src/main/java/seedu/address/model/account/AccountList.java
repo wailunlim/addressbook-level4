@@ -61,4 +61,16 @@ public class AccountList {
 
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccountList // instanceof handles nulls
+                && accountList.equals(((AccountList) other).accountList));
+    }
+
+    @Override
+    public int hashCode() {
+        return accountList.hashCode();
+    }
 }
