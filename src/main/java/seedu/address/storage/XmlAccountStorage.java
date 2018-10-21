@@ -27,6 +27,10 @@ public class XmlAccountStorage implements AccountStorage {
     public XmlAccountStorage() {
     }
 
+    public XmlAccountStorage(Path path) {
+        accountListPath = path;
+    }
+
     @Override
     public Path getAccountStorageFilePath() {
         return accountListPath;
@@ -67,6 +71,9 @@ public class XmlAccountStorage implements AccountStorage {
         requireNonNull(account);
         requireNonNull(filePath);
 
+        if (account.getUserName() == null || account.getUserName().equals("")) {
+            throw new IllegalArgumentException(Account.USERNAME_CONSTRAINT);
+        }
         try {
             AccountList accountList = getAccountList();
 
