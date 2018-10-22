@@ -54,7 +54,7 @@ public class Account {
         }
 
         Account otherAccount = (Account) other;
-        return otherAccount.getUserName().equals(this.username)
+        return otherAccount.getUserName().equalsIgnoreCase(this.username)
                 && otherAccount.getPassword().equals(this.password);
     }
 }
