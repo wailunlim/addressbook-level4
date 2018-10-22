@@ -1,15 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.nio.file.Path;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
-
-import java.nio.file.Path;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Log user in with his username and password to gain admin access to the system.
@@ -62,5 +62,12 @@ public class LoginCommand extends Command {
         }
 
         throw new CommandException(MESSAGE_FAILURE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof LoginCommand // instanceof handles nulls
+                && account.equals(((LoginCommand) other).account));
     }
 }
