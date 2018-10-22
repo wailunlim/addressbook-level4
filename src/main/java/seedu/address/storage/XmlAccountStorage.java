@@ -48,8 +48,8 @@ public class XmlAccountStorage implements AccountStorage {
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {
-            logger.info("Account file " + filePath + " not found. Creating a default file.");
-            return null;
+            logger.info("Account file " + filePath + " not found.");
+            throw new FileNotFoundException();
         }
 
         XmlSerializableAccountList xmlAccount = XmlFileStorage.loadAccountDataFromSaveFile(filePath);
