@@ -1,6 +1,7 @@
 package seedu.address.logic.security;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -21,7 +22,7 @@ public class AccountManager {
      * TODO Set it to false during production.
      * TODO We set it to True now so we do not have to keep logging in during development.
      */
-    private static boolean loginSuccess = true;
+    private static boolean loginSuccess = false;
 
     // TODO erase away Role.SUPER_USER in production. We set it to Role.SUPER_USER during
     // TODO development to allow developer to have all privileges to all commands.
@@ -33,6 +34,9 @@ public class AccountManager {
 
     public AccountManager() {
         accountStorage = new XmlAccountStorage();
+    }
+    public AccountManager(Path path) {
+        accountStorage = path == null ? new XmlAccountStorage() : new XmlAccountStorage(path);
     }
 
     /**
