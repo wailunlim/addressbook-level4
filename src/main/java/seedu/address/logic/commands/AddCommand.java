@@ -11,7 +11,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.Model;
-import seedu.address.model.account.Role;
 import seedu.address.model.contact.Contact;
 
 /**
