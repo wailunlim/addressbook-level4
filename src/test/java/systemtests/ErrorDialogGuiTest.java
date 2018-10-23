@@ -21,6 +21,7 @@ public class ErrorDialogGuiTest extends AddressBookSystemTest {
 
     @Test
     public void showErrorDialogs() {
+        LoginHelper.loginIfNotAlreadyLoggedIn();
         postLater(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));

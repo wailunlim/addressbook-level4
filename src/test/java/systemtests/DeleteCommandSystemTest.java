@@ -28,7 +28,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
-
+        LoginHelper.loginIfNotAlreadyLoggedIn();
         /* Case: delete the first client in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         //TODO: update command string
