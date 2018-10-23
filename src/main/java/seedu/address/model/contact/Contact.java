@@ -73,10 +73,6 @@ public abstract class Contact {
                 && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));
     }
 
-    public boolean isEmpty() {
-        return name == null && phone == null && email == null && address == null;
-    }
-
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
