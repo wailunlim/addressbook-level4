@@ -46,4 +46,15 @@ public class ContactInformation {
     public boolean isEmpty() {
         return !name.isPresent() && !phone.isPresent() && !email.isPresent() && !address.isPresent() && tags.isEmpty();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ContactInformation // instanceof handles nulls
+                && name.equals(((ContactInformation) other).name)
+                && phone.equals(((ContactInformation) other).phone)
+                && email.equals(((ContactInformation) other).email)
+                && address.equals(((ContactInformation) other).address)
+                && tags.equals(((ContactInformation) other).tags)); // state check
+    }
 }
