@@ -22,7 +22,7 @@ public class AccountManager {
      * TODO Set it to false during production.
      * TODO We set it to True now so we do not have to keep logging in during development.
      */
-    private static boolean loginSuccess = true;
+    private static boolean loginSuccess = false;
 
     // TODO erase away Role.SUPER_USER in production. We set it to Role.SUPER_USER during
     // TODO development to allow developer to have all privileges to all commands.
