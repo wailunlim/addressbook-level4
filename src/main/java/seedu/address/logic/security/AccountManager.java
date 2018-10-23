@@ -58,7 +58,7 @@ public class AccountManager {
      * Return true if user has successfully logged in, else return false.
      * @return True if user has successfully logged in, false otherwise.
      */
-    public static boolean isLoginSuccess() {
+    public static boolean isUserLogIn() {
         return loginSuccess;
     }
 
@@ -81,7 +81,14 @@ public class AccountManager {
             logger.warning("Problem while reading from the file containing all the accounts");
         }
 
-        return isLoginSuccess();
+        return isUserLogIn();
+    }
+
+    /**
+     * Log user out
+     */
+    public static void logUserOut() {
+        loginSuccess = false;
     }
 
     public static void setCurrentUserRole(Role role) {

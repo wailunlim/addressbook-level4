@@ -20,9 +20,18 @@ public class LoginHelper {
      * with the root account.
      */
     public static void loginIfNotAlreadyLoggedIn() {
-        if (!AccountManager.isLoginSuccess()) {
+        if (!AccountManager.isUserLogIn()) {
             AccountManager accountManager = new AccountManager(ROOT_ACCOUNTLIST_PATH);
             accountManager.loginWithAccountSucceed(TypicalAccount.ROOTACCOUNT);
+        }
+    }
+
+    /**
+     * If the user is already logged in, log the user out.
+     */
+    public static void logoutIfAlreadyLoggedIn() {
+        if (AccountManager.isUserLogIn()) {
+            AccountManager.logUserOut();
         }
     }
 }
