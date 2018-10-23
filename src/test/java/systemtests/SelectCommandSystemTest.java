@@ -10,19 +10,28 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
+import seedu.address.testutil.TypicalAccount;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
+    private static final Path ROOT_ACCOUNTLIST_PATH = Paths.get("src", "test", "data",
+            "SystemTest", "rootaccount_accountlist.xml");
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
+        AccountManager accountManager = new AccountManager(ROOT_ACCOUNTLIST_PATH);
+        accountManager.loginWithAccountSucceed(TypicalAccount.ROOTACCOUNT);
         /* Case: select the first card in the client list, command with leading spaces and trailing spaces
          * -> selected
          */
