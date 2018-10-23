@@ -55,7 +55,7 @@ public class EntryContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new EntryContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        predicate = new EntryContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
