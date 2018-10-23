@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import java.util.Set;
 
@@ -10,21 +10,21 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a client in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person extends Contact {
+public class Client extends Contact {
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both clients have the same identity and data fields.
+     * This defines a stronger notion of equality between two clients.
      */
     @Override
     public boolean equals(Object other) {
@@ -32,16 +32,15 @@ public class Person extends Contact {
             return true;
         }
 
-        if (!(other instanceof Contact)) {
+        if (!(other instanceof Client)) {
             return false;
         }
 
-        Contact otherContact = (Contact) other;
+        Client otherContact = (Client) other;
         return otherContact.getName().equals(getName())
                 && otherContact.getPhone().equals(getPhone())
                 && otherContact.getEmail().equals(getEmail())
                 && otherContact.getAddress().equals(getAddress())
                 && otherContact.getTags().equals(getTags());
     }
-
 }

@@ -16,6 +16,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.MatchMakeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -83,18 +84,39 @@ public class AddressBookParser {
         final String helperCommandWord = matcher.group("helperCommandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        //TODO: abstract out "client" string here and tidy up code here
+        //TODO: abstract out "client" and "serviceprovider" string here and tidy up code here
         case "client":
             switch (helperCommandWord) {
+
             case AddCommand.COMMAND_WORD:
                 return new AddClientCommandParser().parse(arguments);
+
             case ListCommand.COMMAND_WORD:
-                return new ListCommandParser().parse(arguments);
+                return new ListClientCommandParser().parse(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
+
+        case "serviceprovider":
+            switch (helperCommandWord) {
+
+            case AddCommand.COMMAND_WORD:
+                return new AddServiceProviderCommandParser().parse(arguments);
+
+            case ListCommand.COMMAND_WORD:
+                return new ListServiceProviderCommandParser().parse(arguments);
+
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+
         case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);
 
@@ -102,10 +124,16 @@ public class AddressBookParser {
             throw new ParseException("Already logged in.");
 
         case EditCommand.COMMAND_WORD:
+            //TODO: edit command right now does edits to current list showing.
+            //TODO: syntax for command should be client#xx/serviceprovider#xx update ...
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
+
+        case MatchMakeCommand.COMMAND_WORD:
+            //TODO: make this a sub-command of client and serviceprovider
+            return new MatchMakeCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

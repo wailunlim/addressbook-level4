@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonTest {
+public class ClientTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -74,7 +74,7 @@ public class PersonTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false

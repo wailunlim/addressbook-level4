@@ -24,7 +24,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.contact.Contact;
 import seedu.address.storage.XmlSerializableAddressBook;
 
-public class PersonListPanelTest extends GuiUnitTest {
+public class ClientListPanelTest extends GuiUnitTest {
     private static final ObservableList<Contact> TYPICAL_CONTACTS =
             FXCollections.observableList(getTypicalPersons());
 
@@ -72,7 +72,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of client cards exceeded time limit");
     }
 
     /**

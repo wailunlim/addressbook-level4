@@ -185,7 +185,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `LoginWindow` and a `MainWindow`. The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -255,6 +255,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
+Before you start, you'd need to find out how *_Heart²_*'s features work!
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
@@ -364,20 +365,29 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== Login
+// tag::login[]
+=== Login Feature
 
-Before user can use Heart² application, they must first log in with a registered account.
+Before user can use *_Heart²_*, they must first log in with a registered account.
 
 ==== Before logging in
-User is presented with a login UI. There are only 2 commands available for user to execute:
+User is presented with a login UI:
+
+image::UiLoginDiagram.png[width="800"]
+
+There are only 2 commands available for user to execute:
 
 * `login` : Login to the system with a username and password
 * `help` : Shows the help panel
 
 ==== After logging in
-User is presented with the main-screen UI. User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+The `LoginWindow` would direct to open the `MainWindow` upon successful login, by parsing in the current `stage`.
 
-=== Account creation and account storage
+User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+// end::login[]
+
+// tag::account[]
+=== Account creation and account storage Feature
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
 
 ==== Types of account
@@ -420,7 +430,143 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 
 ===== Storing password
 Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
+// end::account[]
 
+==== Design Considerations
+===== Aspect: When to show the Login UI
+* *Alternative 1 (current choice):* Deploy the `LoginWindow` only upon launch.
+** Pros: Similar to existing applications, easier for users to use
+** Cons: Difficult to implement
+* *Alternative 2:* Incorporate `LoginWindow` within `MainWindow`
+** Pros: Easy to implement
+** Cons: Users are able to see the main UI before login
+
+=== Add clients and service providers feature
+*_Heart²_* allows you to be able to distinguish between clients and service providers.
+
+When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'serviceprovider' by appending 'client' or 'serviceprovider' during adding:
+
+* 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
+* 'serviceprovider add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
+
+The above commands adds a 'client' and a 'service provider' with the specified information respectively.
+
+This facilitates many other features of *_Heart²_* for your convenience!
+
+==== Implementation
+
+The keyword 'client' or 'serviceprovider' is used to determine whether a 'Client' or a 'ServiceProvider' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'ServiceProvider' objects. Filters are then applied based on subsequent commands to select only 'client' or 'serviceprovider' objects.
+
+
+=== Remove clients and service providers feature
+*_Heart²_* allows you to remove 'client' and 'serviceprovider' if you so wish to!
+
+This can be easily done by specifying the 'client' or 'serviceprovider' at the front:
+
+* 'client remove 1'
+* 'serviceprovider remove 2'
+
+The above commands removes the 'client' in index 1 of the 'client' list and the 'service provider' in index 2 of the 'serviceprovider' list respectively.
+
+==== Implementation
+
+The keyword 'client' or 'serviceprovider' is used to determine the context of  whether a 'client' or 'serviceprovider' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
+
+=== Edit clients and service provider feature
+*_Heart²_* allows you to make changes to existing 'client' and 'serviceprovider' too!
+
+With the list of 'client' or 'serviceprovider' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
+
+* 'edit 1 n/Wai Lua'
+* 'edit 2 p/9046 3328'
+
+The above commands will update the name of the first contact to Wai Lua and the phone number of the second contact to 9046 3328 respectively.
+
+==== Implementation
+
+The index specified determines the contact in question. The arguments following the index is parsed and used to create an EditContactDescriptor.
+This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'serviceprovider' is first performed to create a correct replacement contact, before updating the contact list.
+
+=== Viewing Search Results [Coming in v2.0]
+After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
+
+image::Ui.png[width"800"]
+
+==== Profile
+The client's profile would be displayed on the left, so as to facilitate the user in picking the service
+providers while keeping the requirements in mind.
+
+Data would be extracted from the client's `Contact` and the text would be set at their respective placeholders, with the
+tags at the bottom left.
+
+==== Tabular View
+The results would be listed from the most to the least relevant based on the client's needs.
+Users can then scroll through the list to view the other results in decreasing relevancy.
+
+
+==== Design Considerations
+===== Aspect: How to display search results
+* *Alternative 1 (current choice):* Present in a table
+** Pros: Provides a bird's-eye view of all plausible service providers for the client so that the user can pick
+the combination that best suits the client easily
+** Cons: May have performance issues in terms of extracting of data
+* *Alternative 2:* Present in a list
+** Pros: More efficient performance
+** Cons: Users need to scroll through the list for each service provider individually
+
+// tag::list[]
+=== List Feature
+The user can use the `list` command to list out the various contacts, be it a service provider or a client.
+
+image::ListCommand.png[width="800"]
+
+Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+
+image::ListCommandPhoneNumber.png[width="800"]
+
+==== Implementation
+
+The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
+
+We then use a `FilteredList` using the `Predicate` to filter out the contacts.
+
+
+==== Design considerations
+
+===== Substring matching
+
+Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead by using the `contains()` method in `String`.
+
+This is done so that users do not need to type in the exact keyword when they want to filter the list of contacts and it saves time for the user as well if they make a mistake.
+
+===== Tags
+
+Currently, the `list` command does not take into account of the tags for each contact, and the tags could be used to list different types of clients or service providers, and it is an upcoming feature in v2.0.
+// end::list[]
+
+=== Finding matches between clients and service providers
+
+The application boasts matchmaking features that reduces the (once-laborious) task of matching service providers a single command.
+
+==== High level design
+
+image::matchmaking.png[width:"800"]
+
+1. On invocation, the matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
+2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
+
+==== Design considerations
+
+===== Aspect: How to fairly distribute jobs between service providers
+* *Alternative 1 (current choice):* Pure random matching
+** Pros: Fair at every selection round, easy implementation
+** Cons: Even job distribution not guaranteed
+* *Alternative 2:* Round robin
+** Pros: Even job distribution guaranteed
+** Cons: Requires keeping count of jobs allocated for each service provider
+* *Alternative 3:* Review/ranking-based distribution
+** Pros: Fair and rewards good performance
+** Cons: Difficult to fine-tune ranking algorithm
 
 == Documentation
 
@@ -941,7 +1087,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Heart²` application, and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add Client/Service Provider

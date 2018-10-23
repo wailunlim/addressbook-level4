@@ -43,7 +43,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -52,27 +52,30 @@ Format: `help`
 
 === Logging in : `login`
 
-Securely logs in the user to access the system. +
+Securely logs you in to access the system.
+
 Format: `login u/USERNAME p/PASSWORD`
 
 === Logging out : `logout`
 
-Securely logs the user out of the system. +
+Securely logs you out of the system.
+
 Format: `logout`
 
 === Manipulating all clients: `client`
 
 ==== Creating a client
 
-Registers a client and his/her particulars into the database. +
+You can register a client and his/her particulars into the database.
+
 Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
 
-Examples:
-* `client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
+Example: `client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 
 ==== Listing and searching for clients
 
-Lists all clients in the database if not parameters are provided, otherwise it lists all clients matching the search parameters. +
+You can list all clients in the database if no parameters are provided, otherwise lists all clients matching all of the search parameters.
+
 Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
 
 Examples:
@@ -84,25 +87,24 @@ Examples:
 
 ==== Viewing a client
 
-View the detailed information about a specific client by his/her ID. +
+You can view the detailed information about a specific client by his/her ID.
+
 Format: `client#ID view`
 
-Example:
-
-* `client#123 view`
+Example: `client#123 view`
 
 ==== Deleting a client
 
-Deletes a client by his/her ID. +
+You can delete a client by his/her ID.
+
 Format: `client#ID delete`
 
-Example:
-
-* `client#123 delete`
+Example: `client#123 delete`
 
 ==== Updating a client profile
 
-Updates a client profile by his/her ID. +
+You can update a client profile by his/her ID with new particulars.
+
 Format: `client#ID updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
 
 Examples:
@@ -110,9 +112,10 @@ Examples:
 * `client#123 updateprofile p/98765432` (updates `client#123`'s phone number)
 * `client#123 updateprofile n/Jane Doe e/janedoe@gmail.com` (updates `client#123`'s name and email address)
 
-==== Adding a service request by a client
+==== Adding a service request from a client
 
-Requests a service for a client for a particular budget in Singapore Dollars (SGD). +
+You can add requests for a service from a client. You must specify the budget which will be in Singapore Dollars (SGD).
+
 Format: `client#ID addservice t/SERVICE_TYPE p/SERVICE_BUDGET`
 
 Service Types `SERVICE_TYPE`:
@@ -130,40 +133,45 @@ Example:
 
 ==== Creating a service provider
 
-Registers a service provider to the system. +
+You can register a service provider to the system with the necessary particulars.
+
 Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS`
 
-Examples:
-* `serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
+Example: `serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
 
 === Manipulating a specific service provider: `serviceprovider#ID`
 
 ==== Viewing a service provider
 
-View the detailed information of a service provider by its ID. +
+You can view the detailed information of a service provider by its ID.
+
 Format: `serviceprovider$ID view`
 
-Examples:
-
-* `serviceprovider#123 view`
+Example: `serviceprovider#123 view`
 
 ==== Deleting a service provider
 
-Deletes a service provider by its ID. +
+You can delete a service provider by its ID.
+
 Format: `serviceprovider#ID delete`
 
-Examples:
-
-* `serviceprovider#123 delete`
+Example: `serviceprovider#123 delete`
 
 ==== Updating a service provider profile
 
-Updates the details of a service provider by its ID. +
+You can update the details of a service provider by its ID with new particulars.
+
 Format: `serviceprovider#ID updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS]`
+
+Examples:
+
+* `serviceprovider#123 updateprofile p/98765432` (updates `serviceprovider#123`'s phone number)
+* `serviceprovider#123 updateprofile e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123`'s email address and office address)
 
 ==== Adding a service type supported by service provider
 
-Adds a service type supported by the service provider by its ID in Singapore Dollars (SGD). +
+You can add a service type supported by the service provider by its ID in Singapore Dollars (SGD).
+
 Format: `serviceprovider#ID addservice t/SERVICE_TYPE p/SERVICE_COST_ESTIMATE`
 
 Examples:
@@ -173,7 +181,8 @@ Examples:
 
 === Listing entered commands: `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+You can list all the commands that you have entered in reverse chronological order.
+
 Format: `history`
 
 [NOTE]
@@ -183,23 +192,27 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Undo the previous command: 'undo'
 
-Undo the most recent command. +
+You can undo the most recent command.
+
 Format: `undo`
 
 === Redo the most recent command undone: 'redo'
 
-Redo the most recent command that was undone by undo. +
+You can redo the most recent command that was undone by undo.
+
 Format: `redo`
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Address book data are saved in the hard disk automatically after any command that changes the data.
+
+There is no need for you to save manually.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

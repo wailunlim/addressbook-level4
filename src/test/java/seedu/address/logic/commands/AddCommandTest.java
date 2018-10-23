@@ -80,7 +80,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -155,7 +155,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single client.
      */
     private class ModelStubWithPerson extends ModelStub {
         private final Contact contact;
@@ -173,7 +173,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the client being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Contact> personsAdded = new ArrayList<>();

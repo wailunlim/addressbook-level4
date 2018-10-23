@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -8,7 +9,7 @@ import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Client.
  */
 public class XmlAdaptedAccount {
     @XmlElement(required = true)
@@ -34,7 +35,7 @@ public class XmlAdaptedAccount {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Client into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
@@ -47,19 +48,19 @@ public class XmlAdaptedAccount {
     /**
      * Converts this jaxb-friendly adapted account object into the model's Account object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted client
      */
     public Account toModelType() throws IllegalValueException {
 
-        if (username == null) {
-            throw new IllegalValueException("Username is null.");
+        if (username == null || username.equals("")) {
+            throw new IllegalValueException(Account.USERNAME_CONSTRAINT);
         }
-        if (password == null) {
-            throw new IllegalValueException("Password is null.");
+        if (password == null || password.equals("")) {
+            throw new IllegalValueException(Account.PASSWORD_CONSTRAINT);
         }
 
         if (role == null) {
-            throw new IllegalValueException("Role is null.");
+            throw new IllegalValueException(Account.ROLE_CONSTRAINT);
         }
 
         return new Account(username, password, role);
@@ -71,7 +72,7 @@ public class XmlAdaptedAccount {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedAccount)) {
             return false;
         }
 

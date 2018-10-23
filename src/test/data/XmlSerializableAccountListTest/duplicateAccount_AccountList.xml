@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accountmanager>
+    <accounts>
+        <username>rootUser</username>
+        <password>rootPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+    <accounts>
+        <username>simun</username>
+        <password>@myPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+    <!-- Duplicated account with same username -->
+    <accounts>
+        <username>simun</username>
+        <password>@myPassword</password>
+        <role>READ_ONLY_USER</role>
+    </accounts>
+</accountmanager>

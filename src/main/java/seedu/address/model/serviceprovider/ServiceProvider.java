@@ -1,6 +1,5 @@
 package seedu.address.model.serviceprovider;
 
-import java.util.Collections;
 import java.util.Set;
 
 import seedu.address.model.contact.Address;
@@ -24,28 +23,25 @@ public class ServiceProvider extends Contact {
         super(name, phone, email, address, tags);
     }
 
+    /**
+     * Returns true if both service providers have the same identity and data fields.
+     * This defines a stronger notion of equality between two service providers.
+     */
     @Override
-    public Name getName() {
-        return name;
-    }
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
-    @Override
-    public Address getAddress() {
-        return address;
-    }
+        if (!(other instanceof ServiceProvider)) {
+            return false;
+        }
 
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+        ServiceProvider otherServiceProvider = (ServiceProvider) other;
+        return otherServiceProvider.getName().equals(getName())
+                && otherServiceProvider.getPhone().equals(getPhone())
+                && otherServiceProvider.getEmail().equals(getEmail())
+                && otherServiceProvider.getAddress().equals(getAddress())
+                && otherServiceProvider.getTags().equals(getTags());
     }
 }

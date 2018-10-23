@@ -32,7 +32,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Contact>> {
         List<Contact> selectedContactList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedContactList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+            throw new AssertionError("Client list size expected 1.");
         }
 
         return getAllCardNodes().stream()
@@ -63,11 +63,11 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Contact>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code client}.
      */
     public void navigateToCard(Contact contact) {
         if (!getRootNode().getItems().contains(contact)) {
-            throw new IllegalArgumentException("Person does not exist.");
+            throw new IllegalArgumentException("Client does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -98,7 +98,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Contact>> {
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the client card handle of a client associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
