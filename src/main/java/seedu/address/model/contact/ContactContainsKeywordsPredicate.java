@@ -2,6 +2,9 @@ package seedu.address.model.contact;
 
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Contact}'s properties matches with the keywords given.
+ */
 public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
     private final ContactInformation keywords;
 
@@ -23,13 +26,13 @@ public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
             return true;
         }
 
-        return keywords.getName().map(name -> contact.getName().toString().contains(name)).orElse(true) &&
-                keywords.getPhone().map(phone -> contact.getPhone().toString().contains(phone)).orElse(true) &&
-                keywords.getEmail().map(email -> contact.getEmail().toString().contains(email)).orElse(true) &&
-                keywords.getAddress().map(address -> contact.getAddress().toString().contains(address))
-                        .orElse(true) &&
-                (keywords.getTags().stream().allMatch(tag -> contact.getTags().toString().contains(tag)) ||
-                        keywords.getTags().isEmpty());
+        return keywords.getName().map(name -> contact.getName().toString().contains(name)).orElse(true)
+                && keywords.getPhone().map(phone -> contact.getPhone().toString().contains(phone)).orElse(true)
+                && keywords.getEmail().map(email -> contact.getEmail().toString().contains(email)).orElse(true)
+                && keywords.getAddress().map(address -> contact.getAddress().toString().contains(address))
+                        .orElse(true)
+                && (keywords.getTags().stream().allMatch(tag -> contact.getTags().toString().contains(tag))
+                || keywords.getTags().isEmpty());
     }
 
     @Override

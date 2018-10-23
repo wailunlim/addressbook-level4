@@ -31,7 +31,7 @@ public class ListClientCommandParser extends ListCommandParser {
         Optional<String> name = argMultimap.getValue(PREFIX_NAME);
         Optional<String> phone = argMultimap.getValue(PREFIX_PHONE);
         Optional<String> email = argMultimap.getValue(PREFIX_EMAIL);
-        Optional<String> address =  argMultimap.getValue(PREFIX_ADDRESS);
+        Optional<String> address = argMultimap.getValue(PREFIX_ADDRESS);
         List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
 
         return new ListCommand(new ContactContainsKeywordsPredicate(

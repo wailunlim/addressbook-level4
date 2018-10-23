@@ -27,21 +27,12 @@ public abstract class ListCommandParser implements Parser<ListCommand> {
     public abstract ListCommand parse(String args) throws ParseException;
 
     /**
-     * Given {@code String} args, get the list of name keywords in a list form.
-     * @param args String to retrieve the name keywords from
-     * @return A list of the name keywords
+     * Creates a {@code ArgumentMultimap} using the arguments from the input.
+     * @param args The arguments from the input
+     * @return the {@code ArgumentMultimap} generated using the input arguments.
+     * @throws ParseException If a legal {@code ArgumentMultimap} is not able to be created due to an invalid command
+     *     format.
      */
-    List<String> getListOfNameKeywords(String args) {
-        String trimmedArgs = args.trim();
-
-        if (trimmedArgs.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        return Arrays.asList(nameKeywords);
-    }
-
     protected ArgumentMultimap createLegalArgumentMultimap(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Encapsulates information about a {@code Contact}, some of which may not be available.
+ */
 public class ContactInformation {
     private Optional<String> name;
     private Optional<String> phone;
