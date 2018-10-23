@@ -50,7 +50,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() {
-        LoginHelper.loginIfNotAlreadyLoggedIn();
         Model model = getModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */

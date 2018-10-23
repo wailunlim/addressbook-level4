@@ -38,6 +38,43 @@ public class Account {
     }
 
     /**
+     * Write privilege refers to the ability to add or update contact.
+     * A user has write privilege if he is allowed to add and update existing contact.
+     * @return true if a user has write privilege, false otherwise.
+     */
+    public boolean hasWritePrivilege() {
+        return role == Role.SUPER_USER;
+    }
+
+    /**
+     * Delete privilege refers to the ability to delete a single contact, or all contact
+     * from the stored data. A user has delete privilege if he is allowed to delete
+     * existing stored data.
+     * @return true if a user has delete privilege, false otherwise.
+     */
+    public boolean hasDeletePrivilege() {
+        return role == Role.SUPER_USER;
+    }
+
+    /**
+     * Account creation privilege refers to the ability to create a new account with a
+     * username, password, and specifying a role. A user has account creation privilege
+     * if he is allowed to create a new account, either for himself, or for other people.
+     * @return true if a user has account creation privilege, false otherwise.
+     */
+    public boolean hasAccountCreationPrivilege() {
+        return role == Role.SUPER_USER;
+    }
+
+    /**
+     * The root user account hardcoded.
+     * @return
+     */
+    public static Account getRootAccount() {
+        return new Account("rootUser", "rootPassword", Role.SUPER_USER);
+    }
+
+    /**
      * An Account is equal to another Account if both of them have the
      * same username and password.
      * @param other Other Account to compare

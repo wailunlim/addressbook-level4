@@ -11,14 +11,21 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalAccount;
+import seedu.address.ui.UiManager;
 import systemtests.ModelHelper;
 
 /**
@@ -48,6 +55,13 @@ public class TestApp extends MainApp {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        // To test the app, we need the user to log in.
+        model.commitUserLoggedInSuccessfully(TypicalAccount.ROOTACCOUNT);
     }
 
     @Override
@@ -92,7 +106,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
         ModelHelper.setFilteredList(copy, model.getFilteredContactList());
         return copy;
     }

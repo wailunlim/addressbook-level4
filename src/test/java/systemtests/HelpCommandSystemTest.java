@@ -30,7 +30,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void openHelpWindow() {
-        LoginHelper.loginIfNotAlreadyLoggedIn();
         //use accelerator
         getCommandBox().click();
         getMainMenu().openHelpWindowUsingAccelerator();
@@ -77,7 +76,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
-        LoginHelper.loginIfNotAlreadyLoggedIn();
         getMainMenu().openHelpWindowUsingMenu();
 
         getMainWindowHandle().focus();

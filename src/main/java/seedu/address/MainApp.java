@@ -20,12 +20,12 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.security.AccountManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.account.Account;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.AddressBookStorage;
@@ -45,7 +45,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 2, 0, true);
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    protected static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
@@ -220,6 +220,6 @@ public class MainApp extends Application {
      */
     private static void initAccountStorage() {
         AccountStorage accountStorage = new XmlAccountStorage();
-        accountStorage.populateRootAccountIfMissing(AccountManager.getRootAccount());
+        accountStorage.populateRootAccountIfMissing(Account.getRootAccount());
     }
 }

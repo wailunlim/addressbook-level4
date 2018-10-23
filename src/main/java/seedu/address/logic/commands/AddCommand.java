@@ -54,7 +54,7 @@ public class AddCommand extends Command {
             LackOfPrivilegeException {
         requireNonNull(model);
 
-        if (!Role.hasWritePrivilege()) {
+        if (!model.getUserAccount().hasWritePrivilege()) {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 

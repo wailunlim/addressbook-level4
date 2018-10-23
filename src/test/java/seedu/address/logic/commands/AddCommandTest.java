@@ -19,8 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.account.Account;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalAccount;
 
 public class AddCommandTest {
 
@@ -152,6 +154,21 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitUserLoggedInSuccessfully(Account account) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Account getUserAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isUserLogIn() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -169,6 +186,11 @@ public class AddCommandTest {
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
             return this.contact.isSameContact(contact);
+        }
+
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.ROOTACCOUNT;
         }
     }
 
@@ -198,6 +220,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.ROOTACCOUNT;
         }
     }
 

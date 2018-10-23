@@ -15,11 +15,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.account.Role;
 
 
 public class LogicManagerTest {
@@ -101,7 +99,6 @@ public class LogicManagerTest {
                                            String expectedMessage, Model expectedModel) {
 
         try {
-            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
             assertEquals(expectedMessage, result.feedbackToUser);
@@ -119,7 +116,6 @@ public class LogicManagerTest {
      */
     private void assertHistoryCorrect(String... expectedCommands) {
         try {
-            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
             String expectedMessage = String.format(
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
