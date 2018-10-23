@@ -84,8 +84,8 @@ public class AddressBookParserTest {
         assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
 
         // One Argument
-        predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"), Optional.empty(),
-                Optional.empty(), Optional.empty(), new ArrayList<>()));
+        predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
+                Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
         command = (ListCommand) parser.parseCommand(
                 "client " + ListCommand.COMMAND_WORD + " n/Alice Bob");
         assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
