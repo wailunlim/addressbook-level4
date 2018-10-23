@@ -37,7 +37,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
 
