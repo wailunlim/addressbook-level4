@@ -27,6 +27,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void list() {
+        LoginHelper.loginIfNotAlreadyLoggedIn();
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found
          */

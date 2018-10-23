@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
@@ -37,12 +39,29 @@ public class RegisterAccountCommand extends Command {
     public static final String MESSAGE_FAILURE = "Failed to register the new account. "
             + "Please make sure to use only \"r/superuser\" "
             + "or r/readonlyuser\" for role.";
+    public static final String MESSAGE_FAILURE_FILENOTFOUND = "Failed to find the file to save account to.";
     public static final String MESSAGE_FAILURE_DUPLICATE = "Username is taken. Please try again with another username.";
 
     private Account account;
+    private Path accountListPath;
 
+    /**
+     * Creates a new RegisterAccountCommand with the account, and save the account to the default path.
+     * @param account The account to be registered.
+     */
     public RegisterAccountCommand(Account account) {
         this.account = account;
+        this.accountListPath = null;
+    }
+
+    /**
+     * Create  a new RegisterAccountCommand with the account, and save to the specified path.
+     * @param account The account to be registered
+     * @param accountListPath The Path to save the account to.
+     */
+    public RegisterAccountCommand(Account account, Path accountListPath) {
+        this.account = account;
+        this.accountListPath = accountListPath;
     }
 
     @Override
@@ -52,16 +71,20 @@ public class RegisterAccountCommand extends Command {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 
-        AccountStorage accountStorage = new XmlAccountStorage();
+        AccountStorage accountStorage = accountListPath == null
+                ? new XmlAccountStorage()
+                : new XmlAccountStorage(accountListPath);
 
         try {
             if (accountStorage.getAccountList().hasUserName(account.getUserName())) {
                 throw new CommandException(MESSAGE_FAILURE_DUPLICATE);
             }
-
             accountStorage.saveAccount(account);
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (IOException | DataConversionException e) {
+            if (e instanceof FileNotFoundException) {
+                throw new CommandException(MESSAGE_FAILURE_FILENOTFOUND);
+            }
             throw new CommandException(MESSAGE_FAILURE);
         }
     }

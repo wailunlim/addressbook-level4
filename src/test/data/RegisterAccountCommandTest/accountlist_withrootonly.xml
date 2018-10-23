@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accountmanager>
+    <accounts>
+        <username>rootUser</username>
+        <password>rootPassword</password>
+        <role>SUPER_USER</role>
+    </accounts>
+    <accounts>
+        <username>username123</username>
+        <password>password456</password>
+        <role>SUPER_USER</role>
+    </accounts>
+</accountmanager>

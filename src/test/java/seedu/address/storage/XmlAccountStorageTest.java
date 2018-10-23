@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,9 +46,9 @@ public class XmlAccountStorageTest {
         getAccountList(null);
     }
 
-    @Test
+    @Test(expected = FileNotFoundException.class)
     public void getAccountList_missingFile_nullResult() throws Exception {
-        assertTrue(getAccountList(INVALID_FILEPATH) == null);
+        getAccountList(INVALID_FILEPATH);
     }
 
     @Test

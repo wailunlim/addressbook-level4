@@ -53,6 +53,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() {
+        LoginHelper.loginIfNotAlreadyLoggedIn();
         Model model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
