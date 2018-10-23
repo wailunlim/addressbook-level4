@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 import seedu.address.model.serviceprovider.ServiceProvider;
@@ -15,7 +16,7 @@ public class ListServiceProviderCommandParser extends ListCommandParser {
             contact instanceof ServiceProvider;
 
     @Override
-    public ListCommand parse(String args) {
+    public ListCommand parse(String args) throws ParseException {
         return new ListCommand(new EntryContainsKeywordsPredicate(getListOfNameKeywords(args)),
                 CONTACT_FILTER_SERVICE_PROVIDER);
     }
