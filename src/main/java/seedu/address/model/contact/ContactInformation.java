@@ -1,7 +1,9 @@
 package seedu.address.model.contact;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ContactInformation {
     private Optional<String> name;
@@ -9,6 +11,14 @@ public class ContactInformation {
     private Optional<String> email;
     private Optional<String> address;
     private List<String> tags;
+
+    public ContactInformation () {
+        name = Optional.empty();
+        phone = Optional.empty();
+        email = Optional.empty();
+        address = Optional.empty();
+        tags = new ArrayList<>();
+    }
 
     public ContactInformation (Optional<String> name, Optional<String> phone, Optional<String> email,
                                Optional<String> address, List<String> tags) {
@@ -19,8 +29,12 @@ public class ContactInformation {
         this.tags = tags;
     }
 
-    public ContactInformation () {
-
+    public ContactInformation (Contact contact) {
+        name = Optional.of(contact.getName().toString());
+        phone = Optional.of(contact.getPhone().toString());
+        email = Optional.of(contact.getEmail().toString());
+        address = Optional.of(contact.getAddress().toString());
+        tags = contact.getTags().stream().map(tag -> tag.toString()).collect(Collectors.toList());
     }
 
     public Optional<String> getName() {

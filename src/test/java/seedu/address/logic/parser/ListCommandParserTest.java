@@ -4,12 +4,13 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactInformation;
 
 public class ListCommandParserTest {
 
@@ -17,7 +18,7 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_emptyArg_returnsListCommand() {
-        ListCommand expectedListCommand = new ListCommand(new EntryContainsKeywordsPredicate(new ArrayList<>()),
+        ListCommand expectedListCommand = new ListCommand(new ContactContainsKeywordsPredicate(),
                 CONTACT_FILTER_CLIENT);
 
         // empty string
@@ -31,15 +32,14 @@ public class ListCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsListCommand() {
+    public void parse_validArgs_returnsListCommand() throws Exception {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand =
-                new ListCommand(new EntryContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")),
+                new ListCommand(new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
+                        Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>())),
                         CONTACT_FILTER_CLIENT);
-        assertParseSuccess(parser, "Alice Bob", expectedListCommand);
 
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedListCommand);
+        assertParseSuccess(parser, " n/Alice Bob", expectedListCommand);
     }
 
 }

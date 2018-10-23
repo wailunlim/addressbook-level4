@@ -5,12 +5,16 @@ import java.util.function.Predicate;
 public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
     private final ContactInformation keywords;
 
+    public ContactContainsKeywordsPredicate() {
+        this.keywords = new ContactInformation();
+    }
+
     public ContactContainsKeywordsPredicate(ContactInformation keywords) {
         this.keywords = keywords;
     }
 
-    public ContactContainsKeywordsPredicate() {
-        this.keywords = new ContactInformation();
+    public ContactContainsKeywordsPredicate(Contact contact) {
+        this.keywords = new ContactInformation(contact);
     }
 
     @Override

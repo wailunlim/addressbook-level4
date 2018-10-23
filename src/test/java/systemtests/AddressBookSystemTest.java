@@ -151,7 +151,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         //TODO: update and create tests to reflect client and serviceprovider
-        executeCommand("client " + ListCommand.COMMAND_WORD + " " + keyword);
+        executeCommand("client " + ListCommand.COMMAND_WORD + " n/" + keyword);
         assertTrue(getModel().getFilteredContactList().size() < getModel().getAddressBook().getContactList().size());
     }
 

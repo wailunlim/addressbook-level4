@@ -16,8 +16,9 @@ import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -25,7 +26,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactInformation;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ListCommand}.
@@ -37,10 +40,10 @@ public class ListCommandTest {
 
     @Test
     public void equals() {
-        EntryContainsKeywordsPredicate firstPredicate =
-                new EntryContainsKeywordsPredicate(Collections.singletonList("first"));
-        EntryContainsKeywordsPredicate secondPredicate =
-                new EntryContainsKeywordsPredicate(Collections.singletonList("second"));
+        ContactContainsKeywordsPredicate firstPredicate =
+                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("first").build());
+        ContactContainsKeywordsPredicate secondPredicate =
+                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("second").build());
 
         ListCommand findFirstCommand = new ListCommand(firstPredicate, CONTACT_FILTER_CLIENT);
         ListCommand findSecondCommand = new ListCommand(secondPredicate, CONTACT_FILTER_CLIENT);
@@ -65,7 +68,7 @@ public class ListCommandTest {
     @Test
     public void execute_zeroKeywords_everyPersonFound() {
         String expectedMessage = MESSAGE_LIST_ALL_PERSON;
-        EntryContainsKeywordsPredicate predicate = preparePredicate(" ");
+        ContactContainsKeywordsPredicate predicate = preparePredicate();
         ListCommand command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -77,7 +80,7 @@ public class ListCommandTest {
 
         /* Case: List with 3 person's name -> 0 persons found */
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        EntryContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        ContactContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         ListCommand command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -95,7 +98,12 @@ public class ListCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private EntryContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new EntryContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private ContactContainsKeywordsPredicate preparePredicate(String userName) {
+        return new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of(userName), Optional.empty(),
+                Optional.empty(), Optional.empty(), new ArrayList<>()));
+    }
+
+    private ContactContainsKeywordsPredicate preparePredicate() {
+        return new ContactContainsKeywordsPredicate();
     }
 }

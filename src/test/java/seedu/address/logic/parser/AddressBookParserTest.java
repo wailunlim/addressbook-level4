@@ -7,9 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +27,8 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactInformation;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -76,13 +76,20 @@ public class AddressBookParserTest {
     }
 
     @Test
-    // TODO: update to the new input after changing and finalising parser
     public void parseCommand_list() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        // No arguments
+        ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
         ListCommand command = (ListCommand) parser.parseCommand(
-                "client " + ListCommand.COMMAND_WORD + " "
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ListCommand(new EntryContainsKeywordsPredicate(keywords), CONTACT_FILTER_CLIENT), command);
+                "client " + ListCommand.COMMAND_WORD);
+        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+
+        // One Argument
+        predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"), Optional.empty(),
+                Optional.empty(), Optional.empty(), new ArrayList<>()));
+        command = (ListCommand) parser.parseCommand(
+                "client " + ListCommand.COMMAND_WORD + " n/Alice Bob");
+        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+
     }
 
     @Test
