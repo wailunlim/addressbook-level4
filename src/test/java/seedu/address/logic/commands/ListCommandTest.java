@@ -73,13 +73,23 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_zeroOrOnePersonFound() {
+
+        /* Case: List with 3 person's name -> 0 persons found */
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         EntryContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         ListCommand command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredContactList());
+        assertEquals(Arrays.asList(), model.getFilteredContactList());
+
+        /* Case: List with 1 person's name -> 1 persons found */
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        predicate = preparePredicate("Benson Meier");
+        command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
+        expectedModel.updateFilteredContactList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON), model.getFilteredContactList());
     }
 
     /**

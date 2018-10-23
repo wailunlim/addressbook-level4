@@ -22,7 +22,7 @@ public class EntryContainsKeywordsPredicate implements Predicate<Contact> {
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(contact.toString(), keyword));
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(contact.toString(), keyword));
     }
 
     @Override
