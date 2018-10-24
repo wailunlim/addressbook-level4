@@ -19,6 +19,7 @@ image::userguideimage.png[width="700"]
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
+image::intropic.png[width="256"]
 
 Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
@@ -38,9 +39,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
-
-====
-*Command Format*
+image::format.png[width="256"]
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -55,7 +54,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |image:exampleimage.png[width="64", role="center"]
 |`login u/rootUser p/rootPassword`
 |=====
-====
+
+image::commands.png[width="256"]
+The following section documents all the commands available in this application.
 
 === Viewing help : `help`
 
