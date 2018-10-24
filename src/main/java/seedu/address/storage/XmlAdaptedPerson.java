@@ -23,6 +23,9 @@ import seedu.address.model.tag.Tag;
  * JAXB-friendly version of the Client.
  */
 public class XmlAdaptedPerson {
+    /**
+     * Represents the type of contact (either a {@code Client} or a {@code ServiceProvider}).
+     */
     public enum ContactType {
         CLIENT,
         SERVICE_PROVIDER
@@ -52,7 +55,8 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given client details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, ContactType type) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            ContactType type) {
         this.name = name;
         this.phone = phone;
         this.email = email;
