@@ -85,15 +85,14 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find client in address book, keyword is same as name but of different case -> 0 client found */
+        /* Case: find client in address book, keyword is same as name but of different case -> 1 client found */
         command = "client " + ListCommand.COMMAND_WORD + " n/MeIeR";
-        ModelHelper.setFilteredList(expectedModel);
+        ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client in address book, keyword is substring of name -> 1 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Mei";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
