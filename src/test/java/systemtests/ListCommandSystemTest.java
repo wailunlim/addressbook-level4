@@ -3,11 +3,11 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalClients.ALICE;
-import static seedu.address.testutil.TypicalClients.BENSON;
-import static seedu.address.testutil.TypicalClients.CARL;
-import static seedu.address.testutil.TypicalClients.DANIEL;
-import static seedu.address.testutil.TypicalClients.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicalContacts.ALICE;
+import static seedu.address.testutil.typicalContacts.BENSON;
+import static seedu.address.testutil.typicalContacts.CARL;
+import static seedu.address.testutil.typicalContacts.DANIEL;
+import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;

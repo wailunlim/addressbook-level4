@@ -21,13 +21,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalClients.ALICE;
-import static seedu.address.testutil.TypicalClients.AMY;
-import static seedu.address.testutil.TypicalClients.BOB;
-import static seedu.address.testutil.TypicalClients.CARL;
-import static seedu.address.testutil.TypicalClients.HOON;
-import static seedu.address.testutil.TypicalClients.IDA;
-import static seedu.address.testutil.TypicalClients.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicalContacts.ALICE;
+import static seedu.address.testutil.typicalContacts.AMY;
+import static seedu.address.testutil.typicalContacts.BOB;
+import static seedu.address.testutil.typicalContacts.CARL;
+import static seedu.address.testutil.typicalContacts.HOON;
+import static seedu.address.testutil.typicalContacts.IDA;
+import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

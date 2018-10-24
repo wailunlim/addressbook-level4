@@ -26,8 +26,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalClients.AMY;
-import static seedu.address.testutil.TypicalClients.BOB;
+import static seedu.address.testutil.typicalContacts.AMY;
+import static seedu.address.testutil.typicalContacts.BOB;
 
 import org.junit.Test;
 

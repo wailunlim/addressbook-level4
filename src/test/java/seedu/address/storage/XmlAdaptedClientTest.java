@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalClients.BENSON;
+import static seedu.address.testutil.typicalContacts.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;

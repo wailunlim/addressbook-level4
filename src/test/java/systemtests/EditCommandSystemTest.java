@@ -28,9 +28,9 @@ import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalClients.AMY;
-import static seedu.address.testutil.TypicalClients.BOB;
-import static seedu.address.testutil.TypicalClients.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicalContacts.AMY;
+import static seedu.address.testutil.typicalContacts.BOB;
+import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
