@@ -70,6 +70,10 @@ public class AddCommandIntegrationTest {
                 AddCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
+    /**
+     * Tries to add a duplicate client while only the service providers are shown. In heartsquare, a client cannot be
+     * a serviceprovider and vice versa, so this should still throw a command exception
+     */
     @Test
     public void execute_duplicateServiceProviderWhileClientListInFocus_throwsCommandException() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
