@@ -16,12 +16,17 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Client.
  */
 public class XmlAdaptedPerson {
+    public enum ContactType {
+        CLIENT,
+        SERVICE_PROVIDER
+    }
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Client's %s field is missing!";
 
@@ -33,7 +38,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
-
+    @XmlElement(required = true)
+    private ContactType type;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -46,7 +52,7 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given client details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged, ContactType type) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -54,6 +60,7 @@ public class XmlAdaptedPerson {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        this.type = type;
     }
 
     /**
@@ -69,6 +76,12 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+
+        if (source instanceof Client) {
+            type = ContactType.CLIENT;
+        } else if (source instanceof ServiceProvider) {
+            type = ContactType.SERVICE_PROVIDER;
+        }
     }
 
     /**
@@ -114,8 +127,23 @@ public class XmlAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        // Additional metadata to determine if contact is a Client or a ServiceProvider
+
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if (type == null) {
+            throw new IllegalValueException("Contact type must be non-null.");
+        }
+
+        if (type.equals(ContactType.CLIENT)) {
+            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        }
+        if (type.equals(ContactType.SERVICE_PROVIDER)) {
+            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        }
+
+        throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");
     }
 
     @Override
@@ -133,6 +161,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged);
+                && tagged.equals(otherPerson.tagged)
+                && type.equals(otherPerson.type);
     }
 }
