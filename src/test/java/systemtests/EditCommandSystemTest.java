@@ -46,7 +46,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
@@ -63,7 +63,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Contact editedContact = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        Contact editedContact = new ClientBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: undo editing the last client in the list -> last client restored */
@@ -89,7 +89,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredContactList().get(index.getZeroBased()), BOB);
         command = "client#" + index.getOneBased() +" " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedContact = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedContact = new ClientBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: edit a client with new values same as another client's values but with different phone and email
@@ -98,14 +98,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedContact = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedContact = new ClientBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + " " + PREFIX_TAG.getPrefix();
         Contact contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
-        editedContact = new PersonBuilder(contactToEdit).withTags().build();
+        editedContact = new ClientBuilder(contactToEdit).withTags().build();
         assertCommandSuccess(command, index, editedContact);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -116,7 +116,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(index.getZeroBased() < getModel().getFilteredContactList().size());
         command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + " " + NAME_DESC_BOB;
         contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
-        editedContact = new PersonBuilder(contactToEdit).withName(VALID_NAME_BOB).build();
+        editedContact = new ClientBuilder(contactToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: filtered client list, edit index within bounds of address book but out of bounds of client list

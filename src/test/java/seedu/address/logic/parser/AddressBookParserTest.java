@@ -30,8 +30,8 @@ import seedu.address.model.ContactType;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
+import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -42,7 +42,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ClientBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
@@ -63,7 +63,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ClientBuilder().build();
         EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));

@@ -28,7 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ListCommand}.
@@ -41,9 +41,9 @@ public class ListCommandTest {
     @Test
     public void equals() {
         ContactContainsKeywordsPredicate firstPredicate =
-                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("first").build());
+                new ContactContainsKeywordsPredicate(new ClientBuilder().withName("first").build());
         ContactContainsKeywordsPredicate secondPredicate =
-                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("second").build());
+                new ContactContainsKeywordsPredicate(new ClientBuilder().withName("second").build());
 
         ListCommand findFirstCommand = new ListCommand(firstPredicate, CONTACT_FILTER_CLIENT);
         ListCommand findSecondCommand = new ListCommand(secondPredicate, CONTACT_FILTER_CLIENT);

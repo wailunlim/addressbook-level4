@@ -28,7 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.TypicalAccount;
 
 /**
@@ -41,7 +41,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Contact editedContact = new PersonBuilder().build();
+        Contact editedContact = new ClientBuilder().build();
         EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
 
@@ -60,7 +60,7 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
         Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastContact);
+        ClientBuilder personInList = new ClientBuilder(lastContact);
         Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -97,7 +97,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Contact editedContact = new PersonBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
+        Contact editedContact = new ClientBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
@@ -160,7 +160,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Contact editedContact = new PersonBuilder().build();
+        Contact editedContact = new ClientBuilder().build();
         Contact contactToEdit = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
@@ -204,7 +204,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Contact editedContact = new PersonBuilder().build();
+        Contact editedContact = new ClientBuilder().build();
         EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),

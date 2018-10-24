@@ -20,7 +20,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 public class UniqueContactListTest {
     @Rule
@@ -48,7 +48,7 @@ public class UniqueContactListTest {
     @Test
     public void contains_contactWithSameIdentityFieldsInList_returnsTrue() {
         uniqueContactList.add(ALICE);
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueContactList.contains(editedAlice));
     }
@@ -96,7 +96,7 @@ public class UniqueContactListTest {
     @Test
     public void setContact_editedContactHasSameIdentity_success() {
         uniqueContactList.add(ALICE);
-        Contact editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Contact editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueContactList.setContact(ALICE, editedAlice);
         UniqueContactList<Contact> expectedUniqueContactList = new UniqueContactList<>();
