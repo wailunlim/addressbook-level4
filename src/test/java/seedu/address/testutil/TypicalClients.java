@@ -21,7 +21,7 @@ import seedu.address.model.contact.Contact;
 /**
  * A utility class containing a list of {@code Client} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalClients {
 
     public static final Contact ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -57,20 +57,20 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalClients() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Contact contact : getTypicalPersons()) {
+        for (Contact contact : getTypicalClients()) {
             ab.addContact(contact);
         }
         return ab;
     }
 
-    public static List<Contact> getTypicalPersons() {
+    public static List<Contact> getTypicalClients() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }
