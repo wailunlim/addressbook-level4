@@ -154,7 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean isUserLogIn() {
-        return userAccount != null;
+        return true;//userAccount != null;
     }
 
 

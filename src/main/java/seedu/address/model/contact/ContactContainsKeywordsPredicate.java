@@ -2,6 +2,8 @@ package seedu.address.model.contact;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Tests that a {@code Contact}'s properties matches with the keywords given.
  */
@@ -26,12 +28,16 @@ public class ContactContainsKeywordsPredicate implements Predicate<Contact> {
             return true;
         }
 
-        return keywords.getName().map(name -> contact.getName().toString().contains(name)).orElse(true)
-                && keywords.getPhone().map(phone -> contact.getPhone().toString().contains(phone)).orElse(true)
-                && keywords.getEmail().map(email -> contact.getEmail().toString().contains(email)).orElse(true)
-                && keywords.getAddress().map(address -> contact.getAddress().toString().contains(address))
-                        .orElse(true)
-                && (keywords.getTags().stream().allMatch(tag -> contact.getTags().toString().contains(tag))
+        return keywords.getName().map(name -> StringUtil.containsIgnoreCase(contact.getName().toString(), name))
+                    .orElse(true)
+                && keywords.getPhone().map(phone -> StringUtil.containsIgnoreCase(contact.getPhone().toString(), phone))
+                    .orElse(true)
+                && keywords.getEmail().map(email -> StringUtil.containsIgnoreCase(contact.getEmail().toString(), email))
+                    .orElse(true)
+                && keywords.getAddress().map(address -> StringUtil.containsIgnoreCase(contact.getAddress().toString(),
+                    address)).orElse(true)
+                && (keywords.getTags().stream().allMatch(tag -> StringUtil.containsIgnoreCase(
+                        contact.getTags().toString(), tag))
                 || keywords.getTags().isEmpty());
     }
 
