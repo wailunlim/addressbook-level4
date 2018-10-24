@@ -16,10 +16,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
-import seedu.address.logic.security.AccountManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.account.Role;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.EntryContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -82,7 +80,6 @@ public class CommandTestUtil {
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
@@ -109,7 +106,6 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            AccountManager.setCurrentUserRole(Role.SUPER_USER);
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException | LackOfPrivilegeException e) {

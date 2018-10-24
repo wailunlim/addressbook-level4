@@ -11,7 +11,6 @@ import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
-import seedu.address.model.account.Role;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
 
@@ -67,7 +66,7 @@ public class RegisterAccountCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException,
             LackOfPrivilegeException {
-        if (!Role.hasAccountCreationPrivilege()) {
+        if (!model.getUserAccount().hasAccountCreationPrivilege()) {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 

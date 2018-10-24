@@ -21,7 +21,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.Model;
-import seedu.address.model.account.Role;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
@@ -75,7 +74,7 @@ public class EditCommand extends Command {
             LackOfPrivilegeException {
         requireNonNull(model);
 
-        if (!Role.hasWritePrivilege()) {
+        if (!model.getUserAccount().hasWritePrivilege()) {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 
