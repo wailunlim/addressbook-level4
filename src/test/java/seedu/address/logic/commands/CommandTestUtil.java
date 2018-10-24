@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -19,7 +18,7 @@ import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -124,8 +123,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());
 
         Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
-        final String[] splitName = contact.getName().fullName.split("\\s+");
-        model.updateFilteredContactList(new EntryContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredContactList(new ContactContainsKeywordsPredicate(contact));
 
         assertEquals(1, model.getFilteredContactList().size());
     }
