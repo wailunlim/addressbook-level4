@@ -2,14 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.EntryContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -24,10 +23,10 @@ public class ListCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final EntryContainsKeywordsPredicate predicate;
+    private final ContactContainsKeywordsPredicate predicate;
     private final Predicate<Contact> contactFilter;
 
-    public ListCommand(EntryContainsKeywordsPredicate predicate, Predicate<Contact> contactFilter) {
+    public ListCommand(ContactContainsKeywordsPredicate predicate, Predicate<Contact> contactFilter) {
         this.predicate = predicate;
         this.contactFilter = contactFilter;
     }
@@ -36,7 +35,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        if (predicate.equals(new EntryContainsKeywordsPredicate(Collections.emptyList()))) {
+        if (predicate.equals(new ContactContainsKeywordsPredicate())) {
             model.updateFilteredContactList(contactFilter);
             return new CommandResult(Messages.MESSAGE_LIST_ALL_PERSON);
         }
