@@ -19,7 +19,7 @@ image::userguideimage.png[width="700"]
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-image::intropic.png[width="256"]
+image::intropicture.png[width="256"]
 
 Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
@@ -298,6 +298,16 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need for you to save manually.
 
 == FAQ
+image::faqpicture.png[width="400"]
 
-*Q*: How do I transfer my data to another Computer? +
+*[red]#Q*#: [red]#How do I transfer my data to another Computer?# +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+*[red]#Q*#: [red]#What platform is this application available on?# +
+*A*: This application is cross-platform, and can be used on both Windows and Mac OS.
+
+*[red]#Q*#: [red]#Is this application free-of-charge?# +
+*A*: Yes, this application is open-source and can be use for free, even commercially.
+
+*[red]#Q*#: [red]#How can I report an issue?# +
+*A*: You can raise an issue in the issue section and our team will get back to you as soon as possbile.
