@@ -19,6 +19,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalAccount;
 import systemtests.ModelHelper;
 
 /**
@@ -48,6 +49,13 @@ public class TestApp extends MainApp {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        // To test the app, we need the user to log in.
+        model.commitUserLoggedInSuccessfully(TypicalAccount.ROOTACCOUNT);
     }
 
     @Override
@@ -92,7 +100,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
         ModelHelper.setFilteredList(copy, model.getFilteredContactList());
         return copy;
     }

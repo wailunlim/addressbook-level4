@@ -6,7 +6,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.account.Role;
 
 /**
  * Clears the address book.
@@ -21,7 +20,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws LackOfPrivilegeException {
         requireNonNull(model);
 
-        if (!Role.hasDeletePrivilege()) {
+        if (!model.getUserAccount().hasDeletePrivilege()) {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 

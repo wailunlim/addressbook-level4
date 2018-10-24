@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.account.Account;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -79,4 +80,23 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * The user has logged in with an account successfully. Saves this account
+     * into
+     * @param account The account user used to log in successfully
+     */
+    void commitUserLoggedInSuccessfully(Account account);
+
+    /**
+     * Get the user account which he used to logged in to this application.
+     * @return The account used to logged in to this application.
+     */
+    Account getUserAccount();
+
+    /**
+     * Return true if user has logged in successfully, false otherwise.
+     * @return true if user has logged in successfully, false otherwise.
+     */
+    boolean isUserLogIn();
 }

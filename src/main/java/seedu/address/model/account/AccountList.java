@@ -25,6 +25,23 @@ public class AccountList {
     }
 
     /**
+     * Read from the lists of account and compare the provided account's username with an account stored in the
+     * account list that has the same username. If a match is found, return the Role of the account as specified
+     * in the account list.
+     * @param username The account to get the privilege.
+     * @return The role of the username specified in the account list file.
+     * @throws IllegalArgumentException If the provided username is not found in the account list.
+     */
+    public Role getAccountRole(String username) throws IllegalArgumentException {
+        for (Account account : accountList) {
+            if (account.getUserName().equalsIgnoreCase(username)) {
+                return account.getRole();
+            }
+        }
+        throw new IllegalArgumentException("Account not found.");
+    }
+
+    /**
      * Returns the index of the first occurrence of the given account in this accountList,
      * or -1 if accountList does not contain the account.
      * @param account The account to be checked.

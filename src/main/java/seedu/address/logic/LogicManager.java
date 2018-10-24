@@ -11,7 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -36,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command;
-            if (AccountManager.isUserLogIn()) {
+            if (model.isUserLogIn()) {
                 command = addressBookParser.parseCommand(commandText);
             } else {
                 command = addressBookParser.parseCommandBeforeLoggedIn(commandText);

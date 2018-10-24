@@ -21,7 +21,6 @@ import seedu.address.model.Model;
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
-        LoginHelper.loginIfNotAlreadyLoggedIn();
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
         /* Case: select the first card in the client list, command with leading spaces and trailing spaces

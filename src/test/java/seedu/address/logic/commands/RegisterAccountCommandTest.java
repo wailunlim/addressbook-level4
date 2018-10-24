@@ -16,7 +16,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
-import seedu.address.logic.security.AccountManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.account.Account;
@@ -35,8 +34,8 @@ public class RegisterAccountCommandTest {
             TEST_DATA_FOLDER.resolve("notevenxmlstructure.xml");
     private static final Account ACCOUNT_TO_SAVE = new Account("username123", "password456", Role.SUPER_USER);
 
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = new ModelManager(TypicalAccount.ROOTACCOUNT);
+    private Model expectedModel = new ModelManager(TypicalAccount.ROOTACCOUNT);
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -50,8 +49,7 @@ public class RegisterAccountCommandTest {
 
     @Test(expected = LackOfPrivilegeException.class)
     public void execute_noPrivilege_throwsLackOfPrivilegeException() throws LackOfPrivilegeException, CommandException {
-        Account readOnlyUser = TypicalAccount.ROSE;
-        AccountManager.setCurrentUserRole(readOnlyUser.getRole());
+        Model model = new ModelManager(TypicalAccount.ROSE);
         RegisterAccountCommand registerAccountCommand = new RegisterAccountCommand(ACCOUNT_TO_SAVE,
                 ACCOUNTLIST_WITHROOT);
         registerAccountCommand.execute(model, commandHistory);

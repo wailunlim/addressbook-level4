@@ -16,7 +16,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.Role;
 import seedu.address.testutil.TypicalAccount;
-import systemtests.LoginHelper;
 
 public class LoginCommandTest {
 
@@ -46,14 +45,12 @@ public class LoginCommandTest {
 
     @Test
     public void execute_rootAccountSucceed() {
-        LoginHelper.logoutIfAlreadyLoggedIn();
         LoginCommand loginCommand = new LoginCommand(TypicalAccount.ROOTACCOUNT, ACCOUNTLIST_WITHROOT);
         assertCommandSuccess(loginCommand, model, commandHistory, LoginCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_userRegisteredAccountSucceed() {
-        LoginHelper.logoutIfAlreadyLoggedIn();
         LoginCommand loginCommandSimun = new LoginCommand(TypicalAccount.SIMUN, ACCOUNTLIST_WITSELFREGISTEREDACCOUNT);
         assertCommandSuccess(loginCommandSimun, model, commandHistory, LoginCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -63,7 +60,6 @@ public class LoginCommandTest {
 
     @Test
     public void execute_usernameOrPasswordWrong() {
-        LoginHelper.logoutIfAlreadyLoggedIn();
         Account usernameWrong = new Account("usernameWrong", "rootPassword", Role.SUPER_USER);
         LoginCommand loginWrongUsername = new LoginCommand(usernameWrong, ACCOUNTLIST_WITHROOT);
         assertCommandFailure(loginWrongUsername, model, commandHistory, LoginCommand.MESSAGE_FAILURE);
