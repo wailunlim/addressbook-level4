@@ -1,4 +1,4 @@
-= Heart² - User Guide
+= Heart² - Enterprise Wedding Management System
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,12 +14,24 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/
 
+image::userguideimage.png[width="400"]
+
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
 Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
+
+=== Legend
+==== Example
+An example image shows the source code format for a particular command
+[cols="^,<5a", frame=none]
+|===
+|image:exampleimage.png[width="64", role="center"]
+|`login u/rootUser p/rootPassword`
+|===
+
 
 == Quick Start
 
