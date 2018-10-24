@@ -19,7 +19,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.contact.Contact;
 
 /**
- * A utility class containing a list of {@code Client} objects to be used in tests.
+ * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
 public class typicalContacts {
 
@@ -57,20 +57,53 @@ public class typicalContacts {
 
     public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
 
+    // ServiceProviders below
+    public static final Contact DOMINIC = new ServiceProviderBuilder().withName("Dominic Dong")
+            .withAddress("123, Jurong East Ave 6, #08-111").withEmail("dominicdong@example.com")
+            .withPhone("94311253")
+            .withTags("friends").build();
+    public static final Contact EEHOOI = new ServiceProviderBuilder().withName("Ng Ee Hooi")
+            .withAddress("313, Clementi Ave 5, #02-25")
+            .withEmail("eehooid@example.com").withPhone("98762432")
+            .withTags("owesMoney", "friends").build();
+    public static final Contact GAN = new ServiceProviderBuilder().withName("Gan Chin Yao")
+            .withAddress("313, Pioneer Ave 5, #02-25")
+            .withEmail("gan@example.com").withPhone("18762432")
+            .build();
+    public static final Contact JIANJIE = new ServiceProviderBuilder().withName("Liau Jian Jie")
+            .withAddress("444, River Valley Ave 5, #02-25")
+            .withEmail("jj@example.com").withPhone("93762432")
+            .build();
+    public static final Contact WAILUN = new ServiceProviderBuilder().withName("Lim Wai Lun")
+            .withAddress("313, Red Hill Ave 5, #02-25")
+            .withEmail("wailunoob@example.com").withPhone("98761432")
+            .build();
+    public static final Contact SIJI = new ServiceProviderBuilder().withName("Dong SiJi")
+            .withAddress("313, Buona Vista Ave 5, #02-25")
+            .withEmail("dong.siji@example.com").withPhone("91232432")
+            .build();
+    public static final Contact CHINYAO = new ServiceProviderBuilder().withName("Chino")
+            .withAddress("313, Pasir Ris Ave 5, #02-25")
+            .withEmail("chinoyaobi@example.com").withPhone("98711132")
+            .build();
+
+
+
     private typicalContacts() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical contacts.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Contact contact : getTypicalClients()) {
+        for (Contact contact : getTypicalContacts()) {
             ab.addContact(contact);
         }
         return ab;
     }
 
-    public static List<Contact> getTypicalClients() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    public static List<Contact> getTypicalContacts() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE,
+                DOMINIC, EEHOOI, GAN, JIANJIE, WAILUN, SIJI, CHINYAO));
     }
 }
