@@ -34,14 +34,16 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private BrowserPanel profilePanel;
     private PersonListPanel personListPanel;
+    private ServiceListPanel photoListPanel, hotelListPanel, cateringListPanel, dressListPanel;
+    private ServiceListPanel ringListPanel, transportListPanel, invitationListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane profilePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,6 +53,27 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane photoListPanelPlaceholder;
+
+    @FXML
+    private StackPane hotelListPanelPlaceholder;
+
+    @FXML
+    private StackPane cateringListPanelPlaceholder;
+
+    @FXML
+    private StackPane dressListPanelPlaceholder;
+
+    @FXML
+    private StackPane ringListPanelPlaceholder;
+
+    @FXML
+    private StackPane transportListPanelPlaceholder;
+
+    @FXML
+    private StackPane invitationListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -119,18 +142,44 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        profilePanel = new BrowserPanel();
+        profilePlaceholder.getChildren().add(profilePanel.getRoot());
 
+        // Fill up person list
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        // Fill up each service panel
+        photoListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
+
+        hotelListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
+
+        cateringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
+
+        dressListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
+
+        ringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
+
+        transportListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
+
+        invitationListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
+
+        // Show display
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        // Show status bar
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
+        // Show command box
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -193,7 +242,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        profilePanel.freeResources();
     }
 
     @Subscribe
