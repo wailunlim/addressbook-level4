@@ -31,13 +31,12 @@ public class UiManager extends ComponentManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
-
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
-    // TODO Instantiate LoginWindow
-    // private LoginWindow loginWindow;
+
+    private boolean hasLoggedIn = false;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -54,11 +53,11 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            // TODO direct successful login to main window
-            // loginWindow = new LoginWindow(primaryStage, config, prefs, logic);
-            // loginWindow.show();
             mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
+            if (!hasLoggedIn) {
+                mainWindow.displayLoginWindow();
+            }
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
@@ -67,12 +66,15 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
 
+    /**
+     * Registers user as logged in
+     */
+    public void commitUserLoggedInSuccessfully() {
+        hasLoggedIn = true;
+    }
+
     @Override
     public void stop() {
-        // TODO Change main window to login window
-        // prefs.updateLastUsedGuiSetting(loginWindow.getCurrentGuiSetting());
-        // loginWindow.hide();
-        // loginWindow.releaseResources();
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
@@ -88,8 +90,6 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        // TODO Change main window to login window
-        // showAlertDialogAndWait(loginWindow.getPrimaryStage(), type, title, headerText, contentText);
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
