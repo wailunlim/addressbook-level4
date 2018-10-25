@@ -48,7 +48,7 @@
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <Label fx:id="statusPlaceholder" alignment="CENTER" prefHeight="19.0" prefWidth="601.0"
-                                   text="Welcome!" />
+                                   text="Welcome! Enter the login command below." />
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -56,8 +56,8 @@
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
-                            <TextField fx:id="loginCli" onAction="#handleLogin" prefHeight="33.0"
-                                       prefWidth="468.0" promptText="Enter login command..."
+                            <TextField fx:id="loginCli" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
+                                       prefWidth="468.0" maxWidth="600" promptText="Enter login command..."
                                        style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
                                                -fx-border-radius: 20;" focusTraversable="false">
                                 <font>
@@ -65,7 +65,7 @@
                                 </font>
                             </TextField>
                             <VBox.margin>
-                                <Insets left="15.0" right="15.0" />
+                                <Insets left="30.0" right="30.0" />
                             </VBox.margin>
                         </StackPane>
 
@@ -77,24 +77,12 @@
                             <Separator opacity="0.84" prefHeight="0.0" prefWidth="422.0"
                                        style="-fx-background-color: #F9F4F4;" />
                             <VBox.margin>
-                                <Insets left="15.0" right="15.0" />
+                                <Insets left="30.0" right="30.0" />
                             </VBox.margin>
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <Region prefHeight="10.0" prefWidth="200.0" />
-                        </StackPane>
-
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
-                            <Text fx:id="forgetPw" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Password?"
-                                  textAlignment="CENTER" wrappingWidth="600.4431762695312">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
-                                <StackPane.margin>
-                                    <Insets bottom="15.0" />
-                                </StackPane.margin>
-                            </Text>
                         </StackPane>
                     </VBox>
                 </StackPane>

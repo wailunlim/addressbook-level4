@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -34,7 +33,7 @@ public class LoginWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
+    private Stage loginStage;
     private Config config;
     private Logic logic;
     private UserPrefs prefs;
@@ -57,12 +56,12 @@ public class LoginWindow extends UiPart<Stage> {
      * Instantiates the Login Window
      * @param logic Logic parsed from UiManager
      */
-    public LoginWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        super(FXML, primaryStage);
+    public LoginWindow(Stage loginStage, Config config, UserPrefs prefs, Logic logic) {
+        super(FXML, loginStage);
 
         // Set dependencies
         this.logic = logic;
-        this.primaryStage = primaryStage;
+        this.loginStage = loginStage;
         this.prefs = prefs;
         this.config = config;
         historySnapshot = logic.getHistorySnapshot();
@@ -93,16 +92,16 @@ public class LoginWindow extends UiPart<Stage> {
      * Sets the default size based on user preferences.
      */
     private void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        loginStage.setHeight(prefs.getGuiSettings().getWindowHeight());
+        loginStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+            loginStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
+            loginStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }
     }
 
     void show() {
-        primaryStage.show();
+        loginStage.show();
     }
 
     /**
@@ -120,10 +119,9 @@ public class LoginWindow extends UiPart<Stage> {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             statusPlaceholder.setText(commandResult.feedbackToUser);
 
+            // If the login was successful, hide the login window
             if (commandResult.feedbackToUser.equals("Successfully logged in.")) {
-                mainWindow = new MainWindow(primaryStage, config, prefs, logic);
-                mainWindow.show();
-                mainWindow.fillInnerParts();
+                hide();
             }
 
         } catch (CommandException | ParseException | LackOfPrivilegeException e) {
@@ -144,14 +142,6 @@ public class LoginWindow extends UiPart<Stage> {
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
         historySnapshot.add("");
-    }
-
-    /**
-     * Shows password reset request page.
-     * Password reset request sent to admin.
-     */
-    public void handleForgetPw() {
-        // Send to password reset page
     }
 
     /**
@@ -182,23 +172,7 @@ public class LoginWindow extends UiPart<Stage> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
-    /**
-     * Returns the current size and the position of the main Window.
-     */
-    GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-    }
-
-    void hide() {
-        primaryStage.hide();
-    }
-
-    void releaseResources() {
-        mainWindow.releaseResources();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    private void hide() {
+        loginStage.hide();
     }
 }

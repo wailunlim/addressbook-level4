@@ -56,6 +56,7 @@ public class TestApp extends MainApp {
         super.init();
         // To test the app, we need the user to log in.
         model.commitUserLoggedInSuccessfully(TypicalAccount.ROOTACCOUNT);
+        ui.commitUserLoggedInSuccessfully();
     }
 
     @Override

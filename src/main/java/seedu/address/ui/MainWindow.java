@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -31,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+    private Stage loginStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -39,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private LoginWindow loginWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -75,6 +78,10 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        loginStage = new Stage();
+        loginStage.initOwner(primaryStage);
+        loginStage.initModality(Modality.WINDOW_MODAL);
+        loginWindow = new LoginWindow(loginStage, config, prefs, logic);
     }
 
     public Stage getPrimaryStage() {
@@ -113,6 +120,10 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+    }
+
+    void displayLoginWindow() {
+        loginWindow.show();
     }
 
     /**
