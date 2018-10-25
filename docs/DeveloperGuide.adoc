@@ -15,6 +15,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/tree/master
 
+image::guidefordevelopers.png[width="600"]
+
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
@@ -27,10 +29,33 @@ This developer guide is a self-contained resource designed to align all develope
 developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
 
 So if you want to know how to make _Heart²_ even better, here's where you start!
+ +
+
+image::calloutpic.png[width="256"]
+
+Callouts are a rectangular box with icon and words to point out some information. Below are the 3 call outs that will be used consistently throughout this document:
+
+[NOTE]
+This represents a *note*. A note is information that may be important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+
+[TIP]
+This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+
+[WARNING]
+This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+
+{empty} +
 
 toc::[]
 
 == Setting Up
+
+image::settingup.png[width="200"]
+
+This section sets up your local computer and import all the necessary tools required to run this application.
+
+[WARNING]
+Read this section in detail and follow the configurations carefully. Otherwise, the application may not work as expected.
 
 === Prerequisites
 
@@ -118,11 +143,18 @@ When you are ready to start coding,
 
 == Design
 
+image::designheader.png[width="320"]
+
+This section shows an overview of the design decisions for this application. It serves to allow you to better understand the various components linking this application together.
+
+
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
+
+{empty} +
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -156,12 +188,14 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
+{empty} +
+
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
+.Component interactions for `delete 1` command (part 1) +
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -169,7 +203,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `delete 1` command (part 2) +
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -182,6 +216,8 @@ The sections below give more details of each component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -202,6 +238,8 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
+{empty} +
+
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
@@ -215,11 +253,15 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+{empty} +
+
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -241,6 +283,8 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
+{empty} +
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
@@ -254,6 +298,8 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
+
+image::implementationheader.png[width="400"]
 
 Before you start, you'd need to find out how *_Heart²_*'s features work!
 This section describes some noteworthy details on how certain features are implemented.
@@ -373,20 +419,29 @@ Before user can use *_Heart²_*, they must first log in with a registered accoun
 ==== Before logging in
 User is presented with a login UI:
 
+.The login screen when user launches the application.
 image::UiLoginDiagram.png[width="800"]
 
-There are only 2 commands available for user to execute:
+There are only 3 commands available for user to execute:
 
 * `login` : Login to the system with a username and password
 * `help` : Shows the help panel
+* `exit` : Quit the application
 
 ==== After logging in
 The `LoginWindow` would direct to open the `MainWindow` upon successful login, by parsing in the current `stage`.
 
 User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
-// end::login[]
 
-// tag::account[]
+==== Design Considerations
+===== Aspect: When to show the Login UI
+* *Alternative 1 (current choice):* Deploy the `LoginWindow` only upon launch.
+** Pros: Similar to existing applications, easier for users to use
+** Cons: Difficult to implement
+* *Alternative 2:* Incorporate `LoginWindow` within `MainWindow`
+** Pros: Easy to implement
+** Cons: Users are able to see the main UI before login
+
 === Account creation and account storage Feature
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
 
@@ -398,7 +453,7 @@ There are 2 types of account:
 
 These 2 types of accounts are referred as Role and facilitated by the `Role` enum.
 
-The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Role` enum, specifically:
+The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Account` class, specifically:
 
 * `boolean hasWritePrivilege()`
 * `boolean hasDeletePrivilege()`
@@ -406,19 +461,27 @@ The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Role
 
 Commands that prevents a `READ_ONLY_USER` from executing is checked with a condition as such:
 
-`if (!Role.hasWritePrivilege()) {
-throw new LackOfPrivilegeException(COMMAND_WORD);}`
+[source,java]
+if (!Role.hasWritePrivilege()) {
+    throw new LackOfPrivilegeException(COMMAND_WORD);
+}
 
 ==== Account storage
 By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
 
 The diagram below shows what happen when a user launches the application:
 
+.Activity diagram when user launches the application
 image::accountstoragediagram.png[width="800"]
+
+{empty} +
 
 Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
 
+.Activity diagram when user registers an account
 image::accountcreationdiagram.png[width="800"]
+
+{empty} +
 
 ==== Security Considerations
 
@@ -432,14 +495,6 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
 // end::account[]
 
-==== Design Considerations
-===== Aspect: When to show the Login UI
-* *Alternative 1 (current choice):* Deploy the `LoginWindow` only upon launch.
-** Pros: Similar to existing applications, easier for users to use
-** Cons: Difficult to implement
-* *Alternative 2:* Incorporate `LoginWindow` within `MainWindow`
-** Pros: Easy to implement
-** Cons: Users are able to see the main UI before login
 
 === Add clients and service providers feature
 *_Heart²_* allows you to be able to distinguish between clients and service providers.
@@ -518,11 +573,17 @@ the combination that best suits the client easily
 === List Feature
 The user can use the `list` command to list out the various contacts, be it a service provider or a client.
 
+.The UI showing the list command
 image::ListCommand.png[width="800"]
+
+{empty} +
 
 Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
 
+.The UI showing list filtering
 image::ListCommandPhoneNumber.png[width="800"]
+
+{empty} +
 
 ==== Implementation
 
@@ -550,6 +611,7 @@ The application boasts matchmaking features that reduces the (once-laborious) ta
 
 ==== High level design
 
+.High level overview of how matchmaking works
 image::matchmaking.png[width:"800"]
 
 1. On invocation, the matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
@@ -569,6 +631,7 @@ image::matchmaking.png[width:"800"]
 ** Cons: Difficult to fine-tune ranking algorithm
 
 == Documentation
+image::documentationheader.png[width="400"]
 
 We use asciidoc for writing documentation.
 
@@ -674,6 +737,9 @@ The SE-EDU team does not provide support for modified template files.
 
 [[Testing]]
 == Testing
+image::testingheader.png[width="320"]
+
+Tests ensure that your code runs as expected. This section shows how you can run tests to test this application thoroughly.
 
 === Running Tests
 
@@ -723,6 +789,9 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+image::devopsheader.png[width="320"]
+
+DevOps is an approach to include automation and event monitoring at all steps of the software build. This section documents the tools and methods we used to ensure a high quality code production.
 
 === Build Automation
 
@@ -757,6 +826,8 @@ b. Require developers to download those libraries manually (this creates extra w
 [[GetStartedProgramming]]
 [appendix]
 == Suggested Programming Tasks to Get Started
+
+image::appendixaheader.png[width="320"]
 
 Suggested path for new programmers:
 
@@ -1035,6 +1106,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
+image::appendixbheader.png[width="320"]
+
 *Target user profile*:
 
 * has a need to plan for events (weddings)
@@ -1049,6 +1122,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 [appendix]
 == User Stories
+
+image::appendixcheader.png[width="320"]
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -1086,6 +1161,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [appendix]
 == Use Cases
+image::appendixdheader.png[width="320"]
 
 (For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
@@ -1304,6 +1380,7 @@ Use case ends.
 
 [appendix]
 == Non Functional Requirements
+image::appendixeheader.png[width="320"]
 
 [Discrete]
 ==== Availability
@@ -1341,6 +1418,7 @@ Use case ends.
 
 [appendix]
 == Glossary
+image::appendixfheader.png[width="320"]
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1362,6 +1440,7 @@ A single request related to the wedding that the Client expects. The Project Man
 
 [appendix]
 == Product Survey
+image::appendixgheader.png[width="320"]
 
 *Product Name*
 
@@ -1381,6 +1460,7 @@ Cons:
 
 [appendix]
 == Instructions for Manual Testing
+image::appendixhheader.png[width="320"]
 
 Given below are instructions to test the app manually.
 
