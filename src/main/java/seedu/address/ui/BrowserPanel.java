@@ -35,7 +35,7 @@ public class BrowserPanel extends UiPart<Region> {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+        // getRoot().setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
