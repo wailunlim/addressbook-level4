@@ -23,6 +23,7 @@ import java.util.Optional;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -70,7 +71,7 @@ public class ListCommandTest {
         String expectedMessage = MESSAGE_LIST_ALL_PERSON;
         ContactContainsKeywordsPredicate predicate = preparePredicate();
         ListCommand command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
-        expectedModel.updateFilteredContactList(predicate);
+        expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredContactList());
     }

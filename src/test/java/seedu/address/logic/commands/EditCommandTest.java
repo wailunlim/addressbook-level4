@@ -27,8 +27,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.serviceprovider.ServiceProvider;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
 
 /**
@@ -40,15 +42,17 @@ public class EditCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedClientList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact editedContact = new ClientBuilder().build();
-        EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
         expectedModel.commitAddressBook();
 
@@ -56,7 +60,26 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedServiceProviderList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact editedContact = new ServiceProviderBuilder().build();
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_someFieldsSpecifiedClientList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
         Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
 
@@ -64,7 +87,7 @@ public class EditCommandTest {
         Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor, ContactType.CLIENT);
 
@@ -72,6 +95,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.updateContact(lastContact, editedContact);
         expectedModel.commitAddressBook();
 
@@ -79,7 +103,33 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedServiceProviderList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
+        Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
+
+        ServiceProviderBuilder personInList = new ServiceProviderBuilder(lastContact);
+        Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor, ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateContact(lastContact, editedContact);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noFieldSpecifiedClientList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(), ContactType.CLIENT);
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
@@ -87,56 +137,148 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_noFieldSpecifiedServiceProviderList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(),
+                ContactType.SERVICE_PROVIDER);
+        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_clientList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         Contact editedContact = new ClientBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
+                new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_serviceProviderList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Contact editedContact = new ServiceProviderBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_duplicateContactClientList_failure() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(firstContact).build();
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor, ContactType.CLIENT);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateContactServiceProviderList_failure() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
 
-        // edit client in filtered list into a duplicate in address book
-        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(contactInList).build(), ContactType.CLIENT);
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    // Create a client that is a duplicate of a serviceprovider --> command failure
+    @Test
+    public void execute_duplicateClientAndServiceProviderList_failure() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor, ContactType.CLIENT);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_duplicateClientFilteredList_failure() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        // edit client in filtered list into a duplicate in address book
+        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
+        // TODO: how update works now is to filter the list by client/serviceprovider, then update. To change implmtion.
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditContactDescriptorBuilder(contactInList).build(), ContactType.CLIENT);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_duplicateServiceProviderFilteredList_failure() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        // edit client in filtered list into a duplicate in address book
+        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditContactDescriptorBuilder(contactInList).build(), ContactType.SERVICE_PROVIDER);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_invalidClientIndexClientList_failure() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        EditContactDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor, ContactType.CLIENT);
+
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidServiceProviderIndexServiceProviderList_failure() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor, ContactType.SERVICE_PROVIDER);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -153,7 +295,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
+                new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -162,7 +304,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Contact editedContact = new ClientBuilder().build();
         Contact contactToEdit = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -184,7 +326,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        EditContactDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor, ContactType.CLIENT);
 
         // execution failed -> address book state not added into model
@@ -205,7 +347,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Contact editedContact = new ClientBuilder().build();
-        EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(editedContact).build();
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);

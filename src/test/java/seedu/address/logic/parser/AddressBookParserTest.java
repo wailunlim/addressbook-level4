@@ -31,7 +31,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
 import seedu.address.testutil.ClientBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -57,16 +57,16 @@ public class AddressBookParserTest {
     //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                "client " + DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+                "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD + " " );
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Contact contact = new ClientBuilder().build();
-        EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        EditCommand command = (EditCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
+                + " " + EditCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
     }
 
