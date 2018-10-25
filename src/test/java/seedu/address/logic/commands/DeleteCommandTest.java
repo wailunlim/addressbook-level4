@@ -83,6 +83,11 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    /**
+     * deleting a person from heartsquare shows the client/serviceprovider list depending on client#ID delete or
+     * serviceprovider#ID delete. Heartsquare's deletion of contacts are not relative to the list shown on the UI but
+     * instead specifically client/serviceprovider ID
+     */
     @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
@@ -95,7 +100,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
-        showNoPerson(expectedModel);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
