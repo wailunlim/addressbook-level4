@@ -51,6 +51,7 @@ public class DeleteCommand extends Command {
 
         if (filteredList.size() == 0) {
             // filtered list size is 0, meaning there is no such contact
+            model.updateFilteredContactList(contactType.getFilter());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 

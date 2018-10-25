@@ -32,7 +32,8 @@ public class DeleteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexClientList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
 
@@ -40,6 +41,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
 
@@ -47,9 +49,36 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_validIndexServiceProviderList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexClientList_throwsCommandException() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
+
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidIndexServiceProviderList_throwsCommandException() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.SERVICE_PROVIDER);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
