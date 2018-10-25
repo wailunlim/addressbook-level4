@@ -15,7 +15,12 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/tree/master
 
+image::guidefordevelopers.png[width="600"]
+
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
+
+[WARNING]
+lol
 
 == Introduction
 
@@ -28,9 +33,29 @@ developers of all levels learn more about the workings behind the scenes and how
 
 So if you want to know how to make _Heart²_ even better, here's where you start!
 
+image::calloutpic.png[width="256"]
+
+Callouts are a rectangular box with icon and words to point out some information. Below are the 3 call outs that will be used consistently throughout this document:
+
+[NOTE]
+This represents a note. A note is information that may be important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+
+[TIP]
+This represents a tip. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+
+[WARNING]
+This represents a warning. You should be extremely cautious and read the warning statement carefully.
+
 toc::[]
 
 == Setting Up
+
+image::settingup.png[width="200"]
+
+This section sets up your local computer and import all the necessary tools required to run this application.
+
+[WARNING]
+Read this section in detail and follow the configurations carefully. Otherwise, the application may not work as expected.
 
 === Prerequisites
 
@@ -117,6 +142,11 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+image::designheader.png[width="256"]
+
+This section shows an overview of the design decisions for this application. It serves to allow you to better understand the various components linking this application together.
+
 
 [[Design-Architecture]]
 === Architecture
