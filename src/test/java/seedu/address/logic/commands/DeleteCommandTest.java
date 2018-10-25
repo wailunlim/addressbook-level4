@@ -156,7 +156,7 @@ public class DeleteCommandTest {
     public void execute_deleteServiceProviderNotShownInServiceProviderFilteredList_success() {
         model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Contact contactToDelete = model.getFilteredContactList().get(0);
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
 
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
@@ -176,10 +176,57 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+    public void execute_deleteServiceProviderWhileShownClientFilteredList_success() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        assertTrue(!model.getFilteredContactList().contains(contactToDelete));
+
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getID()),
+                ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteClientWhileShownServiceProviderFilteredList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        assertTrue(!model.getFilteredContactList().contains(contactToDelete));
+
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getID()),
+                ContactType.CLIENT);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeUndoRedo_validIndexFilteredClientList_success() throws Exception {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
+
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
 
@@ -196,9 +243,47 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+    public void executeUndoRedo_validIndexFilteredServiceProviderList_success() throws Exception {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.SERVICE_PROVIDER);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+
+        // delete -> first client deleted
+        deleteCommand.execute(model, commandHistory);
+
+        // undo -> reverts addressbook back to previous state and filtered client list to show all persons
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first client deleted again
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeUndoRedo_invalidIndexClientList_failure() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
+
+        // execution failed -> address book state not added into model
+        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // single address book state in model -> undoCommand and redoCommand fail
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void executeUndoRedo_invalidIndexServiceProviderList_failure() {
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.SERVICE_PROVIDER);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
