@@ -16,7 +16,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="600" minHeight="600" onCloseRequest="#handleExit">
+         minWidth="1000" minHeight="700" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/address_book_32.png" />
     </icons>
@@ -50,7 +50,7 @@
                     </padding>
                 </StackPane>
 
-                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.4" VBox.vgrow="ALWAYS">
                     <VBox fx:id="personList" minWidth="200" prefWidth="200" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10" />
@@ -58,7 +58,7 @@
                         <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <ScrollPane fx:id="ClientSummaryTable" minWidth="700" prefWidth="1000">
+                    <ScrollPane fx:id="ClientSummaryTable" minWidth="600" prefWidth="1000">
                         <HBox fx:id="serviceLists" minWidth="700" prefWidth="1420" fillHeight="true">
                             <TitledPane collapsible="false" contentDisplay="TOP" prefWidth="200.0" minHeight="1000" text="Photographer">
                                 <VBox fx:id="photoList" minWidth="200" prefWidth="200" SplitPane.resizableWithParent="false">
@@ -155,7 +155,7 @@
                     </ScrollPane>
 
 
-                    <StackPane fx:id="profilePlaceholder" minWidth="340" prefWidth="340" >
+                    <StackPane fx:id="browserPlaceholder" minWidth="340" prefWidth="340" >
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10" />
                         </padding>

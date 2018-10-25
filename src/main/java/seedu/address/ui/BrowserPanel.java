@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
-//import javafx.event.Event;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -35,7 +35,7 @@ public class BrowserPanel extends UiPart<Region> {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
-        // getRoot().setOnKeyPressed(Event::consume);
+        getRoot().setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
