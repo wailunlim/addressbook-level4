@@ -143,7 +143,7 @@ When you are ready to start coding,
 
 == Design
 
-image::designheader.png[width="256"]
+image::designheader.png[width="320"]
 
 This section shows an overview of the design decisions for this application. It serves to allow you to better understand the various components linking this application together.
 
@@ -631,8 +631,7 @@ image::matchmaking.png[width:"800"]
 ** Cons: Difficult to fine-tune ranking algorithm
 
 == Documentation
-
-image::documentationheader.png[width:"400"]
+image::documentationheader.png[width="400"]
 
 We use asciidoc for writing documentation.
 
@@ -738,7 +737,7 @@ The SE-EDU team does not provide support for modified template files.
 
 [[Testing]]
 == Testing
-image::testingheader.png[width="256"]
+image::testingheader.png[width="320"]
 
 Tests ensure that your code runs as expected. This section shows how you can run tests to test this application thoroughly.
 
@@ -790,7 +789,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
-image::devopsheader.png[width="256"]
+image::devopsheader.png[width="320"]
 
 DevOps is an approach to include automation and event monitoring at all steps of the software build. This section documents the tools and methods we used to ensure a high quality code production.
 
@@ -828,7 +827,7 @@ b. Require developers to download those libraries manually (this creates extra w
 [appendix]
 == Suggested Programming Tasks to Get Started
 
-image::appendixaheader.png[width="300"]
+image::appendixaheader.png[width="320"]
 
 Suggested path for new programmers:
 
@@ -1107,7 +1106,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-image::appendixbheader.png[width="300"]
+image::appendixbheader.png[width="320"]
 
 *Target user profile*:
 
@@ -1124,7 +1123,7 @@ image::appendixbheader.png[width="300"]
 [appendix]
 == User Stories
 
-image::appendixcheader.png[width="300"]
+image::appendixcheader.png[width="320"]
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -1162,7 +1161,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [appendix]
 == Use Cases
-image::appendixdheader.png[width="300"]
+image::appendixdheader.png[width="320"]
 
 (For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
@@ -1381,7 +1380,7 @@ Use case ends.
 
 [appendix]
 == Non Functional Requirements
-image::appendixeheader.png[width="300"]
+image::appendixeheader.png[width="320"]
 
 [Discrete]
 ==== Availability
@@ -1419,7 +1418,7 @@ image::appendixeheader.png[width="300"]
 
 [appendix]
 == Glossary
-image::appendixfheader.png[width="300"]
+image::appendixfheader.png[width="320"]
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -1441,7 +1440,7 @@ A single request related to the wedding that the Client expects. The Project Man
 
 [appendix]
 == Product Survey
-image::appendixgheader.png[width="300"]
+image::appendixgheader.png[width="320"]
 
 *Product Name*
 
@@ -1461,7 +1460,7 @@ Cons:
 
 [appendix]
 == Instructions for Manual Testing
-image::appendixhheader.png[width="300"]
+image::appendixhheader.png[width="320"]
 
 Given below are instructions to test the app manually.
 
