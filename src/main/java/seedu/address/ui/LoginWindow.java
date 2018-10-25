@@ -145,14 +145,6 @@ public class LoginWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows password reset request page.
-     * Password reset request sent to admin.
-     */
-    public void handleForgetPw() {
-        // Send to password reset page
-    }
-
-    /**
      * Closes the application.
      */
     @FXML
@@ -180,7 +172,7 @@ public class LoginWindow extends UiPart<Stage> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
-    void hide() {
+    private void hide() {
         loginStage.hide();
     }
 }
