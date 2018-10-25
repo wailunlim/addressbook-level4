@@ -156,7 +156,7 @@ public class DeleteCommandTest {
     public void execute_deleteServiceProviderNotShownInServiceProviderFilteredList_success() {
         model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Contact contactToDelete = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Contact contactToDelete = model.getFilteredContactList().get(0);
 
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
