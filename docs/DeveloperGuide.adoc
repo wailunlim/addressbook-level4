@@ -19,9 +19,6 @@ image::guidefordevelopers.png[width="600"]
 
 By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
-[WARNING]
-lol
-
 == Introduction
 
 Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job of wedding planning agencies simpler.
@@ -32,19 +29,22 @@ This developer guide is a self-contained resource designed to align all develope
 developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
 
 So if you want to know how to make _Heart²_ even better, here's where you start!
+ +
 
 image::calloutpic.png[width="256"]
 
 Callouts are a rectangular box with icon and words to point out some information. Below are the 3 call outs that will be used consistently throughout this document:
 
 [NOTE]
-This represents a note. A note is information that may be important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+This represents a *note*. A note is information that may be important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
 
 [TIP]
-This represents a tip. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
 
 [WARNING]
-This represents a warning. You should be extremely cautious and read the warning statement carefully.
+This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+
+{empty} +
 
 toc::[]
 
@@ -151,8 +151,10 @@ This section shows an overview of the design decisions for this application. It 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram +
+.Architecture Diagram
 image::Architecture.png[width="600"]
+
+{empty} +
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -183,8 +185,10 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component +
+.Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+
+{empty} +
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -210,8 +214,10 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component +
+.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -229,8 +235,10 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component +
+.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -242,14 +250,18 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command +
+.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
+
+{empty} +
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component +
+.Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -268,8 +280,10 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component +
+.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+
+{empty} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -457,13 +471,17 @@ By default, a root account is hardcoded into the application with the username `
 
 The diagram below shows what happen when a user launches the application:
 
-.Activity diagram when user launches the application +
+.Activity diagram when user launches the application
 image::accountstoragediagram.png[width="800"]
+
+{empty} +
 
 Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
 
-.Activity diagram when user registers an account +
+.Activity diagram when user registers an account
 image::accountcreationdiagram.png[width="800"]
+
+{empty} +
 
 ==== Security Considerations
 
@@ -555,13 +573,17 @@ the combination that best suits the client easily
 === List Feature
 The user can use the `list` command to list out the various contacts, be it a service provider or a client.
 
-.The UI showing the list command +
+.The UI showing the list command
 image::ListCommand.png[width="800"]
+
+{empty} +
 
 Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
 
-.The UI showing list filtering +
+.The UI showing list filtering
 image::ListCommandPhoneNumber.png[width="800"]
+
+{empty} +
 
 ==== Implementation
 
