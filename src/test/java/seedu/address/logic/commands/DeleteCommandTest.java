@@ -89,9 +89,10 @@ public class DeleteCommandTest {
      * instead specifically client/serviceprovider ID
      */
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexClientFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
 
@@ -101,6 +102,29 @@ public class DeleteCommandTest {
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    /**
+     * deleting a person from heartsquare shows the client/serviceprovider list depending on client#ID delete or
+     * serviceprovider#ID delete. Heartsquare's deletion of contacts are not relative to the list shown on the UI but
+     * instead specifically client/serviceprovider ID
+     */
+    @Test
+    public void execute_validIndexServiceProviderFilteredList_success() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.SERVICE_PROVIDER);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
