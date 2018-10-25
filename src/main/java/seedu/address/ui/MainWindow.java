@@ -36,8 +36,13 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel profilePanel;
     private PersonListPanel personListPanel;
-    private ServiceListPanel photoListPanel, hotelListPanel, cateringListPanel, dressListPanel;
-    private ServiceListPanel ringListPanel, transportListPanel, invitationListPanel;
+    private ServiceListPanel photoListPanel;
+    private ServiceListPanel hotelListPanel;
+    private ServiceListPanel cateringListPanel;
+    private ServiceListPanel dressListPanel;
+    private ServiceListPanel ringListPanel;
+    private ServiceListPanel transportListPanel;
+    private ServiceListPanel invitationListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
