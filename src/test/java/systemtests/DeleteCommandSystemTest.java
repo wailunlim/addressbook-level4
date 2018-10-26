@@ -77,7 +77,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing delete operation while a client card is selected ------------------------ */
 
         /* Case: delete the selected client -> client list panel selects the client before the deleted client */
-        showAllPersons();
+        showAllClients();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);

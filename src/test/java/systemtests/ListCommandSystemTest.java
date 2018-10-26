@@ -20,8 +20,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.client.Client;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 public class ListCommandSystemTest extends AddressBookSystemTest {
@@ -135,7 +133,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find while a client is selected -> selected card deselected */
-        showAllPersons();
+        showAllClients();
         selectPerson(Index.fromOneBased(1));
         assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = "client " + ListCommand.COMMAND_WORD + " n/Daniel";

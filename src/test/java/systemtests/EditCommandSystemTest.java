@@ -25,7 +25,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.typicalContacts.AMY;
@@ -39,6 +38,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
@@ -54,6 +54,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void edit() {
         Model model = getModel();
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
@@ -87,7 +88,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredContactList().get(index.getZeroBased()), BOB);
-        command = "client#" + index.getOneBased() +" " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB
+        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedContact = new ClientBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedContact);
@@ -110,11 +111,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered client list, edit index within bounds of address book and client list -> edited */
+        /* Case: filtered client list, edit the client filtered (client#<id of client shown> _> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredContactList().size());
-        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + " " + NAME_DESC_BOB;
+        command = "client#" + getModel().getFilteredContactList().get(0).getID() + " " + EditCommand.COMMAND_WORD
+                + " " + NAME_DESC_BOB;
         contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
         editedContact = new ClientBuilder(contactToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedContact);
@@ -129,17 +131,19 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* --------------------- Performing edit operation while a client card is selected -------------------------- */
 
-        /* Case: selects first card in the client list, edit a client -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-        showAllPersons();
-        index = INDEX_FIRST_PERSON;
-        selectPerson(index);
-        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new client's name
-        assertCommandSuccess(command, index, AMY, index);
+        //TODO: How is select going to work now?
+//        /* Case: selects first card in the client list, edit a client -> edited, card selection remains unchanged but
+//         * browser url changes
+//         */
+//        showAllClients();
+//        index = INDEX_FIRST_PERSON;
+//        selectPerson(index);
+//        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+//                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+//        // this can be misleading: card selection actually remains unchanged but the
+//        // browser's url is updated to reflect the new client's name
+//        selectPerson(index);
+//        assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -272,7 +276,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
