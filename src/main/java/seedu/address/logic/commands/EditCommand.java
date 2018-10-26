@@ -115,14 +115,15 @@ public class EditCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
+        int id = contactToEdit.getID();
 
         //TODO take a look at this below vvvvv
         switch (contactType) {
         case CLIENT:
-            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
         case SERVICE_PROVIDER:
         default:
-            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
         }
     }
 

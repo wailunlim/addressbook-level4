@@ -329,6 +329,7 @@ public class EditCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered client list to show all persons
         expectedModel.undoAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first client edited again
