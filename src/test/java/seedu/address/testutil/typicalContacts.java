@@ -60,7 +60,7 @@ public class typicalContacts {
     public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
 
     // ServiceProviders below
-    public static final Contact DOMINIC = new ServiceProviderBuilder().withName("Dominic Dong")
+    public static final Contact DOMINIC = new ClientBuilder().withName("Dominic Dong")
             .withAddress("123, Jurong East Ave 6, #08-111").withEmail("dominicdong@example.com")
             .withPhone("94311253")
             .withTags("friends").build();
