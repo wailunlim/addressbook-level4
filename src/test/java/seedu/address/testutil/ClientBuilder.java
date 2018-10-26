@@ -27,6 +27,7 @@ public class ClientBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private int id;
 
     public ClientBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -34,6 +35,7 @@ public class ClientBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        id = 0;
     }
 
     /**
@@ -45,6 +47,7 @@ public class ClientBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        id = contactToCopy.getID();
     }
 
     /**
@@ -87,8 +90,16 @@ public class ClientBuilder {
         return this;
     }
 
+    /**
+     *  Sets the {@code id} of the {@code Client} that we are building
+     */
+    public ClientBuilder withID(int id) {
+        this.id = id;
+        return this;
+    }
+
     public Contact build() {
-        return new Client(name, phone, email, address, tags);
+        return new Client(name, phone, email, address, tags, id);
     }
 
 }

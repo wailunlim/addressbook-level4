@@ -288,16 +288,29 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_clientOutsideFilteredList_success() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Contact contactOutsideFilteredList = model.getFilteredContactList().get(outOfBoundIndex.getZeroBased());
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
+        Contact editedContact = new ClientBuilder(contactOutsideFilteredList).withName(VALID_NAME_BOB).build();
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                TypicalAccount.ROOTACCOUNT);
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        expectedModel.updateContact(expectedModel.getFilteredContactList().get(outOfBoundIndex.getZeroBased()), editedContact);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

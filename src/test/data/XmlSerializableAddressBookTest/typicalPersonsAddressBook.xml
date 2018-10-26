@@ -60,6 +60,7 @@
         <email>dominicdong@example.com</email>
         <address>123, Jurong East Ave 6, #08-111</address>
         <tagged>friends</tagged>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Ng Ee Hooi</name>
@@ -68,35 +69,41 @@
         <address>313, Clementi Ave 5, #02-25</address>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Gan Chin Yao</name>
         <phone>18762432</phone>
         <email>gan@example.com</email>
         <address>313, Pioneer Ave 5, #02-25</address>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Liau Jian Jie</name>
         <phone>93762432</phone>
         <email>jj@example.com</email>
         <address>444, River Valley Ave 5, #02-25</address>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Lim Wai Lun</name>
         <phone>98761432</phone>
         <email>wailunoob@example.com</email>
         <address>313, Red Hill Ave 5, #02-25</address>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Dong SiJi</name>
         <phone>91232432</phone>
         <email>dong.siji@example.com</email>
         <address>313, Buona Vista Ave 5, #02-25</address>
+        <type>SERVICE_PROVIDER</type>
     </persons>
     <persons>
         <name>Chino</name>
         <phone>98711132</phone>
         <email>chinoyaobi@example.com</email>
         <address>313, Pasir Ris Ave 5, #02-25</address>
+        <type>SERVICE_PROVIDER</type>
     </persons>
 </addressbook>

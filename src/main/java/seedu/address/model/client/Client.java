@@ -26,6 +26,11 @@ public class Client extends Contact {
         this.ID = CID++;
     }
 
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int ID) {
+        super(name, phone, email, address, tags);
+        this.ID = ID;
+    }
+
     @Override
     public int getID() {
         return ID;

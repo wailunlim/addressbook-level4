@@ -23,6 +23,7 @@ public class ServiceProviderBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private int id;
 
     public ServiceProviderBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -30,6 +31,7 @@ public class ServiceProviderBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        id = 0;
     }
 
     /**
@@ -41,6 +43,7 @@ public class ServiceProviderBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        id = contactToCopy.getID();
     }
 
     /**
@@ -83,8 +86,16 @@ public class ServiceProviderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code id} of the {@code ServiceProvider} that we are building.
+     */
+    public ServiceProviderBuilder withID(int id) {
+        this.id = id;
+        return this;
+    }
+
     public Contact build() {
-        return new ServiceProvider(name, phone, email, address, tags);
+        return new ServiceProvider(name, phone, email, address, tags, id);
     }
 
 }
