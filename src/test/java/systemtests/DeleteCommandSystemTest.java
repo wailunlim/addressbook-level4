@@ -10,6 +10,8 @@ import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -17,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -31,6 +34,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the first client in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         //TODO: update command string
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         String command = "     " + "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD
                 + "      ";
         Contact deletedContact = removePerson(expectedModel, INDEX_FIRST_PERSON);
@@ -39,7 +43,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the last client in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
+        modelBeforeDeletingLast.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        List<Contact> currentList = modelBeforeDeletingLast.getFilteredContactList();
+        Index lastPersonIndex = Index.fromOneBased(currentList.get(currentList.size() - 1).getID());
         assertCommandSuccess(lastPersonIndex);
 
         /* Case: undo deleting the last client in the list -> last client restored */
@@ -60,9 +66,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered client list, delete index within bounds of address book and client list -> deleted */
+        // should delete relative to client list
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredContactList().size());
+        Index index = Index.fromOneBased(getModel().getFilteredContactList().get(0).getID());
         assertCommandSuccess(index);
 
         /* Case: filtered client list, delete index within bounds of address book but out of bounds of client list
