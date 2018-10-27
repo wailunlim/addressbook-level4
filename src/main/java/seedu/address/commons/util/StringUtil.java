@@ -55,7 +55,7 @@ public class StringUtil {
         requireNonNull(substring);
 
         String preppedSubstring = substring.trim().replaceAll(" +", " ").toLowerCase();
-        checkArgument(!preppedSubstring.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(!preppedSubstring.isEmpty(), "Substring parameter cannot be empty");
 
         String preppedSentence = sentence.toLowerCase();
 

@@ -11,17 +11,17 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all contacts in address book which contain all of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all contacts which contain all of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: n/[KEYWORD] p/[KEYWORD] e/[KEYWORD] a/[KEYWORD] t/[KEYWORD] ...\n"
+            + "Example: " + COMMAND_WORD + " n/alice bob charlie";
 
     private final ContactContainsKeywordsPredicate predicate;
     private final Predicate<Contact> contactFilter;
