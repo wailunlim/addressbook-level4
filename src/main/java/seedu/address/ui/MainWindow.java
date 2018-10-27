@@ -101,14 +101,18 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        primaryStage.centerOnScreen();
 
         setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+
+        // Create new login stage for login window
         loginStage = new Stage();
         loginStage.initOwner(primaryStage);
         loginStage.initModality(Modality.WINDOW_MODAL);
+        loginStage.centerOnScreen();
         loginWindow = new LoginWindow(loginStage, config, prefs, logic);
     }
 
@@ -151,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void displayLoginWindow() {
-        loginWindow.show();
+        loginStage.showAndWait();
     }
 
     /**
