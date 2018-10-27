@@ -82,14 +82,17 @@ public class EditCommand extends Command {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 
-        model.updateFilteredContactList(contactType.getFilter());
-        List<Contact> lastShownList = model.getFilteredContactList();
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getID() == index.getOneBased()));
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        List<Contact> filteredList = model.getFilteredContactList();
+
+        if (filteredList.size() == 0) {
+            // filtered list size is 0, meaning there is no such contact
+            model.updateFilteredContactList(contactType.getFilter());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Contact contactToEdit = lastShownList.get(index.getZeroBased());
+        Contact contactToEdit = filteredList.get(0);
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor, contactType);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
