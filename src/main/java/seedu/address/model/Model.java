@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
-
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;

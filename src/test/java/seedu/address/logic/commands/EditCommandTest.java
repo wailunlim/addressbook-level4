@@ -28,9 +28,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.serviceprovider.ServiceProvider;
-import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
 
