@@ -9,6 +9,7 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.model.ContactType;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**

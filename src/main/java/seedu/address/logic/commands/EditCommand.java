@@ -34,7 +34,8 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class EditCommand extends Command {
+public class
+EditCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
@@ -82,6 +83,7 @@ public class EditCommand extends Command {
             throw new LackOfPrivilegeException(COMMAND_WORD);
         }
 
+        // id is unique
         model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getID() == index.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
@@ -96,6 +98,7 @@ public class EditCommand extends Command {
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor, contactType);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
+            model.updateFilteredContactList(contactType.getFilter());
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

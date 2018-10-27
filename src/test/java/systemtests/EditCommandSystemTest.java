@@ -132,17 +132,19 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing edit operation while a client card is selected -------------------------- */
 
         //TODO: How is select going to work now?
-//        /* Case: selects first card in the client list, edit a client -> edited, card selection remains unchanged but
-//         * browser url changes
-//         */
-//        showAllClients();
-//        index = INDEX_FIRST_PERSON;
-//        selectPerson(index);
-//        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-//                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
-//        // this can be misleading: card selection actually remains unchanged but the
-//        // browser's url is updated to reflect the new client's name
-//        selectPerson(index);
+        /* Case: selects first card in the client list, edit a client -> edited, card selection remains unchanged but
+         * browser url changes
+         */
+        showAllClients();
+        index = INDEX_FIRST_PERSON;
+        selectPerson(index);
+        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        // this can be misleading: card selection actually remains unchanged but the
+        // browser's url is updated to reflect the new client's name
+        selectPerson(index);
+        executeCommand(command);
+
 //        assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -194,16 +196,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a client with new values same as another client's values -> rejected */
-//        executeCommand(PersonUtil.getAddCommand(BOB));
-        showPersonsWithName(BOB.getName().toString());
-        contactToEdit = getModel().getFilteredContactList().get(0);
-        executeCommand("client#" + contactToEdit.getID() + " " + EditCommand.COMMAND_WORD + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND);
+        executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        getModel().updateFilteredContactList(ContactType.CLIENT.getFilter());
-        assertFalse(getModel().getFilteredContactList().get(1).equals(BOB));
-        command = "client#2 " + EditCommand.COMMAND_WORD +  NAME_DESC_BOB + PHONE_DESC_BOB
+        assertFalse(getModel().getFilteredContactList().get(index.getZeroBased()).equals(BOB));
+        command ="client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -304,6 +301,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
