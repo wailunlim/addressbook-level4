@@ -40,7 +40,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
-import seedu.address.testutil.typicalContacts;
+import seedu.address.testutil.TypicalContacts;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -85,7 +85,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return typicalContacts.getTypicalAddressBook();
+        return TypicalContacts.getTypicalAddressBook();
     }
 
     /**

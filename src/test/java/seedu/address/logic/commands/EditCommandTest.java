@@ -13,7 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.typicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.Ignore;
 import org.junit.Test;

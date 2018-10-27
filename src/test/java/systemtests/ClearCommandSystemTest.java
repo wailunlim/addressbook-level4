@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

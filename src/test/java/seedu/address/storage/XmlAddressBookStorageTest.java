@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.typicalContacts.ALICE;
-import static seedu.address.testutil.typicalContacts.HOON;
-import static seedu.address.testutil.typicalContacts.IDA;
-import static seedu.address.testutil.typicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.HOON;
+import static seedu.address.testutil.TypicalContacts.IDA;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

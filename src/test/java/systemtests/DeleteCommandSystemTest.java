@@ -7,7 +7,7 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.typicalContacts.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 
 import java.util.List;
 

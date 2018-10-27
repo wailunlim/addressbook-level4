@@ -22,9 +22,9 @@ import seedu.address.model.contact.Contact;
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
-public class typicalContacts {
-    public static int clientId = 1;
-    public static int serviceProviderId = 1;
+public class TypicalContacts {
+    private static int clientId = 1;
+    private static int serviceProviderId = 1;
 
     public static final Contact ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -102,7 +102,7 @@ public class typicalContacts {
 
 
 
-    private typicalContacts() {} // prevents instantiation
+    private TypicalContacts() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical contacts.
