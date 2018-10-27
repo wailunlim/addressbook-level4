@@ -72,7 +72,7 @@ public abstract class Contact {
 
         return otherContact != null
                 && otherContact.getName().equals(getName())
-                && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));
+                && ((otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail())));
     }
 
     @Override
