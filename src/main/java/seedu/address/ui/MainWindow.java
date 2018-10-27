@@ -165,27 +165,27 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        // Fill up each service panel
-        photoListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
+        // TODO Fill up each service panel
+        // photoListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
 
-        hotelListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
+        // hotelListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
 
-        cateringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
+        // cateringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
 
-        dressListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
+        // dressListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
 
-        ringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
+        // ringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
 
-        transportListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
+        // transportListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
 
-        invitationListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
+        // invitationListPanel = new ServiceListPanel(logic.getFilteredPersonList());
+        // invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
 
         // Show display
         ResultDisplay resultDisplay = new ResultDisplay();
