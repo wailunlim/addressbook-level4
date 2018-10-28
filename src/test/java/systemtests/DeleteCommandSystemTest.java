@@ -92,7 +92,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         deletedContact = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact);
         executeCommand(command);
-//        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+        // assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 

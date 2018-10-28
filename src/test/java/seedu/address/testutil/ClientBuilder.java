@@ -93,7 +93,7 @@ public class ClientBuilder {
     /**
      *  Sets the {@code id} of the {@code Client} that we are building
      */
-    public ClientBuilder withID(int id) {
+    public ClientBuilder withId(int id) {
         this.id = id;
         return this;
     }

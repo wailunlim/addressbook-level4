@@ -30,24 +30,24 @@ public class TypicalContacts {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
-            .withID(clientId++)
+            .withId(clientId++)
             .build();
     public static final Contact BENSON = new ClientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withID(clientId++)
+            .withId(clientId++)
             .withTags("owesMoney", "friends").build();
     public static final Contact CARL = new ClientBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withID(clientId++).withAddress("wall street").build();
+            .withEmail("heinz@example.com").withId(clientId++).withAddress("wall street").build();
     public static final Contact DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withID(clientId++).withAddress("10th street").withTags("friends")
+            .withEmail("cornelia@example.com").withId(clientId++).withAddress("10th street").withTags("friends")
             .build();
     public static final Contact ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withID(clientId++).withAddress("michegan ave").build();
+            .withEmail("werner@example.com").withId(clientId++).withAddress("michegan ave").build();
     public static final Contact FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withID(clientId++).withAddress("little tokyo").build();
+            .withEmail("lydia@example.com").withId(clientId++).withAddress("little tokyo").build();
     public static final Contact GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withID(clientId++).withAddress("4th street").build();
+            .withEmail("anna@example.com").withId(clientId++).withAddress("4th street").build();
 
     // Manually added
     public static final Contact HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")

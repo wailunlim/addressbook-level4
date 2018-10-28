@@ -306,7 +306,8 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        expectedModel.updateContact(expectedModel.getFilteredContactList().get(outOfBoundIndex.getZeroBased()), editedContact);
+        expectedModel.updateContact(expectedModel.getFilteredContactList().get(outOfBoundIndex.getZeroBased()),
+                editedContact);
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.commitAddressBook();
 

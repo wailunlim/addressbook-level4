@@ -63,7 +63,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Contact editedContact = new ClientBuilder(BOB).withTags(VALID_TAG_HUSBAND).withID(1).build();
+        Contact editedContact = new ClientBuilder(BOB).withTags(VALID_TAG_HUSBAND).withId(1).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: undo editing the last client in the list -> last client restored */
@@ -144,7 +144,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         selectPerson(index);
         executeCommand(command);
 
-//        assertCommandSuccess(command, index, AMY, index);
+        // assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -200,7 +200,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredContactList().get(index.getZeroBased()).equals(BOB));
-        command ="client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = "client#" + index.getOneBased() + " " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
@@ -215,17 +215,17 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         //TODO: Please help me take a look for the test cases below
-//        /* Case: edit a client with new values same as another client's values but with different phone -> rejected */
-//        command = "client#2 " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
-//                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-//        assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-//        System.out.println(BOB.toString());
-//        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        /* Case: edit a client with new values same as another client's values but with different phone -> rejected */
+        // command = "client#2 " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
+        //         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        // assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
+        // System.out.println(BOB.toString());
+        // assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a client with new values same as another client's values but with different email -> rejected */
-//        command = "client#2 " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-//                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-//        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        // command = "client#2 " + EditCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
+        //         + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        // assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
