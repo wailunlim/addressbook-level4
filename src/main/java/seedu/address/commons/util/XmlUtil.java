@@ -83,7 +83,6 @@ public class XmlUtil {
      * into xml and writing to the file.
      * @throws FileNotFoundException Thrown if the account list file cannot be found.
      */
-    @SuppressWarnings("unchecked")
     public static void updatePasswordInFile(Path file, Account currentAccount, String newPassword)
             throws IllegalValueException, JAXBException, FileNotFoundException {
         requireNonNull(file);
