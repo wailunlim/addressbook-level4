@@ -1,12 +1,12 @@
 package seedu.address.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
-
 
 /**
  * An interface used to manage storing of Account details. Currently, all Account
@@ -59,4 +59,6 @@ public interface AccountStorage {
      * @param account The root account.
      */
     void populateRootAccountIfMissing(Account account);
+
+    void updateAccountPassword(Account currentAccount, String newPassword) throws FileNotFoundException;
 }

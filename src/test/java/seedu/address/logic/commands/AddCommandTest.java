@@ -174,6 +174,11 @@ public class AddCommandTest {
         public void commitUserLoggedOutSuccessfully() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

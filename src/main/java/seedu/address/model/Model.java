@@ -104,4 +104,9 @@ public interface Model {
      * The user has logged out of his account successfully.
      */
     void commitUserLoggedOutSuccessfully();
+
+    /**
+     * The user has changed his old password to {@code newPassword}.
+     */
+    void commiteUserChangedPasswordSuccessfully(String newPassword);
 }

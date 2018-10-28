@@ -25,6 +25,10 @@ public class Account {
         this.role = role;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getUserName() {
         return username;
     }

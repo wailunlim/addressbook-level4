@@ -163,6 +163,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+        userAccount = new Account(userAccount.getUserName(), newPassword, userAccount.getRole());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

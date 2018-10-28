@@ -8,11 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBException;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 
@@ -97,6 +99,15 @@ public class XmlAccountStorage implements AccountStorage {
             } catch (IOException e) {
                 logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public void updateAccountPassword(Account currentAccount, String newPassword) throws FileNotFoundException {
+        try {
+            XmlUtil.updatePasswordInFile(accountListPath, currentAccount, newPassword);
+        } catch (JAXBException | IllegalValueException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 }

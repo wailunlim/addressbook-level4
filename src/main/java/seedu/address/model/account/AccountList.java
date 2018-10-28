@@ -42,6 +42,19 @@ public class AccountList {
     }
 
     /**
+     * Update the user associated with the {@code currentAccount} to the given password.
+     * @param currentAccount The user to update the password.
+     * @param newPassword The password to update the account
+     */
+    public void updatePassword(Account currentAccount, String newPassword) {
+        for (Account account : accountList) {
+            if (account.equals(currentAccount)) {
+                account.setPassword(newPassword);
+            }
+        }
+    }
+
+    /**
      * Returns the index of the first occurrence of the given account in this accountList,
      * or -1 if accountList does not contain the account.
      * @param account The account to be checked.

@@ -11,6 +11,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.account.Account;
+import seedu.address.model.account.AccountList;
+import seedu.address.storage.XmlSerializableAccountList;
+
 /**
  * Helps with reading from and writing to XML files.
  */
@@ -68,4 +73,41 @@ public class XmlUtil {
         m.marshal(data, file.toFile());
     }
 
+    /**
+     * Update the user with the {@code currentAccount} to the new password.
+     * @param file The valid xml file containing the account list stored.
+     * @param currentAccount The associated Account of which the password is to be changed.
+     * @param newPassword The new password to change to
+     * @throws IllegalValueException Thrown if duplicated account was found in the account list.
+     * @throws JAXBException Thrown if there is an error during converting the data
+     * into xml and writing to the file.
+     * @throws FileNotFoundException Thrown if the account list file cannot be found.
+     */
+    @SuppressWarnings("unchecked")
+    public static void updatePasswordInFile(Path file, Account currentAccount, String newPassword)
+            throws IllegalValueException, JAXBException, FileNotFoundException {
+        requireNonNull(file);
+        requireNonNull(currentAccount);
+        requireNonNull(newPassword);
+
+        if (!Files.exists(file)) {
+            throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
+        }
+
+        JAXBContext context = JAXBContext.newInstance(XmlSerializableAccountList.class);
+
+        // read old file
+        Unmarshaller um = context.createUnmarshaller();
+        XmlSerializableAccountList currentList = (XmlSerializableAccountList) um.unmarshal(file.toFile());
+
+        // update password
+        AccountList accountList = currentList.toModelType();
+        accountList.updatePassword(currentAccount, newPassword);
+        XmlSerializableAccountList newUpdatedList = new XmlSerializableAccountList(accountList);
+
+        // overwrite old file
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        m.marshal(newUpdatedList, file.toFile());
+    }
 }
