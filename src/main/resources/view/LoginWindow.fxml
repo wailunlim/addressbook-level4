@@ -47,10 +47,10 @@
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
-                            <Label fx:id="statusPlaceholder" alignment="CENTER" prefHeight="19.0" prefWidth="601.0"
+                            <Label fx:id="statusPlaceholder" alignment="CENTER" wrapText="true" prefHeight="200.0" prefWidth="1000.0"
                                    text="Welcome! Enter the login command below.">
                                 <font>
-                                    <Font size="20.0" />
+                                    <Font size="16.0" />
                                 </font>
                             </Label>
                         </StackPane>
