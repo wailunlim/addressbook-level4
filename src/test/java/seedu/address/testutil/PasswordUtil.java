@@ -4,6 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import seedu.address.logic.security.PasswordAuthentication;
 
+/**
+ * A utility class for password related methods
+ */
 public class PasswordUtil {
     /**
      * Assert that the given plainTextPassword corresponds to the hashedpassword supplied.

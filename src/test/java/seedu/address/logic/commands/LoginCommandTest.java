@@ -14,7 +14,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.account.Account;
-import seedu.address.model.account.Role;
 import seedu.address.testutil.TypicalAccount;
 
 public class LoginCommandTest {
