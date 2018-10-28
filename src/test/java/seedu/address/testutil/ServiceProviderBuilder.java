@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.contact.Address;
@@ -8,6 +10,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -26,6 +29,7 @@ public class ServiceProviderBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Map<String, Service> services;
     private int id;
 
     public ServiceProviderBuilder() {
@@ -34,6 +38,7 @@ public class ServiceProviderBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        services = new HashMap<>();
         id = 0;
     }
 
@@ -46,6 +51,7 @@ public class ServiceProviderBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        services = new HashMap<>(contactToCopy.getServices());
         id = contactToCopy.getId();
     }
 
@@ -98,7 +104,7 @@ public class ServiceProviderBuilder {
     }
 
     public Contact build() {
-        return new ServiceProvider(name, phone, email, address, tags, id);
+        return new ServiceProvider(name, phone, email, address, tags, services, id);
     }
 
 }

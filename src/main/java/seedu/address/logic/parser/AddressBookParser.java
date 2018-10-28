@@ -151,6 +151,10 @@ public class AddressBookParser {
             return new UpdateCommandParser(ContactType.CLIENT)
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
+        case "client addservice":
+            return new AddServiceCommandParser(ContactType.CLIENT)
+                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+
         case "serviceprovider add":
             return new AddServiceProviderCommandParser().parse(arguments);
 
@@ -163,6 +167,10 @@ public class AddressBookParser {
 
         case "serviceprovider update":
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
+                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+
+        case "serviceprovider addservice":
+            return new AddServiceCommandParser(ContactType.CLIENT)
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         default:
