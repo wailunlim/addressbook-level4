@@ -157,6 +157,10 @@ public class ModelManager extends ComponentManager implements Model {
         return userAccount != null;
     }
 
+    @Override
+    public void commitUserLoggedOutSuccessfully() {
+        userAccount = null;
+    }
 
     @Override
     public boolean equals(Object obj) {

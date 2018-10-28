@@ -169,6 +169,11 @@ public class AddCommandTest {
         public boolean isUserLogIn() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitUserLoggedOutSuccessfully() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

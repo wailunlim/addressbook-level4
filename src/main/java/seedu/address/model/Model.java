@@ -99,4 +99,9 @@ public interface Model {
      * @return true if user has logged in successfully, false otherwise.
      */
     boolean isUserLogIn();
+
+    /**
+     * The user has logged out of his account successfully.
+     */
+    void commitUserLoggedOutSuccessfully();
 }
