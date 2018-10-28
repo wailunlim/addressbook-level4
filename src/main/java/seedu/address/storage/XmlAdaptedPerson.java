@@ -76,6 +76,21 @@ public class XmlAdaptedPerson {
     }
 
     /**
+     * Constructs an {@code XmlAdaptedPerson} with the given client details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            ContactType type) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        this.type = type;
+    }
+
+    /**
      * Converts a given Client into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
@@ -162,10 +177,10 @@ public class XmlAdaptedPerson {
         }
 
         if (type.equals(ContactType.CLIENT)) {
-            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
+            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         }
         if (type.equals(ContactType.SERVICE_PROVIDER)) {
-            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
+            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         }
 
         throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");

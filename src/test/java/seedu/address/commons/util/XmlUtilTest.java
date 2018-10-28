@@ -20,6 +20,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.account.Account;
 import seedu.address.storage.XmlAdaptedPerson;
+import seedu.address.storage.XmlAdaptedService;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAccountList;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -44,7 +45,10 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS =
+            Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedService> VALID_SERVICES =
+            Collections.singletonList(new XmlAdaptedService("photographer $200"));
     private static final XmlAdaptedPerson.ContactType VALID_CONTACT_TYPE = XmlAdaptedPerson.ContactType.CLIENT;
 
     private static final Path VALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlist.xml");
