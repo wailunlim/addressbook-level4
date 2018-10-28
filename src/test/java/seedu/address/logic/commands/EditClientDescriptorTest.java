@@ -19,7 +19,8 @@ public class EditClientDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        UpdateCommand.EditContactDescriptor descriptorWithSameValues = new UpdateCommand.EditContactDescriptor(DESC_AMY);
+        UpdateCommand.EditContactDescriptor descriptorWithSameValues =
+                new UpdateCommand.EditContactDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
