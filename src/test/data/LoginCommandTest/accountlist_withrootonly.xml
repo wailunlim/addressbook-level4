@@ -2,7 +2,7 @@
 <accountmanager>
     <accounts>
         <username>rootUser</username>
-        <password>rootPassword</password>
+        <password>$31$16$nboNXKlrmU8_FEMLMWJ7g08DE2Pj0smRiR6rWxKjMqY</password>
         <role>SUPER_USER</role>
     </accounts>
 </accountmanager>

@@ -12,7 +12,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 import seedu.address.storage.XmlSerializableAccountList;
 
@@ -76,17 +75,17 @@ public class XmlUtil {
     /**
      * Update the user with the {@code currentAccount} to the new password.
      * @param file The valid xml file containing the account list stored.
-     * @param currentAccount The associated Account of which the password is to be changed.
+     * @param username The associated username of which the password is to be changed.
      * @param newPassword The new password to change to
      * @throws IllegalValueException Thrown if duplicated account was found in the account list.
      * @throws JAXBException Thrown if there is an error during converting the data
      * into xml and writing to the file.
      * @throws FileNotFoundException Thrown if the account list file cannot be found.
      */
-    public static void updatePasswordInFile(Path file, Account currentAccount, String newPassword)
+    public static void updatePasswordInFile(Path file, String username, String newPassword)
             throws IllegalValueException, JAXBException, FileNotFoundException {
         requireNonNull(file);
-        requireNonNull(currentAccount);
+        requireNonNull(username);
         requireNonNull(newPassword);
 
         if (!Files.exists(file)) {
@@ -101,7 +100,8 @@ public class XmlUtil {
 
         // update password
         AccountList accountList = currentList.toModelType();
-        accountList.updatePassword(currentAccount, newPassword);
+
+        accountList.updatePassword(username, newPassword);
         XmlSerializableAccountList newUpdatedList = new XmlSerializableAccountList(accountList);
 
         // overwrite old file

@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalAccount.ROOTACCOUNT;
 import static seedu.address.testutil.TypicalAccount.ROSE;
 import static seedu.address.testutil.TypicalAccount.SIMUN;
@@ -19,6 +20,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
+import seedu.address.model.account.Role;
 import seedu.address.testutil.TypicalAccount;
 
 public class XmlSerializableAccountListTest {
@@ -35,8 +37,14 @@ public class XmlSerializableAccountListTest {
         XmlSerializableAccountList dataFromFile = XmlUtil.getDataFromFile(TYPICAL_ACCOUNT_FILE,
                 XmlSerializableAccountList.class);
         AccountList accountListFromFile = dataFromFile.toModelType();
-        AccountList typicalAccountAccountList = TypicalAccount.getTypicalAccountList();
-        assertEquals(accountListFromFile, typicalAccountAccountList);
+        AccountList typicalAccountAccountList = new AccountList();
+        typicalAccountAccountList.addAccount(new Account("rootUser", "rootPassword", Role.SUPER_USER));
+        typicalAccountAccountList.addAccount(new Account("simun", "@myPassword", Role.SUPER_USER));
+        typicalAccountAccountList.addAccount(new Account("whiterose", "@myPassword", Role.SUPER_USER));
+
+        for (Account account : typicalAccountAccountList.getList()) {
+            assertTrue(accountListFromFile.hasUsernameAndPassword(account.getUserName(), account.getPassword()));
+        }
     }
 
     @Test

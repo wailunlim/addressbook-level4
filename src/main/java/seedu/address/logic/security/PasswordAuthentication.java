@@ -32,7 +32,7 @@ public final class PasswordAuthentication {
      */
     public static final int DEFAULT_COST = 16;
 
-    private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
+    private static final String ALGORITHM = "PBKDF2WithHmacSHA512";
 
     private static final int SIZE = 128;
 
@@ -55,6 +55,11 @@ public final class PasswordAuthentication {
         int dummy = iterations(cost); /* Validate cost */
         this.cost = cost;
         this.random = new SecureRandom();
+    }
+
+    public static String getHashedPasswordFromPlainText(String plainText) {
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+        return passwordAuthentication.hash(plainText.toCharArray());
     }
 
     /**
@@ -89,9 +94,7 @@ public final class PasswordAuthentication {
      * <p>Passwords should be stored in a {@code char[]} so that it can be filled
      * with zeros after use instead of lingering on the heap and elsewhere.
      *
-     * @deprecated Use {@link #hash(char[])} instead
      */
-    @Deprecated
     public String hash(String password) {
         return hash(password.toCharArray());
     }

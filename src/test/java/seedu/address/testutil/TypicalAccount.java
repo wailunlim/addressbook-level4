@@ -25,6 +25,7 @@ public class TypicalAccount {
         for (Account account : getTypicalAccount()) {
             accountList.addAccount(account);
         }
+
         return accountList;
     }
 

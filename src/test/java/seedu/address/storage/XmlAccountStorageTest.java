@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.PasswordUtil.assertPasswordCorrect;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 import seedu.address.model.account.Role;
@@ -172,24 +174,23 @@ public class XmlAccountStorageTest {
         int indexOfRose = 2;
 
         try {
+            PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
             AccountList accountList = accountStorage.getAccountList();
             List<Account> list = accountList.getList();
-            assertTrue(list.get(indexOfRose).getPassword().equals(oldPassword));
+            assertPasswordCorrect(oldPassword, list.get(indexOfRose).getPassword());
 
             // change to new password
-            accountStorage.updateAccountPassword(account, newPassword);
+            accountStorage.updateAccountPassword(account.getUserName(), passwordAuthentication.hash(newPassword));
             accountList = accountStorage.getAccountList();
             list = accountList.getList();
-            assertFalse(list.get(indexOfRose).getPassword().equals(oldPassword));
-            assertTrue(list.get(indexOfRose).getPassword().equals(newPassword));
+            assertPasswordCorrect(newPassword, list.get(indexOfRose).getPassword());
 
             // change back to old password
             Account newAccount = new Account("whiterose", newPassword, Role.READ_ONLY_USER);
-            accountStorage.updateAccountPassword(newAccount, oldPassword);
+            accountStorage.updateAccountPassword(newAccount.getUserName(), passwordAuthentication.hash(oldPassword));
             accountList = accountStorage.getAccountList();
             list = accountList.getList();
-            assertFalse(list.get(indexOfRose).getPassword().equals(newPassword));
-            assertTrue(list.get(indexOfRose).getPassword().equals(oldPassword));
+            assertPasswordCorrect(oldPassword, list.get(indexOfRose).getPassword());
         } catch (DataConversionException | IOException e) {
             throw new AssertionError("File should exist and this line should not be called.", e);
         }

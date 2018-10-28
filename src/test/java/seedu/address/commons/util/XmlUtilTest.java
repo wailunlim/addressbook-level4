@@ -1,7 +1,7 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static seedu.address.testutil.PasswordUtil.assertPasswordCorrect;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.AddressBook;
 import seedu.address.model.account.Account;
 import seedu.address.storage.XmlAdaptedPerson;
@@ -53,9 +54,13 @@ public class XmlUtilTest {
     private static final Path EMPTYPASSWORD_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlistEmptyPassword.xml");
     private static final Path EMPTYROLE_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlistEmptyRole.xml");
 
-    private static final Account ACCOUNT = TypicalAccount.ROSE;
+    private static final String USERNAME = "whiterose";
     private static final String OLD_PASSWORD = "@myPassword";
+    private static final String OLD_HASHEDPASSWORD =
+            PasswordAuthentication.getHashedPasswordFromPlainText(OLD_PASSWORD);
     private static final String NEW_PASSWORD = "someN3wP@ssw0rd";
+    private static final String NEW_HASHEDPASSWORD =
+            PasswordAuthentication.getHashedPasswordFromPlainText(NEW_PASSWORD);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -155,11 +160,11 @@ public class XmlUtilTest {
     @Test
     public void updatePasswordInFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.updatePasswordInFile(null, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(null, USERNAME, NEW_PASSWORD);
     }
 
     @Test
-    public void updatePasswordInFile_nullAccount_throwsNullPointerException() throws Exception {
+    public void updatePasswordInFile_nullUsername_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, null, NEW_PASSWORD);
     }
@@ -167,37 +172,37 @@ public class XmlUtilTest {
     @Test
     public void updatePasswordInFile_nullPassword_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, ACCOUNT, null);
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, USERNAME, null);
     }
 
     @Test
     public void updatePasswordInFile_invalidFile_throwsFileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.updatePasswordInFile(INVALID_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(INVALID_ACCOUNTFILE, USERNAME, NEW_PASSWORD);
     }
 
     @Test
     public void updatePasswordInFile_emptyFile_throwsDataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.updatePasswordInFile(EMPTY_FILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(EMPTY_FILE, USERNAME, NEW_PASSWORD);
     }
 
     @Test
     public void updatePasswordInFile_emptyUsername_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        XmlUtil.updatePasswordInFile(EMPTYUSERNAME_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(EMPTYUSERNAME_ACCOUNTFILE, USERNAME, NEW_PASSWORD);
     }
 
     @Test
     public void updatePasswordInFile_emptyPassword_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        XmlUtil.updatePasswordInFile(EMPTYPASSWORD_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(EMPTYPASSWORD_ACCOUNTFILE, USERNAME, NEW_PASSWORD);
     }
 
     @Test
     public void updatePasswordInFile_emptyRole_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        XmlUtil.updatePasswordInFile(EMPTYROLE_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(EMPTYROLE_ACCOUNTFILE, USERNAME, NEW_PASSWORD);
     }
 
     @Test
@@ -208,27 +213,25 @@ public class XmlUtilTest {
 
         // this is the old password before change
         String oldPassword = oldXmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
-        assertEquals(oldPassword, OLD_PASSWORD);
+        assertPasswordCorrect(OLD_PASSWORD, oldPassword);
 
         // change password to NEW_PASSWORD
-        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, USERNAME, NEW_HASHEDPASSWORD);
 
         // this is the new password after changing password
         XmlSerializableAccountList newXmlSerializableAccountList = XmlUtil
                 .getDataFromFile(VALID_ACCOUNTFILE, XmlSerializableAccountList.class);
 
         String newPassword = newXmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
-        assertNotEquals(newPassword, OLD_PASSWORD);
-        assertEquals(newPassword, NEW_PASSWORD);
+        assertPasswordCorrect(NEW_PASSWORD, newPassword);
 
         // change new password back to old password
         Account newAccount = new Account(TypicalAccount.ROSE.getUserName(), newPassword, TypicalAccount.ROSE.getRole());
-        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, newAccount, OLD_PASSWORD);
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, newAccount.getUserName(), OLD_HASHEDPASSWORD);
         XmlSerializableAccountList xmlSerializableAccountList = XmlUtil
                 .getDataFromFile(VALID_ACCOUNTFILE, XmlSerializableAccountList.class);
         String newPassword2 = xmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
-        assertNotEquals(newPassword2, newPassword);
-        assertEquals(newPassword2, OLD_PASSWORD);
+        assertPasswordCorrect(OLD_PASSWORD, newPassword2);
     }
 
     /**

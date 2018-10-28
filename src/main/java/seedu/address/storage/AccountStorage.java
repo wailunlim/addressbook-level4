@@ -60,5 +60,5 @@ public interface AccountStorage {
      */
     void populateRootAccountIfMissing(Account account);
 
-    void updateAccountPassword(Account currentAccount, String newPassword) throws FileNotFoundException;
+    void updateAccountPassword(String username, String newPassword) throws FileNotFoundException;
 }

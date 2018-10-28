@@ -1,8 +1,11 @@
 package seedu.address.model.account;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.logic.security.PasswordAuthentication;
 
 /**
  * AccountList represents the entire list of accounts that were created
@@ -43,13 +46,13 @@ public class AccountList {
 
     /**
      * Update the user associated with the {@code currentAccount} to the given password.
-     * @param currentAccount The user to update the password.
-     * @param newPassword The password to update the account
+     * @param username The username to update the account.
+     * @param plainTextPassword The password to update the account
      */
-    public void updatePassword(Account currentAccount, String newPassword) {
+    public void updatePassword(String username, String plainTextPassword) {
         for (Account account : accountList) {
-            if (account.equals(currentAccount)) {
-                account.setPassword(newPassword);
+            if (account.getUserName().equalsIgnoreCase(username)) {
+                account.setPassword(plainTextPassword);
             }
         }
     }
@@ -74,6 +77,25 @@ public class AccountList {
     public boolean hasAccount(Account account) {
         requireNonNull(account);
         return indexOfAccount(account) != -1;
+    }
+
+    /**
+     * Return true if the account list contains the username, and the password provided
+     * is also correct.
+     * @param username The username of the account
+     * @param plainTextPassword The plaintext password of the account
+     * @return True if the username and password matches an existing account in the account list.
+     */
+    public boolean hasUsernameAndPassword(String username, String plainTextPassword) {
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+
+        for (Account account : accountList) {
+            if (account.getUserName().equalsIgnoreCase(username)
+                    && passwordAuthentication.authenticate(plainTextPassword.toCharArray(), account.getPassword())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
