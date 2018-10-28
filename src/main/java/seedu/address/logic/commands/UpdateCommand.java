@@ -111,10 +111,11 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
+     * Creates and returns a {
+     * @code Contact} with the details of {@code contactToEdit}
      * edited with {@code editContactDescriptor}.
      */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
+    public static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
                                                ContactType contactType) {
         assert contactToEdit != null;
 
