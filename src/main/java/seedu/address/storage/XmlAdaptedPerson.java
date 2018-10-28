@@ -177,10 +177,10 @@ public class XmlAdaptedPerson {
         }
 
         if (type.equals(ContactType.CLIENT)) {
-            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
         if (type.equals(ContactType.SERVICE_PROVIDER)) {
-            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
 
         throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");

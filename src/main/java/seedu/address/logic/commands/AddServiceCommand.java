@@ -31,7 +31,9 @@ public class AddServiceCommand extends Command {
             + PREFIX_COST + "COST (excluding '$') \n"
             + "Example: " + "client#3 " + COMMAND_WORD + " "
             + PREFIX_SERVICE + "photographer "
-            + PREFIX_COST + "1000 ";
+            + PREFIX_COST + "1000 \n"
+            + Service.MESSAGE_SERVICE_NAME_CONSTRAINTS + "\n"
+            + Service.MESSAGE_SERVICE_COST_CONSTRAINTS;
 
     public static final String MESSAGE_ADD_SERVICE_SUCCESS = "New service added for : %1$s \n" + "Service: %2$s";
     public static final String MESSAGE_DUPLICATE_SERVICE = "This service has already been added";

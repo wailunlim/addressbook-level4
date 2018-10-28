@@ -50,6 +50,12 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
         Optional<String> serviceCost = argMultimap.getValue(PREFIX_COST);
 
         if (serviceName.isPresent() && serviceCost.isPresent()) {
+            if (!Service.isValidServiceName(serviceName.get())) {
+                throw new ParseException(Service.MESSAGE_SERVICE_NAME_CONSTRAINTS);
+            }
+            if (!Service.isValidServiceCost(parseInt(serviceCost.get()))) {
+                throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
+            }
             Service service = new Service(serviceName.get(), parseInt(serviceCost.get()));
             return new AddServiceCommand(index, service, contactType);
         }
