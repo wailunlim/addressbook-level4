@@ -51,7 +51,7 @@ public class UpdateCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser(ContactType.CLIENT);
+    private UpdateCommandParser parser = new UpdateCommandParser(ContactType.CLIENT);
 
     @Test
     public void parse_missingParts_failure() {

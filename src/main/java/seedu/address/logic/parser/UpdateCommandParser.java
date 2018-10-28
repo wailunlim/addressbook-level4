@@ -22,10 +22,10 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new UpdateCommand object
  */
-public class EditCommandParser implements Parser<UpdateCommand> {
+public class UpdateCommandParser implements Parser<UpdateCommand> {
     private final ContactType contactType;
 
-    public EditCommandParser(ContactType contactType) {
+    public UpdateCommandParser(ContactType contactType) {
         this.contactType = contactType;
     }
 
