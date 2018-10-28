@@ -19,7 +19,8 @@ public class EditClientDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditContactDescriptor descriptorWithSameValues = new EditCommand.EditContactDescriptor(DESC_AMY);
+        UpdateCommand.EditContactDescriptor descriptorWithSameValues =
+                new UpdateCommand.EditContactDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +36,7 @@ public class EditClientDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditContactDescriptor editedAmy = new EditContactDescriptorBuilder(DESC_AMY)
+        UpdateCommand.EditContactDescriptor editedAmy = new EditContactDescriptorBuilder(DESC_AMY)
                 .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
