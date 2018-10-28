@@ -33,7 +33,8 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class EditCommand extends Command {
+public class UpdateCommand extends Command {
+
 
     public static final String COMMAND_WORD = "update";
 
@@ -63,7 +64,7 @@ public class EditCommand extends Command {
      * @param editContactDescriptor details to edit the contact with
      * @param contactType
      */
-    public EditCommand(Index index, EditContactDescriptor editContactDescriptor, ContactType contactType) {
+    public UpdateCommand(Index index, EditContactDescriptor editContactDescriptor, ContactType contactType) {
         requireNonNull(index);
         requireNonNull(editContactDescriptor);
 
@@ -139,12 +140,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof UpdateCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        UpdateCommand e = (UpdateCommand) other;
         return index.equals(e.index)
                 && editContactDescriptor.equals(e.editContactDescriptor);
     }

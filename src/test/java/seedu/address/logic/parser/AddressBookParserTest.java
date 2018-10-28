@@ -29,6 +29,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ContactType;
 import seedu.address.model.contact.Contact;
@@ -112,10 +113,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Contact contact = new ClientBuilder().build();
-        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        EditCommand command = (EditCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
-                + " " + EditCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
+        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        UpdateCommand command = (UpdateCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
+                + " " + UpdateCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
     }
 
     @Test

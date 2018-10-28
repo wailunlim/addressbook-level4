@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
+import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.UpdateCommand.EditContactDescriptor;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -18,10 +18,10 @@ import seedu.address.model.tag.Tag;
  */
 public class EditContactDescriptorBuilder {
 
-    private EditCommand.EditContactDescriptor descriptor;
+    private UpdateCommand.EditContactDescriptor descriptor;
 
     public EditContactDescriptorBuilder() {
-        descriptor = new EditCommand.EditContactDescriptor();
+        descriptor = new UpdateCommand.EditContactDescriptor();
     }
 
     public EditContactDescriptorBuilder(EditContactDescriptor descriptor) {
@@ -82,7 +82,7 @@ public class EditContactDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditContactDescriptor build() {
+    public UpdateCommand.EditContactDescriptor build() {
         return descriptor;
     }
 }
