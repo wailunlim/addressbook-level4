@@ -34,9 +34,9 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Address;
