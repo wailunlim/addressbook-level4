@@ -14,7 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.account.Account;
-import seedu.address.testutil.TypicalAccount;
+import seedu.address.model.account.Role;
 
 public class LoginCommandTest {
 
@@ -65,12 +65,12 @@ public class LoginCommandTest {
 
     @Test
     public void execute_userRegisteredAccountSucceed() {
-        Account simun = TypicalAccount.SIMUN;
+        Account simun = new Account("simun", "@myPassword", Role.SUPER_USER);
         LoginCommand loginCommandSimun = new LoginCommand(simun.getUserName(), simun.getPassword(),
                 ACCOUNTLIST_WITSELFREGISTEREDACCOUNT);
         assertCommandSuccess(loginCommandSimun, model, commandHistory, LoginCommand.MESSAGE_SUCCESS, expectedModel);
 
-        Account rose = TypicalAccount.ROSE;
+        Account rose = new Account("whiterose", "@myPassword", Role.SUPER_USER);
         LoginCommand loginCommandRose = new LoginCommand(rose.getUserName(), rose.getPassword(),
                 ACCOUNTLIST_WITSELFREGISTEREDACCOUNT);
         assertCommandSuccess(loginCommandRose, model, commandHistory, LoginCommand.MESSAGE_SUCCESS, expectedModel);
