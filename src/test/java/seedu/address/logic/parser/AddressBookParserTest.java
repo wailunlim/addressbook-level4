@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -64,10 +64,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Contact contact = new ClientBuilder().build();
-        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        EditCommand command = (EditCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
-                + " " + EditCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
+        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        UpdateCommand command = (UpdateCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
+                + " " + UpdateCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
     }
 
     @Test
