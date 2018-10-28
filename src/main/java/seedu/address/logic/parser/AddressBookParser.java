@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -60,21 +61,16 @@ public class AddressBookParser {
         }
     }
 
-    private String requireStringNonNull(String str) throws ParseException {
-        if (str == null) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-
-        return str;
-    }
-
+    /**
+     * Combines the first and second words to form the command word.
+     */
     private String getCommandWord(String firstWord, String secondWord) {
         String commandWord;
 
         if (secondWord == null) {
             commandWord = firstWord;
         } else {
-            commandWord =  String.format("%s %s", firstWord, secondWord.trim());
+            commandWord = String.format("%s %s", firstWord, secondWord.trim());
         }
 
         return commandWord;
@@ -129,7 +125,7 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-            
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
@@ -137,28 +133,28 @@ public class AddressBookParser {
             return new AddClientCommandParser().parse(arguments);
 
         case "client delete":
-            return new DeleteCommandParser(ContactType.CLIENT).parse(requireStringNonNull(identifier).substring(1));
+            return new DeleteCommandParser(ContactType.CLIENT).parse(requireNonNull(identifier).substring(1));
 
         case "client list":
             return new ListClientCommandParser().parse(arguments);
 
         case "client update":
             return new EditCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireStringNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         case "serviceprovider add":
             return new AddServiceProviderCommandParser().parse(arguments);
 
         case "serviceprovider delete":
             return new DeleteCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(requireStringNonNull(identifier).substring(1));
+                    .parse(requireNonNull(identifier).substring(1));
 
         case "serviceprovider list":
             return new ListServiceProviderCommandParser().parse(arguments);
 
         case "serviceprovider update":
             return new EditCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireStringNonNull(identifier). substring(1), arguments));
+                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

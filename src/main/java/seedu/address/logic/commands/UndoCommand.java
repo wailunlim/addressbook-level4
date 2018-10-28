@@ -24,7 +24,7 @@ public class UndoCommand extends Command {
         }
 
         model.undoAddressBook();
-//        model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        // model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

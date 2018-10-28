@@ -33,8 +33,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class
-EditCommand extends Command {
+public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
