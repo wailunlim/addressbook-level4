@@ -15,7 +15,6 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Service;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedClientTest {
@@ -122,16 +121,16 @@ public class XmlAdaptedClientTest {
                         VALID_CONTACT_TYPE);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
-//
-//    @Test
-//    public void toModelType_invalidServices_throwsIllegalValueException() {
-//        List<XmlAdaptedService> invalidServices = new ArrayList<>(VALID_SERVICES);
-//        invalidServices.add(INVALID_SERVICE);
-//        XmlAdaptedPerson person =
-//                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, invalidServices,
-//                        VALID_CONTACT_TYPE);
-//        Assert.assertThrows(IllegalValueException.class, person::toModelType);
-//    }
+
+    @Test
+    public void toModelType_invalidServices_throwsIllegalValueException() {
+        List<XmlAdaptedService> invalidServices = new ArrayList<>(VALID_SERVICES);
+        invalidServices.add(INVALID_SERVICE);
+        XmlAdaptedPerson person =
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, invalidServices,
+                        VALID_CONTACT_TYPE);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
+    }
 
     @Test
     public void toModelType_invalidType_throwsIllegalValueException() {
