@@ -21,7 +21,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.account.Account;
 import seedu.address.model.contact.Contact;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
 
 public class AddCommandTest {
@@ -34,38 +35,61 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullContact_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Contact validContact = new PersonBuilder().build();
+    public void execute_clientAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Contact validContact = new ClientBuilder().build();
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validContact), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Contact validContact = new PersonBuilder().build();
+    public void execute_serviceProviderAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
+        Contact validContact = new ServiceProviderBuilder().build();
+
+        CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateClient_throwsCommandException() throws Exception {
+        Contact validContact = new ClientBuilder().build();
         AddCommand addCommand = new AddCommand(validContact);
-        ModelStub modelStub = new ModelStubWithPerson(validContact);
+        ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_duplicateServiceProvider_throwsCommandException() throws Exception {
+        Contact validContact = new ServiceProviderBuilder().build();
+        AddCommand addCommand = new AddCommand(validContact);
+        ModelStub modelStub = new ModelStubWithContact(validContact);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Contact alice = new PersonBuilder().withName("Alice").build();
-        Contact bob = new PersonBuilder().withName("Bob").build();
+        Contact alice = new ClientBuilder().withName("Alice").build();
+        Contact bob = new ClientBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -172,12 +196,12 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single client.
+     * A Model stub that contains a single contact.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithContact extends ModelStub {
         private final Contact contact;
 
-        ModelStubWithPerson(Contact contact) {
+        ModelStubWithContact(Contact contact) {
             requireNonNull(contact);
             this.contact = contact;
         }
@@ -197,19 +221,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the client being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Contact> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingContactAdded extends ModelStub {
+        final ArrayList<Contact> contactsAdded = new ArrayList<>();
 
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return personsAdded.stream().anyMatch(contact::isSameContact);
+            return contactsAdded.stream().anyMatch(contact::isSameContact);
         }
 
         @Override
         public void addContact(Contact contact) {
             requireNonNull(contact);
-            personsAdded.add(contact);
+            contactsAdded.add(contact);
         }
 
         @Override

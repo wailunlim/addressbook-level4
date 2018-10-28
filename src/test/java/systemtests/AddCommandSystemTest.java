@@ -21,13 +21,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.AMY;
+import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalContacts.CARL;
+import static seedu.address.testutil.TypicalContacts.HOON;
+import static seedu.address.testutil.TypicalContacts.IDA;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
@@ -75,7 +75,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a client with all fields same as another client in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new ClientBuilder(AMY).withName(VALID_NAME_BOB).build();
         //TODO: update command
         command = "client " + AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
@@ -84,7 +84,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a client with all fields same as another client in the address book except phone and email
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new ClientBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -117,26 +117,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate client -> rejected */
         command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: add a duplicate client except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new ClientBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: add a duplicate client except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new ClientBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: add a duplicate client except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new ClientBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: add a duplicate client except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: missing name -> rejected */
         command = "client " + AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;

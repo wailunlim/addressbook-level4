@@ -9,20 +9,20 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.contact.Contact;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 public class ClientCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Contact contactWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Contact contactWithNoTags = new ClientBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(contactWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, contactWithNoTags, 1);
 
         // with tags
-        Contact contactWithTags = new PersonBuilder().build();
+        Contact contactWithTags = new ClientBuilder().build();
         personCard = new PersonCard(contactWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, contactWithTags, 2);
@@ -30,7 +30,7 @@ public class ClientCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ClientBuilder().build();
         PersonCard personCard = new PersonCard(contact, 0);
 
         // same client, same index -> returns true
@@ -47,7 +47,7 @@ public class ClientCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(0));
 
         // different client, same index -> returns false
-        Contact differentContact = new PersonBuilder().withName("differentName").build();
+        Contact differentContact = new ClientBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentContact, 0)));
 
         // same client, different index -> returns false

@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -21,7 +21,10 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
-        assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
+        assertCommandFailure("     " + ClearCommand.COMMAND_WORD + " ab 1324151 ", MESSAGE_UNKNOWN_COMMAND);
+        assertSelectedCardUnchanged();
+
+        assertCommandSuccess(" " + ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */

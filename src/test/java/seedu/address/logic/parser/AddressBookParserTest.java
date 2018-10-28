@@ -26,11 +26,12 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -41,7 +42,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Contact contact = new PersonBuilder().build();
+        Contact contact = new ClientBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
@@ -56,17 +57,17 @@ public class AddressBookParserTest {
     //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                "client " + DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD + " ");
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Contact contact = new PersonBuilder().build();
-        EditCommand.EditContactDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        Contact contact = new ClientBuilder().build();
+        EditCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        EditCommand command = (EditCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
+                + " " + EditCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
     }
 
     @Test

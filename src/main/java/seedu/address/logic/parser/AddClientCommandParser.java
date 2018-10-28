@@ -36,4 +36,5 @@ public class AddClientCommandParser extends AddCommandParser {
 
         return new AddCommand(contact);
     }
+
 }
