@@ -125,12 +125,6 @@ public class AddressBookParser {
         case LoginCommand.COMMAND_WORD:
             throw new ParseException("Already logged in.");
 
-        case EditPasswordCommand.COMMAND_WORD:
-            return new EditPasswordCommandParser().parse(arguments);
-
-        case LogoutCommand.COMMAND_WORD:
-            return new LogoutCommand();
-
         case EditCommand.COMMAND_WORD:
             //TODO: edit command right now does edits to current list showing.
             //TODO: syntax for command should be client#xx/serviceprovider#xx update ...
