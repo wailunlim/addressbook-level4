@@ -38,8 +38,6 @@ public class LoginWindow extends UiPart<Stage> {
     private Logic logic;
     private UserPrefs prefs;
     private ListElementPointer historySnapshot;
-
-    private MainWindow mainWindow;
     private HelpWindow helpWindow;
 
 

@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Login" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Login" minWidth="600" minHeight="450" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/address_book_32.png" />
     </icons>
@@ -48,11 +48,15 @@
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <Label fx:id="statusPlaceholder" alignment="CENTER" prefHeight="19.0" prefWidth="601.0"
-                                   text="Welcome! Enter the login command below." />
+                                   text="Welcome! Enter the login command below.">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
-                            <Region prefHeight="25.0" prefWidth="200.0" />
+                            <Region prefHeight="20.0" prefWidth="200.0" />
                         </StackPane>
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -61,7 +65,7 @@
                                        style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
                                                -fx-border-radius: 20;" focusTraversable="false">
                                 <font>
-                                    <Font size="15.0" />
+                                    <Font size="20.0" />
                                 </font>
                             </TextField>
                             <VBox.margin>
