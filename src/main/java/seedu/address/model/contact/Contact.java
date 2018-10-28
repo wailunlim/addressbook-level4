@@ -95,9 +95,9 @@ public abstract class Contact {
         return services;
     }
 
-    // Get the services of the contact in a list.
-    public List<Service> getServicesList() {
-        return new ArrayList<>(services.values());
+    // Get the services of the contact in a stream.
+    public Stream<Service> getServicesStream() {
+        return services.values().stream();
     }
 
     /**
