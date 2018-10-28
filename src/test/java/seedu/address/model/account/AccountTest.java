@@ -43,6 +43,16 @@ public class AccountTest {
     }
 
     @Test
+    public void transformToHashedAccountSuccess() {
+        String plainTextPassword = "plainTextPassword";
+        Account account = new Account("Username", plainTextPassword, Role.SUPER_USER);
+        assertTrue(account.getPassword().equals(plainTextPassword));
+
+        account.transformToHashedAccount();
+        assertFalse(account.getPassword().equals(plainTextPassword));
+    }
+
+    @Test
     public void equals() {
         Account account1 = new Account("testusername", "testP@ssw0rD", Role.SUPER_USER);
         Account account2 = new Account("testusername", "testP@ssw0rD", Role.SUPER_USER);
