@@ -7,8 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -83,7 +83,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_UNKNOWN_COMMAND, SelectCommand.MESSAGE_USAGE));
 
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",

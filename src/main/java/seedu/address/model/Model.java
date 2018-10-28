@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
-
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -14,7 +12,7 @@ import seedu.address.model.contact.Contact;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     //TODO: this predicate shows contacts only. javadocs is incorrect here but KIV first
-    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = CONTACT_FILTER_CLIENT;
+    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = contact -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -98,7 +96,7 @@ public interface Model {
      * Return true if user has logged in successfully, false otherwise.
      * @return true if user has logged in successfully, false otherwise.
      */
-    boolean isUserLogIn();
+    boolean isUserLoggedIn();
 
     /**
      * The user has logged out of his account successfully.

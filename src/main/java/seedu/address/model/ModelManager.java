@@ -153,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean isUserLogIn() {
+    public boolean isUserLoggedIn() {
         return userAccount != null;
     }
 

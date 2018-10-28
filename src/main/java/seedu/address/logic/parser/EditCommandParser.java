@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -17,12 +16,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ContactType;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+    private final ContactType contactType;
+
+    public EditCommandParser(ContactType contactType) {
+        this.contactType = contactType;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -30,7 +35,6 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
-        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -61,7 +65,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editPersonDescriptor, contactType);
     }
 
     /**

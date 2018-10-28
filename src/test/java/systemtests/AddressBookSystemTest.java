@@ -38,8 +38,9 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalContacts;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -84,7 +85,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalContacts.getTypicalAddressBook();
     }
 
     /**
@@ -140,10 +141,14 @@ public abstract class AddressBookSystemTest {
     /**
      * Displays all persons in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllClients() {
         //TODO: update the input to this
         executeCommand("client " + ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getContactList().size(), getModel().getFilteredContactList().size());
+        int currentSize = getModel().getFilteredContactList().size();
+
+        getModel().updateFilteredContactList(ContactType.CLIENT.getFilter());
+        int expectedSize = getModel().getFilteredContactList().size();
+        assertEquals(currentSize, expectedSize);
     }
 
     /**

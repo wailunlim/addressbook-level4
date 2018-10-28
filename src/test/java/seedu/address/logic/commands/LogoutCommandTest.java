@@ -18,9 +18,9 @@ public class LogoutCommandTest {
 
     @Test
     public void execute_success() {
-        assertTrue(model.isUserLogIn());
+        assertTrue(model.isUserLoggedIn());
         LogoutCommand logoutCommand = new LogoutCommand();
         assertCommandSuccess(logoutCommand, model, commandHistory, LogoutCommand.MESSAGE_SUCCESS, expectedModel);
-        assertFalse(model.isUserLogIn());
+        assertFalse(model.isUserLoggedIn());
     }
 }

@@ -3,11 +3,11 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.BENSON;
+import static seedu.address.testutil.TypicalContacts.CARL;
+import static seedu.address.testutil.TypicalContacts.DANIEL;
+import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 client found */
-        executeCommand("client " + DeleteCommand.COMMAND_WORD + " 1");
+        executeCommand("client#" + BENSON.getId() + " " + DeleteCommand.COMMAND_WORD);
         assertFalse(getModel().getAddressBook().getContactList().contains(BENSON));
         command = "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
@@ -133,7 +133,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find while a client is selected -> selected card deselected */
-        showAllPersons();
+        showAllClients();
         selectPerson(Index.fromOneBased(1));
         assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = "client " + ListCommand.COMMAND_WORD + " n/Daniel";

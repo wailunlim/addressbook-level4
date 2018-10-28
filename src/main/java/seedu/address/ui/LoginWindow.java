@@ -31,15 +31,13 @@ public class LoginWindow extends UiPart<Stage> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "LoginWindow.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private final Logger logger = LogsCenter.getLogger(LoginWindow.class);
 
     private Stage loginStage;
     private Config config;
     private Logic logic;
     private UserPrefs prefs;
     private ListElementPointer historySnapshot;
-
-    private MainWindow mainWindow;
     private HelpWindow helpWindow;
 
 
@@ -129,8 +127,7 @@ public class LoginWindow extends UiPart<Stage> {
             // handle command failure
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + loginCli.getText());
-            statusPlaceholder.setText("Invalid command: " + loginCli.getText());
-            raise(new NewResultAvailableEvent(e.getMessage()));
+            statusPlaceholder.setText(e.getMessage());
         }
     }
 

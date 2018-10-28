@@ -28,6 +28,8 @@ public class XmlAccountStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAccountStorageTest");
     private static final Path TEST_ACCOUNTLIST_PATH = Paths.get("src", "test", "data",
             "XmlAccountStorageTest", "accountlist.xml");
+    private static final Path TEST_ACCOUNTLIST_TOCHANGEPASSWORD = Paths.get("src", "test", "data",
+            "XmlAccountStorageTest", "accountlistToChangePassword.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -163,7 +165,7 @@ public class XmlAccountStorageTest {
 
     @Test
     public void updateAccountPassword_success() {
-        AccountStorage accountStorage = new XmlAccountStorage(TEST_ACCOUNTLIST_PATH);
+        AccountStorage accountStorage = new XmlAccountStorage(TEST_ACCOUNTLIST_TOCHANGEPASSWORD);
         String oldPassword = "@myPassword";
         String newPassword = "Somerand0mNewP@ssword";
         Account account = new Account("whiterose", oldPassword, Role.READ_ONLY_USER);
