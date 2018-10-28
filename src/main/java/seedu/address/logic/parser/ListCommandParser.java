@@ -50,6 +50,6 @@ public abstract class ListCommandParser implements Parser<ListCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> !argumentMultimap.getValue(prefix).orElse("").equals(""));
+        return Stream.of(prefixes).allMatch(prefix -> !argumentMultimap.getValue(prefix).orElse("empty").equals(""));
     }
 }
