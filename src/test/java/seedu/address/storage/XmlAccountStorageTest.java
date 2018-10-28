@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.account.Account;
