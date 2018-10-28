@@ -23,6 +23,22 @@ import seedu.address.model.contact.Contact;
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
 public class TypicalContacts {
+    // Manually added
+    public static final Contact HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
+            .withEmail("stefan@example.com").withAddress("little india").build();
+    public static final Contact IDA = new ClientBuilder().withName("Ida Mueller").withPhone("8482131")
+            .withEmail("hans@example.com").withAddress("chicago ave").build();
+
+    // Manually added - Client's details found in {@code CommandTestUtil}
+    public static final Contact AMY = new ClientBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Contact BOB = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .build();
+
+    // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "n/Meier";
+
     private static int clientId = 1;
     private static int serviceProviderId = 1;
 
@@ -48,21 +64,6 @@ public class TypicalContacts {
             .withEmail("lydia@example.com").withId(clientId++).withAddress("little tokyo").build();
     public static final Contact GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withId(clientId++).withAddress("4th street").build();
-
-    // Manually added
-    public static final Contact HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Contact IDA = new ClientBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
-
-    // Manually added - Client's details found in {@code CommandTestUtil}
-    public static final Contact AMY = new ClientBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Contact BOB = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "n/Meier"; // A keyword that matches MEIER
 
     // ServiceProviders below
     public static final Contact DOMINIC = new ServiceProviderBuilder().withName("Dominic Dong")
