@@ -62,12 +62,12 @@ public class EditPasswordCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         Account currentAccount = model.getUserAccount();
         String actualOldPassword = currentAccount.getPassword();
-System.out.println("gg:" + userTypedOldPassword + "  gg:" + actualOldPassword);
+
         if (!userTypedOldPassword.equals(actualOldPassword)) {
             throw new CommandException(MESSAGE_FAILURE_PASSWORDWRONG);
         }
 
-        if (userTypedOldPassword.equals(userTypedNewPassword)) {System.out.println("hh:" + userTypedOldPassword + "  gg:" + actualOldPassword);
+        if (userTypedOldPassword.equals(userTypedNewPassword)) {
 
             throw new CommandException(MESSAGE_FAILURE_SAMEPASSWORD);
         }
@@ -83,5 +83,13 @@ System.out.println("gg:" + userTypedOldPassword + "  gg:" + actualOldPassword);
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE_FILENOTFOUND);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditPasswordCommand // instanceof handles nulls
+                && userTypedOldPassword.equals(((EditPasswordCommand) other).userTypedOldPassword)
+                && userTypedNewPassword.equals(((EditPasswordCommand) other).userTypedNewPassword));
     }
 }

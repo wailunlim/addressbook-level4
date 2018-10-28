@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.account.Account;
 import seedu.address.storage.XmlSerializableAccountList;
-import seedu.address.testutil.TypicalAccount;
 
 public class EditPasswordCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
