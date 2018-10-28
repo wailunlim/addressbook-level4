@@ -12,6 +12,9 @@ import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building ServiceProvider objects.
+ */
 public class ServiceProviderBuilder {
     public static final String DEFAULT_NAME = "Dominic Dong";
     public static final String DEFAULT_PHONE = "999";
@@ -89,7 +92,7 @@ public class ServiceProviderBuilder {
     /**
      * Sets the {@code id} of the {@code ServiceProvider} that we are building.
      */
-    public ServiceProviderBuilder withID(int id) {
+    public ServiceProviderBuilder withId(int id) {
         this.id = id;
         return this;
     }

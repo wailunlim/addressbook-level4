@@ -69,37 +69,37 @@ public class TypicalContacts {
     public static final Contact DOMINIC = new ServiceProviderBuilder().withName("Dominic Dong")
             .withAddress("123, Jurong East Ave 6, #08-111").withEmail("dominicdong@example.com")
             .withPhone("94311253")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .withTags("friends").build();
     public static final Contact EEHOOI = new ServiceProviderBuilder().withName("Ng Ee Hooi")
             .withAddress("313, Clementi Ave 5, #02-25")
             .withEmail("eehooid@example.com").withPhone("98762432")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .withTags("owesMoney", "friends").build();
     public static final Contact GAN = new ServiceProviderBuilder().withName("Gan Chin Yao")
             .withAddress("313, Pioneer Ave 5, #02-25")
             .withEmail("gan@example.com").withPhone("18762432")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .build();
     public static final Contact JIANJIE = new ServiceProviderBuilder().withName("Liau Jian Jie")
             .withAddress("444, River Valley Ave 5, #02-25")
             .withEmail("jj@example.com").withPhone("93762432")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .build();
     public static final Contact WAILUN = new ServiceProviderBuilder().withName("Lim Wai Lun")
             .withAddress("313, Red Hill Ave 5, #02-25")
             .withEmail("wailunoob@example.com").withPhone("98761432")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .build();
     public static final Contact SIJI = new ServiceProviderBuilder().withName("Dong SiJi")
             .withAddress("313, Buona Vista Ave 5, #02-25")
             .withEmail("dong.siji@example.com").withPhone("91232432")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .build();
     public static final Contact CHINYAO = new ServiceProviderBuilder().withName("Chino")
             .withAddress("313, Pasir Ris Ave 5, #02-25")
             .withEmail("chinoyaobi@example.com").withPhone("98711132")
-            .withID(serviceProviderId++)
+            .withId(serviceProviderId++)
             .build();
 
 
