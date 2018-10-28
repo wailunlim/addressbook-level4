@@ -54,8 +54,8 @@ public class AccountTest {
 
     @Test
     public void equals() {
-        Account account1 = new Account("testusername", "testP@ssw0rD", Role.SUPER_USER);
-        Account account2 = new Account("testusername", "testP@ssw0rD", Role.SUPER_USER);
+        Account account1 = new Account("testusername", "testP@ssw0rD");
+        Account account2 = new Account("testusername", "testP@ssw0rD");
         assertEquals(account1, account2);
         Account account3 = new Account("TESTUserNaMe", "testP@ssw0rD", Role.SUPER_USER);
         assertEquals(account2, account3);

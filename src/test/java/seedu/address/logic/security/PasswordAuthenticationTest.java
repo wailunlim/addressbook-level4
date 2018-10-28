@@ -3,11 +3,16 @@ package seedu.address.logic.security;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class PasswordAuthenticationTest {
     private static final PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
     private static final String plainTextPassword = "plaintext";
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void hashIsWorking_success() {
@@ -25,5 +30,17 @@ public class PasswordAuthenticationTest {
     public void staticMethodWorking() {
         String hashed = PasswordAuthentication.getHashedPasswordFromPlainText(plainTextPassword);
         assertTrue(passwordAuthentication.authenticate(plainTextPassword.toCharArray(), hashed));
+    }
+
+    @Test
+    public void iteration_tooHigh_fail() {
+        thrown.expect(IllegalArgumentException.class);
+        new PasswordAuthentication(31);
+    }
+
+    @Test
+    public void iteration_negative_fail() {
+        thrown.expect(IllegalArgumentException.class);
+        new PasswordAuthentication(-1);
     }
 }

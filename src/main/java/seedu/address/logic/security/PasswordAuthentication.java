@@ -121,18 +121,6 @@ public final class PasswordAuthentication {
     }
 
     /**
-     * Authenticate with a password in an immutable {@code String} and a stored
-     * password token.
-     *
-     * @see #hash(String)
-     * @deprecated Use {@link #authenticate(char[], String)} instead.
-     */
-    @Deprecated
-    public boolean authenticate(String password, String token) {
-        return authenticate(password.toCharArray(), token);
-    }
-
-    /**
      * Use the pbkdf2 algorithm provided by java
      */
     private static byte[] pbkdf2(char[] password, byte[] salt, int iterations) {

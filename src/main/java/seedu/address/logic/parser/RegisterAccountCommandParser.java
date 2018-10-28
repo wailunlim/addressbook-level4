@@ -46,7 +46,7 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
                 Account account = new Account(username.get(), password.get(), Role.READ_ONLY_USER);
                 return new RegisterAccountCommand(account);
             } else {
-                throw new ParseException("Role should contains only \"superuser\" or \"readonlyuser\".");
+                throw new ParseException(RegisterAccountCommand.MESSAGE_INVALIDROLE);
             }
         }
 

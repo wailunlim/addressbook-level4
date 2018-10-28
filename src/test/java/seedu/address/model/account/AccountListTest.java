@@ -118,4 +118,14 @@ public class AccountListTest {
         assertFalse(list.get(0).getPassword().equals(newPassword));
         assertTrue(list.get(0).getPassword().equals(newPassword2));
     }
+
+    @Test
+    public void equals() {
+        AccountList accountList = new AccountList();
+        accountList.addAccount(new Account("user", "password"));
+
+        AccountList accountList2 = new AccountList();
+        accountList2.addAccount(new Account("user", "password"));
+        assertTrue(accountList.equals(accountList2));
+    }
 }

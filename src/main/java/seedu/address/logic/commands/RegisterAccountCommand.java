@@ -40,6 +40,8 @@ public class RegisterAccountCommand extends Command {
             + "or r/readonlyuser\" for role.";
     public static final String MESSAGE_FAILURE_FILENOTFOUND = "Failed to find the file to save account to.";
     public static final String MESSAGE_FAILURE_DUPLICATE = "Username is taken. Please try again with another username.";
+    public static final String MESSAGE_INVALIDROLE = "Role should contains only"
+            + "\"superuser\" or \"readonlyuser\".";
 
     private Account account;
     private Path accountListPath;
@@ -86,5 +88,12 @@ public class RegisterAccountCommand extends Command {
             }
             throw new CommandException(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RegisterAccountCommand // instanceof handles nulls
+                && account.equals(((RegisterAccountCommand) other).account));
     }
 }

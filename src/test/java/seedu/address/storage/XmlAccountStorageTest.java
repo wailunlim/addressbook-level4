@@ -16,13 +16,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 import seedu.address.model.account.Role;
 import seedu.address.testutil.TypicalAccount;
-
 
 public class XmlAccountStorageTest {
 
@@ -32,6 +32,8 @@ public class XmlAccountStorageTest {
             "XmlAccountStorageTest", "accountlist.xml");
     private static final Path TEST_ACCOUNTLIST_TOCHANGEPASSWORD = Paths.get("src", "test", "data",
             "XmlAccountStorageTest", "accountlistToChangePassword.xml");
+    private static final Path INVALID_ACCOUNTDATA = Paths.get("src", "test", "data",
+            "XmlAccountStorageTest", "InvalidUsernameAccountList.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -95,6 +97,13 @@ public class XmlAccountStorageTest {
         } catch (IOException | DataConversionException e) {
             throw new RuntimeException();
         }
+    }
+
+    @Test
+    public void saveAccount_catchDataConversionException() throws Exception {
+        thrown.expect(AssertionError.class);
+        AccountStorage accountStorage = new XmlAccountStorage(INVALID_ACCOUNTDATA);
+        accountStorage.saveAccount(TypicalAccount.ROSE);
     }
 
     @Test
@@ -163,6 +172,13 @@ public class XmlAccountStorageTest {
         } catch (DataConversionException | IOException e) {
             throw new AssertionError("There should not be an error saving to the file.", e);
         }
+    }
+
+    @Test
+    public void updateAccountPassword_catchIllegalValueException() throws Exception {
+        thrown.expect(AssertionError.class);
+        AccountStorage accountStorage = new XmlAccountStorage(INVALID_ACCOUNTDATA);
+        accountStorage.updateAccountPassword("username", "password");
     }
 
     @Test
