@@ -110,12 +110,22 @@ public class AccountListTest {
         List<Account> list = accountList.getList();
         assertTrue(list.get(0).getPassword().equals(oldPassword));
 
-        accountList.updatePassword(account, newPassword);
+        accountList.updatePassword(account.getUserName(), newPassword);
         assertFalse(list.get(0).getPassword().equals(oldPassword));
         assertTrue(list.get(0).getPassword().equals(newPassword));
 
-        accountList.updatePassword(account, newPassword2);
+        accountList.updatePassword(account.getUserName(), newPassword2);
         assertFalse(list.get(0).getPassword().equals(newPassword));
         assertTrue(list.get(0).getPassword().equals(newPassword2));
+    }
+
+    @Test
+    public void equals() {
+        AccountList accountList = new AccountList();
+        accountList.addAccount(new Account("user", "password"));
+
+        AccountList accountList2 = new AccountList();
+        accountList2.addAccount(new Account("user", "password"));
+        assertTrue(accountList.equals(accountList2));
     }
 }

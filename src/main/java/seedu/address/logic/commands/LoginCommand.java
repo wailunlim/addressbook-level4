@@ -38,27 +38,29 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_FAILURE = "Login failed. Please check your username or password and try again.";
     private static final Logger logger = LogsCenter.getLogger(LoginCommand.class);
 
-    private Account account;
+    private String username;
+    private String password;
     private Path accountListPath;
 
     /**
      * Create a new LoginCommand with default path to AccountList.
-     * @param accountWithUnknownPrivilege The account to login with this command.
      */
-    public LoginCommand(Account accountWithUnknownPrivilege) {
-        requireNonNull(accountWithUnknownPrivilege);
-        this.account = accountWithUnknownPrivilege;
+    public LoginCommand(String username, String password) {
+        requireNonNull(username);
+        requireNonNull(password);
+        this.username = username;
+        this.password = password;
         this.accountListPath = null;
     }
 
     /**
      * Create a new Login Command with the path to AccountList specified.
-     * @param account The account to login with this command.
-     * @param accountListPath The path to find the AccountList to compare the account with.
      */
-    public LoginCommand(Account account, Path accountListPath) {
-        requireNonNull(account);
-        this.account = account;
+    public LoginCommand(String username, String password, Path accountListPath) {
+        requireNonNull(username);
+        requireNonNull(password);
+        this.username = username;
+        this.password = password;
         this.accountListPath = accountListPath;
     }
 
@@ -70,10 +72,11 @@ public class LoginCommand extends Command {
 
         try {
             AccountList accountList = accountStorage.getAccountList();
-            int indexInList = accountList.indexOfAccount(account);
-            if (indexInList != -1) {
-                Role getUserAccountRole = accountList.getAccountRole(account.getUserName());
-                Account accountToCommit = new Account(account.getUserName(), account.getPassword(), getUserAccountRole);
+
+            if (accountList.hasUsernameAndPassword(username, password)) {
+                Role userAccountRole = accountList.getAccountRole(username);
+                Account accountToCommit = new Account(username, password, userAccountRole);
+                accountToCommit.transformToHashedAccount();
                 model.commitUserLoggedInSuccessfully(accountToCommit);
                 return new CommandResult(MESSAGE_SUCCESS);
             }
@@ -90,6 +93,7 @@ public class LoginCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoginCommand // instanceof handles nulls
-                && account.equals(((LoginCommand) other).account));
+                && username.equals(((LoginCommand) other).username)
+                && password.equals(((LoginCommand) other).password));
     }
 }

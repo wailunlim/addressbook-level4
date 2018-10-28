@@ -22,6 +22,7 @@ public class EditPasswordCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "Account");
     private static final Path VALID_ACCOUNTLIST = TEST_DATA_FOLDER.resolve("accountlist.xml");
+    private static final Path INVALID_FILEPATH = TEST_DATA_FOLDER.resolve("someinvalidpath.xml");
     private static final String OLD_PASSWORD = "@myPassword";
     private static final String NEW_PASSWORD = "SomeNewP@Ssw0rd";
 
@@ -69,6 +70,14 @@ public class EditPasswordCommandTest {
                 OLD_PASSWORD, VALID_ACCOUNTLIST);
         assertCommandFailure(editPasswordCommand, model, commandHistory,
                 EditPasswordCommand.MESSAGE_FAILURE_SAMEPASSWORD);
+    }
+
+    @Test
+    public void execute_fileNotFoundException() {
+        EditPasswordCommand editPasswordCommand = new EditPasswordCommand(OLD_PASSWORD,
+                NEW_PASSWORD, INVALID_FILEPATH);
+        assertCommandFailure(editPasswordCommand, model, commandHistory,
+                EditPasswordCommand.MESSAGE_FAILURE_FILENOTFOUND);
     }
 
     @Test

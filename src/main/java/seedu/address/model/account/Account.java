@@ -1,5 +1,7 @@
 package seedu.address.model.account;
 
+import seedu.address.logic.security.PasswordAuthentication;
+
 /**
  * Account class represents a single Account that comprises of a username,
  * password, and role associated with an account.
@@ -39,6 +41,10 @@ public class Account {
 
     public Role getRole() {
         return role;
+    }
+
+    public void transformToHashedAccount() {
+        this.password = PasswordAuthentication.getHashedPasswordFromPlainText(password);
     }
 
     /**

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
 import seedu.address.storage.AccountStorage;
@@ -61,14 +62,16 @@ public class EditPasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         Account currentAccount = model.getUserAccount();
+        String username = currentAccount.getUserName();
         String actualOldPassword = currentAccount.getPassword();
 
-        if (!userTypedOldPassword.equals(actualOldPassword)) {
+        PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
+
+        if (!passwordAuthentication.authenticate(userTypedOldPassword.toCharArray(), actualOldPassword)) {
             throw new CommandException(MESSAGE_FAILURE_PASSWORDWRONG);
         }
 
         if (userTypedOldPassword.equals(userTypedNewPassword)) {
-
             throw new CommandException(MESSAGE_FAILURE_SAMEPASSWORD);
         }
 
@@ -77,8 +80,10 @@ public class EditPasswordCommand extends Command {
                 : new XmlAccountStorage(accountListPath);
 
         try {
-            accountStorage.updateAccountPassword(currentAccount, userTypedNewPassword);
-            model.commiteUserChangedPasswordSuccessfully(userTypedNewPassword);
+            String hashedNewPassword = PasswordAuthentication.getHashedPasswordFromPlainText(userTypedNewPassword);
+
+            accountStorage.updateAccountPassword(username, hashedNewPassword);
+            model.commiteUserChangedPasswordSuccessfully(hashedNewPassword);
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE_FILENOTFOUND);

@@ -17,11 +17,15 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
@@ -35,6 +39,8 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
+    private static final String BLANK_SPACE = " ";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -51,6 +57,48 @@ public class AddressBookParserTest {
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_registeraccount() throws Exception {
+        assertTrue(parser.parseCommand(RegisterAccountCommand.COMMAND_WORD + BLANK_SPACE
+                + RegisterAccountCommand.PREFIX_USERNNAME + "user" + BLANK_SPACE
+                + RegisterAccountCommand.PREFIX_PASSWORD + "pass" + BLANK_SPACE
+                + RegisterAccountCommand.PREFIX_ROLE + "superuser") instanceof RegisterAccountCommand);
+    }
+
+    @Test
+    public void parseCommand_logoutCommand() throws Exception {
+        assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD) instanceof LogoutCommand);
+    }
+
+    @Test
+    public void parseCommand_editPasswordCommand() throws Exception {
+        assertTrue(parser.parseCommand(EditPasswordCommand.COMMAND_WORD + BLANK_SPACE
+                + EditPasswordCommand.PREFIX_OLDPASSWORD + "k2" + BLANK_SPACE
+                + EditPasswordCommand.PREFIX_NEWPASSWORD + "new" + BLANK_SPACE) instanceof EditPasswordCommand);
+    }
+
+    @Test
+    public void parseCommand_exitCommand_afterLoggedIn() throws Exception {
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_exitCommand_beforeLoggedIn() throws Exception {
+        assertTrue(parser.parseCommandBeforeLoggedIn(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_loginCommand() throws Exception {
+        assertTrue(parser.parseCommandBeforeLoggedIn(LoginCommand.COMMAND_WORD + BLANK_SPACE
+                + LoginCommand.PREFIX_USERNNAME + "rootUser" + BLANK_SPACE
+                + LoginCommand.PREFIX_PASSWORD + "rootPassword" + BLANK_SPACE) instanceof LoginCommand);
+    }
+
+    @Test
+    public void parseCommand_helpCommand_beforeLoggedIn() throws Exception {
+        assertTrue(parser.parseCommandBeforeLoggedIn(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
     }
 
     @Test

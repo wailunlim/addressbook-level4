@@ -17,7 +17,7 @@ public class LoginCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        LoginCommand loginCommand = new LoginCommand(rootAccount);
+        LoginCommand loginCommand = new LoginCommand(rootAccount.getUserName(), rootAccount.getPassword());
         assertParseSuccess(parser, BLANK_SPACE + LoginCommand.PREFIX_USERNNAME.getPrefix()
                 + rootAccount.getUserName() + BLANK_SPACE + LoginCommand.PREFIX_PASSWORD.getPrefix()
                 + rootAccount.getPassword(), loginCommand);

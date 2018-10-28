@@ -80,10 +80,11 @@ public class XmlAccountStorage implements AccountStorage {
         try {
             AccountList accountList = getAccountList();
 
+            account.transformToHashedAccount();
             accountList.getList().add(account);
             XmlFileStorage.saveAccountDataToFile(filePath, new XmlSerializableAccountList(accountList));
         } catch (DataConversionException e) {
-            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            throw new AssertionError("Illegal values found in " + filePath + ": " + e.getMessage());
         }
     }
 
@@ -95,18 +96,20 @@ public class XmlAccountStorage implements AccountStorage {
             try {
                 FileUtil.createFile(accountListPath);
                 AccountList accountList = new AccountList();
+                account.transformToHashedAccount();
                 accountList.addAccount(account);
                 XmlFileStorage.saveAccountDataToFile(accountListPath, new XmlSerializableAccountList(accountList));
             } catch (IOException e) {
                 logger.info("Account: Unable to create file or directory: " + accountListPath + e.getMessage());
+                throw new AssertionError("File not found" + e.getMessage(), e);
             }
         }
     }
 
     @Override
-    public void updateAccountPassword(Account currentAccount, String newPassword) throws FileNotFoundException {
+    public void updateAccountPassword(String username, String newPassword) throws FileNotFoundException {
         try {
-            XmlUtil.updatePasswordInFile(accountListPath, currentAccount, newPassword);
+            XmlUtil.updatePasswordInFile(accountListPath, username, newPassword);
         } catch (JAXBException | IllegalValueException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

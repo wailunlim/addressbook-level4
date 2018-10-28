@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.account.Account;
 
 /**
  * Parses input arguments
@@ -34,8 +33,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         Optional<String> password = argMultimap.getValue(LoginCommand.PREFIX_PASSWORD);
 
         if (username.isPresent() && password.isPresent()) {
-            Account account = new Account(username.get(), password.get());
-            return new LoginCommand(account);
+            return new LoginCommand(username.get(), password.get());
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
