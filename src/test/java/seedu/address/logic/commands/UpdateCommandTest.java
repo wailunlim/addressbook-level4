@@ -34,7 +34,8 @@ import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for UpdateCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * UpdateCommand.
  */
 public class UpdateCommandTest {
 
@@ -130,7 +131,8 @@ public class UpdateCommandTest {
     @Test
     public void execute_noFieldSpecifiedClientList_success() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(), ContactType.CLIENT);
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(),
+                ContactType.CLIENT);
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
