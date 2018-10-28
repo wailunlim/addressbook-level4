@@ -51,7 +51,7 @@ public class TestUtil {
      */
     public static Contact getPerson(Model model, Index index) {
         return model.getFilteredContactList().stream()
-                .filter(contact -> contact.getID() == index.getOneBased())
+                .filter(contact -> contact.getId() == index.getOneBased())
                 .findFirst()
                 .get();
     }

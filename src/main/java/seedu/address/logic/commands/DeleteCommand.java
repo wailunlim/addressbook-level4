@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
         }
 
         model.updateFilteredContactList(contactType.getFilter()
-                .and(contact -> contact.getID() == targetIndex.getOneBased()));
+                .and(contact -> contact.getId() == targetIndex.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 

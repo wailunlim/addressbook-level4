@@ -31,7 +31,7 @@ public abstract class Contact {
         this.tags.addAll(tags);
     }
 
-    public abstract int getID();
+    public abstract int getId();
 
     // Get the name of the contact
     public Name getName() {

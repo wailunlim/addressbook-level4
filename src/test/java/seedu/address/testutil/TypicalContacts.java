@@ -116,8 +116,7 @@ public class TypicalContacts {
     }
 
     public static List<Contact> getTypicalContacts() {
-        Client.CID = 1;
-        System.out.println(ALICE.getID());
+        Client.clientId = 1;
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE,
                 DOMINIC, EEHOOI, GAN, JIANJIE, WAILUN, SIJI, CHINYAO));
     }

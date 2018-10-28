@@ -184,7 +184,7 @@ public class DeleteCommandTest {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         assertTrue(!model.getFilteredContactList().contains(contactToDelete));
 
-        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getID()),
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
                 ContactType.SERVICE_PROVIDER);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);
@@ -206,7 +206,7 @@ public class DeleteCommandTest {
         model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         assertTrue(!model.getFilteredContactList().contains(contactToDelete));
 
-        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getID()),
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
                 ContactType.CLIENT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete);

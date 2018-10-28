@@ -82,7 +82,7 @@ public class EditCommand extends Command {
         }
 
         // id is unique
-        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getID() == index.getOneBased()));
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == index.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -119,7 +119,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
-        int id = contactToEdit.getID();
+        int id = contactToEdit.getId();
 
         //TODO take a look at this below vvvvv
         switch (contactType) {

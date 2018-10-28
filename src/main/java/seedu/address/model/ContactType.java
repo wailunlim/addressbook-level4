@@ -6,6 +6,10 @@ import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.serviceprovider.ServiceProvider;
 
+/**
+ * Specifies the different contact types. This enum includes the correct filter required to filter a specific
+ * contact type from a list of contacts of different contact types.
+ */
 public enum ContactType {
     CLIENT {
         @Override

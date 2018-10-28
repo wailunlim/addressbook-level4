@@ -47,7 +47,7 @@ public class ClientBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
-        id = contactToCopy.getID();
+        id = contactToCopy.getId();
     }
 
     /**

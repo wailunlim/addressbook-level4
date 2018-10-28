@@ -114,7 +114,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredContactList().size());
-        command = "client#" + getModel().getFilteredContactList().get(0).getID() + " " + EditCommand.COMMAND_WORD
+        command = "client#" + getModel().getFilteredContactList().get(0).getId() + " " + EditCommand.COMMAND_WORD
                 + " " + NAME_DESC_BOB;
         contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
         editedContact = new ClientBuilder(contactToEdit).withName(VALID_NAME_BOB).build();

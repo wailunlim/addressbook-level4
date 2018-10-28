@@ -32,7 +32,7 @@ public class ServiceProvider extends Contact {
         this.ID = ID;
     }
 
-    public int getID() {
+    public int getId() {
         return ID;
     }
 

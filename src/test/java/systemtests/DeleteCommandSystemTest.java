@@ -44,7 +44,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Model modelBeforeDeletingLast = getModel();
         modelBeforeDeletingLast.updateFilteredContactList(ContactType.CLIENT.getFilter());
         List<Contact> currentList = modelBeforeDeletingLast.getFilteredContactList();
-        Index lastPersonIndex = Index.fromOneBased(currentList.get(currentList.size() - 1).getID());
+        Index lastPersonIndex = Index.fromOneBased(currentList.get(currentList.size() - 1).getId());
         assertCommandSuccess(lastPersonIndex);
 
         /* Case: undo deleting the last client in the list -> last client restored */
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered client list, delete index within bounds of address book and client list -> deleted */
         // should delete relative to client list
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = Index.fromOneBased(getModel().getFilteredContactList().get(0).getID());
+        Index index = Index.fromOneBased(getModel().getFilteredContactList().get(0).getId());
         assertCommandSuccess(index);
 
         /* Case: filtered client list, delete index within bounds of address book but out of bounds of client list
