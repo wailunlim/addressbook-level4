@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -15,16 +16,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.account.Account;
+import seedu.address.model.account.AccountList;
+import seedu.address.model.account.Role;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedTag;
+import seedu.address.storage.XmlSerializableAccountList;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalAccount;
 
 public class XmlUtilTest {
-
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
@@ -42,6 +48,16 @@ public class XmlUtilTest {
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
     private static final XmlAdaptedPerson.ContactType VALID_CONTACT_TYPE = XmlAdaptedPerson.ContactType.CLIENT;
+
+    private static final Path VALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlist.xml");
+    private static final Path INVALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("randomInvalidPath.xml");
+    private static final Path EMPTYUSERNAME_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlistEmptyUsername.xml");
+    private static final Path EMPTYPASSWORD_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlistEmptyPassword.xml");
+    private static final Path EMPTYROLE_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlistEmptyRole.xml");
+
+    private static final Account ACCOUNT = TypicalAccount.ROSE;
+    private static final String OLD_PASSWORD = "@myPassword";
+    private static final String NEW_PASSWORD = "someN3wP@ssw0rd";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -138,11 +154,91 @@ public class XmlUtilTest {
         assertEquals(dataToWrite, dataFromFile);
     }
 
+    @Test
+    public void updatePasswordInFile_nullFile_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        XmlUtil.updatePasswordInFile(null, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_nullAccount_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, null, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_nullPassword_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, ACCOUNT, null);
+    }
+
+    @Test
+    public void updatePasswordInFile_invalidFile_throwsFileNotFoundException() throws Exception {
+        thrown.expect(FileNotFoundException.class);
+        XmlUtil.updatePasswordInFile(INVALID_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_emptyFile_throwsDataFormatMismatchException() throws Exception {
+        thrown.expect(JAXBException.class);
+        XmlUtil.updatePasswordInFile(EMPTY_FILE, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_emptyUsername_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        XmlUtil.updatePasswordInFile(EMPTYUSERNAME_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_emptyPassword_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        XmlUtil.updatePasswordInFile(EMPTYPASSWORD_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_emptyRole_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        XmlUtil.updatePasswordInFile(EMPTYROLE_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+    }
+
+    @Test
+    public void updatePasswordInFile_validFile_validResult() throws Exception {
+        int accountIndex = 2;
+        XmlSerializableAccountList oldXmlSerializableAccountList = XmlUtil
+                .getDataFromFile(VALID_ACCOUNTFILE, XmlSerializableAccountList.class);
+
+        // this is the old password before change
+        String oldPassword = oldXmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
+        assertEquals(oldPassword, OLD_PASSWORD);
+
+        // change password to NEW_PASSWORD
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, ACCOUNT, NEW_PASSWORD);
+
+        // this is the new password after changing password
+        XmlSerializableAccountList newXmlSerializableAccountList = XmlUtil
+                .getDataFromFile(VALID_ACCOUNTFILE, XmlSerializableAccountList.class);
+
+        String newPassword = newXmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
+        assertNotEquals(newPassword, OLD_PASSWORD);
+        assertEquals(newPassword, NEW_PASSWORD);
+
+        // change new password back to old password
+        Account newAccount = new Account(TypicalAccount.ROSE.getUserName(), newPassword, TypicalAccount.ROSE.getRole());
+        XmlUtil.updatePasswordInFile(VALID_ACCOUNTFILE, newAccount, OLD_PASSWORD);
+        XmlSerializableAccountList xmlSerializableAccountList = XmlUtil
+                .getDataFromFile(VALID_ACCOUNTFILE, XmlSerializableAccountList.class);
+        String newPassword2 = xmlSerializableAccountList.toModelType().getList().get(accountIndex).getPassword();
+        assertNotEquals(newPassword2, newPassword);
+        assertEquals(newPassword2, OLD_PASSWORD);
+    }
+
     /**
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
      * objects.
      */
     // TODO: change test cases to fit context
     @XmlRootElement(name = "person")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {
+    }
 }

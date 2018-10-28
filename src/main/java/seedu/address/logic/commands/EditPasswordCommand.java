@@ -11,6 +11,8 @@ import seedu.address.model.account.Account;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Edit the password of the user.
  */
@@ -41,12 +43,16 @@ public class EditPasswordCommand extends Command {
     private Path accountListPath;
 
     public EditPasswordCommand(String userTypedOldPassword, String userTypedNewPassword) {
+        requireNonNull(userTypedOldPassword);
+        requireNonNull(userTypedNewPassword);
         this.userTypedOldPassword = userTypedOldPassword;
         this.userTypedNewPassword = userTypedNewPassword;
         this.accountListPath = null;
     }
 
     public EditPasswordCommand(String userTypedOldPassword, String userTypedNewPassword, Path accountListPath) {
+        requireNonNull(userTypedOldPassword);
+        requireNonNull(userTypedNewPassword);
         this.userTypedOldPassword = userTypedOldPassword;
         this.userTypedNewPassword = userTypedNewPassword;
         this.accountListPath = accountListPath;
@@ -56,12 +62,13 @@ public class EditPasswordCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         Account currentAccount = model.getUserAccount();
         String actualOldPassword = currentAccount.getPassword();
-
+System.out.println("gg:" + userTypedOldPassword + "  gg:" + actualOldPassword);
         if (!userTypedOldPassword.equals(actualOldPassword)) {
             throw new CommandException(MESSAGE_FAILURE_PASSWORDWRONG);
         }
 
-        if (userTypedOldPassword.equals(userTypedNewPassword)) {
+        if (userTypedOldPassword.equals(userTypedNewPassword)) {System.out.println("hh:" + userTypedOldPassword + "  gg:" + actualOldPassword);
+
             throw new CommandException(MESSAGE_FAILURE_SAMEPASSWORD);
         }
 
