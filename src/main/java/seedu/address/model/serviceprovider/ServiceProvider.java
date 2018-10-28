@@ -14,9 +14,9 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ServiceProvider extends Contact {
-    public static int SPID = 1;
+    private static int serviceProviderId = 1;
 
-    private final int ID;
+    private final int id;
 
     /**
      * Every field must be present and not null.
@@ -24,16 +24,16 @@ public class ServiceProvider extends Contact {
      */
     public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        this.ID = SPID ++;
+        this.id = serviceProviderId++;
     }
 
-    public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int ID) {
+    public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int id) {
         super(name, phone, email, address, tags);
-        this.ID = ID;
+        this.id = id;
     }
 
     public int getId() {
-        return ID;
+        return id;
     }
 
     /**

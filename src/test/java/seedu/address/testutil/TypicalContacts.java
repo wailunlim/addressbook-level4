@@ -40,7 +40,8 @@ public class TypicalContacts {
     public static final Contact CARL = new ClientBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withID(clientId++).withAddress("wall street").build();
     public static final Contact DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withID(clientId++).withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withID(clientId++).withAddress("10th street").withTags("friends")
+            .build();
     public static final Contact ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withID(clientId++).withAddress("michegan ave").build();
     public static final Contact FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
@@ -116,7 +117,7 @@ public class TypicalContacts {
     }
 
     public static List<Contact> getTypicalContacts() {
-        Client.clientId = 1;
+        Client.resetClientId();
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE,
                 DOMINIC, EEHOOI, GAN, JIANJIE, WAILUN, SIJI, CHINYAO));
     }
