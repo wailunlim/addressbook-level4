@@ -96,5 +96,15 @@ public interface Model {
      * Return true if user has logged in successfully, false otherwise.
      * @return true if user has logged in successfully, false otherwise.
      */
-    boolean isUserLogIn();
+    boolean isUserLoggedIn();
+
+    /**
+     * The user has logged out of his account successfully.
+     */
+    void commitUserLoggedOutSuccessfully();
+
+    /**
+     * The user has changed his old password to {@code newPassword}.
+     */
+    void commiteUserChangedPasswordSuccessfully(String newPassword);
 }

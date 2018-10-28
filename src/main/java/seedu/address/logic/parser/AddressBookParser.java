@@ -9,12 +9,15 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.MatchMakeCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ContactType;
@@ -101,8 +104,14 @@ public class AddressBookParser {
         //TODO: do away with new String cases
         switch (commandWord) {
 
-        case "registeraccount":
+        case RegisterAccountCommand.COMMAND_WORD:
             return new RegisterAccountCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
+
+        case EditPasswordCommand.COMMAND_WORD:
+            return new EditPasswordCommandParser().parse(arguments);
 
         case "select":
             return new SelectCommandParser().parse(arguments);

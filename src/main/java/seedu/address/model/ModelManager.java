@@ -153,10 +153,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean isUserLogIn() {
+    public boolean isUserLoggedIn() {
         return userAccount != null;
     }
 
+    @Override
+    public void commitUserLoggedOutSuccessfully() {
+        userAccount = null;
+    }
+
+    @Override
+    public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+        userAccount = new Account(userAccount.getUserName(), newPassword, userAccount.getRole());
+    }
 
     @Override
     public boolean equals(Object obj) {

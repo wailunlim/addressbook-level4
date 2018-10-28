@@ -97,4 +97,25 @@ public class AccountListTest {
         assertTrue(accountList.hasUserName("Tham"));
         assertFalse(accountList.hasUserName(""));
     }
+
+    @Test
+    public void updatePassword_success() {
+        String oldPassword = "oldPassword123";
+        String newPassword = "newP@ssw0rd";
+        String newPassword2 = "newP@ssw0rdpkjgaok";
+        AccountList accountList = new AccountList();
+        Account account = new Account("Simun", oldPassword, Role.SUPER_USER);
+        accountList.addAccount(account);
+
+        List<Account> list = accountList.getList();
+        assertTrue(list.get(0).getPassword().equals(oldPassword));
+
+        accountList.updatePassword(account, newPassword);
+        assertFalse(list.get(0).getPassword().equals(oldPassword));
+        assertTrue(list.get(0).getPassword().equals(newPassword));
+
+        accountList.updatePassword(account, newPassword2);
+        assertFalse(list.get(0).getPassword().equals(newPassword));
+        assertTrue(list.get(0).getPassword().equals(newPassword2));
+    }
 }
