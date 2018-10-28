@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
@@ -10,8 +12,6 @@ import seedu.address.model.Model;
 import seedu.address.model.account.Account;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.XmlAccountStorage;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Edit the password of the user.
