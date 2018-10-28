@@ -50,6 +50,9 @@ public class TestUtil {
      * Returns the client in the {@code model}'s client list at {@code index}.
      */
     public static Contact getPerson(Model model, Index index) {
-        return model.getFilteredContactList().get(index.getZeroBased());
+        return model.getFilteredContactList().stream()
+                .filter(contact -> contact.getId() == index.getOneBased())
+                .findFirst()
+                .get();
     }
 }

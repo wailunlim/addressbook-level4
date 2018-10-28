@@ -7,14 +7,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_PERSON;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.GEORGE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.BENSON;
+import static seedu.address.testutil.TypicalContacts.CARL;
+import static seedu.address.testutil.TypicalContacts.DANIEL;
+import static seedu.address.testutil.TypicalContacts.ELLE;
+import static seedu.address.testutil.TypicalContacts.FIONA;
+import static seedu.address.testutil.TypicalContacts.GEORGE;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,12 +23,13 @@ import java.util.Optional;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ListCommand}.
@@ -41,9 +42,9 @@ public class ListCommandTest {
     @Test
     public void equals() {
         ContactContainsKeywordsPredicate firstPredicate =
-                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("first").build());
+                new ContactContainsKeywordsPredicate(new ClientBuilder().withName("first").build());
         ContactContainsKeywordsPredicate secondPredicate =
-                new ContactContainsKeywordsPredicate(new PersonBuilder().withName("second").build());
+                new ContactContainsKeywordsPredicate(new ClientBuilder().withName("second").build());
 
         ListCommand findFirstCommand = new ListCommand(firstPredicate, CONTACT_FILTER_CLIENT);
         ListCommand findSecondCommand = new ListCommand(secondPredicate, CONTACT_FILTER_CLIENT);
@@ -70,7 +71,7 @@ public class ListCommandTest {
         String expectedMessage = MESSAGE_LIST_ALL_PERSON;
         ContactContainsKeywordsPredicate predicate = preparePredicate();
         ListCommand command = new ListCommand(predicate, CONTACT_FILTER_CLIENT);
-        expectedModel.updateFilteredContactList(predicate);
+        expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredContactList());
     }
