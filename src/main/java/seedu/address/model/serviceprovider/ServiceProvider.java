@@ -1,6 +1,5 @@
 package seedu.address.model.serviceprovider;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 

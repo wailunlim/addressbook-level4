@@ -2,12 +2,9 @@ package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -54,13 +51,6 @@ public abstract class Contact {
         return services.containsKey(service.getName());
     }
     private boolean hasService(String service) { return services.containsKey(service); }
-
-    // TODO Include in EditCommand
-    public void removeService(String serviceName) {
-        if (hasService(serviceName)) {
-            services.remove(serviceName);
-        }
-    }
 
     // Get the name of the contact
     public Name getName() {
