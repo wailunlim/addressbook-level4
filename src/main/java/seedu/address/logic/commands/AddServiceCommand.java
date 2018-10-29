@@ -111,4 +111,21 @@ public class AddServiceCommand extends Command {
         return UpdateCommand.createEditedContact(contact, editContactDescriptor, contactType);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddServiceCommand)) {
+            return false;
+        }
+
+        // state check
+        AddServiceCommand e = (AddServiceCommand) other;
+        return index.equals(e.index);
+    }
+
 }
