@@ -1,38 +1,84 @@
 = Gan Chin Yao - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ./images
 :stylesDir: ../stylesheets
 
-== PROJECT: Heart²
+image::projectportfolio.png[width="700"]
 
----
+This portfolio aims to provide a summary of what I have contributed as a student for the project *_Heart²_*.
 
-== Overview
+Heart² Github link: https://github.com/CS2103-AY1819S1-F10-3/main
 
-Heart² is a desktop wedding application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Introduction
+image::abouttheproject.png[width="450"]
+
+image::intropicture.png[width="250"]
+
+*_Heart²_* is a desktop application for wedding planning agencies to efficiently manage their clients and service providers. It allows the agency to automatically match the agency's service providers to existing clients' needs, and also maintains a easy-to-use database search system for clients' and service providers' profiles.
+
+It is written in Java, and has about 10 kLoC. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+{empty} +
+
+image::projectteam.png[width="450"]
+
+*_Heart²_* was developed on top of the link:https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook - Level 4] application. It consists of 5 dedicated members, including myself. My role in *_Heart²_* was a software engineer, tasked to create a `Login` feature from scratch and `Privileges` for different types of user accounts.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+|===
+|_This section provides an overview of the contributions I have done for this application._
+|===
 
-* *Minor enhancement*:
+image::major.png[width="450"]
 
-* *Code contributed*:
+=== Major enhancements
 
-* *Other contributions*:
+Added `login` and `logout` functions, and allow users to `register` for a user account.
 
+* *What it does:* Allow the user to register for an account, and use that account to login to the application. Afterwards, the user can logout of his/her account.
+* *Justification:* Without an authorised account, the user is unable to use this application as it is mandatory to login at start. This feature is important as it restricts access to the application from unauthorised parties. Clients' and Service Providers' information are present in the application, and it is necessary to protect these information from unwanted eyes.
+* *Highlights:* Storing user account information was a challenge as the project restriction only allows files to be stored locally. Nonetheless, password is stored as hashed using `PBKDF2WithHmacSHA512` algorithm with salt to prevent anyone from looking up the user's password directly. The implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
+* *Functional code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/97[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/135[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/logic/commands/LogoutCommand.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/173[Salt and Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedAccount.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAccountStorage.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlSerializableAccountList.java[Storage 3]
+* *Test code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/RegisterAccountCommandTest.java[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LoginCommandTest.java[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LogoutCommandTest.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/security/PasswordAuthenticationTest.java[Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAdaptedAccountTest.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAccountStorageTest.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlSerializableAccountListTest.java[Storage 3]
+
+{empty} +
+
+image::minor.png[width="450"]
+
+=== Minor enhancements
+
+* *Minor enhancement:* Allow user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User`.
+* *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges tied to the user account helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` as he/she does not need to modify data in the application.
+* *Functional Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/165/[EditPassword] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/89[Access privilege]
+* *Test Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditPasswordCommandTest.java[Edit password] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/model/account/AccountTest.java[Access privilege]
+
+{empty} +
+
+image::others.png[width="450"]
+
+=== Other contributions:
+* *Project Management*:
+** Managed releases link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.1[v1.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2[v1.2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2.1[v1.2.1] on GitHub
+
+* *Graphic assets*:
+** Added graphical content to make the existing User Guide and Developer Guide more pleasant to read: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/138[#138] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/145[#145]
+** Created the application logo image:logotransparentbackground.png[width="150"]
+** Contributed to the User Guide and Developer Guide for this application. See below for more details.
 
 == Contributions to the User Guide
 
-
+image::userguideheader.png[width="450"]
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_This section shows what I have contributed to the User Guide. It showcases my ability to write documentation targetting end-user._
 |===
 
 == Contributions to the Developer Guide
+
+image::developerguideheader.png[width="450"]
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
