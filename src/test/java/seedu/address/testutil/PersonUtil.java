@@ -8,9 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.UpdateCommand.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -59,5 +62,27 @@ public class PersonUtil {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Creates a client addservice input.
+     * @param contact Contact to add service to.
+     * @param service Service to be added.
+     * @return New string containing client addservice input.
+     */
+    public static String getClientAddServiceCommand(Contact contact, Service service, Index index) {
+        return "client#" + index.getOneBased() + " " + AddServiceCommand.COMMAND_WORD + " s/" + service.getName()
+                + " c/" + service.getCost();
+    }
+
+    /**
+     * Creates a serviceprovider addservice input.
+     * @param contact Contact to add service to.
+     * @param service Service to be added.
+     * @return New string containing serviceprovider addservice input.
+     */
+    public static String getServiceProviderAddServiceCommand(Contact contact, Service service, Index index) {
+        return "serviceprovider#" + index.getOneBased() + " " + AddServiceCommand.COMMAND_WORD + " s/"
+                + service.getName() + " c/" + service.getCost();
     }
 }

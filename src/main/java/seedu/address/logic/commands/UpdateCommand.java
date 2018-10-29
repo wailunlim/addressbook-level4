@@ -8,8 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
@@ -108,10 +111,11 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
+     * Creates and returns a {
+     * @code Contact} with the details of {@code contactToEdit}
      * edited with {@code editContactDescriptor}.
      */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
+    public static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
                                                ContactType contactType) {
         assert contactToEdit != null;
 
@@ -120,15 +124,18 @@ public class UpdateCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
+        Map<String, Service> updatedServices = editContactDescriptor.getServices().orElse(contactToEdit.getServices());
         int id = contactToEdit.getId();
 
         //TODO take a look at this below vvvvv
         switch (contactType) {
         case CLIENT:
-            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
+            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                    updatedServices, id);
         case SERVICE_PROVIDER:
         default:
-            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
+            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                    updatedServices, id);
         }
     }
 
@@ -160,6 +167,7 @@ public class UpdateCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Map<String, Service> services;
 
         public EditContactDescriptor() {}
 
@@ -173,13 +181,14 @@ public class UpdateCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setServices(toCopy.services);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, services);
         }
 
         public void setName(Name name) {
@@ -231,6 +240,31 @@ public class UpdateCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code services} to this object's {@code services}.
+         * A defensive copy of {@code services} is used internally.
+         */
+        public void setServices(Map<String, Service> services) {
+            this.services = (services != null) ? new HashMap<>(services) : null;
+        }
+
+        /**
+         * Returns an unmodifiable services map, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code services} is null.
+         */
+        public Optional<Map<String, Service>> getServices() {
+            return (services != null) ? Optional.of(Collections.unmodifiableMap(services)) : Optional.empty();
+        }
+
+        /**
+         * Adds the specified service.
+         * @param service Service to be added.
+         */
+        public void addService(Service service) {
+            this.services.put(service.getName(), service);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -250,7 +284,8 @@ public class UpdateCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getServices().equals(e.getServices());
         }
     }
 }

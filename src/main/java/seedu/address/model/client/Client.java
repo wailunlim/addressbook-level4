@@ -1,5 +1,6 @@
 package seedu.address.model.client;
 
+import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.contact.Address;
@@ -7,6 +8,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,8 +28,14 @@ public class Client extends Contact {
         this.id = clientId++;
     }
 
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int id) {
-        super(name, phone, email, address, tags);
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Service> services) {
+        super(name, phone, email, address, tags, services);
+        this.id = clientId++;
+    }
+
+    public Client(Name name, Phone phone, Email email,
+                  Address address, Set<Tag> tags, Map<String, Service> services, int id) {
+        super(name, phone, email, address, tags, services);
         this.id = id;
     }
 
@@ -59,6 +67,7 @@ public class Client extends Contact {
                 && otherContact.getPhone().equals(getPhone())
                 && otherContact.getEmail().equals(getEmail())
                 && otherContact.getAddress().equals(getAddress())
-                && otherContact.getTags().equals(getTags());
+                && otherContact.getTags().equals(getTags())
+                && otherContact.getServices().equals(getServices());
     }
 }

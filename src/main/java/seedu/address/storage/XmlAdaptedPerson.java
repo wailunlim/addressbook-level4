@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
@@ -45,12 +48,32 @@ public class XmlAdaptedPerson {
     private ContactType type;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedService> services = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedPerson() { }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given client details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                            List<XmlAdaptedService> services, ContactType type) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+        if (services != null) {
+            this.services = new ArrayList<>(services);
+        }
+        this.type = type;
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given client details.
@@ -80,6 +103,9 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
+        services = source.getServicesStream()
+                .map(XmlAdaptedService::new)
+                .collect(Collectors.toList());
 
         if (source instanceof Client) {
             type = ContactType.CLIENT;
@@ -97,8 +123,12 @@ public class XmlAdaptedPerson {
      */
     public Contact toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<Service> personServices = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (XmlAdaptedService service : services) {
+            personServices.add(service.toModelType());
         }
 
         if (name == null) {
@@ -137,16 +167,20 @@ public class XmlAdaptedPerson {
 
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Map<String, Service> modelServices = new HashMap<>();
+        for (Service service : personServices) {
+            modelServices.put(service.getName(), service);
+        }
 
         if (type == null) {
             throw new IllegalValueException("Contact type must be non-null.");
         }
 
         if (type.equals(ContactType.CLIENT)) {
-            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
         if (type.equals(ContactType.SERVICE_PROVIDER)) {
-            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
 
         throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");
@@ -168,6 +202,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && tagged.equals(otherPerson.tagged)
-                && type.equals(otherPerson.type);
+                && type.equals(otherPerson.type)
+                && services.equals(otherPerson.services);
     }
 }

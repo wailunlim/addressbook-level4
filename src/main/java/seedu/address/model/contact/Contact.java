@@ -3,9 +3,12 @@ package seedu.address.model.contact;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.model.tag.Tag;
 
@@ -21,6 +24,7 @@ public abstract class Contact {
     // Data fields
     protected final Address address;
     protected final Set<Tag> tags = new HashSet<>();
+    protected final Map<String, Service> services = new HashMap<>();
 
     public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -31,7 +35,22 @@ public abstract class Contact {
         this.tags.addAll(tags);
     }
 
+    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Service> services) {
+        requireAllNonNull(name, phone, email, address, tags, services);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.services.putAll(services);
+    }
+
     public abstract int getId();
+
+    public boolean hasService(Service service) {
+        return services.containsKey(service.getName());
+    }
+    private boolean hasService(String service) { return services.containsKey(service); }
 
     // Get the name of the contact
     public Name getName() {
@@ -59,6 +78,16 @@ public abstract class Contact {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    // Get the services of the contact.
+    public Map<String, Service> getServices() {
+        return services;
+    }
+
+    // Get the services of the contact in a stream.
+    public Stream<Service> getServicesStream() {
+        return services.values().stream();
     }
 
     /**

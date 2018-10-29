@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
@@ -34,9 +35,11 @@ import seedu.address.model.ContactType;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
+import seedu.address.model.contact.Service;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ServiceProviderBuilder;
 
 public class AddressBookParserTest {
     private static final String BLANK_SPACE = " ";
@@ -177,6 +180,25 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_client_addservice() throws Exception {
+        Contact contact = new ClientBuilder().build();
+        Service service = new Service("photographer", 1000);
+        AddServiceCommand command = (AddServiceCommand)
+                parser.parseCommand(PersonUtil.getClientAddServiceCommand(contact, service, INDEX_FIRST_PERSON));
+        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_serviceprovider_addservice() throws Exception {
+        Contact contact = new ServiceProviderBuilder().build();
+        Service service = new Service("photographer", 1000);
+        AddServiceCommand command = (AddServiceCommand)
+                parser.parseCommand(PersonUtil.getServiceProviderAddServiceCommand(
+                        contact, service, INDEX_FIRST_PERSON));
+        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.SERVICE_PROVIDER), command);
     }
 
     @Test
