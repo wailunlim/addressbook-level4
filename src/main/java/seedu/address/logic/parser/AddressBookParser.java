@@ -139,7 +139,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case "client add":
-            return new AddClientCommandParser().parse(arguments);
+            return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client delete":
             return new DeleteCommandParser(ContactType.CLIENT).parse(requireNonNull(identifier).substring(1));
@@ -152,7 +152,7 @@ public class AddressBookParser {
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         case "serviceprovider add":
-            return new AddServiceProviderCommandParser().parse(arguments);
+            return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case "serviceprovider delete":
             return new DeleteCommandParser(ContactType.SERVICE_PROVIDER)

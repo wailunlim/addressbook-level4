@@ -32,6 +32,7 @@ import static seedu.address.testutil.TypicalContacts.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -41,7 +42,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ClientBuilder;
 
 public class AddClientCommandParserTest {
-    private AddCommandParser parser = new AddClientCommandParser();
+    private AddCommandParser parser = new AddCommandParser(ContactType.CLIENT);
 
     @Test
     public void parse_allFieldsPresent_success() {
