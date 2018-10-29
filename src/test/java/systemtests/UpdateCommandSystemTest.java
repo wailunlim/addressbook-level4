@@ -24,7 +24,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 import static seedu.address.testutil.TypicalContacts.BOB;
 import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -250,7 +249,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         expectedModel.updateContact(expectedModel.getFilteredContactList().get(toEdit.getZeroBased()), editedContact);
-        expectedModel.updateFilteredContactList(CONTACT_FILTER_CLIENT);
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         assertCommandSuccess(command, expectedModel,
                 String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact), expectedSelectedCardIndex);

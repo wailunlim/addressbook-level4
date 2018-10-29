@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <accountmanager>
-    <!-- This account is valid -->
-    <accounts>
-        <username>rootUser</username>
-        <password>$31$16$nboNXKlrmU8_FEMLMWJ7g08DE2Pj0smRiR6rWxKjMqY</password>
-        <role>SUPER_USER</role>
-    </accounts>
-    <!-- This account is invalid as username is empty -->
-    <accounts>
-        <username></username>
-        <password>$31$16$vWaAyBBNfZny3HMcqw3Sa-v36U4cgT8SeatiW-PvkSs</password>
-        <role>READ_ONLY_USER</role>
-    </accounts>
+<!-- This account is valid -->
+<accounts>
+    <username>rootUser</username>
+    <password>$31$16$nboNXKlrmU8_FEMLMWJ7g08DE2Pj0smRiR6rWxKjMqY</password>
+    <role>SUPER_USER</role>
+</accounts>
+<!-- This account is invalid as username is empty -->
+<accounts>
+    <username></username>
+    <password>$31$16$vWaAyBBNfZny3HMcqw3Sa-v36U4cgT8SeatiW-PvkSs</password>
+    <role>READ_ONLY_USER</role>
+</accounts>
 </accountmanager>
