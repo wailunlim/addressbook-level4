@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -9,17 +8,18 @@ import java.util.Optional;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
 
 public class ListCommandParserTest {
 
-    private ListCommandParser parser = new ListClientCommandParser();
+    private ListCommandParser parser = new ListCommandParser(ContactType.CLIENT);
 
     @Test
     public void parse_emptyArg_returnsListCommand() {
         ListCommand expectedListCommand = new ListCommand(new ContactContainsKeywordsPredicate(),
-                CONTACT_FILTER_CLIENT);
+                ContactType.CLIENT.getFilter());
 
         // empty string
         assertParseSuccess(parser, "", expectedListCommand);
@@ -37,7 +37,7 @@ public class ListCommandParserTest {
         ListCommand expectedListCommand =
                 new ListCommand(new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
                         Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>())),
-                        CONTACT_FILTER_CLIENT);
+                        ContactType.CLIENT.getFilter());
 
         assertParseSuccess(parser, " n/Alice Bob", expectedListCommand);
     }

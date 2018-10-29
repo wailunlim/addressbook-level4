@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.ArrayList;
@@ -130,14 +129,14 @@ public class AddressBookParserTest {
         ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
         ListCommand command = (ListCommand) parser.parseCommand(
                 "client " + ListCommand.COMMAND_WORD);
-        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+        assertEquals(new ListCommand(predicate, ContactType.CLIENT.getFilter()), command);
 
         // One Argument
         predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
                 Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
         command = (ListCommand) parser.parseCommand(
                 "client " + ListCommand.COMMAND_WORD + " n/Alice Bob");
-        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+        assertEquals(new ListCommand(predicate, ContactType.CLIENT.getFilter()), command);
 
     }
 

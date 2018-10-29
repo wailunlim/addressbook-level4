@@ -145,7 +145,7 @@ public class AddressBookParser {
             return new DeleteCommandParser(ContactType.CLIENT).parse(requireNonNull(identifier).substring(1));
 
         case "client list":
-            return new ListClientCommandParser().parse(arguments);
+            return new ListCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client update":
             return new UpdateCommandParser(ContactType.CLIENT)
@@ -159,7 +159,7 @@ public class AddressBookParser {
                     .parse(requireNonNull(identifier).substring(1));
 
         case "serviceprovider list":
-            return new ListServiceProviderCommandParser().parse(arguments);
+            return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case "serviceprovider update":
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
