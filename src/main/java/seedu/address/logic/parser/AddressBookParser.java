@@ -170,7 +170,7 @@ public class AddressBookParser {
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         case "serviceprovider addservice":
-            return new AddServiceCommandParser(ContactType.CLIENT)
+            return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         default:

@@ -108,8 +108,7 @@ public class AddServiceCommand extends Command {
         editContactDescriptor.setServices(contact.getServices());
         editContactDescriptor.addService(service);
 
-        Contact newContact = UpdateCommand.createEditedContact(contact, editContactDescriptor, contactType);
-        return newContact;
+        return UpdateCommand.createEditedContact(contact, editContactDescriptor, contactType);
     }
 
 }
