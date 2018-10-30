@@ -77,6 +77,15 @@ public class Service {
         return (!(test <= 0));
     }
 
+    /**
+     * Returns true if the service type is the same as the {@code other} service specified.
+     * @param other The Service type.
+     * @return True if is the same type.
+     */
+    public boolean isSameServiceTypeAs(Service other) {
+        return serviceName.equals(other.serviceName);
+    }
+
     @Override
     public String toString() {
         return serviceName + " $" + serviceCost;
