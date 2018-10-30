@@ -27,11 +27,11 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Client: %1$s";
 
-    private final Index targetIndex;
+    private final Index id;
     private final ContactType contactType;
 
-    public DeleteCommand(Index targetIndex, ContactType contactType) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Index id, ContactType contactType) {
+        this.id = id;
         this.contactType = contactType;
     }
 
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
         }
 
         model.updateFilteredContactList(contactType.getFilter()
-                .and(contact -> contact.getId() == targetIndex.getOneBased()));
+                .and(contact -> contact.getId() == id.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -71,6 +71,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && id.equals(((DeleteCommand) other).id)); // state check
     }
 }
