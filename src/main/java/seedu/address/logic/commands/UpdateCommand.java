@@ -127,7 +127,6 @@ public class UpdateCommand extends Command {
         Map<String, Service> updatedServices = editContactDescriptor.getServices().orElse(contactToEdit.getServices());
         int id = contactToEdit.getId();
 
-        //TODO take a look at this below vvvvv
         switch (contactType) {
         case CLIENT:
             return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
