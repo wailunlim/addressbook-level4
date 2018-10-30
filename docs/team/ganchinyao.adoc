@@ -7,8 +7,9 @@ image::projectportfolio.png[width="700"]
 
 This portfolio aims to provide a summary of what I have contributed as a student for the project *_Heart²_*.
 
-Heart² Github link: https://github.com/CS2103-AY1819S1-F10-3/main
+*_Heart²_* Github link: https://github.com/CS2103-AY1819S1-F10-3/main
 
+{empty} +
 
 == Introduction
 image::abouttheproject.png[width="450"]
