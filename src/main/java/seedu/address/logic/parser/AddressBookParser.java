@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditPasswordCommand;
@@ -134,7 +135,7 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case "client add":
+        case AddCommand.COMMAND_WORD_CLIENT:
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client delete":
@@ -155,7 +156,7 @@ public class AddressBookParser {
         case "serviceprovider matchmake":
             return new MatchMakeCommandParser().parse(firstWord + identifier);
 
-        case "serviceprovider add":
+        case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case "serviceprovider delete":
