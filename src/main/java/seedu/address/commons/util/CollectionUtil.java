@@ -47,11 +47,11 @@ public class CollectionUtil {
      */
     public static ContactType compareListOfContacts(List<Contact> list1, List<Contact> list2) {
 
-        List<Contact> diffList = list1.stream().filter(contact -> list2.stream()
+        List<Contact> diffList = list1.stream().filter(contact -> !list2.stream()
                 .anyMatch(contactToCheck -> contactToCheck.equals(contact))).collect(Collectors.toList());
 
         if (diffList.isEmpty()) {
-            diffList = list2.stream().filter(contact -> list1.stream()
+            diffList = list2.stream().filter(contact -> !list1.stream()
                     .anyMatch(contactToCheck -> contactToCheck.equals(contact))).collect(Collectors.toList());
         }
 

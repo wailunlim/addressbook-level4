@@ -36,6 +36,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
@@ -51,6 +52,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void add() {
         Model model = getModel();
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

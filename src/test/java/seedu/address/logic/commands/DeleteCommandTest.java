@@ -259,6 +259,7 @@ public class DeleteCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered client list to show all persons
         expectedModel.undoAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first client deleted again

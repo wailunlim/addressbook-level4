@@ -2,17 +2,17 @@
 <accountmanager>
     <accounts>
         <username>rootUser</username>
-        <password>$31$16$9iIXrEtsP09SiJjAPTJBQ3c4QJr5nKZfVGWLv53e7Qs</password>
+        <password>$31$16$g1nIpzDXA1iuNM9M2WTnxTn5QM_L4OWHBxJ8WQgnvTA</password>
         <role>SUPER_USER</role>
     </accounts>
     <accounts>
         <username>simun</username>
-        <password>$31$16$mzaH7NrtWwPFV3nRbsn2c95HNNIL4A483-iNmpYa4u0</password>
+        <password>$31$16$RtsHKNtIpUecFgouj0YdZzOwfMSWKwYONpJov0304Xc</password>
         <role>SUPER_USER</role>
     </accounts>
     <accounts>
         <username>whiterose</username>
-        <password>$31$16$3PXeyJn0VlXN8R_zHQzHcc62gXzuvtghdNFJY35drSg</password>
+        <password>$31$16$rTEsjQPfP7chMcGihgKIel7mpHk3DH1VLPh17TXphJo</password>
         <role>READ_ONLY_USER</role>
     </accounts>
 </accountmanager>

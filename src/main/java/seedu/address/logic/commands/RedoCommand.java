@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -28,7 +29,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        List<Contact> listBeforeRedo = model.getAddressBook().getContactList();
+        List<Contact> listBeforeRedo = new ArrayList<>(model.getAddressBook().getContactList());
         model.redoAddressBook();
         List<Contact> listAfterRedo = model.getAddressBook().getContactList();
 

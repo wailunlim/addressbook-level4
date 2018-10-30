@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -28,7 +29,7 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        List<Contact> listBeforeUndo = model.getAddressBook().getContactList();
+        List<Contact> listBeforeUndo = new ArrayList<>(model.getAddressBook().getContactList());
         model.undoAddressBook();
         List<Contact> listAfterUndo = model.getAddressBook().getContactList();
 
