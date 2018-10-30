@@ -15,7 +15,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
-import seedu.address.logic.commands.MatchMakeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -36,6 +35,7 @@ public class AddressBookParser {
 
     /**
      * Parses user input into command for execution. This method is use before user has successfully logged in.
+     *
      * @param userInput full user input string.
      * @return the command based on the user input.
      * @throws ParseException if the user input does not conform the expected format.
@@ -116,10 +116,6 @@ public class AddressBookParser {
         case "select":
             return new SelectCommandParser().parse(arguments);
 
-        case MatchMakeCommand.COMMAND_WORD:
-            //TODO: make this a sub-command of client and serviceprovider
-            return new MatchMakeCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -154,6 +150,10 @@ public class AddressBookParser {
         case "client addservice":
             return new AddServiceCommandParser(ContactType.CLIENT)
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+
+        case "client matchmake":
+        case "serviceprovider matchmake":
+            return new MatchMakeCommandParser().parse(firstWord + identifier);
 
         case "serviceprovider add":
             return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
