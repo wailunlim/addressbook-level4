@@ -100,13 +100,7 @@ public class XmlAdaptedPerson {
                 .map(XmlAdaptedService::new)
                 .collect(Collectors.toList());
 
-        if (source instanceof Client) {
-            type = ContactType.CLIENT;
-        } else if (source instanceof ServiceProvider) {
-            type = ContactType.SERVICE_PROVIDER;
-        } else {
-            throw new RuntimeException("public XmlAdaptedPerson(Contact source)");
-        }
+        type = source.getType();
     }
 
     /**
