@@ -17,6 +17,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -107,13 +108,6 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
-
-        // Create new login stage for login window
-        loginStage = new Stage();
-        loginStage.initOwner(primaryStage);
-        loginStage.initModality(Modality.WINDOW_MODAL);
-        loginStage.centerOnScreen();
-        loginWindow = new LoginWindow(loginStage, config, prefs, logic);
     }
 
     public Stage getPrimaryStage() {
@@ -154,7 +148,16 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Creates a new login stage and displays the login window
+     */
     void displayLoginWindow() {
+        // Create new login stage for login window
+        loginStage = new Stage();
+        loginStage.initOwner(primaryStage);
+        loginStage.initModality(Modality.WINDOW_MODAL);
+        loginStage.centerOnScreen();
+        loginWindow = new LoginWindow(loginStage, config, prefs, logic);
         loginStage.showAndWait();
     }
 
@@ -202,6 +205,37 @@ public class MainWindow extends UiPart<Stage> {
         // Show command box
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Hides the inner parts of the UI
+     */
+    void hideInnerParts() {
+        browserPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setVisible(false);
+        statusbarPlaceholder.setVisible(false);
+        commandBoxPlaceholder.setVisible(false);
+        commandBoxPlaceholder.setManaged(false);
+    }
+
+    /**
+     * Shows the inner parts of the UI
+     */
+    void showInnerParts() {
+        browserPlaceholder.setVisible(true);
+        personListPanelPlaceholder.setVisible(true);
+        statusbarPlaceholder.setVisible(true);
+        commandBoxPlaceholder.setVisible(true);
+        commandBoxPlaceholder.setManaged(true);
+    }
+
+    /**
+     * Handles logout event
+     */
+    public void handleLogout() {
+        hideInnerParts();
+        displayLoginWindow();
+        showInnerParts();
     }
 
     void hide() {
@@ -269,5 +303,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleLogoutEvent(LogoutRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleLogout();
     }
 }
