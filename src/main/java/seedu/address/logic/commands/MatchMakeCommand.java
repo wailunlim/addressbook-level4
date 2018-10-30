@@ -66,9 +66,10 @@ public class MatchMakeCommand extends Command {
             model.updateFilteredContactList(c -> (c instanceof ServiceProvider
                    && serviceProviderCanFulfilAtLeastOneService((ServiceProvider) c, servicesRequired)));
         } else if (contact instanceof ServiceProvider) {
-            model.updateFilteredContactList(c -> c instanceof Client);
+            model.updateFilteredContactList(c -> (c instanceof Client
+                   && service));
         } else {
-            // We should never arrive here.
+            // We should never arrive here. If we do, it means there's a Contact subclass that is not handled here.
             throw new CommandException("Unknown entity, neither client nor service provider found in database.");
         }
 
@@ -82,7 +83,7 @@ public class MatchMakeCommand extends Command {
      * @param serviceRequired The service required.
      * @return True if the service provider can fulfil the service.
      */
-    private static boolean canServiceProviderFulfilService(ServiceProvider serviceProvider, Service serviceRequired) {
+    private static boolean serviceProviderCanFulfilService(ServiceProvider serviceProvider, Service serviceRequired) {
         return serviceProvider
                 .getServices()
                 .values()
@@ -103,7 +104,7 @@ public class MatchMakeCommand extends Command {
                                                                      Collection<Service> servicesRequired) {
         return servicesRequired
                 .stream()
-                .filter(serviceRequired -> canServiceProviderFulfilService(serviceProvider, serviceRequired))
+                .filter(serviceRequired -> serviceProviderCanFulfilService(serviceProvider, serviceRequired))
                 .count() > 0;
     }
 
