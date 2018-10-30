@@ -42,7 +42,7 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client identified "
-            + "by the index number used in the displayed client list. "
+            + "by the id number used in the displayed client list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -58,20 +58,20 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists in the address book.";
 
-    private final Index index;
+    private final Index id;
     private final EditContactDescriptor editContactDescriptor;
     private final ContactType contactType;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param id of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      * @param contactType
      */
-    public UpdateCommand(Index index, EditContactDescriptor editContactDescriptor, ContactType contactType) {
-        requireNonNull(index);
+    public UpdateCommand(Index id, EditContactDescriptor editContactDescriptor, ContactType contactType) {
+        requireNonNull(id);
         requireNonNull(editContactDescriptor);
 
-        this.index = index;
+        this.id = id;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
         this.contactType = contactType;
     }
@@ -86,7 +86,7 @@ public class UpdateCommand extends Command {
         }
 
         // id is unique
-        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == index.getOneBased()));
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == id.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -153,7 +153,7 @@ public class UpdateCommand extends Command {
 
         // state check
         UpdateCommand e = (UpdateCommand) other;
-        return index.equals(e.index)
+        return id.equals(e.id)
                 && editContactDescriptor.equals(e.editContactDescriptor);
     }
 
