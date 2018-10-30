@@ -16,11 +16,21 @@ public enum ContactType {
         public Predicate<Contact> getFilter() {
             return contact -> contact instanceof Client;
         }
+
+        @Override
+        public String toString() {
+            return "client";
+        }
     },
     SERVICE_PROVIDER {
         @Override
         public Predicate<Contact> getFilter() {
             return contact -> contact instanceof ServiceProvider;
+        }
+
+        @Override
+        public String toString() {
+            return "serviceprovider";
         }
     };
 

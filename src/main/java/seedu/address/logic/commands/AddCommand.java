@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -18,17 +19,19 @@ import seedu.address.model.contact.Contact;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD_CLIENT = "client add";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider add";
+    public static final String COMMAND_WORD = "%s add";
+    public static final String COMMAND_WORD_CLIENT = String.format(COMMAND_WORD, ContactType.CLIENT);
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = String.format(COMMAND_WORD,
+            ContactType.SERVICE_PROVIDER);
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD_CLIENT + ": Adds a contact to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD_CLIENT + "\\" + COMMAND_WORD_SERVICE_PROVIDER + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
@@ -36,8 +39,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This %s already exists in the address book";
 
     private final Contact toAdd;
 
@@ -55,16 +58,16 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD_CLIENT);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD, toAdd.getType()));
         }
 
         if (model.hasContact(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
         }
 
         model.addContact(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getType(), toAdd));
     }
 
     @Override
