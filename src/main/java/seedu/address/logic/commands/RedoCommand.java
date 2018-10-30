@@ -33,9 +33,9 @@ public class RedoCommand extends Command {
         model.redoAddressBook();
         List<Contact> listAfterRedo = model.getAddressBook().getContactList();
 
-        ContactType toFiler = CollectionUtil.compareListOfContacts(listAfterRedo, listBeforeRedo);
+        ContactType toFilter = CollectionUtil.compareListOfContacts(listAfterRedo, listBeforeRedo);
 
-        model.updateFilteredContactList(toFiler.getFilter());
+        model.updateFilteredContactList(toFilter.getFilter());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

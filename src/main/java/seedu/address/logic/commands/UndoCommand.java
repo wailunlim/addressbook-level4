@@ -33,9 +33,9 @@ public class UndoCommand extends Command {
         model.undoAddressBook();
         List<Contact> listAfterUndo = model.getAddressBook().getContactList();
 
-        ContactType toFiler = CollectionUtil.compareListOfContacts(listAfterUndo, listBeforeUndo);
+        ContactType toFilter = CollectionUtil.compareListOfContacts(listAfterUndo, listBeforeUndo);
 
-        model.updateFilteredContactList(toFiler.getFilter());
+        model.updateFilteredContactList(toFilter.getFilter());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
