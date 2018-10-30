@@ -14,9 +14,9 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-3/main/
 
-image::userguideimage.png[width="700"]
+image::userguide.png[width="700"]
 
-By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`      Licence: `MIT`
 
 == Introduction
 image::intropicture.png[width="256"]
@@ -25,6 +25,8 @@ Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning age
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
+
+This section provides a quick overview to get you started with the application.
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `heart2.jar` link:{repoURL}/releases[here].
@@ -39,6 +41,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+The following format is consistent for all the commands listed in this section.
+
 image::format.png[width="256"]
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -64,7 +68,7 @@ Format: `help`
 
 === Logging in : `login`
 
-Securely logs you in to access the system.
+Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
 
 Format: `login u/USERNAME p/PASSWORD`
 
@@ -80,16 +84,19 @@ Securely logs you out of the system.
 
 Format: `logout`
 
-=== Logging in : `register account`
+=== Registering a new account : `register account`
 
-Register an account for this application.
+Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+
+[NOTE]
+It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 
-role `ROLE`:
-
-* `superuser`
-* `readonlyuser`
+`r/ROLE`:
+either
+`r/superuser`
+ or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -97,11 +104,16 @@ role `ROLE`:
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
 |=====
 
-=== Logging in : `change password`
+=== Change the current password : `change password`
 
-Change your current account password.
+Change your current account password from an old password to a new password.
 
-Format: `change password o/yourOldP@ssw0rd n/n3wP@ssw0rd`
+Condition: your old password is typed in correctly, and new password should not be the same as old password.
+
+[CAUTION]
+Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
+
+Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
