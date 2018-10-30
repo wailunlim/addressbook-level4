@@ -13,7 +13,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.account.Account;
-import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 
 /**

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
@@ -36,7 +37,7 @@ public class XmlAdaptedClientTest {
             .map(XmlAdaptedService::new)
             .collect(Collectors.toList());
 
-    private static final XmlAdaptedPerson.ContactType VALID_CONTACT_TYPE = XmlAdaptedPerson.ContactType.CLIENT;
+    private static final ContactType VALID_CONTACT_TYPE = ContactType.CLIENT;
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {

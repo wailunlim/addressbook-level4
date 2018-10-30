@@ -11,7 +11,6 @@ import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.XmlAdaptedPerson;
 
 /**
  * Represents a client in the address book.

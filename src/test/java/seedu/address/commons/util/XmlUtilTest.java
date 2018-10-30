@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ContactType;
 import seedu.address.model.account.Account;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedService;
@@ -50,7 +51,7 @@ public class XmlUtilTest {
             Collections.singletonList(new XmlAdaptedTag("friends"));
     private static final List<XmlAdaptedService> VALID_SERVICES =
             Collections.singletonList(new XmlAdaptedService("photographer $200"));
-    private static final XmlAdaptedPerson.ContactType VALID_CONTACT_TYPE = XmlAdaptedPerson.ContactType.CLIENT;
+    private static final ContactType VALID_CONTACT_TYPE = ContactType.CLIENT;
 
     private static final Path VALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlist.xml");
     private static final Path INVALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("randomInvalidPath.xml");

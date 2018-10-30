@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ContactType;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
@@ -26,14 +27,6 @@ import seedu.address.model.tag.Tag;
  * JAXB-friendly version of the Client.
  */
 public class XmlAdaptedPerson {
-    /**
-     * Represents the type of contact (either a {@code Client} or a {@code ServiceProvider}).
-     */
-    public enum ContactType {
-        CLIENT,
-        SERVICE_PROVIDER
-    }
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Client's %s field is missing!";
 
     @XmlElement(required = true)
