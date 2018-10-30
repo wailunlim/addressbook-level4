@@ -2,9 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 
 /**
  * Reverts the {@code model}'s address book to its previously undone state.
@@ -23,8 +29,13 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
+        List<Contact> listBeforeRedo = new ArrayList<>(model.getAddressBook().getContactList());
         model.redoAddressBook();
-        // model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Contact> listAfterRedo = model.getAddressBook().getContactList();
+
+        ContactType toFilter = CollectionUtil.compareListOfContacts(listAfterRedo, listBeforeRedo);
+
+        model.updateFilteredContactList(toFilter.getFilter());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
