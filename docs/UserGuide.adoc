@@ -176,23 +176,32 @@ Format: `client#id updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS
  * `client#123 updateprofile n/Jane Doe e/janedoe@gmail.com` (updates `client#123`'s name and email address)
 |=====
 
-==== Adding a service request from a client
+==== Adding a service requirement for a client
 
-You can add requests for a service from a client. You must specify the budget which will be in Singapore Dollars (SGD).
+You can add a service requirement for a client by the client's id.
+You must specify the cost which will be in _Singapore Dollars (SGD)_.
 
-Format: `client#id addservice t/SERVICE_TYPE p/SERVICE_BUDGET`
+[NOTE]
+====
+Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
+====
+Format: `client#id addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
 
-Service Types `SERVICE_TYPE`:
+Available Service Types `SERVICE_TYPE`:
 
 * `photography`
+* `hotel`
 * `catering`
-* `hosting`
+* `dress`
+* `ring`
+* `transport`
+* `invitation`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#id addservice t/photography p/2000`
- * `client#id addservice t/catering p/10000`
+|* `client#123 addservice s/photography c/2000`
+ * `client#123 addservice s/catering c/10000`
 |=====
 
 
@@ -251,15 +260,21 @@ Format: `serviceprovider#id updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/E
 
 ==== Adding a service type supported by service provider
 
-You can add a service type supported by the service provider by its id in Singapore Dollars (SGD).
+You can add a service type supported by the service provider by its id.
+You must specify the cost which will be in _Singapore Dollars (SGD)_.
 
-Format: `serviceprovider#id addservice t/SERVICE_TYPE p/SERVICE_COST_ESTIMATE`
+[NOTE]
+====
+Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
+====
+
+Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 addservice t/photography p/2000`
- * `serviceprovider#123 addservice t/catering p/10000`
+|* `serviceprovider#123 addservice s/photography c/2000`
+ * `serviceprovider#123 addservice s/catering c/10000`
 |=====
 
 === Listing entered commands: `history`
