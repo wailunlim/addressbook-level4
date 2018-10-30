@@ -3,6 +3,7 @@ package seedu.address.model.client;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -10,6 +11,7 @@ import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.XmlAdaptedPerson;
 
 /**
  * Represents a client in the address book.
@@ -46,6 +48,11 @@ public class Client extends Contact {
     @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public ContactType getType() {
+        return ContactType.CLIENT;
     }
 
     /**
