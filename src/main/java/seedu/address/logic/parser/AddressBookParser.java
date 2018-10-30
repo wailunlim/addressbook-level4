@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -139,18 +138,18 @@ public class AddressBookParser {
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client delete":
-            return new DeleteCommandParser(ContactType.CLIENT).parse(requireNonNull(identifier).substring(1));
+            return new DeleteCommandParser(ContactType.CLIENT).parse(requireIdentifierNonNull(identifier).substring(1));
 
         case "client list":
             return new ListCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client update":
             return new UpdateCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
 
         case "client addservice":
             return new AddServiceCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
 
         case "client matchmake":
         case "serviceprovider matchmake":
@@ -161,21 +160,35 @@ public class AddressBookParser {
 
         case "serviceprovider delete":
             return new DeleteCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(requireNonNull(identifier).substring(1));
+                    .parse(requireIdentifierNonNull(identifier).substring(1));
 
         case "serviceprovider list":
             return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case "serviceprovider update":
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
 
         case "serviceprovider addservice":
             return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * Ensure that the {@code String} object is non-null
+     * @param identifier The {@code String} object that is to be non-null
+     * @return The {@code String} object, if it's non-null
+     * @throws ParseException if {@code String} object is actually null
+     */
+    private String requireIdentifierNonNull(String identifier) throws ParseException {
+        if (identifier == null) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+
+        return identifier;
     }
 }
