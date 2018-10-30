@@ -84,11 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addContact(Contact contact) {
         versionedAddressBook.addContact(contact);
-        if (contact instanceof Client) {
-            updateFilteredContactList(ContactType.CLIENT.getFilter());
-        } else {
-            updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
-        }
+        updateFilteredContactList(contact.getType().getFilter());
         indicateAddressBookChanged();
     }
 

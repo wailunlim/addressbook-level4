@@ -51,7 +51,6 @@ public abstract class Contact {
     public boolean hasService(Service service) {
         return services.containsKey(service.getName());
     }
-    private boolean hasService(String service) { return services.containsKey(service); }
 
     // Get the name of the contact
     public Name getName() {
