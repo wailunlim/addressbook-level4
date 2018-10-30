@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
-import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -19,19 +18,18 @@ import seedu.address.model.contact.Contact;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "%s add";
-    public static final String COMMAND_WORD_CLIENT = String.format(COMMAND_WORD, ContactType.CLIENT);
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = String.format(COMMAND_WORD,
-            ContactType.SERVICE_PROVIDER);
+    public static final String COMMAND_WORD_GENERAL = "%s add";
+    public static final String COMMAND_WORD_CLIENT = "client add";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a contact to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a contact to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD_GENERAL + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
@@ -58,7 +56,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(String.format(COMMAND_WORD, toAdd.getType()));
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, toAdd.getType()));
         }
 
         if (model.hasContact(toAdd)) {
