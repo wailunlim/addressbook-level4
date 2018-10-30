@@ -15,7 +15,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
-import seedu.address.logic.commands.MatchMakeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -101,11 +100,6 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
 
         final String commandWord = getCommandWord(firstWord, secondWord);
-        System.out.println(firstWord);
-        System.out.println(identifier);
-        System.out.println(secondWord);
-        System.out.println(arguments);
-        System.out.println(commandWord);
 
         //TODO: do away with new String cases
         switch (commandWord) {
@@ -158,6 +152,7 @@ public class AddressBookParser {
                     .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
 
         case "client matchmake":
+        case "serviceprovider matchmake":
             return new MatchMakeCommandParser().parse(firstWord + identifier);
 
         case "serviceprovider add":

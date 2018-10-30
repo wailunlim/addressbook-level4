@@ -66,8 +66,9 @@ public class MatchMakeCommand extends Command {
             model.updateFilteredContactList(c -> (c instanceof ServiceProvider
                    && serviceProviderCanFulfilAtLeastOneService((ServiceProvider) c, servicesRequired)));
         } else if (contact instanceof ServiceProvider) {
+            Collection<Service> servicesProvided = contact.getServices().values();
             model.updateFilteredContactList(c -> (c instanceof Client
-                   && service));
+                   && clientRequiresServices((Client) c, servicesProvided)));
         } else {
             // We should never arrive here. If we do, it means there's a Contact subclass that is not handled here.
             throw new CommandException("Unknown entity, neither client nor service provider found in database.");
@@ -78,10 +79,10 @@ public class MatchMakeCommand extends Command {
     }
 
     /**
-     * Utility function to check if a {@code ServiceProvider} can fulfil a particular {@code Service}.
+     * Utility function to check if a {@code serviceProvider} can fulfil a particular {@code serviceRequired}.
      * @param serviceProvider The service provider.
      * @param serviceRequired The service required.
-     * @return True if the service provider can fulfil the service.
+     * @return Returns true if the service provider can fulfil the service.
      */
     private static boolean serviceProviderCanFulfilService(ServiceProvider serviceProvider, Service serviceRequired) {
         return serviceProvider
@@ -94,17 +95,47 @@ public class MatchMakeCommand extends Command {
     }
 
     /**
-     * Utility function to check if a {@code ServiceProvider} can fulfil at least one {@code Service} from a collection
-     * of {@code Service}.
+     * Utility function to check if a {@code serviceProvider} can fulfil at least one {@code serviceRequired} from a
+     * collection of {@code Service}.
      * @param serviceProvider The service provider.
      * @param servicesRequired The services required.
-     * @return True if the service provider can fulfil at least one of the service.
+     * @return Returns true if the service provider can fulfil at least one of the service.
      */
     private static boolean serviceProviderCanFulfilAtLeastOneService(ServiceProvider serviceProvider,
                                                                      Collection<Service> servicesRequired) {
         return servicesRequired
                 .stream()
                 .filter(serviceRequired -> serviceProviderCanFulfilService(serviceProvider, serviceRequired))
+                .count() > 0;
+    }
+
+    /**
+     * Utility function to check if a {@code client} requires and can afford a particular {@code serviceOffered}.
+     * @param client The client.
+     * @param serviceOffered The service offered.
+     * @return Returns true if the client requires the service and can afford it.
+     */
+    private static boolean clientRequiresService(Client client, Service serviceOffered) {
+        return client
+                .getServices()
+                .values()
+                .stream()
+                .filter(serviceRequired -> serviceRequired.isSameServiceTypeAs(serviceOffered))
+                .filter(serviceRequired -> serviceRequired.getCost() >= serviceOffered.getCost())
+                .count() > 0;
+    }
+
+    /**
+     * Utility function to check if a {@code client} requires and can afford a at least one of the services offered by
+     * the service provider in {@code serviceOffered}.
+     * @param client The client.
+     * @param servicesOffered The services offered.
+     * @return Returns true if the client requires at least one of the service and can afford it.
+     */
+    private static boolean clientRequiresServices(Client client, Collection<Service> servicesOffered) {
+        return servicesOffered
+                .stream()
+                .filter(serviceOffered -> clientRequiresService(client, serviceOffered))
                 .count() > 0;
     }
 
