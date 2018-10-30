@@ -2,7 +2,12 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.util.CollectionUtil.compareListOfContacts;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.DOMINIC;
+import static seedu.address.testutil.TypicalContacts.HOON;
+import static seedu.address.testutil.TypicalContacts.JON;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +15,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
+
+import seedu.address.model.ContactType;
+import seedu.address.model.contact.Contact;
+import seedu.address.testutil.TypicalContacts;
 
 public class CollectionUtilTest {
     @Test
@@ -79,6 +88,35 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
+    public void compareListOfContactsTest() {
+        List<Contact> list = TypicalContacts.getTypicalContacts();
+        List<Contact> typicalContactList = TypicalContacts.getTypicalContacts();
+
+        // Remove a contact
+        list.remove(ALICE);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.CLIENT);
+
+        // Remove a serviceprovider
+        list.add(ALICE);
+        list.remove(DOMINIC);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.SERVICE_PROVIDER);
+
+        // Add a contact
+        list.add(DOMINIC);
+        list.add(HOON);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.CLIENT);
+
+        // Add a serviceprovider
+        list.remove(HOON);
+        list.add(JON);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.SERVICE_PROVIDER);
+    }
+
+    private void assertType(ContactType type, ContactType expectedType) {
+        assertTrue(type.equals(expectedType));
     }
 
     /**
