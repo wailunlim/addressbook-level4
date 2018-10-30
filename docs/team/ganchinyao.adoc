@@ -108,9 +108,10 @@ I crafter an example format below which was used consistently throughout the Use
 image::extract.png[width="450"]
 === Extract of User Guide written
 |===
-|_The following paragraph shows the exact extract I have written for the User Guide._
+|_The following paragraphs shows the exact extract I have written for the User Guide._
 |===
 
+image::quotestart.png[width="180"]
 
 
 === Logging in : `login`
@@ -136,7 +137,7 @@ Format: `logout`
 Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
 [NOTE]
-It may sound counter-intuitive to require an account before registering a new account. This is because only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 
@@ -155,7 +156,7 @@ either
 
 Change your current account password from an old password to a new password.
 
-Condition: new password should not be the same as old password, and your old password is typed in correctly.
+Condition: your old password is typed in correctly, and new password should not be the same as old password.
 
 [CAUTION]
 Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -170,6 +171,8 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 {empty} +
 
+---
+
 === FAQ
 *[red]#Q*#: [red]#What platform is this application available on?# +
 *A*: This application is cross-platform, and can be used on both Windows and Mac OS.
@@ -180,6 +183,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 *[red]#Q*#: [red]#How can I report an issue?# +
 *A*: You can raise an issue in the issue section and our team will get back to you as soon as possbile.
 
+image::quoteend.png[width="180"]
 
 
 
@@ -188,5 +192,33 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 image::developerguideheader.png[width="450"]
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section shows what I have contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+Github link to Developer Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc
+
+{empty} +
+
+=== Make the Developer Guide pretty
+I created the title graphic below that is present on the first page of the Developer Guide to draw the reader's attention. This also makes the Developer Guide more aesthetically pleasing.
+
+.The tile graphic
+image::guidefordevelopers.png[width="350"]
+
+In addition, I have also created title headers like the one below to better differentiate each sections. This makes it easier for user to identify different segments of the Developer Guide.
+
+.An example of a title header
+image::callout.png[width="250"]
+
+
+{empty} +
+
+image::extract.png[width="450"]
+=== Extract of Developer Guide written
+|===
+|_The following paragraphs shows the exact extract I have written for the User Guide._
+|===
+
+image::quotestart.png[width="180"]
+
+image:quoteend.png[width="180"]
