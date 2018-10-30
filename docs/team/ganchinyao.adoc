@@ -216,9 +216,99 @@ image::callout.png[width="250"]
 image::extract.png[width="450"]
 === Extract of Developer Guide written
 |===
-|_The following paragraphs shows the exact extract I have written for the User Guide._
+|_The following paragraphs shows the exact extract I have written for the Developer Guide._
 |===
 
 image::quotestart.png[width="180"]
+
+=== Account Storage component
+
+.Structure of the Account Storage Component
+image::AccountStorageClassDiagram.png[width="800"]
+
+{empty} +
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/AccountStorage.java[`AccountStorage.java`]
+
+The `AccountStorage` component
+
+* can save the Account data in xml format and read it back.
+* can populate a default root Account data in xml format if missing
+* can update existing Account password stored in the storage
+
+---
+=== Account creation
+Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
+
+[NOTE]
+User can only register for an account via an existing account with `SUPER_USER` privilege. It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+
+==== Types of account
+There are 2 types of account:
+
+* `SUPER_USER` : A user that is capable of executing all commands available in the application.
+* `READ_ONLY_USER` : A user that is capable of executing all commands except registering new account, adding, editing, and deleting entries in the database.
+
+These 2 types of accounts are referred as Role and facilitated by the `Role` enum.
+
+The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Account` class, specifically:
+
+* `boolean hasWritePrivilege()`
+* `boolean hasDeletePrivilege()`
+* `boolean hasAccountCreationPrivilege()`
+
+Commands that prevents a `READ_ONLY_USER` from executing is checked with a condition as such:
+
+[source,java]
+if (!account.hasWritePrivilege()) {
+    throw new LackOfPrivilegeException(COMMAND_WORD);
+}
+
+==== Design Considerations
+===== Aspect: Should the privilege be tied to Role enum or Account class?
+* *Alternative 1 (current choice):* Account class contains the privileges methods such has `hasWritePrivilege`.
+** Pros: This makes sense as the type of privilege is tied to the account.
+* *Alternative 2:* Role enum should contains the privileges methods
+** Pros: Since Role enum contains all the different roles such as `READ_ONLY_USER` and `SUPER_USER`, it is easy to reference all the different types of roles and the privileges in 1 file. This makes adding more roles and privileges in the future easy.
+** Cons: It sounds awkward to have privileges associated with Role rather than with an Account.
+
+=== Account storage
+All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
+
+The diagram below shows what happen when a user launches the application:
+
+.Activity diagram when user launches the application
+image::accountstoragediagram.png[width="800"]
+
+{empty} +
+
+Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
+
+.Activity diagram when user registers an account
+image::accountcreationdiagram.png[width="800"]
+
+{empty} +
+
+==== Design Considerations
+===== Aspect: What file type to store user account as?
+* *Alternative 1 (current choice):* Store it as a `xml` file locally.
+** Pros: The code to write and read xml file is already present for adding address book contact initially in the Address Book - level 4 app. Hence, adopting this code and modifying it for account storage is easier than coming up with code from scratch.
+** Cons: Relatively wordy and verbose with all the opening and closing tag. For the same amount of account information, compared to other format such as `json`, more data has to be stored to account for tag elements.
+* *Alternative 2:* Store it as a `json` file locally.
+** Pros: Simpler syntax than `xml` and hence less data is required to store the same amount of account information.
+** Pros: Can be parsed into a ready-to-use JavaScript object.
+** Cons: Not familiar with json, hence more effort is needed to write code to store account in json format, compared to the already given code for xml storage.
+
+==== Security Considerations
+
+===== Database
+Currently, the list of accounts is stored locally on data/accountlist.xml. For security purposes, we may consider the following implementations in the future for v2.0:
+
+* **Encrypt accountlist.xml:** This can prevent direct lookup of the file as the content is encrypted
+* **Store the file on a server:** Due to project restriction, we are unable to implement this at v1.4. Storing file on a server has an added advantage of utilising web security practises or employing third party services to help protect our account list in private servers.
+
+===== Storing password
+Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
+
 
 image:quoteend.png[width="180"]
