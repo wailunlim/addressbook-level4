@@ -243,7 +243,6 @@ public class UpdateCommandTest {
 
         // edit client in filtered list into a duplicate in address book
         Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        // TODO: how update works now is to filter the list by client/serviceprovider, then update. To change implmtion.
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList).build(), ContactType.CLIENT);

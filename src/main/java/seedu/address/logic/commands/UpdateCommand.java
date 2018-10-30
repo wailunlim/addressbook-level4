@@ -96,6 +96,10 @@ public class UpdateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
         Contact contactToEdit = filteredList.get(0);
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor, contactType);
 
