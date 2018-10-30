@@ -119,26 +119,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate client -> rejected */
         command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, HOON.getType()));
 
         /* Case: add a duplicate client except with different phone -> rejected */
         toAdd = new ClientBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different email -> rejected */
         toAdd = new ClientBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different address -> rejected */
         toAdd = new ClientBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD_CLIENT + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
@@ -212,7 +212,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Contact toAdd) {
         Model expectedModel = getModel();
         expectedModel.addContact(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd.getType(), toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
