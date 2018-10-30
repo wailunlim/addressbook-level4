@@ -2,9 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
@@ -23,8 +28,14 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
+        List<Contact> listBeforeUndo = model.getAddressBook().getContactList();
         model.undoAddressBook();
-        // model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Contact> listAfterUndo = model.getAddressBook().getContactList();
+
+        ContactType toFiler = CollectionUtil.compareListOfContacts(listAfterUndo, listBeforeUndo);
+
+        model.updateFilteredContactList(toFiler.getFilter());
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
