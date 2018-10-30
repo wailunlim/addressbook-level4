@@ -18,7 +18,7 @@ import seedu.address.storage.XmlAccountStorage;
  * Edit the password of the user.
  */
 public class EditPasswordCommand extends Command {
-    public static final String COMMAND_WORD = "changepassword";
+    public static final String COMMAND_WORD = "change password";
     public static final Prefix PREFIX_OLDPASSWORD = new Prefix("o/");
     public static final Prefix PREFIX_NEWPASSWORD = new Prefix("n/");
 
