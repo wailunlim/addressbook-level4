@@ -3,6 +3,9 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Defines the service types
  */
@@ -24,6 +27,9 @@ public class Service {
     public final String serviceName;
     public final int serviceCost;
 
+    // Id list of clients / service providers for service providers / clients respectively.
+    private List<Integer> idList;
+
     /**
      * Constructs a {@code Service}.
      *
@@ -38,6 +44,7 @@ public class Service {
 
         serviceName = service;
         serviceCost = cost;
+        idList = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,6 +55,9 @@ public class Service {
         return serviceCost;
     }
 
+    public List<Integer> getIdList() {
+        return idList;
+    }
     /**
      * Returns true if a given string is a valid service name.
      */
