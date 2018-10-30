@@ -18,9 +18,9 @@ import seedu.address.model.serviceprovider.ServiceProvider;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class MatchMakeCommand extends Command {
+public class AutoMatchCommand extends Command {
 
-    public static final String COMMAND_WORD = "matchmake";
+    public static final String COMMAND_WORD = "automatch";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
@@ -30,7 +30,7 @@ public class MatchMakeCommand extends Command {
     private final String contactType;
     private final String contactId;
 
-    public MatchMakeCommand(String contactType, String contactId) {
+    public AutoMatchCommand(String contactType, String contactId) {
         this.contactType = contactType;
         this.contactId = contactId;
     }
@@ -142,8 +142,8 @@ public class MatchMakeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MatchMakeCommand // instanceof handles nulls
-                && contactType.equals(((MatchMakeCommand) other).contactType)
-                && contactId.equals(((MatchMakeCommand) other).contactId)); // state check
+                || (other instanceof AutoMatchCommand // instanceof handles nulls
+                && contactType.equals(((AutoMatchCommand) other).contactType)
+                && contactId.equals(((AutoMatchCommand) other).contactId)); // state check
     }
 }
