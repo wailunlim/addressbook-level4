@@ -37,6 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredContacts = new FilteredList<>(versionedAddressBook.getContactList());
+        // initial: agreed to show client list
+        updateFilteredContactList(ContactType.CLIENT.getFilter());
     }
 
     public ModelManager() {
