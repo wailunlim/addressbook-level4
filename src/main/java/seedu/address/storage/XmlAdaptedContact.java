@@ -26,7 +26,7 @@ import seedu.address.model.tag.Tag;
 /**
  * JAXB-friendly version of the Client.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedContact {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Client's %s field is missing!";
 
     @XmlElement(required = true)
@@ -45,16 +45,16 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedService> services = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedContact.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() { }
+    public XmlAdaptedContact() { }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given client details.
+     * Constructs an {@code XmlAdaptedContact} with the given client details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            List<XmlAdaptedService> services, ContactType type) {
+    public XmlAdaptedContact(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                             List<XmlAdaptedService> services, ContactType type) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -69,10 +69,10 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given client details.
+     * Constructs an {@code XmlAdaptedContact} with the given client details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            ContactType type) {
+    public XmlAdaptedContact(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                             ContactType type) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -86,9 +86,9 @@ public class XmlAdaptedPerson {
     /**
      * Converts a given Client into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedContact
      */
-    public XmlAdaptedPerson(Contact source) {
+    public XmlAdaptedContact(Contact source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -179,11 +179,11 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedContact)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+        XmlAdaptedContact otherPerson = (XmlAdaptedContact) other;
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
