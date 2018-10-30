@@ -13,7 +13,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.account.Account;
-import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -37,6 +36,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredContacts = new FilteredList<>(versionedAddressBook.getContactList());
+        // initial: agreed to show client list
+        updateFilteredContactList(ContactType.CLIENT.getFilter());
     }
 
     public ModelManager() {
@@ -84,11 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addContact(Contact contact) {
         versionedAddressBook.addContact(contact);
-        if (contact instanceof Client) {
-            updateFilteredContactList(ContactType.CLIENT.getFilter());
-        } else {
-            updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
-        }
+        updateFilteredContactList(contact.getType().getFilter());
         indicateAddressBookChanged();
     }
 

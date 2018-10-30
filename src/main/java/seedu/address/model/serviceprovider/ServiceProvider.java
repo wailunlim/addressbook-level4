@@ -3,6 +3,7 @@ package seedu.address.model.serviceprovider;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -39,6 +40,11 @@ public class ServiceProvider extends Contact {
                            Map<String, Service> services, int id) {
         super(name, phone, email, address, tags, services);
         this.id = id;
+    }
+
+    @Override
+    public ContactType getType() {
+        return ContactType.SERVICE_PROVIDER;
     }
 
     public int getId() {

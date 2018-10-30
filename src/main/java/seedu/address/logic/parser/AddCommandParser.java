@@ -60,6 +60,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case SERVICE_PROVIDER:
             return new ServiceProvider(name, phone, email, address, tagList);
         default:
+            // should nvr come here
             throw new RuntimeException("No such Contact Type");
         }
     }

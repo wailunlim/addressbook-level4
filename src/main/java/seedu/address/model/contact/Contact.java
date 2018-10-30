@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.model.ContactType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,7 +51,6 @@ public abstract class Contact {
     public boolean hasService(Service service) {
         return services.containsKey(service.getName());
     }
-    private boolean hasService(String service) { return services.containsKey(service); }
 
     // Get the name of the contact
     public Name getName() {
@@ -79,6 +79,9 @@ public abstract class Contact {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
+    // Get the contact type of this contact
+    public abstract ContactType getType();
 
     // Get the services of the contact.
     public Map<String, Service> getServices() {

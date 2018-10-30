@@ -3,6 +3,7 @@ package seedu.address.model.client;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -46,6 +47,11 @@ public class Client extends Contact {
     @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public ContactType getType() {
+        return ContactType.CLIENT;
     }
 
     /**

@@ -27,8 +27,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         try {
             requireNonNull(args).substring(1);
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index, contactType);
+            Index id = ParserUtil.parseIndex(args);
+            return new DeleteCommand(id, contactType);
         } catch (ParseException | NullPointerException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), e);
