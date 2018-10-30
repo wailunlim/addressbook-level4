@@ -142,19 +142,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD_CLIENT + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
 
         /* Case: missing phone -> rejected */
         command = AddCommand.COMMAND_WORD_CLIENT + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
 
         /* Case: missing email -> rejected */
         command = AddCommand.COMMAND_WORD_CLIENT + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
 
         /* Case: missing address -> rejected */
         command = AddCommand.COMMAND_WORD_CLIENT + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);

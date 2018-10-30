@@ -19,6 +19,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
@@ -77,7 +78,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 client found */
-        executeCommand("client#" + BENSON.getId() + " " + DeleteCommand.COMMAND_WORD);
+        executeCommand(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + BENSON.getId()));
         assertFalse(getModel().getAddressBook().getContactList().contains(BENSON));
         command = "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();

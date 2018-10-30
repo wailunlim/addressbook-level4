@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new AddCommand(validContact), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validContact), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact), expectedModel);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class AddCommandIntegrationTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new AddCommand(validContact), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validContact), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact), expectedModel);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class AddCommandIntegrationTest {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_CONTACT);
+                String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, contactInList.getType()));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AddCommandIntegrationTest {
         model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_CONTACT);
+                String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, contactInList.getType()));
     }
 
     /**
@@ -80,7 +80,7 @@ public class AddCommandIntegrationTest {
         Contact contactInList = model.getAddressBook().getContactList().get(0);
         model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_CONTACT);
+                String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, contactInList.getType()));
     }
 
 }

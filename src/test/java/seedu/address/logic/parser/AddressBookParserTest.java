@@ -107,7 +107,8 @@ public class AddressBookParserTest {
     //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD + " ");
+                String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#"
+                        + INDEX_FIRST_PERSON.getOneBased()));
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 

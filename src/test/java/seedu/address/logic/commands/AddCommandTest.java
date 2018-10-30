@@ -47,7 +47,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -59,7 +60,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -71,7 +73,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -82,7 +84,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 

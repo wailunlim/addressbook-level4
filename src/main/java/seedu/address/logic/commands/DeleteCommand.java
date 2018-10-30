@@ -18,14 +18,20 @@ import seedu.address.model.contact.Contact;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s delete";
+    /*
+    the below are necessary for switch statements as a constant expression is required for to compile switch
+    statements
+     */
+    public static final String COMMAND_WORD_CLIENT = "client delete";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the client identified by the index number used in the displayed client list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
+            + ": Deletes the %1$s identified by the index number used in the displayed %1$s list.\n"
+            + "Parameters: ID (must be a positive integer)\n"
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Client: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted %1$s: %2$s";
 
     private final Index id;
     private final ContactType contactType;
@@ -41,7 +47,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasDeletePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
         model.updateFilteredContactList(contactType.getFilter()
@@ -64,7 +70,8 @@ public class DeleteCommand extends Command {
         model.deleteContact(contactToDelete);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
+                contactToDelete));
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -30,7 +31,7 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern COMMAND_FORMAT =
-            Pattern.compile("(?<firstWord>[a-zA-Z]+)(?<identifier>#[\\d\\w-]+)?(?<secondWord>[\\s]+(?!./)"
+            Pattern.compile("(?<firstWord>[a-zA-Z]+)(?<identifier>#[\\d\\w-]*)?(?<secondWord>[\\s]+(?!./)"
                     + "[a-zA-Z]+)?(?<arguments>.*)");
 
     /**
@@ -137,8 +138,8 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD_CLIENT:
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
-        case "client delete":
-            return new DeleteCommandParser(ContactType.CLIENT).parse(requireIdentifierNonNull(identifier).substring(1));
+        case DeleteCommand.COMMAND_WORD_CLIENT:
+            return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
         case "client list":
             return new ListCommandParser(ContactType.CLIENT).parse(arguments);
@@ -158,9 +159,8 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
-        case "serviceprovider delete":
-            return new DeleteCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(requireIdentifierNonNull(identifier).substring(1));
+        case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
+            return new DeleteCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
 
         case "serviceprovider list":
             return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);

@@ -18,11 +18,15 @@ import seedu.address.model.contact.Contact;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD_GENERAL = "%s add";
+    public static final String COMMAND_WORD_GENERAL = "%1$s add";
+    /*
+    the below are necessary for switch statements as a constant expression is required for to compile switch
+    statements
+     */
     public static final String COMMAND_WORD_CLIENT = "client add";
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a contact to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a %1$s to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
