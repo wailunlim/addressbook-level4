@@ -133,9 +133,11 @@ public class UpdateCommand extends Command {
             return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
         case SERVICE_PROVIDER:
-        default:
             return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
+        default:
+            // should nvr come in here
+            throw new RuntimeException("No such Contact Type!");
         }
     }
 

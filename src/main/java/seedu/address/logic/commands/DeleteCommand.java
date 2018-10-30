@@ -55,6 +55,10 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
         // filtered list size is 1 (unique ID for client/serviceprovider)
         Contact contactToDelete = filteredList.get(0);
         model.deleteContact(contactToDelete);
