@@ -116,7 +116,8 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find address of client in address book -> 1 persons found */
-        command = String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " a/" + DANIEL.getAddress().value;
+        command = String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " a/"
+                + DANIEL.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
