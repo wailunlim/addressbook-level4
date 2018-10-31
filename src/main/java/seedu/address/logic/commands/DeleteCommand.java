@@ -27,8 +27,8 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
-            + ": Deletes the %1$s identified by the index number used in the displayed %1$s list.\n"
-            + "Parameters: ID (must be a positive integer)\n"
+            + ": Deletes the %1$s identified by the assigned unique %1$s ID.\n"
+            + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted %1$s: %2$s";

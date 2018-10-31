@@ -45,9 +45,9 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Edits the details of the %1$s identified "
-            + "by the id number used in the displayed %1$s list. "
+            + "by the assigned unique %1$s ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: #<ID> (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
