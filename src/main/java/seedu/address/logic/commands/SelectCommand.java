@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ClearBrowserPanelRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -50,6 +51,7 @@ public class SelectCommand extends Command {
         if (filteredList.size() == 0) {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
+            EventsCenter.getInstance().post(new ClearBrowserPanelRequestEvent());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
