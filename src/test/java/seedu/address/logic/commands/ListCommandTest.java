@@ -67,7 +67,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_zeroKeywords_everyPersonFound() {
-        String expectedMessage = MESSAGE_LIST_ALL_X;
+        String expectedMessage = String.format(MESSAGE_LIST_ALL_X, ContactType.CLIENT);
         ContactContainsKeywordsPredicate predicate = preparePredicate();
         ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));
@@ -79,7 +79,7 @@ public class ListCommandTest {
     public void execute_multipleKeywords_zeroOrOnePersonFound() {
 
         /* Case: List with 3 person's name -> 0 persons found */
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, ContactType.CLIENT);
         ContactContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);
@@ -87,7 +87,7 @@ public class ListCommandTest {
         assertEquals(Arrays.asList(), model.getFilteredContactList());
 
         /* Case: List with 1 person's name -> 1 persons found */
-        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, ContactType.CLIENT);
         predicate = preparePredicate("Benson Meier");
         command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);

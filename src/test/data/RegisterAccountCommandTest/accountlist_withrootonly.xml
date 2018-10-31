@@ -2,12 +2,12 @@
 <accountmanager>
     <accounts>
         <username>rootUser</username>
-        <password>$31$16$GlejeUHQmEUJdXOWcQsIvtjycsW9wOfvUuQ5sb3vAyU</password>
+        <password>$31$16$DlvqHIziVZIqAGnR-j-CTcC28EVe98DHoQ72Uwr_3q4</password>
         <role>SUPER_USER</role>
     </accounts>
     <accounts>
         <username>username123</username>
-        <password>$31$16$nNF-olyBATxooRRJ64VW9Jz4-JHFxo4WnLGZfVo8saI</password>
+        <password>$31$16$inLgAE3jgIP-TvDuiP1qyZC-_TRotDjVzEq44sBrL1U</password>
         <role>SUPER_USER</role>
     </accounts>
 </accountmanager>

@@ -15,6 +15,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -46,7 +47,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() {
         String findCommand = "client " + ListCommand.COMMAND_WORD;
-        assertCommandSuccess(findCommand, MESSAGE_LIST_ALL_X, model);
+        assertCommandSuccess(findCommand, String.format(MESSAGE_LIST_ALL_X, ContactType.CLIENT), model);
         assertHistoryCorrect(findCommand);
     }
 

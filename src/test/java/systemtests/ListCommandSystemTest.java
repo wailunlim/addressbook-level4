@@ -34,31 +34,31 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where client list is displaying the persons we are finding
          * -> 2 persons found
          */
         command = "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client where client list is not displaying the client we are finding -> 1 client found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords -> 0 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Benson Daniel";
         ModelHelper.setFilteredList(expectedModel);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 0 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Daniel Daniel";
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: undo previous find command -> rejected */
@@ -74,7 +74,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         /* Case: find Benson to delete */
         command = "client " + ListCommand.COMMAND_WORD + " n/Benson";
         ModelHelper.setFilteredList(expectedModel, BENSON);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 client found */
@@ -83,54 +83,54 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         command = "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client in address book, keyword is same as name but of different case -> 1 client found */
         command = "client " + ListCommand.COMMAND_WORD + " n/MeIeR";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client in address book, keyword is substring of name -> 1 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Mei";
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client in address book, name is substring of keyword -> 0 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Meiers";
         ModelHelper.setFilteredList(expectedModel);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find client not in address book -> 0 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " n/Mark";
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find phone number of client in address book -> 1 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " p/" + DANIEL.getPhone().value;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find address of client in address book -> 1 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " a/" + DANIEL.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find email of client in address book -> 1 persons found */
         command = "client " + ListCommand.COMMAND_WORD + " e/" + DANIEL.getEmail().value;
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find tags of client in address book -> 2 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = "client " + ListCommand.COMMAND_WORD + " t/" + tags.get(0).tagName;
         ModelHelper.setFilteredList(expectedModel, ALICE, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find while a client is selected -> selected card deselected */
@@ -139,7 +139,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = "client " + ListCommand.COMMAND_WORD + " n/Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find client in empty address book -> 0 persons found */
@@ -147,7 +147,7 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
         command = "client " + ListCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
-        assertCommandSuccess(command, expectedModel);
+        assertCommandSuccessClient(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
@@ -165,9 +165,9 @@ public class ListCommandSystemTest extends AddressBookSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel) {
+    private void assertCommandSuccessClient(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredContactList().size());
+                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredContactList().size(), ContactType.CLIENT);
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
