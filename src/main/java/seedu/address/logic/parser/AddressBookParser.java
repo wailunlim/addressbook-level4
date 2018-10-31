@@ -14,6 +14,7 @@ import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -141,7 +142,7 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD_CLIENT:
             return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
-        case "client list":
+        case ListCommand.COMMAND_WORD_CLIENT:
             return new ListCommandParser(ContactType.CLIENT).parse(arguments);
 
         case "client update":
@@ -162,7 +163,7 @@ public class AddressBookParser {
         case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new DeleteCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
 
-        case "serviceprovider list":
+        case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case "serviceprovider update":
