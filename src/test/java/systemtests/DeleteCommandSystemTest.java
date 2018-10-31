@@ -24,8 +24,9 @@ import seedu.address.model.contact.Contact;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
-    private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT =
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, String.format(DeleteCommand.MESSAGE_USAGE,
+                    ContactType.CLIENT, "#<ID>"));
 
     @Test
     public void delete() {
@@ -34,10 +35,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         //TODO: update command string
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        String command = "     " + "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD
-                + "      ";
+        String command = "     " + String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
+                "#" + INDEX_FIRST_PERSON.getOneBased()) + "      ";
         Contact deletedContact = removePerson(expectedModel, INDEX_FIRST_PERSON);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact.getType(),
+                deletedContact);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last client in the list -> deleted */
@@ -76,7 +78,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         //TODO: update command
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getContactList().size();
-        command = "client#" + invalidIndex + " " + DeleteCommand.COMMAND_WORD;
+        command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + invalidIndex);
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* --------------------- Performing delete operation while a client card is selected ------------------------ */
@@ -88,34 +90,36 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         selectPerson(selectedIndex);
-        command = "client#" + selectedIndex.getOneBased() + " " + DeleteCommand.COMMAND_WORD;
+        command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
+                "#" + selectedIndex.getOneBased());
         deletedContact = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact.getType(), deletedContact);
         executeCommand(command);
         // assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        command = "client#0 " + DeleteCommand.COMMAND_WORD;
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#0");
+        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
 
         /* Case: invalid index (-1) -> rejected */
-        command = "client#-1 " + DeleteCommand.COMMAND_WORD;
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#-1");
+        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
                 getModel().getAddressBook().getContactList().size() + 1);
-        command = "client#" + outOfBoundsIndex.getOneBased() + " " + DeleteCommand.COMMAND_WORD;
+        command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
+                "#" + outOfBoundsIndex.getOneBased());
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure("client#abc " + DeleteCommand.COMMAND_WORD,
-                MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#abc"),
+                MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure("client#1 abc " + DeleteCommand.COMMAND_WORD,
+        assertCommandFailure(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#1 abc"),
                 MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: mixed case command word -> rejected */
@@ -140,11 +144,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
         Contact deletedContact = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedContact.getType(),
+                deletedContact);
 
         //TODO: Update command input
         assertCommandSuccess(
-                "client#" + toDelete.getOneBased() + " " + DeleteCommand.COMMAND_WORD,
+                String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + toDelete.getOneBased()),
                 expectedModel, expectedResultMessage);
     }
 

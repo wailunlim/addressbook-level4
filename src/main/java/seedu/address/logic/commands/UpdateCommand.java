@@ -40,38 +40,41 @@ public class UpdateCommand extends Command {
 
 
     public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s update";
+    public static final String COMMAND_WORD_CLIENT = "client update";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client identified "
-            + "by the index number used in the displayed client list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Updates the details of the %1$s identified "
+            + "by the assigned unique %1$s ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: #<ID> (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3")
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Client: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists in the address book.";
+    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Updated %1$s: %2$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
-    private final Index index;
+    private final Index id;
     private final EditContactDescriptor editContactDescriptor;
     private final ContactType contactType;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param id of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      * @param contactType
      */
-    public UpdateCommand(Index index, EditContactDescriptor editContactDescriptor, ContactType contactType) {
-        requireNonNull(index);
+    public UpdateCommand(Index id, EditContactDescriptor editContactDescriptor, ContactType contactType) {
+        requireNonNull(id);
         requireNonNull(editContactDescriptor);
 
-        this.index = index;
+        this.id = id;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
         this.contactType = contactType;
     }
@@ -82,11 +85,11 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
         // id is unique
-        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == index.getOneBased()));
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == id.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -96,18 +99,22 @@ public class UpdateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
         Contact contactToEdit = filteredList.get(0);
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor, contactType);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             model.updateFilteredContactList(contactType.getFilter());
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
         model.updateContact(contactToEdit, editedContact);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, contactToEdit.getType(), editedContact));
     }
 
     /**
@@ -127,15 +134,16 @@ public class UpdateCommand extends Command {
         Map<String, Service> updatedServices = editContactDescriptor.getServices().orElse(contactToEdit.getServices());
         int id = contactToEdit.getId();
 
-        //TODO take a look at this below vvvvv
         switch (contactType) {
         case CLIENT:
             return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
         case SERVICE_PROVIDER:
-        default:
             return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
+        default:
+            // should nvr come in here
+            throw new RuntimeException("No such Contact Type!");
         }
     }
 
@@ -153,7 +161,7 @@ public class UpdateCommand extends Command {
 
         // state check
         UpdateCommand e = (UpdateCommand) other;
-        return index.equals(e.index)
+        return id.equals(e.id)
                 && editContactDescriptor.equals(e.editContactDescriptor);
     }
 

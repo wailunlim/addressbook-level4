@@ -34,9 +34,9 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
     public AddServiceCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_COST);
-        Index index;
+        Index id;
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            id = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format
                     (MESSAGE_INVALID_COMMAND_FORMAT, AddServiceCommand.MESSAGE_USAGE), pe);
@@ -57,7 +57,7 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
                 throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
             }
             Service service = new Service(serviceName.get(), parseInt(serviceCost.get()));
-            return new AddServiceCommand(index, service, contactType);
+            return new AddServiceCommand(id, service, contactType);
         }
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddServiceCommand.MESSAGE_USAGE));
     }

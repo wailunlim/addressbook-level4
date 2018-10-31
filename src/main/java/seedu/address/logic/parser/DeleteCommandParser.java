@@ -26,12 +26,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            requireNonNull(args).substring(1);
-            Index id = ParserUtil.parseIndex(args);
+            Index id = ParserUtil.parseIndex(requireNonNull(args).substring(1));
             return new DeleteCommand(id, contactType);
         } catch (ParseException | NullPointerException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), e);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            String.format(DeleteCommand.MESSAGE_USAGE, contactType, "#<ID>")), e);
         }
     }
 

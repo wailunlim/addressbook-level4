@@ -38,12 +38,13 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Index index;
+        Index id;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            id = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(UpdateCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
         }
 
         UpdateCommand.EditContactDescriptor editPersonDescriptor = new EditContactDescriptor();
@@ -65,7 +66,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new UpdateCommand(index, editPersonDescriptor, contactType);
+        return new UpdateCommand(id, editPersonDescriptor, contactType);
     }
 
     /**

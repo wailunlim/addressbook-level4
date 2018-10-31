@@ -26,7 +26,7 @@ public class PersonUtil {
      */
     public static String getAddCommand(Contact contact) {
         //TODO: update this input for the add command after finalising parser
-        return "client " + AddCommand.COMMAND_WORD + " " + getPersonDetails(contact);
+        return AddCommand.COMMAND_WORD_CLIENT + " " + getPersonDetails(contact);
     }
 
     /**

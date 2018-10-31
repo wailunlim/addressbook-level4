@@ -23,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.UpdateCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalContacts.BOB;
 import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
@@ -60,8 +61,9 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+        String command = String.format(COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + index.getOneBased())
+                + NAME_DESC_BOB + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
+                + TAG_DESC_HUSBAND + " ";
         Contact editedContact = new ClientBuilder(BOB).withTags(VALID_TAG_HUSBAND).withId(1).build();
         assertCommandSuccess(command, index, editedContact);
 
@@ -78,7 +80,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a client with new values same as existing values -> edited */
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
+        command = String.format(COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + index.getOneBased())
+                + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -86,7 +89,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredContactList().get(index.getZeroBased()), BOB);
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()) + NAME_DESC_AMY + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedContact = new ClientBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedContact);
@@ -95,14 +99,16 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedContact = new ClientBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedContact);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + " " + PREFIX_TAG.getPrefix();
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()) + " " + PREFIX_TAG.getPrefix();
         Contact contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
         editedContact = new ClientBuilder(contactToEdit).withTags().build();
         assertCommandSuccess(command, index, editedContact);
@@ -113,7 +119,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredContactList().size());
-        command = "client#" + getModel().getFilteredContactList().get(0).getId() + " " + UpdateCommand.COMMAND_WORD
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + getModel().getFilteredContactList().get(0).getId())
                 + " " + NAME_DESC_BOB;
         contactToEdit = getModel().getFilteredContactList().get(index.getZeroBased());
         editedContact = new ClientBuilder(contactToEdit).withName(VALID_NAME_BOB).build();
@@ -124,7 +131,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getContactList().size();
-        assertCommandFailure("client#" + invalidIndex + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + invalidIndex) + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a client card is selected -------------------------- */
@@ -136,7 +144,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         showAllClients();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()) + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new client's name
@@ -148,83 +157,96 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure("client#0 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#0") + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, String.format(UpdateCommand.MESSAGE_USAGE,
+                        ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure("client#-1 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#-1") + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, String.format(UpdateCommand.MESSAGE_USAGE,
+                        ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredContactList().size() + 1;
-        assertCommandFailure("client#" + invalidIndex + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + invalidIndex) + " " + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_UNKNOWN_COMMAND, UpdateCommand.MESSAGE_USAGE));
+                String.format(Messages.MESSAGE_UNKNOWN_COMMAND, String.format(UpdateCommand.MESSAGE_USAGE,
+                        ContactType.CLIENT, "#<ID>")));
 
         /* Case: missing all fields -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD,
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased()),
                 UpdateCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased())
                         + INVALID_NAME_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased())
                         + INVALID_PHONE_DESC,
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased())
                         + INVALID_EMAIL_DESC,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased())
                         + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure("client#" + INDEX_FIRST_PERSON.getOneBased() + " " + UpdateCommand.COMMAND_WORD
+        assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased())
                         + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a client with new values same as another client's values -> rejected */
-
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-        index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredContactList().get(index.getZeroBased()).equals(BOB));
-        command = "client#" + index.getOneBased() + " " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        Index id = INDEX_FIRST_PERSON;
+        assertFalse(getModel().getFilteredContactList().get(id.getZeroBased()).equals(BOB));
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different tags -> rejected */
-        command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different address -> rejected */
-        command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
-        //TODO: Please help me take a look for the test cases below
         /* Case: edit a client with new values same as another client's values but with different phone -> rejected */
-        // command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
-        //         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        // assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-        // System.out.println(BOB.toString());
-        // assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different email -> rejected */
-        // command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-        //         + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        // assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     /**
@@ -252,7 +274,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         assertCommandSuccess(command, expectedModel,
-                String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact), expectedSelectedCardIndex);
+                String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT, editedContact),
+                expectedSelectedCardIndex);
     }
 
     /**

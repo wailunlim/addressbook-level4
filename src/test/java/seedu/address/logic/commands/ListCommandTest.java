@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_PERSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_X;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.ALICE;
@@ -45,14 +45,14 @@ public class ListCommandTest {
         ContactContainsKeywordsPredicate secondPredicate =
                 new ContactContainsKeywordsPredicate(new ClientBuilder().withName("second").build());
 
-        ListCommand findFirstCommand = new ListCommand(firstPredicate, ContactType.CLIENT.getFilter());
-        ListCommand findSecondCommand = new ListCommand(secondPredicate, ContactType.CLIENT.getFilter());
+        ListCommand findFirstCommand = new ListCommand(firstPredicate, ContactType.CLIENT);
+        ListCommand findSecondCommand = new ListCommand(secondPredicate, ContactType.CLIENT);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate, ContactType.CLIENT.getFilter());
+        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate, ContactType.CLIENT);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -67,9 +67,9 @@ public class ListCommandTest {
 
     @Test
     public void execute_zeroKeywords_everyPersonFound() {
-        String expectedMessage = MESSAGE_LIST_ALL_PERSON;
+        String expectedMessage = String.format(MESSAGE_LIST_ALL_X, ContactType.CLIENT);
         ContactContainsKeywordsPredicate predicate = preparePredicate();
-        ListCommand command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredContactList());
@@ -79,17 +79,17 @@ public class ListCommandTest {
     public void execute_multipleKeywords_zeroOrOnePersonFound() {
 
         /* Case: List with 3 person's name -> 0 persons found */
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, ContactType.CLIENT);
         ContactContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        ListCommand command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(), model.getFilteredContactList());
 
         /* Case: List with 1 person's name -> 1 persons found */
-        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, ContactType.CLIENT);
         predicate = preparePredicate("Benson Meier");
-        command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON), model.getFilteredContactList());

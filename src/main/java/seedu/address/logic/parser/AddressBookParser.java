@@ -1,23 +1,27 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ContactType;
 
@@ -30,7 +34,7 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern COMMAND_FORMAT =
-            Pattern.compile("(?<firstWord>[a-zA-Z]+)(?<identifier>#[\\d\\w-]+)?(?<secondWord>[\\s]+(?!./)"
+            Pattern.compile("(?<firstWord>[a-zA-Z]+)(?<identifier>#[\\d\\w-]*)?(?<secondWord>[\\s]+(?!./)"
                     + "[a-zA-Z]+)?(?<arguments>.*)");
 
     /**
@@ -134,47 +138,68 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case "client add":
+        case AddCommand.COMMAND_WORD_CLIENT:
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
-        case "client delete":
-            return new DeleteCommandParser(ContactType.CLIENT).parse(requireNonNull(identifier).substring(1));
+        case DeleteCommand.COMMAND_WORD_CLIENT:
+            return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
-        case "client list":
+        case ListCommand.COMMAND_WORD_CLIENT:
             return new ListCommandParser(ContactType.CLIENT).parse(arguments);
 
-        case "client update":
+        case UpdateCommand.COMMAND_WORD_CLIENT:
             return new UpdateCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
+                            UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "client addservice":
             return new AddServiceCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
+                            AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "client matchmake":
         case "serviceprovider matchmake":
             return new MatchMakeCommandParser().parse(firstWord + identifier);
 
-        case "serviceprovider add":
+        case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
-        case "serviceprovider delete":
-            return new DeleteCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(requireNonNull(identifier).substring(1));
+        case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
+            return new DeleteCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
 
-        case "serviceprovider list":
+        case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
-        case "serviceprovider update":
+        case UpdateCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s",
+                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                                    UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "serviceprovider addservice":
             return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s",
+                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                                    AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    /**
+     * Ensure that the {@code String} object is non-null
+     * @param identifier The {@code String} object that is to be non-null
+     * @return The {@code String} object, if it's non-null
+     * @throws ParseException if {@code String} object is actually null
+     */
+    private String requireIdentifierNonNull(String identifier, ContactType contactType, String messageUsage)
+            throws ParseException {
+        if (identifier == null) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(messageUsage, contactType, "#<ID>")));
+        }
+
+        return identifier;
     }
 }

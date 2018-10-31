@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
-// import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -17,6 +16,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+
+// import static seedu.address.testutil.TestUtil.getMidIndex;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test

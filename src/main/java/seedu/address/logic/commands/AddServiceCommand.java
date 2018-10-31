@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -38,21 +37,21 @@ public class AddServiceCommand extends Command {
     public static final String MESSAGE_ADD_SERVICE_SUCCESS = "New service added for : %1$s \n" + "Service: %2$s";
     public static final String MESSAGE_DUPLICATE_SERVICE = "This service has already been added";
 
-    private final Index index;
+    private final Index id;
     private final Service service;
     private final ContactType contactType;
 
     /**
      * Creates an AddServiceCommand to add the specified service and budget.
-     * @param index of the contact in the filtered contact list to add service to
+     * @param id of the contact in the filtered contact list to add service to
      * @param service service to add
      * @param contactType specifies if contact is a client or service provider
      */
-    public AddServiceCommand(Index index, Service service, ContactType contactType) {
-        requireNonNull(index);
+    public AddServiceCommand(Index id, Service service, ContactType contactType) {
+        requireNonNull(id);
         requireNonNull(service);
 
-        this.index = index;
+        this.id = id;
         this.service = service;
         this.contactType = contactType;
     }
@@ -67,7 +66,7 @@ public class AddServiceCommand extends Command {
         }
 
         // id is unique
-        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == index.getOneBased()));
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == id.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -87,7 +86,7 @@ public class AddServiceCommand extends Command {
         }
 
         model.updateContact(contactToEdit, editedContact);
-        model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_SERVICE_SUCCESS, contactToEdit.getName(), service));
     }
@@ -125,7 +124,7 @@ public class AddServiceCommand extends Command {
 
         // state check
         AddServiceCommand e = (AddServiceCommand) other;
-        return index.equals(e.index);
+        return id.equals(e.id);
     }
 
 }
