@@ -1,9 +1,15 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,11 +22,15 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Service;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -172,28 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        // TODO Fill up each service panel
-        // photoListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
-
-        // hotelListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
-
-        // cateringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
-
-        // dressListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
-
-        // ringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
-
-        // transportListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
-
-        // invitationListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
-
         // Show display
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -216,6 +204,13 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.setVisible(false);
         commandBoxPlaceholder.setVisible(false);
         commandBoxPlaceholder.setManaged(false);
+        photoListPanelPlaceholder.setVisible(false);
+        hotelListPanelPlaceholder.setVisible(false);
+        cateringListPanelPlaceholder.setVisible(false);
+        dressListPanelPlaceholder.setVisible(false);
+        ringListPanelPlaceholder.setVisible(false);
+        transportListPanelPlaceholder.setVisible(false);
+        invitationListPanelPlaceholder.setVisible(false);
     }
 
     /**
@@ -227,6 +222,13 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.setVisible(true);
         commandBoxPlaceholder.setVisible(true);
         commandBoxPlaceholder.setManaged(true);
+        photoListPanelPlaceholder.setVisible(true);
+        hotelListPanelPlaceholder.setVisible(true);
+        cateringListPanelPlaceholder.setVisible(true);
+        dressListPanelPlaceholder.setVisible(true);
+        ringListPanelPlaceholder.setVisible(true);
+        transportListPanelPlaceholder.setVisible(true);
+        invitationListPanelPlaceholder.setVisible(true);
     }
 
     /**
@@ -236,6 +238,63 @@ public class MainWindow extends UiPart<Stage> {
         hideInnerParts();
         displayLoginWindow();
         showInnerParts();
+    }
+
+    /**
+     * Sieves out the contacts based on the service type.
+     * @param resultMap Map of all related contacts.
+     * @param serviceType Type of service.
+     * @return List of Contacts of this service type.
+     */
+    private ObservableList<Contact> getfilteredServiceList(
+            Map<Contact, Collection<Service>> resultMap, String serviceType) {
+        List<Contact> serviceList = new ArrayList<>();
+        resultMap.forEach(((
+                contact, temp) -> resultMap.get(contact)
+                .forEach(service -> {
+                    if (service.getName().equals(serviceType)) {
+                        serviceList.add(contact);
+                    }
+                })));
+        return FXCollections.observableList(serviceList);
+    }
+
+    /**
+     * Handles the display of suitable service providers for the client using the automatch results
+     */
+    public void showAutoMatchDisplay() {
+        AutoMatchResult autoMatchResult = logic.getAutoMatchResult();
+        Map<Contact, Collection<Service>> resultMap = autoMatchResult.getContactAndServicesMap();
+
+        ObservableList<Contact> photographerList = getfilteredServiceList(resultMap, "photographer");
+        ObservableList<Contact> hotelList = getfilteredServiceList(resultMap, "hotel");
+        ObservableList<Contact> cateringList = getfilteredServiceList(resultMap, "catering");
+        ObservableList<Contact> dressList = getfilteredServiceList(resultMap, "dress");
+        ObservableList<Contact> ringList = getfilteredServiceList(resultMap, "ring");
+        ObservableList<Contact> transportList = getfilteredServiceList(resultMap, "transport");
+        ObservableList<Contact> invitationList = getfilteredServiceList(resultMap, "invitation");
+
+        // TODO Fill up each service panel
+        photoListPanel = new ServiceListPanel(photographerList, "photographer");
+        photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
+
+        hotelListPanel = new ServiceListPanel(hotelList, "hotel");
+        hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
+
+        cateringListPanel = new ServiceListPanel(cateringList, "catering");
+        cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
+
+        dressListPanel = new ServiceListPanel(dressList, "dress");
+        dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
+
+        ringListPanel = new ServiceListPanel(ringList, "ring");
+        ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
+
+        transportListPanel = new ServiceListPanel(transportList, "transport");
+        transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
+
+        invitationListPanel = new ServiceListPanel(invitationList, "invitation");
+        invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
     }
 
     void hide() {
@@ -309,5 +368,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleLogoutEvent(LogoutRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleLogout();
+    }
+
+    @Subscribe
+    private void handleAutoMatchEvent(DisplayAutoMatchResultRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showAutoMatchDisplay();
     }
 }

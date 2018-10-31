@@ -6,7 +6,9 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AutoMatchResult;
@@ -100,6 +102,9 @@ public class AutoMatchCommand extends Command {
         // Use auto-matching results to filter contact list.
         model.updateAutoMatchResult(autoMatchResult);
         model.updateFilteredContactList(c -> autoMatchResult.getContacts().contains(c));
+
+        // Post new event to display UI in table.
+        EventsCenter.getInstance().post(new DisplayAutoMatchResultRequestEvent());
 
         // TODO: use the auto-match results to print a useful output.
         return new CommandResult(
