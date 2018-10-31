@@ -46,8 +46,8 @@ The following format is consistent for all the commands listed in this section.
 image::format.png[width="256"]
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 
@@ -63,6 +63,8 @@ image::commands.png[width="256"]
 The following section documents all the commands available in this application.
 
 === Viewing help : `help`
+
+Opens a new window that contains the user guide to help you find out any information you need.
 
 Format: `help`
 
@@ -127,7 +129,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 You can register a client and his/her particulars into the database.
 
-Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
+Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -137,9 +139,10 @@ Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
 
 ==== Listing and searching for clients
 
-You can list all clients in the database if no parameters are provided, otherwise lists all clients matching all of the search parameters.
+You can list all clients in the database if no parameters are provided,
+otherwise lists all clients matching all of the search parameters you provided.
 
-Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
+Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -179,7 +182,7 @@ Format: `client#id delete`
 
 You can update a client profile by his/her id with new particulars.
 
-Format: `client#id updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
+Format: `client#id updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -223,12 +226,26 @@ Available Service Types `SERVICE_TYPE`:
 
 You can register a service provider to the system with the necessary particulars.
 
-Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS`
+Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
+|=====
+
+==== Listing and searching for service providers
+
+You can list all service providers in the database if no parameters are provided,
+otherwise it will list all service providers matching all of the search parameters you provided.
+
+Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `serviceprovider list`
+ * `serviceprovider list n/John Doe`
 |=====
 
 === Manipulating a specific service provider: `serviceprovider#id`
@@ -261,7 +278,7 @@ Format: `serviceprovider#id delete`
 
 You can update the details of a service provider by its id with new particulars.
 
-Format: `serviceprovider#id updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS]`
+Format: `serviceprovider#id updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -291,7 +308,7 @@ Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
 === Listing entered commands: `history`
 
-You can list all the commands that you have entered in reverse chronological order.
+Lists all the commands that you have entered in reverse chronological order.
 
 Format: `history`
 
@@ -302,15 +319,31 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Undo the previous command: 'undo'
 
-You can undo the most recent command.
+Undo the commands that you have entered in chronological order.
 
 Format: `undo`
 
-=== Redo the most recent command undone: 'redo'
+[NOTE]
+====
+The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
+====
+[NOTE]
+====
+The application will show either the client list or service
+provider list corresponding to the command that was undone.
+====
 
-You can redo the most recent command that was undone by undo.
+=== Redo the commands undone: 'redo'
+
+Redo the commands that you have undone by undo in chronological order.
 
 Format: `redo`
+
+[NOTE]
+====
+The application will show either the client list or service
+provider list corresponding to the command that was redone.
+====
 
 === Exiting the program : `exit`
 
