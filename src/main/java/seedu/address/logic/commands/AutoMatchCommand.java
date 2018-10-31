@@ -21,6 +21,8 @@ import seedu.address.model.serviceprovider.ServiceProvider;
 public class AutoMatchCommand extends Command {
 
     public static final String COMMAND_WORD = "automatch";
+    public static final String COMMAND_WORD_CLIENT = "client" + " " + COMMAND_WORD;
+    public static final String COMMAND_WORD_SERVICEPROVIDER = "serviceprovider" + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
