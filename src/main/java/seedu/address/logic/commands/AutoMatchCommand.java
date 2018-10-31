@@ -103,7 +103,7 @@ public class AutoMatchCommand extends Command {
 
         // TODO: use the auto-match results to print a useful output.
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(), this.contactType));
     }
 
     /**
