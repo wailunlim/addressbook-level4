@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
@@ -63,28 +65,53 @@ public class AutoMatchCommand extends Command {
             throw new CommandException(String.format("Non-existent entity %s#%s.", contactType, contactId));
         }
 
+        AutoMatchResult autoMatchResult;
         if (contact instanceof Client) {
             Collection<Service> servicesRequired = contact.getServices().values();
-            model.updateFilteredContactList(c -> (c instanceof ServiceProvider
-                   && serviceProviderCanFulfilAtLeastOneService((ServiceProvider) c, servicesRequired)));
+            model.updateFilteredContactList(c -> c instanceof ServiceProvider);
+
+            // Perform auto-matching
+            autoMatchResult = model
+                    .getFilteredContactList()
+                    .stream()
+                    .reduce(new AutoMatchResult(contact), (accumulatedResult, c) -> {
+                        accumulatedResult.resultMap.put(c, servicesCanBeFulfilledByServiceProvider((ServiceProvider) c,
+                                servicesRequired));
+                        return accumulatedResult;
+                    }, AutoMatchResult::mergeResults);
+
         } else if (contact instanceof ServiceProvider) {
             Collection<Service> servicesProvided = contact.getServices().values();
-            model.updateFilteredContactList(c -> (c instanceof Client
-                   && clientRequiresServices((Client) c, servicesProvided)));
+            model.updateFilteredContactList(c -> c instanceof Client);
+
+            // Perform auto-matching
+            autoMatchResult = model
+                    .getFilteredContactList()
+                    .stream()
+                    .reduce(new AutoMatchResult(contact), (accumulatedResult, c) -> {
+                        accumulatedResult.resultMap.put(c, servicesNeededToBeFulfilledByClient((Client) c,
+                                servicesProvided));
+                        return accumulatedResult;
+                    }, AutoMatchResult::mergeResults);
         } else {
             // We should never arrive here. If we do, it means there's a Contact subclass that is not handled here.
             throw new CommandException("Unknown entity, neither client nor service provider found in database.");
         }
 
+        // Use auto-matching results to filter contact list.
+        model.updateFilteredContactList(c -> autoMatchResult.resultMap.keySet().contains(c));
+
+        // TODO: use the auto-match results to print a useful output.
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size()));
     }
 
     /**
      * Utility function to check if a {@code serviceProvider} can fulfil a particular {@code serviceRequired}.
+     *
      * @param serviceProvider The service provider.
      * @param serviceRequired The service required.
-     * @return Returns true if the service provider can fulfil the service.
+     * @return Returns {@code true} if the service provider can fulfil the service, otherwise {@code false}.
      */
     private static boolean serviceProviderCanFulfilService(ServiceProvider serviceProvider, Service serviceRequired) {
         return serviceProvider
@@ -97,27 +124,28 @@ public class AutoMatchCommand extends Command {
     }
 
     /**
-     * Utility function to check if a {@code serviceProvider} can fulfil at least one {@code serviceRequired} from a
-     * collection of {@code Service}.
+     * Utility function to get a {@code Collection} of {@code Service} that can be fulfilled by the
+     * {@code serviceProvider}.
      * @param serviceProvider The service provider.
      * @param servicesRequired The services required.
-     * @return Returns true if the service provider can fulfil at least one of the service.
+     * @return Returns the {@code Collection}.
      */
-    private static boolean serviceProviderCanFulfilAtLeastOneService(ServiceProvider serviceProvider,
-                                                                     Collection<Service> servicesRequired) {
+    private static Collection<Service> servicesCanBeFulfilledByServiceProvider(ServiceProvider serviceProvider,
+                                                                               Collection<Service> servicesRequired) {
         return servicesRequired
                 .stream()
                 .filter(serviceRequired -> serviceProviderCanFulfilService(serviceProvider, serviceRequired))
-                .count() > 0;
+                .collect(Collectors.toList());
     }
 
     /**
      * Utility function to check if a {@code client} requires and can afford a particular {@code serviceOffered}.
-     * @param client The client.
+     *
+     * @param client         The client.
      * @param serviceOffered The service offered.
      * @return Returns true if the client requires the service and can afford it.
      */
-    private static boolean clientRequiresService(Client client, Service serviceOffered) {
+    private static boolean clientWillPayForService(Client client, Service serviceOffered) {
         return client
                 .getServices()
                 .values()
@@ -128,17 +156,18 @@ public class AutoMatchCommand extends Command {
     }
 
     /**
-     * Utility function to check if a {@code client} requires and can afford a at least one of the services offered by
-     * the service provider in {@code serviceOffered}.
+     * Utility function to get a {@code Collection} of {@code Service} needs to be fulfilled by a {@code client} given
+     * the list of {@code Service} available.
      * @param client The client.
-     * @param servicesOffered The services offered.
-     * @return Returns true if the client requires at least one of the service and can afford it.
+     * @param servicesProvided The services provided.
+     * @return Returns the {@code Collection}.
      */
-    private static boolean clientRequiresServices(Client client, Collection<Service> servicesOffered) {
-        return servicesOffered
+    private static Collection<Service> servicesNeededToBeFulfilledByClient(Client client, Collection<Service>
+            servicesProvided) {
+        return servicesProvided
                 .stream()
-                .filter(serviceOffered -> clientRequiresService(client, serviceOffered))
-                .count() > 0;
+                .filter(serviceProvided -> clientWillPayForService(client, serviceProvided))
+                .collect(Collectors.toList());
     }
 
     @Override

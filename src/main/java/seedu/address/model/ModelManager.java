@@ -24,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Contact> filteredContacts;
     private Account userAccount;
+    private AutoMatchResult autoMatchResult = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -112,6 +113,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    //=========== Auto-matching Accessors ===================================================================
+
+    @Override
+    public void updateAutoMatchResult(AutoMatchResult newResults) {
+        autoMatchResult = newResults;
+    }
+
+    public AutoMatchResult getAutoMatchResult() {
+        return autoMatchResult;
     }
 
     //=========== Undo/Redo =================================================================================

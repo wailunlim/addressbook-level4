@@ -107,4 +107,15 @@ public interface Model {
      * The user has changed his old password to {@code newPassword}.
      */
     void commiteUserChangedPasswordSuccessfully(String newPassword);
+
+    /**
+     * Updates the auto-matching results.
+     * @param newResults The new results to replace the old one.
+     */
+    void updateAutoMatchResult(AutoMatchResult newResults);
+
+    /**
+     * Retrieves the last updated results for the auto-matching.
+     */
+    AutoMatchResult getAutoMatchResult();
 }
