@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_PERSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_X;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.ALICE;
@@ -67,7 +67,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_zeroKeywords_everyPersonFound() {
-        String expectedMessage = MESSAGE_LIST_ALL_PERSON;
+        String expectedMessage = MESSAGE_LIST_ALL_X;
         ContactContainsKeywordsPredicate predicate = preparePredicate();
         ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));

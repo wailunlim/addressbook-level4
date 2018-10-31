@@ -60,7 +60,8 @@ public class ListCommandParser implements Parser<ListCommand> {
         if ((!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG)
                 && !argMultimap.isEmpty())
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(ListCommand.MESSAGE_USAGE, contactType)));
         }
 
         return argMultimap;
