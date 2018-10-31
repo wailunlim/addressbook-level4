@@ -14,7 +14,6 @@ import seedu.address.model.contact.ContactContainsKeywordsPredicate;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
     public static final String COMMAND_WORD_GENERAL = "%1$s list";
     public static final String COMMAND_WORD_CLIENT = "client list";
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider list";
