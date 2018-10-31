@@ -44,7 +44,7 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD_CLIENT = "client update";
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Edits the details of the %1$s identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Updates the details of the %1$s identified "
             + "by the assigned unique %1$s ID.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: #<ID> (must be a positive integer) "
@@ -57,8 +57,8 @@ public class UpdateCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited %1$s: %2$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Updated %1$s: %2$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
     private final Index id;
