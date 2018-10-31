@@ -49,7 +49,8 @@ public class UpdateCommandTest {
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessageClient = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -57,7 +58,7 @@ public class UpdateCommandTest {
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessageClient, expectedModel);
     }
 
     @Test
@@ -67,7 +68,8 @@ public class UpdateCommandTest {
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessageServiceProvider = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
+                ContactType.SERVICE_PROVIDER, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -75,7 +77,7 @@ public class UpdateCommandTest {
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessageServiceProvider, expectedModel);
     }
 
     @Test
@@ -92,7 +94,8 @@ public class UpdateCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         UpdateCommand updateCommand = new UpdateCommand(indexLastPerson, descriptor, ContactType.CLIENT);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessageClient = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -100,7 +103,7 @@ public class UpdateCommandTest {
         expectedModel.updateContact(lastContact, editedContact);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessageClient, expectedModel);
     }
 
     @Test
@@ -117,7 +120,8 @@ public class UpdateCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         UpdateCommand updateCommand = new UpdateCommand(indexLastPerson, descriptor, ContactType.SERVICE_PROVIDER);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -135,14 +139,15 @@ public class UpdateCommandTest {
                 ContactType.CLIENT);
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessageClient = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(updateCommand, model, commandHistory, expectedMessageClient, expectedModel);
     }
 
     @Test
@@ -152,7 +157,8 @@ public class UpdateCommandTest {
                 ContactType.SERVICE_PROVIDER);
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -172,7 +178,8 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -193,7 +200,8 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.SERVICE_PROVIDER);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
@@ -302,7 +310,8 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.CLIENT);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedContact);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.CLIENT,
+                editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);

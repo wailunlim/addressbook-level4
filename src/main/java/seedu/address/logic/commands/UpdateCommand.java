@@ -40,9 +40,12 @@ public class UpdateCommand extends Command {
 
 
     public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s update";
+    public static final String COMMAND_WORD_CLIENT = "client update";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client identified "
-            + "by the id number used in the displayed client list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Edits the details of the %1$s identified "
+            + "by the id number used in the displayed %1$s list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -50,13 +53,13 @@ public class UpdateCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3")
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Client: %1$s";
+    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book.";
 
     private final Index id;
     private final EditContactDescriptor editContactDescriptor;
@@ -111,7 +114,7 @@ public class UpdateCommand extends Command {
         model.updateContact(contactToEdit, editedContact);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, contactToEdit.getType(), editedContact));
     }
 
     /**

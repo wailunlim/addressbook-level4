@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -20,6 +21,7 @@ import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ContactType;
 
@@ -145,13 +147,15 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD_CLIENT:
             return new ListCommandParser(ContactType.CLIENT).parse(arguments);
 
-        case "client update":
+        case UpdateCommand.COMMAND_WORD_CLIENT:
             return new UpdateCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
+                            UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "client addservice":
             return new AddServiceCommandParser(ContactType.CLIENT)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
+                            AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "client matchmake":
         case "serviceprovider matchmake":
@@ -166,13 +170,15 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
-        case "serviceprovider update":
+        case UpdateCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                            UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "serviceprovider addservice":
             return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier).substring(1), arguments));
+                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                            AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
@@ -185,9 +191,11 @@ public class AddressBookParser {
      * @return The {@code String} object, if it's non-null
      * @throws ParseException if {@code String} object is actually null
      */
-    private String requireIdentifierNonNull(String identifier) throws ParseException {
+    private String requireIdentifierNonNull(String identifier, ContactType contactType, String messageUsage)
+            throws ParseException {
         if (identifier == null) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(messageUsage, contactType, "#<ID>")));
         }
 
         return identifier;
