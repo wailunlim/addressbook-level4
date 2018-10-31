@@ -59,7 +59,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
     private final Index id;
     private final EditContactDescriptor editContactDescriptor;
@@ -108,7 +108,7 @@ public class UpdateCommand extends Command {
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             model.updateFilteredContactList(contactType.getFilter());
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
         model.updateContact(contactToEdit, editedContact);

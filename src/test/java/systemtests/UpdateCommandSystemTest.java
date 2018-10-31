@@ -215,41 +215,38 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a client with new values same as another client's values -> rejected */
-
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-        index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredContactList().get(index.getZeroBased()).equals(BOB));
+        Index id = INDEX_FIRST_PERSON;
+        assertFalse(getModel().getFilteredContactList().get(id.getZeroBased()).equals(BOB));
         command = String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#" + index.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different tags -> rejected */
         command = String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different address -> rejected */
         command = String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
-        //TODO: Please help me take a look for the test cases below
         /* Case: edit a client with new values same as another client's values but with different phone -> rejected */
         command = String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_AMY
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
 
         /* Case: edit a client with new values same as another client's values but with different email -> rejected */
         command = String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+                ContactType.CLIENT, "#" + id.getOneBased()) + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     /**

@@ -219,7 +219,7 @@ public class UpdateCommandTest {
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.CLIENT);
 
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
@@ -229,7 +229,7 @@ public class UpdateCommandTest {
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
 
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     // Create a client that is a duplicate of a serviceprovider --> command failure
@@ -241,7 +241,7 @@ public class UpdateCommandTest {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.CLIENT);
 
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
@@ -255,7 +255,7 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList).build(), ContactType.CLIENT);
 
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
@@ -269,7 +269,7 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList).build(), ContactType.SERVICE_PROVIDER);
 
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
