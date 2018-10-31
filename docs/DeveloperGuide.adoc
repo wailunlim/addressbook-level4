@@ -33,10 +33,10 @@ So if you want to know how to make _Heart²_ even better, here's where you start
 
 image::calloutpic.png[width="256"]
 
-Callouts are a rectangular box with icon and words to point out some information. Below are the 3 call outs that will be used consistently throughout this document:
+Callouts are a rectangular box with icon and words to point out some information. Below are the 3 callouts that will be used consistently throughout this document:
 
 [NOTE]
-This represents a *note*. A note is information that may be important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+This represents a *note*. A note is information that is important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
 
 [TIP]
 This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
@@ -269,6 +269,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
+* stores the Account data that was used to log in.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -291,6 +292,21 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
+
+=== Account Storage component
+
+.Structure of the Account Storage Component
+image::AccountStorageClassDiagram.png[width="800"]
+
+{empty} +
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/AccountStorage.java[`AccountStorage.java`]
+
+The `AccountStorage` component
+
+* can save the Account data in xml format and read it back.
+* can populate a default root Account data in xml format if missing
+* can update existing Account password stored in the storage
 
 [[Design-Commons]]
 === Common classes
@@ -422,6 +438,8 @@ User is presented with a login UI:
 .The login screen when user launches the application.
 image::UiLoginDiagram.png[width="800"]
 
+{empty} +
+
 There are only 3 commands available for user to execute:
 
 * `login` : Login to the system with a username and password
@@ -442,8 +460,11 @@ User can execute any commands available, provided the user-account is given the 
 ** Pros: Easy to implement
 ** Cons: Users are able to see the main UI before login
 
-=== Account creation and account storage Feature
+=== Account creation
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
+
+[NOTE]
+User can only register for an account via an existing account with `SUPER_USER` privilege. It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
 ==== Types of account
 There are 2 types of account:
@@ -462,12 +483,20 @@ The restrictions of a `READ_ONLY_USER` is enforced by the methods found in `Acco
 Commands that prevents a `READ_ONLY_USER` from executing is checked with a condition as such:
 
 [source,java]
-if (!Role.hasWritePrivilege()) {
+if (!account.hasWritePrivilege()) {
     throw new LackOfPrivilegeException(COMMAND_WORD);
 }
 
-==== Account storage
-By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
+==== Design Considerations
+===== Aspect: Should the privilege be tied to Role enum or Account class?
+* *Alternative 1 (current choice):* Account class contains the privileges methods such has `hasWritePrivilege`.
+** Pros: This makes sense as the type of privilege is tied to the account.
+* *Alternative 2:* Role enum should contains the privileges methods
+** Pros: Since Role enum contains all the different roles such as `READ_ONLY_USER` and `SUPER_USER`, it is easy to reference all the different types of roles and the privileges in 1 file. This makes adding more roles and privileges in the future easy.
+** Cons: It sounds awkward to have privileges associated with Role rather than with an Account.
+
+=== Account storage
+All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
 
 The diagram below shows what happen when a user launches the application:
 
@@ -483,18 +512,26 @@ image::accountcreationdiagram.png[width="800"]
 
 {empty} +
 
+==== Design Considerations
+===== Aspect: What file type to store user account as?
+* *Alternative 1 (current choice):* Store it as a `xml` file locally.
+** Pros: The code to write and read xml file is already present for adding address book contact initially in the Address Book - level 4 app. Hence, adopting this code and modifying it for account storage is easier than coming up with code from scratch.
+** Cons: Relatively wordy and verbose with all the opening and closing tag. For the same amount of account information, compared to other format such as `json`, more data has to be stored to account for tag elements.
+* *Alternative 2:* Store it as a `json` file locally.
+** Pros: Simpler syntax than `xml` and hence less data is required to store the same amount of account information.
+** Pros: Can be parsed into a ready-to-use JavaScript object.
+** Cons: Not familiar with json, hence more effort is needed to write code to store account in json format, compared to the already given code for xml storage.
+
 ==== Security Considerations
 
 ===== Database
 Currently, the list of accounts is stored locally on data/accountlist.xml. For security purposes, we may consider the following implementations in the future for v2.0:
 
-* **Encrypt accountlist.xml:** Prevent direct lookup of the file
-* **Store the file on a server:** Due to project restriction, we are unable to implement this at v1.4.
+* **Encrypt accountlist.xml:** This can prevent direct lookup of the file as the content is encrypted
+* **Store the file on a server:** Due to project restriction, we are unable to implement this at v1.4. Storing file on a server has an added advantage of utilising web security practises or employing third party services to help protect our account list in private servers.
 
 ===== Storing password
-Username is stored in plaintext in accountlist.xml. However, user password is hashed with `PBKDF2` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2` is deliberately chosen as it is a slower algorithm, thus slowing down brute-force attack for finding out user password.
-// end::account[]
-
+Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 
 === Add clients and service providers feature
 *_Heart²_* allows you to be able to distinguish between clients and service providers.
