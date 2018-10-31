@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalAccount;
@@ -19,7 +20,8 @@ import seedu.address.testutil.TypicalAccount;
 public class CommandBoxTest extends GuiUnitTest {
 
     //TODO: update inputs to test
-    private static final String COMMAND_THAT_SUCCEEDS = "client " + ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = String.format(ListCommand.COMMAND_WORD_GENERAL,
+            ContactType.CLIENT);
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;

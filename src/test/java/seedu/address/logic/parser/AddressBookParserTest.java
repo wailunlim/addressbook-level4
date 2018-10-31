@@ -131,15 +131,15 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         // No arguments
         ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
-        ListCommand command = (ListCommand) parser.parseCommand(
-                "client " + ListCommand.COMMAND_WORD);
+        ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT));
         assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
 
         // One Argument
         predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
                 Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
         command = (ListCommand) parser.parseCommand(
-                "client " + ListCommand.COMMAND_WORD + " n/Alice Bob");
+                String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " n/Alice Bob");
         assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
 
     }

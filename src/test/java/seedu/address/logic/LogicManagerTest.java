@@ -46,7 +46,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String findCommand = "client " + ListCommand.COMMAND_WORD;
+        String findCommand = String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT);
         assertCommandSuccess(findCommand, String.format(MESSAGE_LIST_ALL_X, ContactType.CLIENT), model);
         assertHistoryCorrect(findCommand);
     }
