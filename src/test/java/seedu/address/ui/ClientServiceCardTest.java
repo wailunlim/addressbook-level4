@@ -5,14 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysService;
 
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Service;
-import seedu.address.testutil.ClientBuilder;
-import seedu.address.testutil.TypicalIndexes;
+import org.junit.Test;
 
 import guitests.guihandles.ServiceCardHandle;
 
-import org.junit.Test;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Service;
+import seedu.address.testutil.ClientBuilder;
 
 public class ClientServiceCardTest extends GuiUnitTest {
 
