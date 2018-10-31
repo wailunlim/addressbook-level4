@@ -239,16 +239,17 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         //TODO: Please help me take a look for the test cases below
         /* Case: edit a client with new values same as another client's values but with different phone -> rejected */
-        // command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY
-        //         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        // assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
-        // System.out.println(BOB.toString());
-        // assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_AMY
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a client with new values same as another client's values but with different email -> rejected */
-        // command = "client#2 " + UpdateCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-        //         + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        // assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
+        command = String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#2") + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
