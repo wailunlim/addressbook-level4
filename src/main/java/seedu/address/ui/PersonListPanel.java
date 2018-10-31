@@ -11,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClearSelectionRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.contact.Contact;
@@ -55,6 +56,19 @@ public class PersonListPanel extends UiPart<Region> {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+
+    /**
+     * Clears the selection.
+     */
+    private void clear() {
+        Platform.runLater(() -> personListView.getSelectionModel().clearSelection());
+    }
+
+    @Subscribe
+    private void handleClearSelectionRequestEvent(ClearSelectionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        clear();
     }
 
     @Subscribe

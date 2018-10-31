@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ClearSelectionRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -50,6 +51,7 @@ public class SelectCommand extends Command {
         if (filteredList.size() == 0) {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
+            EventsCenter.getInstance().post(new ClearSelectionRequestEvent());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -60,16 +62,9 @@ public class SelectCommand extends Command {
         // filtered list size is 1 (unique ID for client/serviceprovider)
         Contact contactToSelect = filteredList.get(0);
         model.updateFilteredContactList(contactType.getFilter());
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(id));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(model.getFilteredContactList()
+                .indexOf(contactToSelect))));
         return new CommandResult((String.format(MESSAGE_SELECT_PERSON_SUCCESS, id.getOneBased())));
-
-//        if (id.getZeroBased() >= filteredContactList.size()) {
-//            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-//        }
-//
-//        EventsCenter.getInstance().post(new JumpToListRequestEvent(id));
-//        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, id.getOneBased()));
-
     }
 
     @Override
