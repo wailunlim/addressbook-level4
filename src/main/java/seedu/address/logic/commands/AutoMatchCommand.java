@@ -75,11 +75,10 @@ public class AutoMatchCommand extends Command {
                     .getFilteredContactList()
                     .stream()
                     .reduce(new AutoMatchResult(contact), (accumulatedResult, c) -> {
-                        accumulatedResult.resultMap.put(c, servicesCanBeFulfilledByServiceProvider((ServiceProvider) c,
+                        accumulatedResult.put(c, servicesCanBeFulfilledByServiceProvider((ServiceProvider) c,
                                 servicesRequired));
                         return accumulatedResult;
                     }, AutoMatchResult::mergeResults);
-
         } else if (contact instanceof ServiceProvider) {
             Collection<Service> servicesProvided = contact.getServices().values();
             model.updateFilteredContactList(c -> c instanceof Client);
@@ -89,7 +88,7 @@ public class AutoMatchCommand extends Command {
                     .getFilteredContactList()
                     .stream()
                     .reduce(new AutoMatchResult(contact), (accumulatedResult, c) -> {
-                        accumulatedResult.resultMap.put(c, servicesNeededToBeFulfilledByClient((Client) c,
+                        accumulatedResult.put(c, servicesNeededToBeFulfilledByClient((Client) c,
                                 servicesProvided));
                         return accumulatedResult;
                     }, AutoMatchResult::mergeResults);
@@ -99,7 +98,8 @@ public class AutoMatchCommand extends Command {
         }
 
         // Use auto-matching results to filter contact list.
-        model.updateFilteredContactList(c -> autoMatchResult.resultMap.keySet().contains(c));
+        model.updateAutoMatchResult(autoMatchResult);
+        model.updateFilteredContactList(c -> autoMatchResult.getContacts().contains(c));
 
         // TODO: use the auto-match results to print a useful output.
         return new CommandResult(
