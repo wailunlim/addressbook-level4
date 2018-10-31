@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -27,10 +28,12 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Client: %1$s";
 
-    private final Index targetIndex;
+    private final Index id;
+    private final ContactType contactType;
 
-    public SelectCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public SelectCommand(Index id, ContactType contactType) {
+        this.id = id;
+        this.contactType = contactType;
     }
 
     @Override
@@ -39,12 +42,33 @@ public class SelectCommand extends Command {
 
         List<Contact> filteredContactList = model.getFilteredContactList();
 
-        if (targetIndex.getZeroBased() >= filteredContactList.size()) {
+        model.updateFilteredContactList(contactType.getFilter()
+                .and(contact -> contact.getId() == id.getOneBased()));
+
+        List<Contact> filteredList = model.getFilteredContactList();
+
+        if (filteredList.size() == 0) {
+            // filtered list size is 0, meaning there is no such contact
+            model.updateFilteredContactList(contactType.getFilter());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
+        // filtered list size is 1 (unique ID for client/serviceprovider)
+        Contact contactToSelect = filteredList.get(0);
+        model.updateFilteredContactList(contactType.getFilter());
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(id));
+        return new CommandResult((String.format(MESSAGE_SELECT_PERSON_SUCCESS, id.getOneBased())));
+
+//        if (id.getZeroBased() >= filteredContactList.size()) {
+//            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+//        }
+//
+//        EventsCenter.getInstance().post(new JumpToListRequestEvent(id));
+//        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, id.getOneBased()));
 
     }
 
@@ -52,6 +76,6 @@ public class SelectCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SelectCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+                && id.equals(((SelectCommand) other).id)); // state check
     }
 }

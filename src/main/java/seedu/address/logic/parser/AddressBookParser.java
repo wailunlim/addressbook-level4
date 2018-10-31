@@ -118,8 +118,8 @@ public class AddressBookParser {
         case EditPasswordCommand.COMMAND_WORD:
             return new EditPasswordCommandParser().parse(arguments);
 
-        case "select":
-            return new SelectCommandParser().parse(arguments);
+        case "client select":
+            return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
