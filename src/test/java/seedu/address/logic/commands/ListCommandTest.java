@@ -45,14 +45,14 @@ public class ListCommandTest {
         ContactContainsKeywordsPredicate secondPredicate =
                 new ContactContainsKeywordsPredicate(new ClientBuilder().withName("second").build());
 
-        ListCommand findFirstCommand = new ListCommand(firstPredicate, ContactType.CLIENT.getFilter());
-        ListCommand findSecondCommand = new ListCommand(secondPredicate, ContactType.CLIENT.getFilter());
+        ListCommand findFirstCommand = new ListCommand(firstPredicate, ContactType.CLIENT);
+        ListCommand findSecondCommand = new ListCommand(secondPredicate, ContactType.CLIENT);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate, ContactType.CLIENT.getFilter());
+        ListCommand findFirstCommandCopy = new ListCommand(firstPredicate, ContactType.CLIENT);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -69,7 +69,7 @@ public class ListCommandTest {
     public void execute_zeroKeywords_everyPersonFound() {
         String expectedMessage = MESSAGE_LIST_ALL_PERSON;
         ContactContainsKeywordsPredicate predicate = preparePredicate();
-        ListCommand command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate.and(ContactType.CLIENT.getFilter()));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredContactList());
@@ -81,7 +81,7 @@ public class ListCommandTest {
         /* Case: List with 3 person's name -> 0 persons found */
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         ContactContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        ListCommand command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        ListCommand command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(), model.getFilteredContactList());
@@ -89,7 +89,7 @@ public class ListCommandTest {
         /* Case: List with 1 person's name -> 1 persons found */
         expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         predicate = preparePredicate("Benson Meier");
-        command = new ListCommand(predicate, ContactType.CLIENT.getFilter());
+        command = new ListCommand(predicate, ContactType.CLIENT);
         expectedModel.updateFilteredContactList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON), model.getFilteredContactList());

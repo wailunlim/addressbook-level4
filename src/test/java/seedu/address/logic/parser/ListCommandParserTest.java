@@ -19,7 +19,7 @@ public class ListCommandParserTest {
     @Test
     public void parse_emptyArg_returnsListCommand() {
         ListCommand expectedListCommand = new ListCommand(new ContactContainsKeywordsPredicate(),
-                ContactType.CLIENT.getFilter());
+                ContactType.CLIENT);
 
         // empty string
         assertParseSuccess(parser, "", expectedListCommand);
@@ -37,7 +37,7 @@ public class ListCommandParserTest {
         ListCommand expectedListCommand =
                 new ListCommand(new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
                         Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>())),
-                        ContactType.CLIENT.getFilter());
+                        ContactType.CLIENT);
 
         assertParseSuccess(parser, " n/Alice Bob", expectedListCommand);
     }

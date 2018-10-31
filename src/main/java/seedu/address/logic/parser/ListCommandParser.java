@@ -42,7 +42,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
 
         return new ListCommand(new ContactContainsKeywordsPredicate(
-                new ContactInformation(name, phone, email, address, tagList)), contactType.getFilter());
+                new ContactInformation(name, phone, email, address, tagList)), contactType);
     }
 
     /**
