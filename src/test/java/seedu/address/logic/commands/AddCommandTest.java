@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.account.Account;
@@ -203,6 +204,16 @@ public class AddCommandTest {
 
         @Override
         public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAutoMatchResult(AutoMatchResult newResults) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AutoMatchResult getAutoMatchResult() {
             throw new AssertionError("This method should not be called.");
         }
     }

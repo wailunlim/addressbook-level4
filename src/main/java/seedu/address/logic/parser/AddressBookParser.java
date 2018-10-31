@@ -158,8 +158,8 @@ public class AddressBookParser {
                     .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
-        case "client " + AutoMatchCommand.COMMAND_WORD:
-        case "serviceprovider " + AutoMatchCommand.COMMAND_WORD:
+        case AutoMatchCommand.COMMAND_WORD_CLIENT:
+        case AutoMatchCommand.COMMAND_WORD_SERVICEPROVIDER:
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
