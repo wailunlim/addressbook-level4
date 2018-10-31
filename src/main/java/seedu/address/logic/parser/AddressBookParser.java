@@ -153,7 +153,7 @@ public class AddressBookParser {
                     .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
                             UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
-        case "client addservice":
+        case AddServiceCommand.COMMAND_WORD_CLIENT:
             return new AddServiceCommandParser(ContactType.CLIENT)
                     .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.CLIENT,
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
@@ -177,7 +177,7 @@ public class AddressBookParser {
                             requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
                                     UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
-        case "serviceprovider addservice":
+        case AddServiceCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
                     .parse(String.format("%s %s",
                             requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,

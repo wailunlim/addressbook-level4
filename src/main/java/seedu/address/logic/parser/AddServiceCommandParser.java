@@ -39,11 +39,13 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
             id = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format
-                    (MESSAGE_INVALID_COMMAND_FORMAT, AddServiceCommand.MESSAGE_USAGE), pe);
+                    (MESSAGE_INVALID_COMMAND_FORMAT,
+                            String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SERVICE, PREFIX_COST)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddServiceCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
         }
 
         Optional<String> serviceName = argMultimap.getValue(PREFIX_SERVICE);
@@ -59,7 +61,8 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
             Service service = new Service(serviceName.get(), parseInt(serviceCost.get()));
             return new AddServiceCommand(id, service, contactType);
         }
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddServiceCommand.MESSAGE_USAGE));
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
     }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
