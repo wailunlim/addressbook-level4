@@ -172,13 +172,15 @@ public class AddressBookParser {
 
         case UpdateCommand.COMMAND_WORD_SERVICE_PROVIDER:
             return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
-                            UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
+                    .parse(String.format("%s %s",
+                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                                    UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case "serviceprovider addservice":
             return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
-                    .parse(String.format("%s %s", requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
-                            AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
+                    .parse(String.format("%s %s",
+                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                                    AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -85,7 +85,7 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
         // id is unique
