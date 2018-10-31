@@ -21,7 +21,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 == Introduction
 image::intropicture.png[width="256"]
 
-Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
+Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
@@ -201,7 +201,7 @@ Format: `client#id addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
 
 Available Service Types `SERVICE_TYPE`:
 
-* `photography`
+* `photographer`
 * `hotel`
 * `catering`
 * `dress`
@@ -212,7 +212,7 @@ Available Service Types `SERVICE_TYPE`:
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 addservice s/photography c/2000`
+|* `client#123 addservice s/photographer c/2000`
  * `client#123 addservice s/catering c/10000`
 |=====
 

@@ -22,13 +22,16 @@ import seedu.address.model.contact.Service;
 public class AddServiceCommand extends Command {
 
     public static final String COMMAND_WORD = "addservice";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s addservice";
+    public static final String COMMAND_WORD_CLIENT = "client addservice";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider addservice";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a service to the  contact identified "
-            + "by the index number used in the displayed client/serviceprovider list. \n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a service to the %1$s identified "
+            + "by the assigned unique %1$s ID.\n"
+            + "Parameters: #<ID> (must be a positive integer) "
             + PREFIX_SERVICE + "SERVICE "
             + PREFIX_COST + "COST (excluding '$') \n"
-            + "Example: " + "client#3 " + COMMAND_WORD + " "
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3") + " "
             + PREFIX_SERVICE + "photographer "
             + PREFIX_COST + "1000 \n"
             + Service.MESSAGE_SERVICE_NAME_CONSTRAINTS + "\n"
@@ -62,7 +65,7 @@ public class AddServiceCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
         // id is unique
