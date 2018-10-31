@@ -104,6 +104,14 @@ public class ClientBuilder {
         return this;
     }
 
+    /**
+     *  Sets the {@code service} of the {@code Client} that we are building
+     */
+    public ClientBuilder withServices(Service service) {
+        this.services.put(service.getName(), service);
+        return this;
+    }
+
     public Contact build() {
         return new Client(name, phone, email, address, tags, services, id);
     }
