@@ -349,6 +349,10 @@ Format: `redo`
 
 [NOTE]
 ====
+Commands that have been undone will be reset upon a `clear` command.
+====
+[NOTE]
+====
 The application will show either the client list or service
 provider list corresponding to the command that was redone.
 ====
