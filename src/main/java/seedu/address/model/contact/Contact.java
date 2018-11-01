@@ -2,6 +2,8 @@ package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -105,6 +107,24 @@ public abstract class Contact {
         return otherContact != null
                 && otherContact.getName().equals(getName())
                 && ((otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail())));
+    }
+
+    /**
+     * Concatenates the contact data into a URL.
+     * @return URL of contact data.
+     * @throws MalformedURLException
+     */
+    public URL getUrlContactData() throws MalformedURLException {
+        String urlContactData = "https://gallant-hugle-b21445.netlify.com/?"
+                + "type=" + getType() + "&"
+                + "id=" + getId() + "&"
+                + "name=" + getName() + "&"
+                + "phone=" + getPhone() + "&"
+                + "email=" + getEmail() + "&"
+                + "address=" + getAddress() + "&"
+                + "tags=" + String.join(",", getTags() + "&")
+                + "services=" + String.join(",", getServices() + "&");
+        return new URL(urlContactData);
     }
 
     @Override
