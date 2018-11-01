@@ -31,13 +31,16 @@ This section provides a quick overview to get you started with the application.
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `heart2.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Wedding Planner.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI for the login page should appear in a few seconds:
 +
-image::Ui.png[width="790"]
+image::UiLoginDiagram.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
+.  After keying in the right login command, the GUI for the main page should appear:
++
+image::Ui.png[width="790"]
 
 [[Features]]
 == Features
