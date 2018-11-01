@@ -44,8 +44,12 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 * *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all tests]
 
 === Other Contributions
+
+* *Community*:
+** Reported bugs and provide suggestions to other team members' code: https://github.com/CS2103-AY1819S1-F10-3/main/issues/198[1], https://github.com/CS2103-AY1819S1-F10-3/main/issues/134[2], https://github.com/CS2103-AY1819S1-F10-3/main/issues/133[3]
+
 * *Documentation*:
-** Set up the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
+** Wrote the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
 ** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 
 == Contributions to the User Guide
