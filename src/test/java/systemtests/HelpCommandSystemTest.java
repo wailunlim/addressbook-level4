@@ -63,7 +63,8 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased()));
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());

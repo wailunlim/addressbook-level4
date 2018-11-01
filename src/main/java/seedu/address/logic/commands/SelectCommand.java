@@ -20,7 +20,6 @@ import seedu.address.model.contact.Contact;
  */
 public class SelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
     public static final String COMMAND_WORD_GENERAL = "%1$s%2$s select";
     public static final String COMMAND_WORD_CLIENT = "client select";
     public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider select";

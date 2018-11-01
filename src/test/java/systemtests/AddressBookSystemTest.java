@@ -168,7 +168,8 @@ public abstract class AddressBookSystemTest {
      * Selects the client at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand("client#" + index.getOneBased() + " " + SelectCommand.COMMAND_WORD);
+        executeCommand(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()));
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
