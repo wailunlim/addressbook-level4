@@ -6,8 +6,8 @@
 
 = PROJECT: Heart²
 
-The purpose of this document is to document the contribution that Dong SiJi have made in the project: *_Heart²_*
-as a student undertaking the module under NUS School of Computing: CS2103T.
+The purpose of this document is to document the contribution that I have made in the project: *_Heart²_*
+as a student undertaking the module CS2103T under NUS School of Computing.
 
 *_Heart²_* github link: https://github.com/CS2103-AY1819S1-F10-3/main
 
@@ -15,15 +15,17 @@ as a student undertaking the module under NUS School of Computing: CS2103T.
 
 == Introduction
 
-Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job of wedding planning agencies simpler.
+*_Heart²_* is a desktop software aiming to make the job of wedding planning agencies simpler.
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
 Users can find suitable wedding service providers for clients using just a few keystrokes with our enterprise featureset.
 
 == Summary of contributions
 
-Below is a summary of the contributions that Dong SiJi have made to the project.
+|===
+|Below is a summary of the contributions that I have made to the project.
+|===
 
-* *Major enhancement*: Enable filtering through the `list` command
+* *Major enhancement*:
 ** What it does:
 ** Justification:
 ** Highlights:
@@ -38,7 +40,7 @@ Below is a summary of the contributions that Dong SiJi have made to the project.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|Below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
 === Listing and searching for clients
@@ -114,7 +116,7 @@ provider list corresponding to the command that was redone.
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
 === Aspect: What it shows after undo/redo command successfully executes
