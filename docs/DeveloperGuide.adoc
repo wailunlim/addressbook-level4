@@ -618,7 +618,8 @@ by prefixing it to list:
 
 Below shows an example of how listing all clients works:
 
-.The UI showing listing all clients.
+[.text-center]
+._The UI showing listing all clients._
 image::ListAllClients.png[width="800"]
 
 {empty} +
@@ -639,7 +640,8 @@ Categories include:
 
 Below shows an example of how list filtering works:
 
-.The UI showing list filtering.
+[.text-center]
+._The UI showing list filtering._
 image::ListClientsWithKeywords.png[width="800"]
 
 {empty} +
