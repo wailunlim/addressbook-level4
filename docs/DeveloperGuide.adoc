@@ -608,25 +608,49 @@ the combination that best suits the client easily
 
 // tag::list[]
 === List Feature
-The user can use the `list` command to list out the various contacts, be it a service provider or a client.
+*_Heart²_* allows you view all the clients or the service providers with a simple command: `list`.
 
-.The UI showing the list command
-image::ListCommand.png[width="800"]
+When listing contacts, you would have to specify whether the contact is a client or a service provider
+by prefixing it to list:
+
+* `client list`
+* `serviceprovider list`
+
+Below shows an example of how listing all clients works:
+
+.The UI showing listing all clients.
+image::ListAllClients.png[width="800"]
 
 {empty} +
 
-Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+Furthermore, you are also able to add keywords after the list to do filtering, and each keyword is specified to
+belong to a category and only contacts which contains all of the keywords in their respective categories will be shown.
 
-.The UI showing list filtering
-image::ListCommandPhoneNumber.png[width="800"]
+[NOTE]
+====
+Categories include:
+
+* `n/` NAME
+* `p/` PHONE_NUMBER
+* `e/` EMAIL_ADDRESS
+* `a/` ADDRESS
+* `t/` TAGS
+====
+
+Below shows an example of how list filtering works:
+
+.The UI showing list filtering.
+image::ListClientsWithKeywords.png[width="800"]
 
 {empty} +
 
 ==== Implementation
 
-The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
+The keywords from the command to be used for filtering is parsed by the `ListCommandParser` and passed to a `Predicate`
+that is implemented as `ContactContainsKeywordsPredicate`.
 
-We then use a `FilteredList` using the `Predicate` to filter out the contacts.
+We then use a `FilteredList` and pass the combination of 2 `Predicates` into it, one to filter the type of contact,
+clients or service providers and the other is to filter by keywords.
 
 
 ==== Design considerations
