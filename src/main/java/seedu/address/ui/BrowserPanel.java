@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -22,7 +24,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://gallant-hugle-b21445.netlify.com/?";
+            "gallant-hugle-b21445.netlify.com";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -41,8 +43,19 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Loads the page of the person.
+     * @param contact Contact to be loaded
+     */
     private void loadPersonPage(Contact contact) {
-        loadPage(SEARCH_PAGE_URL + contact.getUrlContactData());
+        System.out.println(contact.getUrlContactData());
+        try {
+            URI uri = new URI("https", SEARCH_PAGE_URL, "", contact.getUrlContactData(), "");
+            System.out.println(uri.toString());
+            loadPage(uri.toString());
+        } catch (URISyntaxException exception) {
+            loadPage("https://" + SEARCH_PAGE_URL);
+        }
     }
 
     public void loadPage(String url) {
