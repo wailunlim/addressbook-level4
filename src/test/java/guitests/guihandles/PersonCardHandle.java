@@ -73,7 +73,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code client}.
+     * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Contact contact) {
         return getName().equals(contact.getName().fullName)
