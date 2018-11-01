@@ -9,7 +9,6 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;

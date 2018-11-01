@@ -8,7 +8,6 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysService;
 import org.junit.Test;
 
 import guitests.guihandles.ServiceCardHandle;
-
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Service;
 import seedu.address.testutil.ClientBuilder;
