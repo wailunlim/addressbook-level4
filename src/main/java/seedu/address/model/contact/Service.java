@@ -55,6 +55,14 @@ public class Service {
         return serviceCost;
     }
 
+    /**
+     * Returns the URL description for the service.
+     * @return string describing service in URL format.
+     */
+    public String getUrlDescription() {
+        return serviceName + ":" + serviceCost;
+    }
+
     public List<Integer> getIdList() {
         return idList;
     }

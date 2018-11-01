@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.model.ContactType;
@@ -105,6 +106,22 @@ public abstract class Contact {
         return otherContact != null
                 && otherContact.getName().equals(getName())
                 && ((otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail())));
+    }
+
+    /**
+     * Concatenates the contact data into a URL String.
+     * @return URL of contact data.
+     */
+    public String getUrlContactData() {
+        return "type=" + getType() + "&"
+                + "id=" + getId() + "&"
+                + "name=" + getName() + "&"
+                + "phone=" + getPhone() + "&"
+                + "email=" + getEmail() + "&"
+                + "address=" + getAddress() + "&"
+                + "tags=" + String.join(",", getTags().toString()) + "&"
+                + "services=" + String.join(",",
+                getServicesStream().map(Service::getUrlDescription).collect(Collectors.toList()));
     }
 
     @Override
