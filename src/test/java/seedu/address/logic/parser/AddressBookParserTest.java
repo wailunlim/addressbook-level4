@@ -168,7 +168,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+                "client#" + INDEX_FIRST_PERSON.getOneBased() + " select");
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 
