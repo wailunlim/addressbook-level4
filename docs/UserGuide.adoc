@@ -137,10 +137,13 @@ Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t
 |`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 |=====
 
+// tag::listClient[]
 ==== Listing and searching for clients
 
-You can list all clients in the database if no parameters are provided,
-otherwise lists all clients matching all of the search parameters you provided.
+You can view clients in the database as a list using the `client list` command.
+
+If you do not key in any parameters, it will list out all the clients,
+otherwise it will list all clients matching all of the search parameters you provided.
 
 Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
@@ -150,7 +153,7 @@ Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_AD
 |* `client list`
  * `client list n/John Doe`
 |=====
-
+// end::listClient[]
 
 === Manipulating a specific client: `client#id`
 
@@ -234,9 +237,12 @@ Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFF
 |`serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
 |=====
 
+// tag::listSp[]
 ==== Listing and searching for service providers
 
-You can list all service providers in the database if no parameters are provided,
+You can view service providers in the database as a list using the `serviceprovider list` command.
+
+If you do not key in any parameters, it will list out all the service providers,
 otherwise it will list all service providers matching all of the search parameters you provided.
 
 Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
@@ -247,6 +253,7 @@ Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [
 |* `serviceprovider list`
  * `serviceprovider list n/John Doe`
 |=====
+// end::listSp[]
 
 === Manipulating a specific service provider: `serviceprovider#id`
 
@@ -317,6 +324,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 === Undo the previous command: 'undo'
 
 Undo the commands that you have entered in chronological order.
@@ -341,9 +349,15 @@ Format: `redo`
 
 [NOTE]
 ====
+Commands that have been undone will be reset upon a `clear` command.
+====
+[NOTE]
+====
 The application will show either the client list or service
 provider list corresponding to the command that was redone.
 ====
+// end::undoredo[]
+
 
 === Exiting the program : `exit`
 

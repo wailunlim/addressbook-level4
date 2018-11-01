@@ -398,6 +398,20 @@ image::UndoRedoActivityDiagram.png[width="650"]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+// tag::undoredoDisplay[]
+===== Aspect: What it shows after undo/redo command successfully executes
+
+* *Alternative 1 (current choice):* Shows the list that was changed due to the undo/redo command.
+** Pros: Easy for the user to identify what was changed, whether a client or service provider was modified.
+** Cons: It switches the list out of the current filter and the user have to re-type the list command if he wants to filter the list.
+* *Alternative 2:* Keeps showing what was shown before the command was executed.
+** Pros: Easy to implement.
+** Cons: Hard for the user to identify what was changed in the addressbook.
+* *Alternative 3:* Show what was changed, before and after.
+** Pros: User can easily tell what was changed.
+** Cons: Hard to implement, need to have an additional UI components to show what was changed and need additional components to store the list before it was changed.
+// end::undoredoDisplay[]
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -608,38 +622,81 @@ the combination that best suits the client easily
 
 // tag::list[]
 === List Feature
-The user can use the `list` command to list out the various contacts, be it a service provider or a client.
+*_Heart²_* allows you view all the clients or the service providers with a simple command: `list`.
 
-.The UI showing the list command
-image::ListCommand.png[width="800"]
+When listing contacts, you would have to specify whether the contact is a client or a service provider
+by prefixing it to list:
+
+* `client list`
+* `serviceprovider list`
+
+Below shows an example of how listing all clients works:
+
+._The UI showing listing all clients._
+image::ListAllClients.png[width="800"]
 
 {empty} +
 
-Furthermore, the user is also able to add keywords after the list to do filtering, be it categorised or not, and only contacts which contains all of the keywords will be shown.
+Furthermore, you are also able to add keywords after the list to do filtering, and each keyword is specified to
+belong to a category and only contacts which contains all of the keywords in their respective categories will be shown.
 
-.The UI showing list filtering
-image::ListCommandPhoneNumber.png[width="800"]
+[NOTE]
+====
+Categories include:
+
+* `n/` NAME
+* `p/` PHONE_NUMBER
+* `e/` EMAIL_ADDRESS
+* `a/` ADDRESS
+* `t/` TAGS
+====
+
+Below shows an example of how list filtering works:
+
+._The UI showing list filtering._
+image::ListClientsWithKeywords.png[width="800"]
 
 {empty} +
 
 ==== Implementation
 
-The keywords from the command to be used for filtering is parsed and passed to a `Predicate` that is implemented as `EntryContainsKeyWordsPredicate`.
+The keywords from the command to be used for filtering is parsed by the `ListCommandParser` and passed to a `Predicate`
+that is implemented as `ContactContainsKeywordsPredicate`.
 
-We then use a `FilteredList` using the `Predicate` to filter out the contacts.
-
+We then use a `FilteredList` and pass the combination of 2 `Predicates` into it, one to filter the type of contact,
+clients or service providers and the other is to filter by keywords.
+// TODO: ADD UML DIAGRAM
 
 ==== Design considerations
 
-===== Substring matching
+[none]
+==== Aspect 1: Substring Matching or Word Matching
+* *Alternative 1 (current choice):* Substring matching.
+** Pros: Users would be able to view a wider range of results that matches the substring they have given. Easier to use.
+** Cons: Irrelevant results might not be filtered away if they contain the substring.
+* *Alternative 2:* Word matching.
+** Pros: Guarantees that no irrelevant results are shown.
+** Cons: Relevant results that have a small difference in the wording will be filtered away and not shown.
 
-Instead of doing an exact match for keywords, we will search for a substring match in the contacts instead by using the `contains()` method in `String`.
+[none]
+==== Aspect 2: Categorised or Non-categorised keywords
+* *Alternative 1 (current choice):* Categorised keywords.
+** Pros: Users are able to specify which keywords they want to search for in which category.
+Gives better control over the searching.
+** Cons: Users have to follow a specific format to type the keywords.
+* *Alternative 2:* Non-categorised keywords.
+** Pros: User can type in the keywords in any order they want. Easier to use.
+** Cons: Irrelevant results that contains the keywords will be shown.
 
-This is done so that users do not need to type in the exact keyword when they want to filter the list of contacts and it saves time for the user as well if they make a mistake.
+[none]
+==== Aspect 3: All Match or Any Match
+* *Alternative 1 (current choice):* All match.
+** Pros: Users can specify what they want to search for and filter out all irrelevant results.
+** Cons: Users are not able to search for multiple things, when they only require one of them to match.
+* *Alternative 2:* Any match.
+** Pros: Users are able to obtain a wider search result. Easier to use.
+** Cons: Irrelevant results that contains only one or a few keywords will be shown as well.
 
-===== Tags
-
-Currently, the `list` command does not take into account of the tags for each contact, and the tags could be used to list different types of clients or service providers, and it is an upcoming feature in v2.0.
 // end::list[]
 
 === Finding matches between clients and service providers
@@ -1322,13 +1379,14 @@ Use case ends.
 +
 Use case ends.
 
+// tag::listMSS[]
 [discrete]
 === Use case: List all the Clients or Service Providers
 
 *MSS*
 
-1.  User enters the list command and requests to view either all the Clients, or all the Service Providers
-2.  System returns either a list with all the Clients' names and contact numbers, or all the Service Providers' names and contact numbers
+1.  User enters the list command and requests to view either all the Clients, or all the Service Providers.
+2.  System returns either a list with all the Clients' information, or all the Service Providers' information.
 +
 Use case ends.
 
@@ -1338,31 +1396,38 @@ Use case ends.
 * 2a. There is no Client or no Service Provider available
 +
 [none]
-** 2a1. System returns a message to feedback to User that no Client or no Service Provider exist
+** 2a1. System returns an empty list.
 
 +
 Use case ends.
 
-
 [discrete]
-=== Use case: Filter and show a specific Client’s or Service Provider’s info
+=== Use case: Filter and show Client’s or Service Provider’s info according to the filter
 
 *MSS*
 
-1.  User requests to view either a specific Client’s or the Service Provider’s info
-2.  The System displays the info related to the party back to the user
+1.  User enters the list command and requests to view either Client’s or Service Provider’s information with some
+keywords provided indicated by prefixes.
+2.  The System displays a list of Clients or Service Providers whose information matches what was provided.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. User enters a Client or Service Provider that does not exist
+* 1a. User enters a prefix that does not exist.
 +
 [none]
-** 1a1. System prompts the User that such a Client or Service Provider does not exist
+** 1a1. System prompts the User the correct format of the command and prefixes that can be used.
+
+* 1b. User enters an empty prefix.
++
+[none]
+** 1b1. System prompts the User the correct format of the command and prefixes that can be used.
+
 +
 Use case ends.
+// end::listMSS[]
 
 [discrete]
 === Use case: Match the most suitable Service Provider to a Client's needs
@@ -1391,29 +1456,6 @@ Use case ends.
 ** 2a1. System feedback to the User that no Service Provider is available for the current Client's need
 +
 Use case ends.
-
-[discrete]
-=== Use case: Auto-complete typed command
-
-*MSS*
-
-1.  User types a letter (or letters) into the command line
-2.  System suggests a list of commands that starts with the letter(s) that the User has typed
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. There is no command that starts with the letter(s) that the User has typed
-+
-[none]
-** 2a1. System does not suggest anything to the User
-+
-Use case ends.
-
-
-
 
 [appendix]
 == Non Functional Requirements
