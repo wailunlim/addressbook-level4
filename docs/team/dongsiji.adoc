@@ -13,6 +13,8 @@ Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
 Users can find suitable wedding service providers for clients using just a few keystrokes with our enterprise featureset.
 
+The purpose of this document is to document the contribution that Dong SiJi have made in this project for the module
+under NUS School of Computing, CS2103T.
 
 == Summary of contributions
 
