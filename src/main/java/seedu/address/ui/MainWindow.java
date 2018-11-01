@@ -360,7 +360,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        if (browserPanel != null) {
+            browserPanel.freeResources();
+        }
     }
 
     @Subscribe
