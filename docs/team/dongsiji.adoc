@@ -19,23 +19,34 @@ as a student undertaking the module CS2103T under NUS School of Computing.
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
 Users can find suitable wedding service providers for clients using just a few keystrokes with our enterprise featureset.
 
+The project is written in Java and has about 10 thousand lines of code. The user interacts with the application mainly using a Command Line Interface (CLI),
+and it also has a Graphic User Interface (GUI) created with JavaFX for users who are not so adept with the keyboard.
+
 == Summary of contributions
 
 |===
 |Below is a summary of the contributions that I have made to the project.
 |===
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+=== Major Enhancement
+* *Major enhancement*: Revamping the `list` command.
+* Functionality: The user is able to use this command to list all clients or service providers and they are also able to use the command to search through clients and service providers by providing the relevant keywords that they want to search for.
+* Justification: By having both the searching and listing functionality in one command the user will have less commands to familiarise with and it increases the ease of use of the application.
+* Highlights: To revamp the list command, I had to have a deep understanding of how the commands work and revamp the parser for the command first. I also had to change how some of the information was stored in the application, so that the relevant information could be obtained when necessary.
+* *Functional Code Contributed*: link:dongsijiContributedCode.adoc[all codes]
+* *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/150[all tests]
 
-* *Minor enhancement*:
+=== Minor Enhancement
+* *Minor enhancement*: Enable `undo` and `redo` commands to show the relevant list.
+* *Functionality*: The list shown to the user after executing the `undo` and `redo` commands will be the list of clients or service providers that was changed through the command.
+* *Justification*: To allow the user to be able to see what was changed clearly.
+* *Functional Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all codes]
+* *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all tests]
 
-* *Code contributed*:
-
-* *Other contributions*:
-
+=== Other Contributions
+* *Documentation*:
+** Set up the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
+** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 
 == Contributions to the User Guide
 
