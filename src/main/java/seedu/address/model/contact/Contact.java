@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.model.ContactType;
@@ -122,8 +123,9 @@ public abstract class Contact {
                 + "phone=" + getPhone() + "&"
                 + "email=" + getEmail() + "&"
                 + "address=" + getAddress() + "&"
-                + "tags=" + String.join(",", getTags() + "&")
-                + "services=" + String.join(",", getServices() + "&");
+                + "tags=" + String.join(",", getTags().toString()) + "&"
+                + "services=" + String.join(",",
+                getServicesStream().map(Service::getUrlDescription).collect(Collectors.toList()));
         return new URL(urlContactData);
     }
 
