@@ -6,8 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
@@ -91,6 +93,7 @@ public class AddServiceCommand extends Command {
         model.updateContact(contactToEdit, editedContact);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(String.format(MESSAGE_ADD_SERVICE_SUCCESS, contactToEdit.getName(), service));
     }
 

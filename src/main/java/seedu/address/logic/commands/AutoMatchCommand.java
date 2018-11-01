@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -105,8 +106,10 @@ public class AutoMatchCommand extends Command {
 
         // Post new event to display UI in table.
         EventsCenter.getInstance().post(new DisplayAutoMatchResultRequestEvent());
-
         // TODO: use the auto-match results to print a useful output.
+
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         this.contactType));

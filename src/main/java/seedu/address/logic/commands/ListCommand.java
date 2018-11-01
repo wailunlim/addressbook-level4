@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
@@ -41,6 +43,7 @@ public class ListCommand extends Command {
         }
 
         model.updateFilteredContactList(contactType.getFilter().and(predicate));
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         contactType));

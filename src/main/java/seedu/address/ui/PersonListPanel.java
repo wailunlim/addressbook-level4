@@ -10,7 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClearBrowserPanelRequestEvent;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.contact.Contact;
@@ -61,6 +64,12 @@ public class PersonListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handleDeselectRequestEvent(DeselectRequestEvent event) {
+        Platform.runLater(() -> personListView.getSelectionModel().clearSelection());
+        EventsCenter.getInstance().post(new ClearBrowserPanelRequestEvent());
     }
 
     /**

@@ -137,19 +137,23 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         /* --------------------- Performing edit operation while a client card is selected -------------------------- */
 
+        /* Case: selects first card in the client list, edits a client -> no card should be selected */
+
+
+
         //TODO: How is select going to work now?
         /* Case: selects first card in the client list, edit a client -> edited, card selection remains unchanged but
          * browser url changes
          */
         showAllClients();
         index = INDEX_FIRST_PERSON;
-        selectPerson(index);
+        // selectPerson(index);
         command = String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#" + index.getOneBased()) + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new client's name
-        selectPerson(index);
+        // selectPerson(index);
         executeCommand(command);
 
         // assertCommandSuccess(command, index, AMY, index);

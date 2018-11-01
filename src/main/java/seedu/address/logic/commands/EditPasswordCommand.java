@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
@@ -84,6 +86,7 @@ public class EditPasswordCommand extends Command {
 
             accountStorage.updateAccountPassword(username, hashedNewPassword);
             model.commiteUserChangedPasswordSuccessfully(hashedNewPassword);
+            EventsCenter.getInstance().post(new DeselectRequestEvent());
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (FileNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE_FILENOTFOUND);
