@@ -36,6 +36,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
 
         if (predicate.equals(new ContactContainsKeywordsPredicate())) {
             model.updateFilteredContactList(contactType.getFilter());
@@ -43,7 +44,6 @@ public class ListCommand extends Command {
         }
 
         model.updateFilteredContactList(contactType.getFilter().and(predicate));
-        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         contactType));

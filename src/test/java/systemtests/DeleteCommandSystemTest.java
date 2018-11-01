@@ -89,7 +89,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        // selectPerson(selectedIndex);
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
                 "#" + selectedIndex.getOneBased());
         deletedContact = removePerson(expectedModel, selectedIndex);

@@ -121,6 +121,9 @@ public class AddressBookParser {
         case "client select":
             return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
+        case "serviceprovider select":
+            return new SelectCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
