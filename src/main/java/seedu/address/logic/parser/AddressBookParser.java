@@ -21,6 +21,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -106,7 +107,7 @@ public class AddressBookParser {
 
         final String commandWord = getCommandWord(firstWord, secondWord);
 
-        //TODO: do away with new String cases
+        System.out.println(arguments);
         switch (commandWord) {
 
         case RegisterAccountCommand.COMMAND_WORD:
@@ -118,8 +119,11 @@ public class AddressBookParser {
         case EditPasswordCommand.COMMAND_WORD:
             return new EditPasswordCommandParser().parse(arguments);
 
-        case "select":
-            return new SelectCommandParser().parse(arguments);
+        case SelectCommand.COMMAND_WORD_CLIENT:
+            return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
+
+        case SelectCommand.COMMAND_WORD_SERVICE_PROVIDER:
+            return new SelectCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -143,6 +147,7 @@ public class AddressBookParser {
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_CLIENT:
+            requireEmptyArguments(arguments);
             return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
         case ListCommand.COMMAND_WORD_CLIENT:
@@ -166,6 +171,7 @@ public class AddressBookParser {
             return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
+            requireEmptyArguments(arguments);
             return new DeleteCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
 
         case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
@@ -202,5 +208,16 @@ public class AddressBookParser {
         }
 
         return identifier;
+    }
+
+    /**
+     * Ensures that there are no arguments specified.
+     * @param args
+     * @throws ParseException if there are arguments present i.e not null
+     */
+    private void requireEmptyArguments(String args) throws ParseException {
+        if (args.trim().length() > 0) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 }

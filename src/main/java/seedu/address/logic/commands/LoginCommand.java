@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -78,6 +80,7 @@ public class LoginCommand extends Command {
                 Account accountToCommit = new Account(username, password, userAccountRole);
                 accountToCommit.transformToHashedAccount();
                 model.commitUserLoggedInSuccessfully(accountToCommit);
+                EventsCenter.getInstance().post(new DeselectRequestEvent());
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         } catch (DataConversionException e) {

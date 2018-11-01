@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,6 +38,7 @@ public class RedoCommand extends Command {
         ContactType toFilter = CollectionUtil.compareListOfContacts(listAfterRedo, listBeforeRedo);
 
         model.updateFilteredContactList(toFilter.getFilter());
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -79,7 +79,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getContactList().size();
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#" + invalidIndex);
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
 
         /* --------------------- Performing delete operation while a client card is selected ------------------------ */
 
@@ -89,7 +89,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        // selectPerson(selectedIndex);
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
                 "#" + selectedIndex.getOneBased());
         deletedContact = removePerson(expectedModel, selectedIndex);
@@ -112,7 +112,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
                 getModel().getAddressBook().getContactList().size() + 1);
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
                 "#" + outOfBoundsIndex.getOneBased());
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#abc"),

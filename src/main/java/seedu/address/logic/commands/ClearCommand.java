@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.AddressBook;
@@ -26,6 +28,7 @@ public class ClearCommand extends Command {
 
         model.resetData(new AddressBook());
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

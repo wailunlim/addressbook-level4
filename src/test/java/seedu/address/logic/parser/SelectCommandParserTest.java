@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.Test;
 
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.ContactType;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
@@ -15,15 +16,16 @@ import seedu.address.logic.commands.SelectCommand;
  */
 public class SelectCommandParserTest {
 
-    private SelectCommandParser parser = new SelectCommandParser();
+    private SelectCommandParser parser = new SelectCommandParser(ContactType.CLIENT);
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new SelectCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "#1", new SelectCommand(INDEX_FIRST_PERSON, ContactType.CLIENT));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "#a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
     }
 }

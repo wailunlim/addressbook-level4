@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
@@ -58,7 +60,7 @@ public class DeleteCommand extends Command {
         if (filteredList.size() == 0) {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, contactType));
         }
 
         if (filteredList.size() > 1) {
@@ -70,6 +72,7 @@ public class DeleteCommand extends Command {
         model.deleteContact(contactToDelete);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete));
     }

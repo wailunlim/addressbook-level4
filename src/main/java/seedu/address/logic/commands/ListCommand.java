@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
@@ -34,6 +36,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
 
         if (predicate.equals(new ContactContainsKeywordsPredicate())) {
             model.updateFilteredContactList(contactType.getFilter());
