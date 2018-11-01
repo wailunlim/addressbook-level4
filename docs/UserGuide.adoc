@@ -302,6 +302,16 @@ Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 
 Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
+Available Service Types `SERVICE_TYPE`:
+
+* `photographer`
+* `hotel`
+* `catering`
+* `dress`
+* `ring`
+* `transport`
+* `invitation`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
