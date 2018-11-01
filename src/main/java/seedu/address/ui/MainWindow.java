@@ -24,6 +24,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LoginSuccessEvent;
 import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Stage loginStage;
     private Logic logic;
+    private boolean hasFilledParts;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -118,6 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        hasFilledParts = false;
     }
 
     public Stage getPrimaryStage() {
@@ -168,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
         loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.centerOnScreen();
         loginWindow = new LoginWindow(loginStage, config, prefs, logic);
-        loginStage.showAndWait();
+        loginStage.show();
     }
 
     /**
@@ -193,6 +196,9 @@ public class MainWindow extends UiPart<Stage> {
         // Show command box
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Set to true that parts have been initialised.
+        hasFilledParts = true;
     }
 
     /**
@@ -237,7 +243,6 @@ public class MainWindow extends UiPart<Stage> {
     public void handleLogout() {
         hideInnerParts();
         displayLoginWindow();
-        showInnerParts();
     }
 
     /**
@@ -357,6 +362,17 @@ public class MainWindow extends UiPart<Stage> {
     void releaseResources() {
         browserPanel.freeResources();
     }
+
+    @Subscribe
+    private void handleLoginSuccessEvent(LoginSuccessEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (!hasFilledParts) {
+            fillInnerParts();
+        } else {
+            showInnerParts();
+        }
+    }
+
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
