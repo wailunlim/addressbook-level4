@@ -22,7 +22,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+            "https://gallant-hugle-b21445.netlify.com/?";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -42,7 +42,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Contact contact) {
-        loadPage(SEARCH_PAGE_URL + contact.getName().fullName);
+        loadPage(SEARCH_PAGE_URL + contact.getUrlContactData());
     }
 
     public void loadPage(String url) {
