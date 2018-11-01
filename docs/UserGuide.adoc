@@ -140,8 +140,10 @@ Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t
 // tag::listClient[]
 ==== Listing and searching for clients
 
-You can list all clients in the database if no parameters are provided,
-otherwise lists all clients matching all of the search parameters you provided.
+You can view clients in the database as a list using the `client list` command.
+
+If you do not key in any parameters, it will list out all the clients,
+otherwise it will list all clients matching all of the search parameters you provided.
 
 Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
@@ -238,7 +240,9 @@ Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFF
 // tag::listSp[]
 ==== Listing and searching for service providers
 
-You can list all service providers in the database if no parameters are provided,
+You can view service providers in the database as a list using the `serviceprovider list` command.
+
+If you do not key in any parameters, it will list out all the service providers,
 otherwise it will list all service providers matching all of the search parameters you provided.
 
 Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
