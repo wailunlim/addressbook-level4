@@ -222,6 +222,21 @@ Available Service Types `SERVICE_TYPE`:
  * `client#123 addservice s/catering c/10000`
 |=====
 
+==== Automatching for a client
+
+You can easily find service providers that can fulfill the requests services with this command.
+
+[NOTE]
+====
+It only shows you the service providers within the budget of the client.
+====
+Format: `client#id automatch`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `client#123 automatch`
+|=====
 
 === Manipulating all service providers: `serviceprovider`
 
@@ -311,6 +326,22 @@ Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 |image:exampleimage.png[width="64", role="center"]
 |* `serviceprovider#123 addservice s/photography c/2000`
  * `serviceprovider#123 addservice s/catering c/10000`
+|=====
+
+==== Automatching for a service provider
+
+You can easily find clients whose service requirements match the services offered by a service provider.
+
+[NOTE]
+====
+It only shows you the clients whose budgets can afford the service.
+====
+Format: `serviceprovider#id automatch`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `serviceprovider#123 automatch`
 |=====
 
 === Listing entered commands: `history`
