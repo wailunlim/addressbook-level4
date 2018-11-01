@@ -40,7 +40,8 @@ public class LogicManagerTest {
     //TODO: update deleteCommand
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "client#9 delete";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand,
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
         assertHistoryCorrect(deleteCommand);
     }
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_CONTACT_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TypicalContacts.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -16,12 +16,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 
 // import static seedu.address.testutil.TestUtil.getMidIndex;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
-    @Ignore
     @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -29,12 +29,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the first card in the client list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "      client# " + INDEX_FIRST_PERSON.getOneBased() + SelectCommand.COMMAND_WORD + "   ";
+        String command = "          " + String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased()) + "        ";
         assertCommandSuccess(command, INDEX_FIRST_PERSON);
 
         /* Case: select the last card in the client list -> selected */
         Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
+        command = String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + personCount.getOneBased());
         assertCommandSuccess(command, personCount);
 
         /* Case: undo previous selection -> rejected */
@@ -63,43 +65,54 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getContactList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // Select does selecting by unique ID, not relative to the shown list
+        // assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+        // ContactType.CLIENT, "#" + invalidIndex), String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+        //         ContactType.CLIENT));
 
         /* Case: filtered client list, select index within bounds of address book and client list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredContactList().size());
-        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
-        assertCommandSuccess(command, validIndex);
+        command = String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + validIndex.getOneBased());
+        // Select does selecting by unique ID, not relative to the shown list
+        // assertCommandSuccess(command, validIndex);
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#0"), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + -1,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#-1"), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
+        // TODO: rewrite this test case: different behaviour now
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredContactList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+        //         ContactType.CLIENT, "#" + invalidIndex),
+        //         String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
 
         /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
-                String.format(MESSAGE_UNKNOWN_COMMAND, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#abc"), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
-        /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " 1 abc",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#1abc1"), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
         deleteAllPersons();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased()),
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
     }
 
     /**
@@ -118,8 +131,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        String expectedResultMessage = String.format(
-                MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
+        String expectedResultMessage = String.format(MESSAGE_SELECT_CONTACT_SUCCESS, ContactType.CLIENT,
+                expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
 
         executeCommand(command);

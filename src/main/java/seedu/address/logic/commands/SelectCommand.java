@@ -21,13 +21,16 @@ import seedu.address.model.contact.Contact;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s select";
+    public static final String COMMAND_WORD_CLIENT = "client select";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider select";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the client identified by the index number used in the displayed client list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
+            + ": Selects the %1$s identified by the assigned unique %1$s ID.\n"
+            + "Parameters: #<ID> (must be a positive integer)\n"
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Client: %1$s";
+    public static final String MESSAGE_SELECT_CONTACT_SUCCESS = "Selected %1$s: %2$s";
 
     private final Index id;
     private final ContactType contactType;
@@ -41,8 +44,6 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Contact> filteredContactList = model.getFilteredContactList();
-
         model.updateFilteredContactList(contactType.getFilter()
                 .and(contact -> contact.getId() == id.getOneBased()));
 
@@ -52,7 +53,7 @@ public class SelectCommand extends Command {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
             EventsCenter.getInstance().post(new ClearBrowserPanelRequestEvent());
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, contactType));
         }
 
         if (filteredList.size() > 1) {
@@ -64,7 +65,7 @@ public class SelectCommand extends Command {
         model.updateFilteredContactList(contactType.getFilter());
         EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(model.getFilteredContactList()
                 .indexOf(contactToSelect))));
-        return new CommandResult((String.format(MESSAGE_SELECT_PERSON_SUCCESS, id.getOneBased())));
+        return new CommandResult((String.format(MESSAGE_SELECT_CONTACT_SUCCESS, contactType, id.getOneBased())));
     }
 
     @Override

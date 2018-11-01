@@ -30,7 +30,8 @@ public class SelectCommandParser implements Parser<SelectCommand> {
             return new SelectCommand(id, contactType);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            String.format(SelectCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
         }
     }
 }
