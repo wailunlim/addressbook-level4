@@ -1392,29 +1392,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Auto-complete typed command
-
-*MSS*
-
-1.  User types a letter (or letters) into the command line
-2.  System suggests a list of commands that starts with the letter(s) that the User has typed
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. There is no command that starts with the letter(s) that the User has typed
-+
-[none]
-** 2a1. System does not suggest anything to the User
-+
-Use case ends.
-
-
-
-
 [appendix]
 == Non Functional Requirements
 image::appendixeheader.png[width="320"]
