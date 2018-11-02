@@ -9,16 +9,19 @@
 
 == Overview
 
-Heart² is a desktop wedding application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Heart² is a desktop wedding management application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+* *Major enhancement*: Automatching
+** What it does: Automatically finds service providers that can fulfill the requirements of a client.
+** Justification: Manually searching for service providers for clients is extremely labourious and repetitive.
+** Highlights: Reduces the workload of matching to a single command.
 
-* *Minor enhancement*:
+* *Minor enhancement*: Contact type serialization
+** What it does: Serializes the contact (both clients and service providers) as different types of entities.
+** Justification: Previously, there was no mechanism to differentiate between clients and service providers when the data is pulled out from the XML database.
+** Highlights: Serializes both client and service provider data into the same address book XML database.
 
 * *Code contributed*:
 
