@@ -13,6 +13,7 @@ import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AutoMatchResult;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
@@ -110,9 +111,11 @@ public class AutoMatchCommand extends Command {
 
         EventsCenter.getInstance().post(new DeselectRequestEvent());
 
+        ContactType resultContactType = contact instanceof Client ? ContactType.SERVICE_PROVIDER
+                : ContactType.SERVICE_PROVIDER;
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
-                        this.contactType));
+                        resultContactType));
     }
 
     /**
