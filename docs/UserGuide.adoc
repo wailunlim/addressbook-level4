@@ -164,12 +164,12 @@ Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_AD
 
 You can view the detailed information about a specific client by his/her id.
 
-Format: `client#id view`
+Format: `client#id select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`client#123 view`
+|`client#123 select`
 |=====
 
 ==== Deleting a client
@@ -188,13 +188,13 @@ Format: `client#id delete`
 
 You can update a client profile by his/her id with new particulars.
 
-Format: `client#id updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `client#id update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 updateprofile p/98765432` (updates `client#123`'s phone number)
- * `client#123 updateprofile n/Jane Doe e/janedoe@gmail.com` (updates `client#123`'s name and email address)
+|* `client#123 update p/98765432` (updates `client#123` 's phone number)
+ * `client#123 update n/Jane Doe e/janedoe@gmail.com` (updates `client#123` 's name and email address)
 |=====
 
 ==== Adding a service requirement for a client
@@ -279,12 +279,12 @@ Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [
 
 You can view the detailed information of a service provider by its id.
 
-Format: `serviceprovider$id view`
+Format: `serviceprovider#id select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`serviceprovider#123 view`
+|`serviceprovider#123 select`
 |=====
 
 ==== Deleting a service provider
@@ -303,13 +303,13 @@ Format: `serviceprovider#id delete`
 
 You can update the details of a service provider by its id with new particulars.
 
-Format: `serviceprovider#id updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
+Format: `serviceprovider#id update [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 updateprofile p/98765432` (updates `serviceprovider#123`'s phone number)
- * `serviceprovider#123 updateprofile e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123`'s email address and office address)
+|* `serviceprovider#123 update p/98765432` (updates `serviceprovider#123` 's phone number)
+ * `serviceprovider#123 update e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123` 's email address and office address)
 |=====
 
 ==== Adding a service type supported by service provider
