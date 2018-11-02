@@ -9,7 +9,16 @@
 
 == Overview
 
-Heart² is a desktop wedding management application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Heart² is an enterprise wedding management desktop application that allows wedding agencies to easily match clients (couples looking to have a wedding ceremony) to service providers (companies that offer services catered to weddings).
+
+Some features include:
+
+* CLI interface and rich GUI interface
+* Client and service provider database
+* Detailed tabular breakdown of the services requested by clients and services offered by service providers
+* Auto-matching of clients and service providers
+
+This document serves as a summary for my contribution to the Heart² project.
 
 == Summary of contributions
 
