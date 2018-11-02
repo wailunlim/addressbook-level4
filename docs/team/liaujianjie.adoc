@@ -1,51 +1,83 @@
 = Liau Jian Jie - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ./images
 :stylesDir: ../stylesheets
 
-== PROJECT: Heart²
+== Introduction
 
----
+This document serves as a summary for my contribution to the https://github.com/CS2103-AY1819S1-F10-3/main[*Heart²*
+project].
+
+For more, you can visit my https://jianjie.co[personal website] to see other projects I was involved in.
 
 == Overview
 
-Heart² is an enterprise wedding management desktop application that allows wedding agencies to easily match clients (couples looking to have a wedding ceremony) to service providers (companies that offer services catered to weddings).
+*Heart²* is a cross-platform enterprise wedding management desktop application that enables wedding agencies to easily
+match clients (couples looking to have a wedding ceremony) to vendors (companies that offer services catered to
+weddings).
 
-Some features include:
+*Some features include*:
 
 * CLI interface and rich GUI interface
-* Client and service provider database
-* Detailed tabular breakdown of the services requested by clients and services offered by service providers
-* Auto-matching of clients and service providers
+* Client and vendor database
+* Detailed tabular breakdown of services listed
+* Auto-matching of clients and vendors
 
-This document serves as a summary for my contribution to the Heart² project.
+*General metrics of my contribution* (as of 4 Nov 2018)
+
+* ✔ 2,136 LoC changed
+* ✔ 38 commits created
+* ✔ 26 pull requests merged
+* ✔ 19 issues raised
 
 == Summary of contributions
 
-* *Major enhancement*: Automatching
-** What it does: Automatically finds service providers that can fulfill the requirements of a client.
-** Justification: Manually searching for service providers for clients is extremely labourious and repetitive.
-** Highlights: Reduces the workload of matching to a single command.
+=== *Major enhancement*: Auto-matching
+** *What it does:* Automatically finds vendors that can fulfill the service requirements of a specific client.
+Inversely, it can also find all clients for which a specific vendor can serve.
+** *Justification:8 Manually searching for vendors for clients is extremely laborious and repetitive. This feature
+reduces the search of vendors or clients to a single line of command.
+** *Highlights:* Simple single one-line command: `client#123 automatch`
 
-* *Minor enhancement*: Contact type serialization
-** What it does: Serializes the contact (both clients and service providers) as different types of entities.
-** Justification: Previously, there was no mechanism to differentiate between clients and service providers when the data is pulled out from the XML database.
-** Highlights: Serializes both client and service provider data into the same address book XML database.
+=== *Major enhancement*: Profile panel
+** *What it does:* Renders the profile panel in an aesthetically appealing visual format.
+** *Justification:* The previous static page was not very helpful and could not be customised to contain objects such as
+arrays or maps.
+** *Highlights:* Built with the blazing-fast GatsbyJS React Javascript framework for static websites.
+** *Note:* The code for this portion resides in a https://github.com/CS2103-AY1819S1-F10-3/profile-site[separate
+repository].
 
-* *Code contributed*:
 
-* *Other contributions*:
+image::automatching.png[width:600]
+_Annotated screenshot of the auto-matching feature and profile panel_
 
+=== *Minor enhancement*: Contact type serialization
+** *What it does:* Serializes the contact (both clients and vendors) as different types of entities in the same XML
+file.
+** *Justification:* Prior to this change, there was no mechanism to differentiate between clients and vendors when the
+data was de-serialized from the XML file.
+** *Highlights:* Serializes both client and vendor data into the same address book XML each type with a differentiable
+format.
+
+=== *Other contributions*:
+** Took initiative to ensure that we had everything prioritized in the right order and ensure the team was focused
+during our discussions.
+** Spearheaded the various architecture design discussions.
+** Smashed a ton of bugs!
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
 |===
+
+===
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
