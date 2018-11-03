@@ -1,39 +1,353 @@
 = Gan Chin Yao - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ./images
+:sectnums:
 :stylesDir: ../stylesheets
 
-== PROJECT: Heart²
+image::projectportfolio.png[width="600"]
 
----
+This portfolio aims to provide a summary of what I have contributed as a student for the project *_Heart²_*.
 
-== Overview
+*_Heart²_* Github link: https://github.com/CS2103-AY1819S1-F10-3/main
 
-Heart² is a desktop wedding application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+== Introduction
+image::abouttheproject.png[width="400"]
+
+image::intropicture.png[width="200"]
+
+*_Heart²_* is a desktop application for wedding planning agencies to efficiently manage their clients and service providers. It allows the agency to automatically match the agency's service providers to existing clients' needs, and also maintains a easy-to-use database search system for clients' and service providers' profiles.
+
+It is written in Java, and has about 10 kLoC. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX
+
+It is cross-platform and can be compiled for both Windows and Mac OS.
+
+
+image::projectteam.png[width="400"]
+
+*_Heart²_* was developed on top of the link:https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook - Level 4] application. It consists of 5 dedicated members, including myself. My role in *_Heart²_* was a software engineer, tasked to create a `Login` feature from scratch and `Privileges` system for different types of user accounts.
+
+{empty} +
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+|===
+|_This section provides an overview of the contributions I have done for this application._
+|===
 
-* *Minor enhancement*:
+image::major.png[width="400"]
 
-* *Code contributed*:
+=== Major enhancements
 
-* *Other contributions*:
+Added `login` and `logout` functions, and allow users to `register` for an user account.
 
+* *What it does:* Allows the user to register for an account, and use that account to log in to the application. Afterwards, the user can log out of his/her account.
+* *Justification:* Clients' and service providers' personal information are present in the application, and it is necessary to protect these information from unwanted eyes. Logging in to use the application is an important feature as it restricts access to the application from unauthorised parties. Without an authorised account, the user is unable to use this application as it is mandatory to log in at start.
+* *Highlights:* Storing user account information was a challenge as the project restriction only allows files to be stored locally. Nonetheless, I stored user password as hash digest using `PBKDF2WithHmacSHA512` algorithm with salt to prevent anyone from looking up the user's password directly. The implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
+* *Functional code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/97[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/135[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/logic/commands/LogoutCommand.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/173[Salt and Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedAccount.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAccountStorage.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlSerializableAccountList.java[Storage 3]
+* *Test code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/RegisterAccountCommandTest.java[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LoginCommandTest.java[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LogoutCommandTest.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/security/PasswordAuthenticationTest.java[Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAdaptedAccountTest.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAccountStorageTest.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlSerializableAccountListTest.java[Storage 3]
+
+
+image::minor.png[width="400"]
+
+=== Minor enhancements
+
+* *Minor enhancement:* Allows user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User` role.
+* *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges tied to the user account helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` role as he/she does not need to modify data in the application.
+* *Functional Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/165/[EditPassword] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/89[Access privilege]
+* *Test Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditPasswordCommandTest.java[Edit password] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/model/account/AccountTest.java[Access privilege]
+
+image::others.png[width="400"]
+
+=== Other contributions
+* *Project Management*:
+** Managed releases link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.1[v1.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2[v1.2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2.1[v1.2.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.3[v1.3] on GitHub
+
+* *Graphic assets*:
+** Added graphical content to make the existing User Guide and Developer Guide more pleasant to read: Pull requests link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/138[#138] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/145[#145]
+** Created the application logo image:logotransparentbackground.png[width="150"]
+** Contributed to the User Guide and Developer Guide for this application. See Section 3 below for more details.
+
+* *Community*:
+** Contributed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] on Github.
+** Reviewed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?q=reviewed-by%3ANightYeti[pull requests] by other authors on Github.
+
+* *Presentation*:
+** Gave 2 product demos of the application to the entire class, the first targeting general audiences, and the second targeting company's higher management.
+
+{empty} +
 
 == Contributions to the User Guide
 
+image::userguideheader.png[width="400"]
+|===
+|_This section shows what I have contributed to the User Guide. It showcases my ability to write documentation targetting end-user._
+|===
+
+Github link to full User Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/UserGuide.adoc
+
+=== Overview of contributions
+Below is an overview of what I have contributed towards the User Guide.
+
+==== Made the User Guide pretty
+I created various graphic assets for the User Guide to make the User Guide more pleasing to read. Below are examples of some of the graphic assets I have created.
+
+.Examples of graphics contributed
+image::userguideexample.png[width="500"]
+
+The left image above shows the overall title graphic that is present on the first page of the User Guide, and the right image shows an example of a title header to better differentiate each sections in the User Guide. This showcases my ability to create graphic assets from scratch.
+
+
+==== Crafted an `example` format:
+
+I crafted a format which was used consistently by my team throughout the entire User Guide to let users easily identify an example of a real command.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `client#1 addservice t/photography p/2000`
+ * `client#1 addservice t/catering p/10000`
+|=====
+
+The above is the `example format` used consistently throughout the User Guide. User can simply copy `client#1 addservice t/photography p/2000` as a command and run it in the application. This allows users to copy a working command conveniently and paste it into the application to trigger the command.
+
+==== Wrote content for the User Guide
+I have written paragraphs relating to the new commands I have added to the application to teach users how to use those commands. The exact content I have written for the User Guide is shown below in Section 3.2.
+
+=== Extract of User Guide written
+
+image::extract.png[width="400"]
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following paragraphs show the exact extract I have written for the User Guide. Below are two different portions taken from the same User Guide, labelled as part `A` and part `B`._
 |===
+
+image::quotestart.png[width="180"]
+
+==== *_Part A_*
+image::parta.png[width="200"]
+
+[Discrete]
+=== Logging in : `login`
+
+Securely logs you in to access the system with a registered account. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
+
+Format: `login u/USERNAME p/PASSWORD`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`login u/rootUser p/rootPassword`
+|=====
+
+[Discrete]
+=== Logging out : `logout`
+
+Securely logs you out of the system.
+
+Format: `logout`
+
+[Discrete]
+=== Registering a new account : `register account`
+
+Register a new account for this application. You can only register a new account *after logging in* via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+
+[NOTE]
+It may sound counter-intuitive to log in to the application before you can register a new account. We make this a requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+
+Format: `register account u/USERNAME p/PASSWORD r/ROLE`
+
+`r/ROLE`:
+either
+`r/superuser`
+ or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`register account u/myNewUsername p/p@ssw0rd r/superuser`
+|=====
+
+[Discrete]
+=== Change the current password : `change password`
+
+Change your current account password from an old password to a new password.
+
+Condition: your old password is typed in correctly, and new password should not be the same as old password.
+
+[CAUTION]
+Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
+
+Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`change password o/jf3nv n/j9y3nd`
+|=====
+
+{empty} +
+
+[Discrete]
+==== 3.2.2. *_Part B_*
+image::partb.png[width="200"]
+
+[Discrete]
+=== FAQ
+*[red]#Q*#: [red]#What platform is this application available on?# +
+*A*: This application is cross-platform, and can be used on both Windows and Mac OS.
+
+*[red]#Q*#: [red]#Is this application free-of-charge?# +
+*A*: Yes, this application is open-source and can be use for free, even commercially.
+
+*[red]#Q*#: [red]#How can I report an issue?# +
+*A*: You can raise an issue in the issue section and our team will get back to you as soon as possbile.
+
+image::quoteend.png[width="180"]
 
 == Contributions to the Developer Guide
 
+image::developerguideheader.png[width="400"]
+
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section shows what I have contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+Github link to full Developer Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc
+
+=== Overview of contributions
+Below in an overview of what I have contributed towards the Developer Guide.
+
+==== Made the Developer Guide pretty
+I created graphic assets for the Developer Guide to draw the reader's attention. This also makes the Developer Guide more aesthetically pleasing.
+
+.Examples of graphics contributed
+image::developerguideexample.png[width="450"]
+
+The image on the right shown above is an example of a title header I have created to better differentiate each sections. This showcases my ability to create graphic assets from scratch.
+
+==== Wrote content for the Developer Guide
+I have written paragraphs relating to the implementation details, created diagrams, and documented use cases for the Developer Guide. The exact content I have written is shown below in Section 4.2.
+
+=== Extract of Developer Guide written
+image::extract.png[width="400"]
+
+|===
+|_The following paragraphs show the exact extract I have written for the Developer Guide. Below are three different portions taken from the same Developer Guide, labelled as part `A`, part `B`, and part `C`._
+|===
+
+image::quotestart.png[width="180"]
+
+==== *_Part A_*
+image::parta.png[width="200"]
+
+[Discrete]
+=== Account Storage component
+
+.Structure of the Account Storage Component
+image::AccountStorageClassDiagram.png[width="800"]
+
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/AccountStorage.java[`AccountStorage.java`]
+
+The `AccountStorage` component
+
+* can save the Account data in xml format and read it back.
+* can populate a default root Account data in xml format if missing
+* can update existing Account password stored in the storage
+
+{empty} +
+
+[Discrete]
+==== 4.2.2. *_Part B_*
+image::partb.png[width="200"]
+
+[Discrete]
+=== Account storage
+All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
+
+The diagram below shows what happen when a user launches the application:
+
+.Activity diagram when user launches the application
+image::accountstoragediagram.png[width="800"]
+
+{empty} +
+
+Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
+
+.Activity diagram when user registers an account
+image::accountcreationdiagram.png[width="800"]
+
+{empty} +
+
+==== Design Considerations
+===== Aspect: What file type to store user account as?
+* *Alternative 1 (current choice):* Store it as a `xml` file locally.
+** Pros: The code to write and read xml file is already present for adding address book contact initially in the Address Book - level 4 app. Hence, adopting this code and modifying it for account storage is easier than coming up with code from scratch.
+** Cons: Xml file is relatively wordy and verbose with all the opening and closing tag. For the same amount of account information, compared to other format such as `json`, more data has to be stored to account for tag elements.
+* *Alternative 2:* Store it as a `json` file locally.
+** Pros: Simpler syntax than `xml` and hence less data is required to store the same amount of account information.
+** Pros: Can be parsed into a ready-to-use JavaScript object.
+** Cons: Not familiar with json, hence more effort is needed to write code to store account in json format, compared to the already given code for xml storage.
+
+==== Security Considerations
+
+===== Database
+Currently, the list of accounts is stored locally on data/accountlist.xml. For security purposes, we may consider the following implementations in the future for v2.0:
+
+* **Encrypt accountlist.xml:** This can prevent direct lookup of the file as the content is encrypted
+* **Store the file on a server:** Due to project restriction, we are unable to implement this at v1.4. Storing file on a server has an added advantage of utilising web security practises or employing third party services to help protect our account list in private servers.
+
+===== Storing password
+Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
+
+{empty} +
+
+==== 4.2.3. *_Part C_*
+image::partc.png[width="200"]
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User requests to log in with his username and password
+2.  System validates the information entered and allows the user access to the System
+3.  User is successfully logged in
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters an incorrect username
+
++
+[none]
+** 1a1. The system display an error message and prompts the user to re-enter his username
++
+[none]
+** Use case resumes from step 1.
+
+[none]
+* 1b. User enters an incorrect password
+
++
+[none]
+** 1b1. The system will request the user to re-enter his password
++
+[none]
+** 1b2. The user attempts to enter his password
++
+[none]
+*** 1b2.1 The system determines that the password is incorrect and provides the option for user to retrieve his forgotten password (coming in v2.0)
++
+[none]
+** Steps 1b1 and 1b2 are repeated until the user enters his correct password
++
+[none]
+** Use case resumes from step 3.
+
++
+Use case ends.
+
+image:quoteend.png[width="180"]
