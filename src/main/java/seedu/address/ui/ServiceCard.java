@@ -37,7 +37,7 @@ public class ServiceCard extends UiPart<Region> {
         this.contact = contact;
         id.setText("#" + contact.getId() + ". ");
         name.setText(contact.getName().fullName);
-        price.setText("Cost: $" + contact.getServices().get(serviceType).getCost());
+        price.setText("Cost: $" + contact.getServices().get(serviceType).getCost().toPlainString());
     }
 
     @Override
