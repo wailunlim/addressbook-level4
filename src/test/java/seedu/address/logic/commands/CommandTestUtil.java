@@ -40,7 +40,7 @@ public class CommandTestUtil {
     public static final String VALID_SERVICE_PHOTO = "photographer";
     public static final String VALID_SERVICE_HOTEL = "hotel";
     public static final String VALID_SERVICE_COST_MIN = "0.01";
-    public static final String VALID_SERVICE_COST_MID = "1000";
+    public static final String VALID_SERVICE_COST_MID = "1000.00";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

@@ -32,10 +32,10 @@ public class AddServiceCommand extends Command {
             + "by the assigned unique %1$s ID.\n"
             + "Parameters: #<ID> (must be a positive integer) "
             + PREFIX_SERVICE + "SERVICE "
-            + PREFIX_COST + "COST (excluding '$') \n"
+            + PREFIX_COST + "COST (excluding symbols to 2 decimal places) \n"
             + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3") + " "
             + PREFIX_SERVICE + "photographer "
-            + PREFIX_COST + "1000 \n"
+            + PREFIX_COST + "1000.00 \n"
             + Service.MESSAGE_SERVICE_NAME_CONSTRAINTS + "\n"
             + Service.MESSAGE_SERVICE_COST_CONSTRAINTS;
 
