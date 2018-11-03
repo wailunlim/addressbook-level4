@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
@@ -55,10 +54,10 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
             if (!Service.isValidServiceName(serviceName.get())) {
                 throw new ParseException(Service.MESSAGE_SERVICE_NAME_CONSTRAINTS);
             }
-            if (!Service.isValidServiceCost(parseInt(serviceCost.get()))) {
+            if (!Service.isValidServiceCost(serviceCost.get())) {
                 throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
             }
-            Service service = new Service(serviceName.get(), parseInt(serviceCost.get()));
+            Service service = new Service(serviceName.get(), serviceCost.get());
             return new AddServiceCommand(id, service, contactType);
         }
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

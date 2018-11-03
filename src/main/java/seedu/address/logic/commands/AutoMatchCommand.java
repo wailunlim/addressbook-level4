@@ -131,7 +131,7 @@ public class AutoMatchCommand extends Command {
                 .values()
                 .stream()
                 .filter(serviceProvided -> serviceRequired.isSameServiceTypeAs(serviceProvided))
-                .filter(serviceProvided -> serviceRequired.getCost() >= serviceProvided.getCost())
+                .filter(serviceProvided -> serviceRequired.getCost().compareTo(serviceProvided.getCost()) >= 0)
                 .count() > 0;
     }
 
@@ -163,7 +163,7 @@ public class AutoMatchCommand extends Command {
                 .values()
                 .stream()
                 .filter(serviceRequired -> serviceRequired.isSameServiceTypeAs(serviceOffered))
-                .filter(serviceRequired -> serviceRequired.getCost() >= serviceOffered.getCost())
+                .filter(serviceRequired -> serviceRequired.getCost().compareTo(serviceOffered.getCost()) >= 0)
                 .count() > 0;
     }
 

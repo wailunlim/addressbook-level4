@@ -1,8 +1,10 @@
 package seedu.address.model.contact;
 
+import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +24,10 @@ public class Service {
     public static final String MESSAGE_SERVICE_NAME_CONSTRAINTS =
             "Valid Services: photographer, hotel, catering, dress, ring, transport, invitation";
     public static final String MESSAGE_SERVICE_COST_CONSTRAINTS =
-            "Service cost must be more than $1";
+            "Service cost must be more than $0.00 and given to 2 decimal places";
 
     public final String serviceName;
-    public final int serviceCost;
+    public final BigDecimal serviceCost;
 
     // Id list of clients / service providers for service providers / clients respectively.
     private List<Integer> idList;
@@ -36,14 +38,16 @@ public class Service {
      * @param service A valid service name.
      * @param cost Cost of this service.
      */
-    public Service(String service, int cost) {
+    public Service(String service, String cost) {
         requireNonNull(service);
 
         checkArgument(isValidServiceName(service), MESSAGE_SERVICE_NAME_CONSTRAINTS);
         checkArgument(isValidServiceCost(cost), MESSAGE_SERVICE_COST_CONSTRAINTS);
 
         serviceName = service;
-        serviceCost = cost;
+        serviceCost = new BigDecimal(cost);;
+        // Set to 2 decimal places
+        serviceCost.setScale(2);
         idList = new ArrayList<>();
     }
 
@@ -51,7 +55,7 @@ public class Service {
         return serviceName;
     }
 
-    public int getCost() {
+    public BigDecimal getCost() {
         return serviceCost;
     }
 
@@ -60,7 +64,7 @@ public class Service {
      * @return string describing service in URL format.
      */
     public String getUrlDescription() {
-        return serviceName + ":" + serviceCost;
+        return serviceName + ":" + serviceCost.toPlainString();
     }
 
     public List<Integer> getIdList() {
@@ -79,10 +83,22 @@ public class Service {
     }
 
     /**
-     * Returns true if a given cost is above 0.
+     * Returns true if a given cost is above 0 and has either 0 or 2 decimal places.
      */
-    public static boolean isValidServiceCost(int test) {
-        return (!(test <= 0));
+    public static boolean isValidServiceCost(String test) {
+        // If the string has no decimal places
+        if (!test.contains(".")) {
+            if (parseInt(test) > 0) {
+                return true;
+            }
+            return false;
+        }
+
+        // If the string has exactly 2 decimal places
+        if (test.length() - test.indexOf('.') - 1 != 2) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -96,7 +112,7 @@ public class Service {
 
     @Override
     public String toString() {
-        return serviceName + " $" + serviceCost;
+        return serviceName + " $" + serviceCost.toPlainString();
     }
 
     @Override

@@ -1,7 +1,5 @@
 package seedu.address.storage;
 
-import static java.lang.Integer.parseInt;
-
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -45,7 +43,7 @@ public class XmlAdaptedService {
     public Service toModelType() throws IllegalValueException {
         String[] splitString = service.split("\\$");
         String serviceName = splitString[0].trim();
-        int serviceCost = parseInt(splitString[1].trim());
+        String serviceCost = splitString[1].trim();
 
         if (!Service.isValidServiceName(serviceName)) {
             throw new IllegalValueException(Service.MESSAGE_SERVICE_NAME_CONSTRAINTS);

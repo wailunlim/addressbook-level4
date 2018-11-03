@@ -1,6 +1,8 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -56,6 +59,22 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a services map containing the list of strings given.
+     */
+    public static Map<String, Service> getServicesMap(String... strings) {
+        Map<String, Service> servicesMap = new HashMap<>();
+        Arrays.stream(strings)
+                .map(s -> {
+                    String[] splitString = s.split("\\$");
+                    String serviceName = splitString[0].trim();
+                    String serviceCost = splitString[1].trim();
+                    return new Service(serviceName, serviceCost);
+                })
+                .forEach(s -> servicesMap.put(s.getName(), s));
+        return servicesMap;
     }
 
 }
