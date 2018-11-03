@@ -108,7 +108,6 @@ public class AddressBookParser {
 
         final String commandWord = getCommandWord(firstWord, secondWord);
 
-        System.out.println(arguments);
         switch (commandWord) {
 
         case RegisterAccountCommand.COMMAND_WORD:
@@ -170,7 +169,11 @@ public class AddressBookParser {
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case AutoMatchCommand.COMMAND_WORD_CLIENT:
+            requireIdentifierNonNull(identifier, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE);
+            return new AutoMatchCommandParser().parse(firstWord + identifier);
+
         case AutoMatchCommand.COMMAND_WORD_VENDOR:
+            requireIdentifierNonNull(identifier, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AddCommand.COMMAND_WORD_VENDOR:
