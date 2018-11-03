@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -57,28 +58,32 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, VALID_NAME_AMY, String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "Amy Bee"));
 
         // no field specified
         assertParseFailure(parser, "1", UpdateCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, "-5" + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "-5"));
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, "0" + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "0"));
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, "1 some random string",
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 some random string"));
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT_CLIENT);
+        assertParseFailure(parser, "1 i/ string",
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 i/ string"));
     }
 
     @Test

@@ -101,11 +101,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (0) -> rejected */
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#0");
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, 0));
 
         /* Case: invalid index (-1) -> rejected */
         command = String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#-1");
-        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, -1));
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#abc"),
-                MESSAGE_INVALID_DELETE_COMMAND_FORMAT_CLIENT);
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "abc"));
 
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#1 abc"),

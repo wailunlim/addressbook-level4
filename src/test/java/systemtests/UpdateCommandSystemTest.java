@@ -163,14 +163,12 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#0") + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, String.format(UpdateCommand.MESSAGE_USAGE,
-                        ContactType.CLIENT, "#<ID>")));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, 0));
 
         /* Case: invalid index (-1) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#-1") + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, String.format(UpdateCommand.MESSAGE_USAGE,
-                        ContactType.CLIENT, "#<ID>")));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, -1));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredContactList().size() + 1;

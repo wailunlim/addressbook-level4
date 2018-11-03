@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -66,7 +67,7 @@ public class AutoMatchCommand extends Command {
                     .findFirst()
                     .get();
         } catch (NoSuchElementException exception) {
-            throw new CommandException(String.format("Non-existent entity %s#%s.", contactType, contactId));
+            throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, contactId));
         }
 
         AutoMatchResult autoMatchResult;
