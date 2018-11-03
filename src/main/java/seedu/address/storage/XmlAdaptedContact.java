@@ -20,8 +20,8 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
-import seedu.address.model.vendor.Vendor;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * JAXB-friendly version of the Client.
