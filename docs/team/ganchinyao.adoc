@@ -1,6 +1,7 @@
 = Gan Chin Yao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ./images
+:sectnums:
 :stylesDir: ../stylesheets
 
 image::projectportfolio.png[width="700"]
@@ -40,8 +41,8 @@ image::major.png[width="450"]
 
 Added `login` and `logout` functions, and allow users to `register` for a user account.
 
-* *What it does:* Allow the user to register for an account, and use that account to login to the application. Afterwards, the user can logout of his/her account.
-* *Justification:* Without an authorised account, the user is unable to use this application as it is mandatory to login at start. This feature is important as it restricts access to the application from unauthorised parties. Clients' and Service Providers' information are present in the application, and it is necessary to protect these information from unwanted eyes.
+* *What it does:* Allows the user to register for an account, and use that account to log in to the application. Afterwards, the user can log out of his/her account.
+* *Justification:* Clients' and Service Providers' personal information are present in the application, and it is necessary to protect these information from unwanted eyes. Logging in to use the application is an important feature as it restricts access to the application from unauthorised parties. Without an authorised account, the user is unable to use this application as it is mandatory to login at start.
 * *Highlights:* Storing user account information was a challenge as the project restriction only allows files to be stored locally. Nonetheless, password is stored as hashed using `PBKDF2WithHmacSHA512` algorithm with salt to prevent anyone from looking up the user's password directly. The implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 * *Functional code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/97[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/135[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/logic/commands/LogoutCommand.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/173[Salt and Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedAccount.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlAccountStorage.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/main/java/seedu/address/storage/XmlSerializableAccountList.java[Storage 3]
 * *Test code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/RegisterAccountCommandTest.java[Register account] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LoginCommandTest.java[Login] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/LogoutCommandTest.java[Logout] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/security/PasswordAuthenticationTest.java[Hash] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAdaptedAccountTest.java[Storage] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlAccountStorageTest.java[Storage 2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/storage/XmlSerializableAccountListTest.java[Storage 3]
@@ -52,7 +53,7 @@ image::minor.png[width="450"]
 
 === Minor enhancements
 
-* *Minor enhancement:* Allow user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User`.
+* *Minor enhancement:* Allows user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User`.
 * *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges tied to the user account helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` as he/she does not need to modify data in the application.
 * *Functional Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/165/[EditPassword] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/89[Access privilege]
 * *Test Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditPasswordCommandTest.java[Edit password] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/model/account/AccountTest.java[Access privilege]
@@ -63,12 +64,19 @@ image::others.png[width="450"]
 
 === Other contributions
 * *Project Management*:
-** Managed releases link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.1[v1.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2[v1.2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2.1[v1.2.1] on GitHub
+** Managed releases link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.1[v1.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2[v1.2] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.2.1[v1.2.1] | link:https://github.com/CS2103-AY1819S1-F10-3/main/releases/tag/v1.3[v1.3] on GitHub
 
 * *Graphic assets*:
-** Added graphical content to make the existing User Guide and Developer Guide more pleasant to read: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/138[#138] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/145[#145]
+** Added graphical content to make the existing User Guide and Developer Guide more pleasant to read: Pull requests link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/138[#138] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/145[#145]
 ** Created the application logo image:logotransparentbackground.png[width="150"]
-** Contributed to the User Guide and Developer Guide for this application. See below for more details.
+** Contributed to the User Guide and Developer Guide for this application. See Section 3 below for more details.
+
+* *Community*:
+** Contributed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] on Github.
+** Reviewed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] by other authors on Github.
+
+* *Presentation*:
+** Gave 2 product demos of the application to the entire class, the first targeting at general audiences, and the second targeting at company's higher management.
 
 == Contributions to the User Guide
 
@@ -77,27 +85,25 @@ image::userguideheader.png[width="450"]
 |_This section shows what I have contributed to the User Guide. It showcases my ability to write documentation targetting end-user._
 |===
 
-Github link to User Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/UserGuide.adoc
+Github link to full User Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/UserGuide.adoc
 
 {empty} +
 
-=== Make the User Guide pretty
-I created the title graphic below that is present on the first page of the User Guide to draw the reader's attention. This also makes the User Guide more aesthetically pleasing.
+=== Overview of contributions
+Below are the overviews of what I have contributed towards the User Guide.
 
-.The tile graphic
-image::userguideimage.png[width="350"]
+==== Make the User Guide pretty
+I created various graphic assets for the User Guide to make the User Guide more pleasing to read. Below are examples of some of the graphic assets I have created.
 
-In addition, I have also created title headers like the one below to better differentiate each sections. This makes it easier for user to identify different segments of the User Guide.
+.Examples of graphics contributed
+image::userguideexample.png[width="700"]
 
-.An example of a title header
-image::format.png[width="250"]
+The left image above shows the overall title graphic that is on the first page of the User Guide, and the right image shows an example of a title header to better differentiate each sections in the User Guide. This showcases my ability to create graphic asset from scratch.
 
 
-{empty} +
+==== Crafted an `example` format:
 
-=== Crafted an `example` format:
-
-I crafter an example format below which was used consistently throughout the User Guide to let users easily identify an example of a real command. This allows users to copy a working command conveniently and paste it into the application to trigger the command.
+I crafted a format which was used consistently throughout the User Guide to let users easily identify an example of a real command. This allows users to copy a working command conveniently and paste it into the application to trigger the command.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -106,15 +112,26 @@ I crafter an example format below which was used consistently throughout the Use
  * `client#id addservice t/catering p/10000`
 |=====
 
+The above is the `example format` used consistently throughout the User Guide.
+
+==== Wrote content for the User Guide
+I have written paragraphs relating to the new commands I have added to the application to teach users how to use those commands. The exact content I have written for the User Guide is shown below in Section 3.2.
+
+
+{empty} +
+
 image::extract.png[width="450"]
 === Extract of User Guide written
 |===
-|_The following paragraphs shows the exact extract I have written for the User Guide._
+|_The following paragraphs show the exact extract I have written for the User Guide. Below are two different portions taken from the same User Guide, labelled as part `A` and part `B`._
 |===
 
 image::quotestart.png[width="180"]
 
+image::parta.png[width="200"]
+==== *_Part A_*
 
+[Discrete]
 === Logging in : `login`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
@@ -127,18 +144,20 @@ Format: `login u/USERNAME p/PASSWORD`
 |`login u/rootUser p/rootPassword`
 |=====
 
+[Discrete]
 === Logging out : `logout`
 
 Securely logs you out of the system.
 
 Format: `logout`
 
+[Discrete]
 === Registering a new account : `register account`
 
-Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+Register a new account for this application. You can only register a new account *after logging in* via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
 [NOTE]
-It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+It may sound counter-intuitive to log in to the application before you can register a new account. We make this a requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 
@@ -153,6 +172,7 @@ either
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
 |=====
 
+[Discrete]
 === Change the current password : `change password`
 
 Change your current account password from an old password to a new password.
@@ -172,8 +192,12 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 {empty} +
 
----
+image::partb.png[width="200"]
 
+[Discrete]
+==== 3.2.2. *_Part B_*
+
+[Discrete]
 === FAQ
 *[red]#Q*#: [red]#What platform is this application available on?# +
 *A*: This application is cross-platform, and can be used on both Windows and Mac OS.
@@ -186,8 +210,6 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 image::quoteend.png[width="180"]
 
-
-
 == Contributions to the Developer Guide
 
 image::developerguideheader.png[width="450"]
@@ -196,32 +218,38 @@ image::developerguideheader.png[width="450"]
 |_This section shows what I have contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Github link to Developer Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc
+Github link to full Developer Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc
 
 {empty} +
 
-=== Make the Developer Guide pretty
-I created the title graphic below that is present on the first page of the Developer Guide to draw the reader's attention. This also makes the Developer Guide more aesthetically pleasing.
+=== Overview of contributions
+Below are the overviews of what I have contributed towards the Developer Guide.
 
-.The tile graphic
-image::guidefordevelopers.png[width="350"]
+==== Make the Developer Guide pretty
+I created graphic assets for the Developer Guide to draw the reader's attention. This also makes the Developer Guide more aesthetically pleasing.
 
-In addition, I have also created title headers like the one below to better differentiate each sections. This makes it easier for user to identify different segments of the Developer Guide.
+.Examples of graphics contributed
+image::developerguideexample.png[width="700"]
 
-.An example of a title header
-image::callout.png[width="250"]
+The image on the right shown above is an example of a title header I have created to better differentiate each sections. This showcases my ability to create graphic assets from scratch.
 
+==== Wrote content for the Developer Guide
+I have written paragraphs relating to the implementation details, created diagrams, and documented use cases. The exact content I have written for the Developer Guide is shown below in Section 4.2.
 
 {empty} +
 
 image::extract.png[width="450"]
 === Extract of Developer Guide written
 |===
-|_The following paragraphs shows the exact extract I have written for the Developer Guide._
+|_The following paragraphs show the exact extract I have written for the Developer Guide. Below are two different portions taken from the same Developer Guide, labelled as part `A` and part `B`._
 |===
 
 image::quotestart.png[width="180"]
 
+image::parta.png[width="200"]
+==== *_Part A_*
+
+[Discrete]
 === Account Storage component
 
 .Structure of the Account Storage Component
@@ -237,7 +265,14 @@ The `AccountStorage` component
 * can populate a default root Account data in xml format if missing
 * can update existing Account password stored in the storage
 
----
+{empty} +
+
+image::partb.png[width="200"]
+
+[Discrete]
+==== 4.2.2. *_Part B_*
+
+[Discrete]
 === Account creation
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
 
@@ -265,14 +300,8 @@ if (!account.hasWritePrivilege()) {
     throw new LackOfPrivilegeException(COMMAND_WORD);
 }
 
-==== Design Considerations
-===== Aspect: Should the privilege be tied to Role enum or Account class?
-* *Alternative 1 (current choice):* Account class contains the privileges methods such has `hasWritePrivilege`.
-** Pros: This makes sense as the type of privilege is tied to the account.
-* *Alternative 2:* Role enum should contains the privileges methods
-** Pros: Since Role enum contains all the different roles such as `READ_ONLY_USER` and `SUPER_USER`, it is easy to reference all the different types of roles and the privileges in 1 file. This makes adding more roles and privileges in the future easy.
-** Cons: It sounds awkward to have privileges associated with Role rather than with an Account.
 
+[Discrete]
 === Account storage
 All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
 
@@ -311,5 +340,66 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 ===== Storing password
 Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 
+{empty} +
+
+image::partc.png[width="200"]
+==== 4.2.3. *_Part C_*
+
+[discrete]
+=== Use case: Login
+
+*MSS*
+
+1.  User requests to log in with his username and password
+2.  System validates the information entered and allows the user access to the System
+3.  User is successfully logged in
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters an incorrect username
+
++
+[none]
+** 1a1. The system display an error message and prompts the user to re-enter his username
++
+[none]
+** Use case resumes from step 1.
+
+[none]
+* 1b. User enters an incorrect password
+
++
+[none]
+** 1b1. The system will request the user to re-enter his password
++
+[none]
+** 1b2. The user attempts to enter his password
++
+[none]
+*** 1b2.1 The system determines that the password is incorrect and provides the option for user to retrieve his forgotten password
++
+[none]
+** Steps 1b1 and 1b2 are repeated until the user enters his correct password
++
+[none]
+** Use case resumes from step 3.
+
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Logout
+
+*MSS*
+
+1.  User requests to logout from the System
+2.  System logs User out
+3.  User is successfully logged out
++
+Use case ends.
 
 image:quoteend.png[width="180"]
