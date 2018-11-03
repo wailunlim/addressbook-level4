@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.client.Client;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Service;
 
 /**
