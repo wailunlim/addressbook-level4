@@ -8,13 +8,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.DeselectRequestEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,6 +31,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 
@@ -37,38 +42,41 @@ public class UpdateCommand extends Command {
 
 
     public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s update";
+    public static final String COMMAND_WORD_CLIENT = "client update";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client identified "
-            + "by the index number used in the displayed client list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Updates the details of the %1$s identified "
+            + "by the assigned unique %1$s ID.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: #<ID> (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3")
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Client: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists in the address book.";
+    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Updated %1$s: %2$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
-    private final Index index;
+    private final Index id;
     private final EditContactDescriptor editContactDescriptor;
     private final ContactType contactType;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param id of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      * @param contactType
      */
-    public UpdateCommand(Index index, EditContactDescriptor editContactDescriptor, ContactType contactType) {
-        requireNonNull(index);
+    public UpdateCommand(Index id, EditContactDescriptor editContactDescriptor, ContactType contactType) {
+        requireNonNull(id);
         requireNonNull(editContactDescriptor);
 
-        this.index = index;
+        this.id = id;
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
         this.contactType = contactType;
     }
@@ -79,11 +87,11 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (!model.getUserAccount().hasWritePrivilege()) {
-            throw new LackOfPrivilegeException(COMMAND_WORD);
+            throw new LackOfPrivilegeException(String.format(COMMAND_WORD_GENERAL, contactType, "#<ID>"));
         }
 
         // id is unique
-        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == index.getOneBased()));
+        model.updateFilteredContactList(contactType.getFilter().and(contact -> contact.getId() == id.getOneBased()));
 
         List<Contact> filteredList = model.getFilteredContactList();
 
@@ -93,25 +101,31 @@ public class UpdateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (filteredList.size() > 1) {
+            throw new RuntimeException("ID is not unique!");
+        }
+
         Contact contactToEdit = filteredList.get(0);
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor, contactType);
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             model.updateFilteredContactList(contactType.getFilter());
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
         model.updateContact(contactToEdit, editedContact);
         model.updateFilteredContactList(contactType.getFilter());
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
+        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, contactToEdit.getType(), editedContact));
     }
 
     /**
-     * Creates and returns a {@code Contact} with the details of {@code contactToEdit}
+     * Creates and returns a {
+     * @code Contact} with the details of {@code contactToEdit}
      * edited with {@code editContactDescriptor}.
      */
-    private static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
+    public static Contact createEditedContact(Contact contactToEdit, EditContactDescriptor editContactDescriptor,
                                                ContactType contactType) {
         assert contactToEdit != null;
 
@@ -120,15 +134,19 @@ public class UpdateCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
+        Map<String, Service> updatedServices = editContactDescriptor.getServices().orElse(contactToEdit.getServices());
         int id = contactToEdit.getId();
 
-        //TODO take a look at this below vvvvv
         switch (contactType) {
         case CLIENT:
-            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
+            return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                    updatedServices, id);
         case SERVICE_PROVIDER:
+            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                    updatedServices, id);
         default:
-            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, id);
+            // should nvr come in here
+            throw new RuntimeException("No such Contact Type!");
         }
     }
 
@@ -146,7 +164,7 @@ public class UpdateCommand extends Command {
 
         // state check
         UpdateCommand e = (UpdateCommand) other;
-        return index.equals(e.index)
+        return id.equals(e.id)
                 && editContactDescriptor.equals(e.editContactDescriptor);
     }
 
@@ -160,6 +178,7 @@ public class UpdateCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Map<String, Service> services;
 
         public EditContactDescriptor() {}
 
@@ -173,13 +192,14 @@ public class UpdateCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setServices(toCopy.services);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, services);
         }
 
         public void setName(Name name) {
@@ -231,6 +251,31 @@ public class UpdateCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code services} to this object's {@code services}.
+         * A defensive copy of {@code services} is used internally.
+         */
+        public void setServices(Map<String, Service> services) {
+            this.services = (services != null) ? new HashMap<>(services) : null;
+        }
+
+        /**
+         * Returns an unmodifiable services map, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code services} is null.
+         */
+        public Optional<Map<String, Service>> getServices() {
+            return (services != null) ? Optional.of(Collections.unmodifiableMap(services)) : Optional.empty();
+        }
+
+        /**
+         * Adds the specified service.
+         * @param service Service to be added.
+         */
+        public void addService(Service service) {
+            this.services.put(service.getName(), service);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -250,7 +295,8 @@ public class UpdateCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getServices().equals(e.getServices());
         }
     }
 }

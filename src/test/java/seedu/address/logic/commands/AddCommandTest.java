@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.account.Account;
@@ -47,7 +48,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -59,7 +61,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validContact.getType(), validContact),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -71,7 +74,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -82,7 +85,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CONTACT);
+        thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -201,6 +204,16 @@ public class AddCommandTest {
 
         @Override
         public void commiteUserChangedPasswordSuccessfully(String newPassword) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAutoMatchResult(AutoMatchResult newResults) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AutoMatchResult getAutoMatchResult() {
             throw new AssertionError("This method should not be called.");
         }
     }

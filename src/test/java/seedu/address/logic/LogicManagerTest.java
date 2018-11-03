@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_PERSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LIST_ALL_X;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -15,6 +15,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -39,14 +40,15 @@ public class LogicManagerTest {
     //TODO: update deleteCommand
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "client#9 delete";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand,
+                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
         assertHistoryCorrect(deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
-        String findCommand = "client " + ListCommand.COMMAND_WORD;
-        assertCommandSuccess(findCommand, MESSAGE_LIST_ALL_PERSON, model);
+        String findCommand = String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT);
+        assertCommandSuccess(findCommand, String.format(MESSAGE_LIST_ALL_X, ContactType.CLIENT), model);
         assertHistoryCorrect(findCommand);
     }
 

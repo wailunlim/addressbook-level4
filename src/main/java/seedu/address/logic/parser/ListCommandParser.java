@@ -7,21 +7,43 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ContactType;
+import seedu.address.model.contact.ContactContainsKeywordsPredicate;
+import seedu.address.model.contact.ContactInformation;
 
 /**
  * Parses input arguments and creates a new ListCommand object
  */
-public abstract class ListCommandParser implements Parser<ListCommand> {
+public class ListCommandParser implements Parser<ListCommand> {
+
+    private final ContactType contactType;
+
+    public ListCommandParser(ContactType contactType) {
+        this.contactType = contactType;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
      * and returns an ListCommand object for execution.
      */
-    public abstract ListCommand parse(String args) throws ParseException;
+    public ListCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap = createLegalArgumentMultimap(args);
+
+        Optional<String> name = argMultimap.getValue(PREFIX_NAME);
+        Optional<String> phone = argMultimap.getValue(PREFIX_PHONE);
+        Optional<String> email = argMultimap.getValue(PREFIX_EMAIL);
+        Optional<String> address = argMultimap.getValue(PREFIX_ADDRESS);
+        List<String> tagList = argMultimap.getAllValues(PREFIX_TAG);
+
+        return new ListCommand(new ContactContainsKeywordsPredicate(
+                new ContactInformation(name, phone, email, address, tagList)), contactType);
+    }
 
     /**
      * Creates a {@code ArgumentMultimap} using the arguments from the input.
@@ -38,7 +60,8 @@ public abstract class ListCommandParser implements Parser<ListCommand> {
         if ((!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG)
                 && !argMultimap.isEmpty())
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(ListCommand.MESSAGE_USAGE, contactType)));
         }
 
         return argMultimap;

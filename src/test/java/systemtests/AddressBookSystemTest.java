@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllClients() {
         //TODO: update the input to this
-        executeCommand("client " + ListCommand.COMMAND_WORD);
+        executeCommand(String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT));
         int currentSize = getModel().getFilteredContactList().size();
 
         getModel().updateFilteredContactList(ContactType.CLIENT.getFilter());
@@ -157,9 +157,9 @@ public abstract class AddressBookSystemTest {
     protected void showPersonsWithName(String keyword) {
         //TODO: update and create tests to reflect client and serviceprovider
         if (keyword.contains("n/")) {
-            executeCommand("client " + ListCommand.COMMAND_WORD + " " + keyword);
+            executeCommand(String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " " + keyword);
         } else {
-            executeCommand("client " + ListCommand.COMMAND_WORD + " n/" + keyword);
+            executeCommand(String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " n/" + keyword);
         }
         assertTrue(getModel().getFilteredContactList().size() < getModel().getAddressBook().getContactList().size());
     }
@@ -168,7 +168,8 @@ public abstract class AddressBookSystemTest {
      * Selects the client at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(String.format(SelectCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + index.getOneBased()));
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 

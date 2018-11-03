@@ -19,8 +19,10 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.security.PasswordAuthentication;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ContactType;
 import seedu.address.model.account.Account;
-import seedu.address.storage.XmlAdaptedPerson;
+import seedu.address.storage.XmlAdaptedContact;
+import seedu.address.storage.XmlAdaptedService;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAccountList;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -45,8 +47,11 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
-    private static final XmlAdaptedPerson.ContactType VALID_CONTACT_TYPE = XmlAdaptedPerson.ContactType.CLIENT;
+    private static final List<XmlAdaptedTag> VALID_TAGS =
+            Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedService> VALID_SERVICES =
+            Collections.singletonList(new XmlAdaptedService("photographer $200"));
+    private static final ContactType VALID_CONTACT_TYPE = ContactType.CLIENT;
 
     private static final Path VALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlist.xml");
     private static final Path INVALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("randomInvalidPath.xml");
@@ -97,27 +102,27 @@ public class XmlUtilTest {
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
+                MISSING_PERSON_FIELD_FILE, XmlAdaptedContactWithRootElement.class);
+        XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
+                INVALID_PERSON_FIELD_FILE, XmlAdaptedContactWithRootElement.class);
+        XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+        XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
+                VALID_PERSON_FILE, XmlAdaptedContactWithRootElement.class);
+        XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
@@ -235,11 +240,11 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedContact}
      * objects.
      */
     // TODO: change test cases to fit context
     @XmlRootElement(name = "person")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {
+    private static class XmlAdaptedContactWithRootElement extends XmlAdaptedContact {
     }
 }

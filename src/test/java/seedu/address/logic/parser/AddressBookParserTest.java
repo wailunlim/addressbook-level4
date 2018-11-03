@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.ListClientCommandParser.CONTACT_FILTER_CLIENT;
+import static seedu.address.logic.commands.UpdateCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
@@ -34,9 +35,11 @@ import seedu.address.model.ContactType;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
+import seedu.address.model.contact.Service;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ServiceProviderBuilder;
 
 public class AddressBookParserTest {
     private static final String BLANK_SPACE = " ";
@@ -105,7 +108,8 @@ public class AddressBookParserTest {
     //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                "client#" + INDEX_FIRST_PERSON.getOneBased() + " " + DeleteCommand.COMMAND_WORD + " ");
+                String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#"
+                        + INDEX_FIRST_PERSON.getOneBased()));
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 
@@ -113,8 +117,9 @@ public class AddressBookParserTest {
     public void parseCommand_edit() throws Exception {
         Contact contact = new ClientBuilder().build();
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        UpdateCommand command = (UpdateCommand) parser.parseCommand("client#" + INDEX_FIRST_PERSON.getOneBased()
-                + " " + UpdateCommand.COMMAND_WORD + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#" + INDEX_FIRST_PERSON.getOneBased()) + " "
+                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT), command);
     }
 
@@ -128,16 +133,16 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         // No arguments
         ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
-        ListCommand command = (ListCommand) parser.parseCommand(
-                "client " + ListCommand.COMMAND_WORD);
-        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+        ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
+                ContactType.CLIENT));
+        assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
 
         // One Argument
         predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
                 Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
         command = (ListCommand) parser.parseCommand(
-                "client " + ListCommand.COMMAND_WORD + " n/Alice Bob");
-        assertEquals(new ListCommand(predicate, CONTACT_FILTER_CLIENT), command);
+                String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " n/Alice Bob");
+        assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
 
     }
 
@@ -163,8 +168,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                "client#" + INDEX_FIRST_PERSON.getOneBased() + " select");
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
     }
 
     @Test
@@ -177,6 +182,25 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_client_addservice() throws Exception {
+        Contact contact = new ClientBuilder().build();
+        Service service = new Service("photographer", "1000.00");
+        AddServiceCommand command = (AddServiceCommand)
+                parser.parseCommand(PersonUtil.getClientAddServiceCommand(contact, service, INDEX_FIRST_PERSON));
+        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_serviceprovider_addservice() throws Exception {
+        Contact contact = new ServiceProviderBuilder().build();
+        Service service = new Service("photographer", "1000.00");
+        AddServiceCommand command = (AddServiceCommand)
+                parser.parseCommand(PersonUtil.getServiceProviderAddServiceCommand(
+                        contact, service, INDEX_FIRST_PERSON));
+        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.SERVICE_PROVIDER), command);
     }
 
     @Test

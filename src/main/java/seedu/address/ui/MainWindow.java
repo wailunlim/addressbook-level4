@@ -1,9 +1,15 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -11,15 +17,20 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LoginSuccessEvent;
+import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.AutoMatchResult;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Service;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Stage loginStage;
     private Logic logic;
+    private boolean hasFilledParts;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -107,13 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
-
-        // Create new login stage for login window
-        loginStage = new Stage();
-        loginStage.initOwner(primaryStage);
-        loginStage.initModality(Modality.WINDOW_MODAL);
-        loginStage.centerOnScreen();
-        loginWindow = new LoginWindow(loginStage, config, prefs, logic);
+        hasFilledParts = false;
     }
 
     public Stage getPrimaryStage() {
@@ -154,8 +160,15 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Creates a new login stage and displays the login window
+     */
     void displayLoginWindow() {
-        loginStage.showAndWait();
+        // Create new login stage for login window
+        loginStage = new Stage();
+        loginStage.centerOnScreen();
+        loginWindow = new LoginWindow(loginStage, config, prefs, logic);
+        loginStage.show();
     }
 
     /**
@@ -169,28 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        // TODO Fill up each service panel
-        // photoListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
-
-        // hotelListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
-
-        // cateringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
-
-        // dressListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
-
-        // ringListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
-
-        // transportListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
-
-        // invitationListPanel = new ServiceListPanel(logic.getFilteredPersonList());
-        // invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
-
         // Show display
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -202,6 +193,75 @@ public class MainWindow extends UiPart<Stage> {
         // Show command box
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Set to true that parts have been initialised.
+        hasFilledParts = true;
+    }
+
+    /**
+     * Handles logout event
+     * Hides main window and displays login window.
+     */
+    public void handleLogout() {
+        hide();
+        displayLoginWindow();
+    }
+
+    /**
+     * Sieves out the contacts based on the service type.
+     * @param resultMap Map of all related contacts.
+     * @param serviceType Type of service.
+     * @return List of Contacts of this service type.
+     */
+    private ObservableList<Contact> getfilteredServiceList(
+            Map<Contact, Collection<Service>> resultMap, String serviceType) {
+        List<Contact> serviceList = new ArrayList<>();
+        resultMap.forEach(((
+                contact, temp) -> resultMap.get(contact)
+                .forEach(service -> {
+                    if (service.getName().equals(serviceType)) {
+                        serviceList.add(contact);
+                    }
+                })));
+        return FXCollections.observableList(serviceList);
+    }
+
+    /**
+     * Handles the display of suitable service providers for the client using the automatch results
+     */
+    public void showAutoMatchDisplay() {
+        AutoMatchResult autoMatchResult = logic.getAutoMatchResult();
+        Map<Contact, Collection<Service>> resultMap = autoMatchResult.getContactAndServicesMap();
+
+        ObservableList<Contact> photographerList = getfilteredServiceList(resultMap, "photographer");
+        ObservableList<Contact> hotelList = getfilteredServiceList(resultMap, "hotel");
+        ObservableList<Contact> cateringList = getfilteredServiceList(resultMap, "catering");
+        ObservableList<Contact> dressList = getfilteredServiceList(resultMap, "dress");
+        ObservableList<Contact> ringList = getfilteredServiceList(resultMap, "ring");
+        ObservableList<Contact> transportList = getfilteredServiceList(resultMap, "transport");
+        ObservableList<Contact> invitationList = getfilteredServiceList(resultMap, "invitation");
+
+        // TODO Fill up each service panel
+        photoListPanel = new ServiceListPanel(photographerList, "photographer");
+        photoListPanelPlaceholder.getChildren().add(photoListPanel.getRoot());
+
+        hotelListPanel = new ServiceListPanel(hotelList, "hotel");
+        hotelListPanelPlaceholder.getChildren().add(hotelListPanel.getRoot());
+
+        cateringListPanel = new ServiceListPanel(cateringList, "catering");
+        cateringListPanelPlaceholder.getChildren().add(cateringListPanel.getRoot());
+
+        dressListPanel = new ServiceListPanel(dressList, "dress");
+        dressListPanelPlaceholder.getChildren().add(dressListPanel.getRoot());
+
+        ringListPanel = new ServiceListPanel(ringList, "ring");
+        ringListPanelPlaceholder.getChildren().add(ringListPanel.getRoot());
+
+        transportListPanel = new ServiceListPanel(transportList, "transport");
+        transportListPanelPlaceholder.getChildren().add(transportListPanel.getRoot());
+
+        invitationListPanel = new ServiceListPanel(invitationList, "invitation");
+        invitationListPanelPlaceholder.getChildren().add(invitationListPanel.getRoot());
     }
 
     void hide() {
@@ -262,12 +322,36 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        if (browserPanel != null) {
+            browserPanel.freeResources();
+        }
     }
+
+    @Subscribe
+    private void handleLoginSuccessEvent(LoginSuccessEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        show();
+        if (!hasFilledParts) {
+            fillInnerParts();
+        }
+    }
+
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleLogoutEvent(LogoutRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleLogout();
+    }
+
+    @Subscribe
+    private void handleAutoMatchEvent(DisplayAutoMatchResultRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showAutoMatchDisplay();
     }
 }

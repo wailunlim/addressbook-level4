@@ -32,6 +32,7 @@ import static seedu.address.testutil.TypicalContacts.BOB;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -41,7 +42,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ClientBuilder;
 
 public class AddClientCommandParserTest {
-    private AddCommandParser parser = new AddClientCommandParser();
+    private AddCommandParser parser = new AddCommandParser(ContactType.CLIENT);
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -84,7 +85,8 @@ public class AddClientCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT));
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
@@ -136,6 +138,7 @@ public class AddClientCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
     }
 }

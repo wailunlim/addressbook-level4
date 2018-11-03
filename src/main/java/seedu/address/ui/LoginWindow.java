@@ -2,19 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LoginSuccessEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -38,17 +35,12 @@ public class LoginWindow extends UiPart<Stage> {
     private Logic logic;
     private UserPrefs prefs;
     private ListElementPointer historySnapshot;
-    private HelpWindow helpWindow;
-
 
     @FXML
     private Label statusPlaceholder;
 
     @FXML
     private TextField loginCli;
-
-    @FXML
-    private Text forgetPw;
 
     /**
      * Instantiates the Login Window
@@ -65,25 +57,6 @@ public class LoginWindow extends UiPart<Stage> {
         historySnapshot = logic.getHistorySnapshot();
 
         setWindowDefaultSize(prefs);
-        helpWindow = new HelpWindow();
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleHelp();
     }
 
     /**
@@ -117,8 +90,9 @@ public class LoginWindow extends UiPart<Stage> {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             statusPlaceholder.setText(commandResult.feedbackToUser);
 
-            // If the login was successful, hide the login window
+            // If the login was successful, raise a new login success event and hide the login window.
             if (commandResult.feedbackToUser.equals("Successfully logged in.")) {
+                raise(new LoginSuccessEvent());
                 hide();
             }
 

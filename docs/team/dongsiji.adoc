@@ -32,8 +32,28 @@ Heart² is a desktop wedding application used for matching service providers to 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=listClient]
+
+{empty} +
+
+include::../UserGuide.adoc[tag=listSp]
+
+{empty} +
+
+include::../UserGuide.adoc[tag=undoredo]
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=undoredoDisplay]
+
+{empty} +
+
+include::../DeveloperGuide.adoc[tag=list]
+
+{empty} +
+
+include::../DeveloperGuide.adoc[tag=listMSS]

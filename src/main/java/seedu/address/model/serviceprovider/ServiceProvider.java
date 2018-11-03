@@ -1,12 +1,15 @@
 package seedu.address.model.serviceprovider;
 
+import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.ContactType;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,9 +30,21 @@ public class ServiceProvider extends Contact {
         this.id = serviceProviderId++;
     }
 
-    public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int id) {
-        super(name, phone, email, address, tags);
+    public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                           Map<String, Service> service) {
+        super(name, phone, email, address, tags, service);
+        this.id = serviceProviderId++;
+    }
+
+    public ServiceProvider(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                           Map<String, Service> services, int id) {
+        super(name, phone, email, address, tags, services);
         this.id = id;
+    }
+
+    @Override
+    public ContactType getType() {
+        return ContactType.SERVICE_PROVIDER;
     }
 
     public int getId() {
@@ -55,6 +70,7 @@ public class ServiceProvider extends Contact {
                 && otherServiceProvider.getPhone().equals(getPhone())
                 && otherServiceProvider.getEmail().equals(getEmail())
                 && otherServiceProvider.getAddress().equals(getAddress())
-                && otherServiceProvider.getTags().equals(getTags());
+                && otherServiceProvider.getTags().equals(getTags())
+                && otherServiceProvider.getServices().equals(getServices());
     }
 }

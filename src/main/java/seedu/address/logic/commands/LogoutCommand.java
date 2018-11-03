@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -16,6 +18,7 @@ public class LogoutCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         model.commitUserLoggedOutSuccessfully();
+        EventsCenter.getInstance().post(new LogoutRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

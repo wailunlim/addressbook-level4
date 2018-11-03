@@ -37,7 +37,7 @@ public class XmlAdaptedAccount {
     /**
      * Converts a given Client into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedContact
      */
     public XmlAdaptedAccount(Account source) {
         username = source.getUserName();

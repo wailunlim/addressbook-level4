@@ -42,7 +42,7 @@ public class XmlSerializableAccountList {
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedContact}.
      */
     public AccountList toModelType() throws IllegalValueException {
         AccountList accountList = new AccountList();

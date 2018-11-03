@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.client.Client;
@@ -9,6 +11,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Service;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -27,6 +30,7 @@ public class ClientBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Map<String, Service> services;
     private int id;
 
     public ClientBuilder() {
@@ -35,6 +39,7 @@ public class ClientBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        services = new HashMap<>();
         id = 0;
     }
 
@@ -47,6 +52,7 @@ public class ClientBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        services = new HashMap<>(contactToCopy.getServices());
         id = contactToCopy.getId();
     }
 
@@ -98,8 +104,16 @@ public class ClientBuilder {
         return this;
     }
 
+    /**
+     *  Sets the {@code service} of the {@code Client} that we are building
+     */
+    public ClientBuilder withServices(Service service) {
+        this.services.put(service.getName(), service);
+        return this;
+    }
+
     public Contact build() {
-        return new Client(name, phone, email, address, tags, id);
+        return new Client(name, phone, email, address, tags, services, id);
     }
 
 }

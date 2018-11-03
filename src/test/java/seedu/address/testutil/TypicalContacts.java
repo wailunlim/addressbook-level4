@@ -101,6 +101,11 @@ public class TypicalContacts {
             .withEmail("chinoyaobi@example.com").withPhone("98711132")
             .withId(serviceProviderId++)
             .build();
+    public static final Contact JON = new ServiceProviderBuilder().withName("Jon")
+            .withAddress("313, Clementi Ave 5, #02-25")
+            .withEmail("jon@example.com").withPhone("91352468")
+            .withId(serviceProviderId++)
+            .build();
 
 
 

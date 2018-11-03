@@ -21,7 +21,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 == Introduction
 image::intropicture.png[width="256"]
 
-Welcome to *_Heart²_*! _Heart²_ is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
+Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
 You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
@@ -31,13 +31,16 @@ This section provides a quick overview to get you started with the application.
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `heart2.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Wedding Planner.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI for the login page should appear in a few seconds:
 +
-image::Ui.png[width="790"]
+image::UiLoginDiagram.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
+.  After keying in the right login command, the GUI for the main page should appear:
++
+image::Ui.png[width="790"]
 
 [[Features]]
 == Features
@@ -46,8 +49,8 @@ The following format is consistent for all the commands listed in this section.
 image::format.png[width="256"]
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 
@@ -63,6 +66,8 @@ image::commands.png[width="256"]
 The following section documents all the commands available in this application.
 
 === Viewing help : `help`
+
+Opens a new window that contains the user guide to help you find out any information you need.
 
 Format: `help`
 
@@ -127,7 +132,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 You can register a client and his/her particulars into the database.
 
-Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
+Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -135,11 +140,15 @@ Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS`
 |`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 |=====
 
+// tag::listClient[]
 ==== Listing and searching for clients
 
-You can list all clients in the database if no parameters are provided, otherwise lists all clients matching all of the search parameters.
+You can view clients in the database as a list using the `client list` command.
 
-Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
+If you do not key in any parameters, it will list out all the clients,
+otherwise it will list all clients matching all of the search parameters you provided.
+
+Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -147,7 +156,7 @@ Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_AD
 |* `client list`
  * `client list n/John Doe`
 |=====
-
+// end::listClient[]
 
 === Manipulating a specific client: `client#id`
 
@@ -155,12 +164,12 @@ Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_AD
 
 You can view the detailed information about a specific client by his/her id.
 
-Format: `client#id view`
+Format: `client#id select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`client#123 view`
+|`client#123 select`
 |=====
 
 ==== Deleting a client
@@ -179,34 +188,58 @@ Format: `client#id delete`
 
 You can update a client profile by his/her id with new particulars.
 
-Format: `client#id updateprofile [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS]`
+Format: `client#id update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 updateprofile p/98765432` (updates `client#123`'s phone number)
- * `client#123 updateprofile n/Jane Doe e/janedoe@gmail.com` (updates `client#123`'s name and email address)
+|* `client#123 update p/98765432` (updates `client#123` 's phone number)
+ * `client#123 update n/Jane Doe e/janedoe@gmail.com` (updates `client#123` 's name and email address)
 |=====
 
-==== Adding a service request from a client
+==== Adding a service requirement for a client
 
-You can add requests for a service from a client. You must specify the budget which will be in Singapore Dollars (SGD).
+You can add a service requirement for a client by the client's id.
+You must specify the cost which will be in _Singapore Dollars (SGD)_.
 
-Format: `client#id addservice t/SERVICE_TYPE p/SERVICE_BUDGET`
+[NOTE]
+====
+Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
+====
+Format: `client#id addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
 
-Service Types `SERVICE_TYPE`:
+Available Service Types `SERVICE_TYPE`:
 
-* `photography`
+* `photographer`
+* `hotel`
 * `catering`
-* `hosting`
+* `dress`
+* `ring`
+* `transport`
+* `invitation`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#id addservice t/photography p/2000`
- * `client#id addservice t/catering p/10000`
+|* `client#123 addservice s/photographer c/2000`
+ * `client#123 addservice s/catering c/10000`
 |=====
 
+==== Automatching for a client
+
+You can easily find service providers that can fulfill the requests services with this command.
+
+[NOTE]
+====
+It only shows you the service providers within the budget of the client.
+====
+Format: `client#id automatch`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `client#123 automatch`
+|=====
 
 === Manipulating all service providers: `serviceprovider`
 
@@ -214,7 +247,7 @@ Service Types `SERVICE_TYPE`:
 
 You can register a service provider to the system with the necessary particulars.
 
-Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS`
+Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -222,18 +255,36 @@ Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFF
 |`serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
 |=====
 
+// tag::listSp[]
+==== Listing and searching for service providers
+
+You can view service providers in the database as a list using the `serviceprovider list` command.
+
+If you do not key in any parameters, it will list out all the service providers,
+otherwise it will list all service providers matching all of the search parameters you provided.
+
+Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `serviceprovider list`
+ * `serviceprovider list n/John Doe`
+|=====
+// end::listSp[]
+
 === Manipulating a specific service provider: `serviceprovider#id`
 
 ==== Viewing a service provider
 
 You can view the detailed information of a service provider by its id.
 
-Format: `serviceprovider$id view`
+Format: `serviceprovider#id select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`serviceprovider#123 view`
+|`serviceprovider#123 select`
 |=====
 
 ==== Deleting a service provider
@@ -252,31 +303,63 @@ Format: `serviceprovider#id delete`
 
 You can update the details of a service provider by its id with new particulars.
 
-Format: `serviceprovider#id updateprofile [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS]`
+Format: `serviceprovider#id update [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 updateprofile p/98765432` (updates `serviceprovider#123`'s phone number)
- * `serviceprovider#123 updateprofile e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123`'s email address and office address)
+|* `serviceprovider#123 update p/98765432` (updates `serviceprovider#123` 's phone number)
+ * `serviceprovider#123 update e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123` 's email address and office address)
 |=====
 
 ==== Adding a service type supported by service provider
 
-You can add a service type supported by the service provider by its id in Singapore Dollars (SGD).
+You can add a service type supported by the service provider by its id.
+You must specify the cost which will be in _Singapore Dollars (SGD)_.
 
-Format: `serviceprovider#id addservice t/SERVICE_TYPE p/SERVICE_COST_ESTIMATE`
+[NOTE]
+====
+Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
+====
+
+Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
+
+Available Service Types `SERVICE_TYPE`:
+
+* `photographer`
+* `hotel`
+* `catering`
+* `dress`
+* `ring`
+* `transport`
+* `invitation`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 addservice t/photography p/2000`
- * `serviceprovider#123 addservice t/catering p/10000`
+|* `serviceprovider#123 addservice s/photography c/2000`
+ * `serviceprovider#123 addservice s/catering c/10000`
+|=====
+
+==== Automatching for a service provider
+
+You can easily find clients whose service requirements match the services offered by a service provider.
+
+[NOTE]
+====
+It only shows you the clients whose budgets can afford the service.
+====
+Format: `serviceprovider#id automatch`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `serviceprovider#123 automatch`
 |=====
 
 === Listing entered commands: `history`
 
-You can list all the commands that you have entered in reverse chronological order.
+Lists all the commands that you have entered in reverse chronological order.
 
 Format: `history`
 
@@ -285,17 +368,40 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 === Undo the previous command: 'undo'
 
-You can undo the most recent command.
+Undo the commands that you have entered in chronological order.
 
 Format: `undo`
 
-=== Redo the most recent command undone: 'redo'
+[NOTE]
+====
+The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
+====
+[NOTE]
+====
+The application will show either the client list or service
+provider list corresponding to the command that was undone.
+====
 
-You can redo the most recent command that was undone by undo.
+=== Redo the commands undone: 'redo'
+
+Redo the commands that you have undone by undo in chronological order.
 
 Format: `redo`
+
+[NOTE]
+====
+Commands that have been undone will be reset upon a `clear` command.
+====
+[NOTE]
+====
+The application will show either the client list or service
+provider list corresponding to the command that was redone.
+====
+// end::undoredo[]
+
 
 === Exiting the program : `exit`
 
