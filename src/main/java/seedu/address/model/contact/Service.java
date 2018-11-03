@@ -107,7 +107,8 @@ public class Service {
      * @return True if is the same type.
      */
     public boolean isSameServiceTypeAs(Service other) {
-        return serviceName.equals(other.serviceName);
+        return other != null
+                && serviceName.equals(other.serviceName);
     }
 
     @Override
@@ -119,7 +120,8 @@ public class Service {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Service // instanceof handles nulls
-                && serviceName.equals(((Service) other).serviceName)); // state check
+                && serviceName.equals(((Service) other).serviceName)) // state check
+                && serviceCost.compareTo(((Service) other).serviceCost) == 0;
     }
 
     @Override
