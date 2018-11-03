@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SelectCommand;
@@ -28,10 +29,12 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         try {
             Index id = ParserUtil.parseIndex(requireNonNull(args).substring(1));
             return new SelectCommand(id, contactType);
-        } catch (ParseException pe) {
+        } catch (NullPointerException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            String.format(SelectCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
+                            String.format(SelectCommand.MESSAGE_USAGE, contactType, "#<ID>")), e);
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, args.substring(1)));
         }
     }
 }

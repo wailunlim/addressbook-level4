@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -43,8 +43,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         try {
             id = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    String.format(UpdateCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, argMultimap.getPreamble()));
         }
 
         UpdateCommand.EditContactDescriptor editPersonDescriptor = new EditContactDescriptor();
