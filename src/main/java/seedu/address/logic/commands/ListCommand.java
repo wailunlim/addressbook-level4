@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD_GENERAL = "%1$s list";
     public static final String COMMAND_WORD_CLIENT = "client list";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "vendor list";
+    public static final String COMMAND_WORD_VENDOR = "vendor list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Lists all %1$ss which contain all of "
             + "the specified keywords (case-insensitive) and displays them as a list with their IDs.\n"

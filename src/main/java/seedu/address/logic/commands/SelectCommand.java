@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD_GENERAL = "%1$s%2$s select";
     public static final String COMMAND_WORD_CLIENT = "client select";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "vendor select";
+    public static final String COMMAND_WORD_VENDOR = "vendor select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
             + ": Selects the %1$s identified by the assigned unique %1$s ID.\n"

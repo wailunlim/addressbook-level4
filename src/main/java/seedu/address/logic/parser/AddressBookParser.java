@@ -122,7 +122,7 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD_CLIENT:
             return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
-        case SelectCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case SelectCommand.COMMAND_WORD_VENDOR:
             return new SelectCommandParser(ContactType.VENDOR).parse(identifier);
 
         case ClearCommand.COMMAND_WORD:
@@ -167,23 +167,23 @@ public class AddressBookParser {
         case AutoMatchCommand.COMMAND_WORD_VENDOR:
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
-        case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case AddCommand.COMMAND_WORD_VENDOR:
             return new AddCommandParser(ContactType.VENDOR).parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case DeleteCommand.COMMAND_WORD_VENDOR:
             requireEmptyArguments(arguments);
             return new DeleteCommandParser(ContactType.VENDOR).parse(identifier);
 
-        case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case ListCommand.COMMAND_WORD_VENDOR:
             return new ListCommandParser(ContactType.VENDOR).parse(arguments);
 
-        case UpdateCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case UpdateCommand.COMMAND_WORD_VENDOR:
             return new UpdateCommandParser(ContactType.VENDOR)
                     .parse(String.format("%s %s",
                             requireIdentifierNonNull(identifier, ContactType.VENDOR,
                                     UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
-        case AddServiceCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case AddServiceCommand.COMMAND_WORD_VENDOR:
             return new AddServiceCommandParser(ContactType.VENDOR)
                     .parse(String.format("%s %s",
                             requireIdentifierNonNull(identifier, ContactType.VENDOR,

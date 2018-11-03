@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     statements
      */
     public static final String COMMAND_WORD_CLIENT = "client add";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "vendor add";
+    public static final String COMMAND_WORD_VENDOR = "vendor add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a %1$s to the address book. "
             + "Parameters: "
