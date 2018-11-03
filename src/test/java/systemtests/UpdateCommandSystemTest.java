@@ -133,7 +133,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         int invalidIndex = getModel().getAddressBook().getContactList().size();
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#" + invalidIndex) + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, invalidIndex));
 
         /* --------------------- Performing edit operation while a client card is selected -------------------------- */
 
@@ -176,7 +176,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         invalidIndex = getModel().getFilteredContactList().size() + 1;
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#" + invalidIndex) + " " + NAME_DESC_BOB,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, invalidIndex));
 
         /* Case: missing index -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
