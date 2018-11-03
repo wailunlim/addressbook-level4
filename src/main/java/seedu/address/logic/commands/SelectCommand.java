@@ -52,7 +52,8 @@ public class SelectCommand extends Command {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
             EventsCenter.getInstance().post(new ClearBrowserPanelRequestEvent());
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, contactType));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                    id.getOneBased()));
         }
 
         if (filteredList.size() > 1) {
