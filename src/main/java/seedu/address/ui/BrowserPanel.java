@@ -49,10 +49,8 @@ public class BrowserPanel extends UiPart<Region> {
      * @param contact Contact to be loaded
      */
     private void loadPersonPage(Contact contact) {
-        System.out.println(contact.getUrlContactData());
         try {
             URI uri = new URI("https", SEARCH_PAGE_URL, "", contact.getUrlContactData(), "");
-            System.out.println(uri.toString());
             loadPage(uri.toString());
         } catch (URISyntaxException exception) {
             loadPage("https://" + SEARCH_PAGE_URL);
