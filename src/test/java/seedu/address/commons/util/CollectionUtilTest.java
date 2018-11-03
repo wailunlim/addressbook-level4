@@ -99,20 +99,20 @@ public class CollectionUtilTest {
         list.remove(ALICE);
         assertType(compareListOfContacts(list, typicalContactList), ContactType.CLIENT);
 
-        // Remove a serviceprovider
+        // Remove a vendor
         list.add(ALICE);
         list.remove(DOMINIC);
-        assertType(compareListOfContacts(list, typicalContactList), ContactType.SERVICE_PROVIDER);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.VENDOR);
 
         // Add a contact
         list.add(DOMINIC);
         list.add(HOON);
         assertType(compareListOfContacts(list, typicalContactList), ContactType.CLIENT);
 
-        // Add a serviceprovider
+        // Add a vendor
         list.remove(HOON);
         list.add(JON);
-        assertType(compareListOfContacts(list, typicalContactList), ContactType.SERVICE_PROVIDER);
+        assertType(compareListOfContacts(list, typicalContactList), ContactType.VENDOR);
     }
 
     private void assertType(ContactType type, ContactType expectedType) {

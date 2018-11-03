@@ -550,10 +550,10 @@ Username is stored in plaintext in accountlist.xml, as username is not private i
 === Add clients and service providers feature
 *_Heart²_* allows you to be able to distinguish between clients and service providers.
 
-When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'serviceprovider' by appending 'client' or 'serviceprovider' during adding:
+When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'vendor' by appending 'client' or 'vendor' during adding:
 
 * 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
-* 'serviceprovider add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
+* 'vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
 
 The above commands adds a 'client' and a 'service provider' with the specified information respectively.
 
@@ -561,27 +561,27 @@ This facilitates many other features of *_Heart²_* for your convenience!
 
 ==== Implementation
 
-The keyword 'client' or 'serviceprovider' is used to determine whether a 'Client' or a 'ServiceProvider' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'ServiceProvider' objects. Filters are then applied based on subsequent commands to select only 'client' or 'serviceprovider' objects.
+The keyword 'client' or 'vendor' is used to determine whether a 'Client' or a 'Vendor' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'Vendor' objects. Filters are then applied based on subsequent commands to select only 'client' or 'vendor' objects.
 
 
 === Remove clients and service providers feature
-*_Heart²_* allows you to remove 'client' and 'serviceprovider' if you so wish to!
+*_Heart²_* allows you to remove 'client' and 'vendor' if you so wish to!
 
-This can be easily done by specifying the 'client' or 'serviceprovider' at the front:
+This can be easily done by specifying the 'client' or 'vendor' at the front:
 
 * 'client remove 1'
-* 'serviceprovider remove 2'
+* 'vendor remove 2'
 
-The above commands removes the 'client' in index 1 of the 'client' list and the 'service provider' in index 2 of the 'serviceprovider' list respectively.
+The above commands removes the 'client' in index 1 of the 'client' list and the 'service provider' in index 2 of the 'vendor' list respectively.
 
 ==== Implementation
 
-The keyword 'client' or 'serviceprovider' is used to determine the context of  whether a 'client' or 'serviceprovider' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
+The keyword 'client' or 'vendor' is used to determine the context of  whether a 'client' or 'vendor' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
 
 === Edit clients and service provider feature
-*_Heart²_* allows you to make changes to existing 'client' and 'serviceprovider' too!
+*_Heart²_* allows you to make changes to existing 'client' and 'vendor' too!
 
-With the list of 'client' or 'serviceprovider' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
+With the list of 'client' or 'vendor' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
 
 * 'edit 1 n/Wai Lua'
 * 'edit 2 p/9046 3328'
@@ -591,7 +591,7 @@ The above commands will update the name of the first contact to Wai Lua and the 
 ==== Implementation
 
 The index specified determines the contact in question. The arguments following the index is parsed and used to create an EditContactDescriptor.
-This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'serviceprovider' is first performed to create a correct replacement contact, before updating the contact list.
+This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'vendor' is first performed to create a correct replacement contact, before updating the contact list.
 
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
@@ -628,7 +628,7 @@ When listing contacts, you would have to specify whether the contact is a client
 by prefixing it to list:
 
 * `client list`
-* `serviceprovider list`
+* `vendor list`
 
 Below shows an example of how listing all clients works:
 

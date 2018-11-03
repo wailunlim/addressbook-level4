@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 
 /**
- * An UI component that displays information of a service provided by a {@code ServiceProvider}.
+ * An UI component that displays information of a service provided by a {@code Vendor}.
  */
 public class ServiceCard extends UiPart<Region> {
 

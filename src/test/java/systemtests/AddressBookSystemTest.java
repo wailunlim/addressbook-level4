@@ -155,7 +155,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        //TODO: update and create tests to reflect client and serviceprovider
+        //TODO: update and create tests to reflect client and vendor
         if (keyword.contains("n/")) {
             executeCommand(String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " " + keyword);
         } else {

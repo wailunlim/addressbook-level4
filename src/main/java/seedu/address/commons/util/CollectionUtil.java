@@ -58,7 +58,7 @@ public class CollectionUtil {
         if (diffList.get(0) instanceof Client) {
             return ContactType.CLIENT;
         } else {
-            return ContactType.SERVICE_PROVIDER;
+            return ContactType.VENDOR;
         }
     }
 }

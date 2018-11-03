@@ -32,7 +32,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
-import seedu.address.model.serviceprovider.ServiceProvider;
+import seedu.address.model.vendor.Vendor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,7 +44,7 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
     public static final String COMMAND_WORD_GENERAL = "%1$s%2$s update";
     public static final String COMMAND_WORD_CLIENT = "client update";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider update";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "vendor update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Updates the details of the %1$s identified "
             + "by the assigned unique %1$s ID.\n"
@@ -141,8 +141,8 @@ public class UpdateCommand extends Command {
         case CLIENT:
             return new Client(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
-        case SERVICE_PROVIDER:
-            return new ServiceProvider(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+        case VENDOR:
+            return new Vendor(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                     updatedServices, id);
         default:
             // should nvr come in here

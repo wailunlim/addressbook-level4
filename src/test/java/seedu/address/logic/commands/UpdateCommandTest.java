@@ -63,17 +63,17 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedServiceProviderList_success() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact editedContact = new ServiceProviderBuilder().build();
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.VENDOR);
 
         String expectedMessageServiceProvider = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
-                ContactType.SERVICE_PROVIDER, editedContact);
+                ContactType.VENDOR, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
-        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
         expectedModel.commitAddressBook();
 
@@ -108,7 +108,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedServiceProviderList_success() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
         Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
 
@@ -118,14 +118,14 @@ public class UpdateCommandTest {
 
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        UpdateCommand updateCommand = new UpdateCommand(indexLastPerson, descriptor, ContactType.SERVICE_PROVIDER);
+        UpdateCommand updateCommand = new UpdateCommand(indexLastPerson, descriptor, ContactType.VENDOR);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.VENDOR,
                 editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
-        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
         expectedModel.updateContact(lastContact, editedContact);
         expectedModel.commitAddressBook();
 
@@ -152,17 +152,17 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedServiceProviderList_success() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(),
-                ContactType.SERVICE_PROVIDER);
+                ContactType.VENDOR);
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.VENDOR,
                 editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
-        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -192,21 +192,21 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_serviceProviderList_success() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         Contact editedContact = new ServiceProviderBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
-                new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.SERVICE_PROVIDER);
+                new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.VENDOR);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.SERVICE_PROVIDER,
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_EDIT_CONTACT_SUCCESS, ContactType.VENDOR,
                 editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
         expectedModel.updateContact(model.getFilteredContactList().get(0), editedContact);
-        expectedModel.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -224,18 +224,18 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_duplicateContactServiceProviderList_failure() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.SERVICE_PROVIDER);
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.VENDOR);
 
         assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
-    // Create a client that is a duplicate of a serviceprovider --> command failure
+    // Create a client that is a duplicate of a vendor --> command failure
     @Test
     public void execute_duplicateClientAndServiceProviderList_failure() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
@@ -260,14 +260,14 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_duplicateServiceProviderFilteredList_failure() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit client in filtered list into a duplicate in address book
         Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
-                new EditContactDescriptorBuilder(contactInList).build(), ContactType.SERVICE_PROVIDER);
+                new EditContactDescriptorBuilder(contactInList).build(), ContactType.VENDOR);
 
         assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
@@ -284,10 +284,10 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_invalidServiceProviderIndexServiceProviderList_failure() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor, ContactType.SERVICE_PROVIDER);
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor, ContactType.VENDOR);
 
         assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

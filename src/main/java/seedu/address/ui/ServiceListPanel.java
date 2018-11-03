@@ -38,7 +38,7 @@ public class ServiceListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a service provided by the {@code ServiceProvider}
+     * Custom {@code ListCell} that displays the graphics of a service provided by the {@code Vendor}
      * using a {@code ServiceCard}.
      */
     class ServiceListViewCell extends ListCell<Contact> {

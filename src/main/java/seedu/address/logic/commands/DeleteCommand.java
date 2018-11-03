@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
     statements
      */
     public static final String COMMAND_WORD_CLIENT = "client delete";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider delete";
+    public static final String COMMAND_WORD_SERVICE_PROVIDER = "vendor delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
             + ": Deletes the %1$s identified by the assigned unique %1$s ID.\n"
@@ -67,7 +67,7 @@ public class DeleteCommand extends Command {
             throw new RuntimeException("ID is not unique!");
         }
 
-        // filtered list size is 1 (unique ID for client/serviceprovider)
+        // filtered list size is 1 (unique ID for client/vendor)
         Contact contactToDelete = filteredList.get(0);
         model.deleteContact(contactToDelete);
         model.updateFilteredContactList(contactType.getFilter());

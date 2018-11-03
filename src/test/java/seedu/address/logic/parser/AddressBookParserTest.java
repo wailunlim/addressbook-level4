@@ -194,13 +194,13 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_serviceprovider_addservice() throws Exception {
+    public void parseCommand_vendor_addservice() throws Exception {
         Contact contact = new ServiceProviderBuilder().build();
         Service service = new Service("photographer", "1000.00");
         AddServiceCommand command = (AddServiceCommand)
                 parser.parseCommand(PersonUtil.getServiceProviderAddServiceCommand(
                         contact, service, INDEX_FIRST_PERSON));
-        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.SERVICE_PROVIDER), command);
+        assertEquals(new AddServiceCommand(INDEX_FIRST_PERSON, service, ContactType.VENDOR), command);
     }
 
     @Test

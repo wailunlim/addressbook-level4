@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Service;
-import seedu.address.model.serviceprovider.ServiceProvider;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -28,7 +28,7 @@ public class AutoMatchCommand extends Command {
 
     public static final String COMMAND_WORD = "automatch";
     public static final String COMMAND_WORD_CLIENT = "client" + " " + COMMAND_WORD;
-    public static final String COMMAND_WORD_SERVICEPROVIDER = "serviceprovider" + " " + COMMAND_WORD;
+    public static final String COMMAND_WORD_VENDOR = "vendor" + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
@@ -61,7 +61,7 @@ public class AutoMatchCommand extends Command {
                     .getContactList()
                     .stream()
                     .filter(c -> (contactType.equals("client") && c instanceof Client)
-                            || (contactType.equals("serviceprovider") && c instanceof ServiceProvider))
+                            || (contactType.equals("vendor") && c instanceof Vendor))
                     .filter(c -> c.getId() == contactId)
                     .findFirst()
                     .get();
@@ -72,18 +72,18 @@ public class AutoMatchCommand extends Command {
         AutoMatchResult autoMatchResult;
         if (contact instanceof Client) {
             Collection<Service> servicesRequired = contact.getServices().values();
-            model.updateFilteredContactList(c -> c instanceof ServiceProvider);
+            model.updateFilteredContactList(c -> c instanceof Vendor);
 
             // Perform auto-matching
             autoMatchResult = model
                     .getFilteredContactList()
                     .stream()
                     .reduce(new AutoMatchResult(contact), (accumulatedResult, c) -> {
-                        accumulatedResult.put(c, servicesCanBeFulfilledByServiceProvider((ServiceProvider) c,
+                        accumulatedResult.put(c, servicesCanBeFulfilledByVendor((Vendor) c,
                                 servicesRequired));
                         return accumulatedResult;
                     }, AutoMatchResult::mergeResults);
-        } else if (contact instanceof ServiceProvider) {
+        } else if (contact instanceof Vendor) {
             Collection<Service> servicesProvided = contact.getServices().values();
             model.updateFilteredContactList(c -> c instanceof Client);
 
@@ -111,22 +111,22 @@ public class AutoMatchCommand extends Command {
 
         EventsCenter.getInstance().post(new DeselectRequestEvent());
 
-        ContactType resultContactType = contact instanceof Client ? ContactType.SERVICE_PROVIDER
-                : ContactType.SERVICE_PROVIDER;
+        ContactType resultContactType = contact instanceof Client ? ContactType.VENDOR
+                : ContactType.VENDOR;
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         resultContactType));
     }
 
     /**
-     * Utility function to check if a {@code serviceProvider} can fulfil a particular {@code serviceRequired}.
+     * Utility function to check if a {@code vendor} can fulfil a particular {@code serviceRequired}.
      *
-     * @param serviceProvider The service provider.
+     * @param vendor The service provider.
      * @param serviceRequired The service required.
      * @return Returns {@code true} if the service provider can fulfil the service, otherwise {@code false}.
      */
-    private static boolean serviceProviderCanFulfilService(ServiceProvider serviceProvider, Service serviceRequired) {
-        return serviceProvider
+    private static boolean vendorCanFulfilService(Vendor vendor, Service serviceRequired) {
+        return vendor
                 .getServices()
                 .values()
                 .stream()
@@ -137,16 +137,16 @@ public class AutoMatchCommand extends Command {
 
     /**
      * Utility function to get a {@code Collection} of {@code Service} that can be fulfilled by the
-     * {@code serviceProvider}.
-     * @param serviceProvider The service provider.
+     * {@code vendor}.
+     * @param vendor The service provider.
      * @param servicesRequired The services required.
      * @return Returns the {@code Collection}.
      */
-    private static Collection<Service> servicesCanBeFulfilledByServiceProvider(ServiceProvider serviceProvider,
-                                                                               Collection<Service> servicesRequired) {
+    private static Collection<Service> servicesCanBeFulfilledByVendor(Vendor vendor,
+                                                                      Collection<Service> servicesRequired) {
         return servicesRequired
                 .stream()
-                .filter(serviceRequired -> serviceProviderCanFulfilService(serviceProvider, serviceRequired))
+                .filter(serviceRequired -> vendorCanFulfilService(vendor, serviceRequired))
                 .collect(Collectors.toList());
     }
 

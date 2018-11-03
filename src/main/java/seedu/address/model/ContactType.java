@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.serviceprovider.ServiceProvider;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * Specifies the different contact types. This enum includes the correct filter required to filter a specific
@@ -22,15 +22,15 @@ public enum ContactType {
             return "client";
         }
     },
-    SERVICE_PROVIDER {
+    VENDOR {
         @Override
         public Predicate<Contact> getFilter() {
-            return contact -> contact instanceof ServiceProvider;
+            return contact -> contact instanceof Vendor;
         }
 
         @Override
         public String toString() {
-            return "serviceprovider";
+            return "vendor";
         }
     };
 
