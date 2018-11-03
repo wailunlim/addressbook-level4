@@ -52,11 +52,11 @@ public class AutoMatchCommand extends Command {
         model.updateFilteredContactList(x -> true);
         model.getFilteredContactList();
 
-
-        // Find the contact for which we are going to find matches for
-        int contactId = Integer.parseInt(this.contactId);
         Contact contact;
+
         try {
+            // Find the contact for which we are going to find matches for
+            int contactId = Integer.parseInt(this.contactId);
             contact = model
                     .getAddressBook()
                     .getContactList()
@@ -66,8 +66,8 @@ public class AutoMatchCommand extends Command {
                     .filter(c -> c.getId() == contactId)
                     .findFirst()
                     .get();
-        } catch (NoSuchElementException exception) {
-            throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, contactId));
+        } catch (NoSuchElementException | NumberFormatException exception) {
+            throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, this.contactId));
         }
 
         AutoMatchResult autoMatchResult;
