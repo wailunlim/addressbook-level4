@@ -29,7 +29,7 @@ public class Service {
             "Valid Services: photographer, hotel, catering, dress, ring, transport, invitation";
     public static final String MESSAGE_SERVICE_COST_CONSTRAINTS =
             "Service cost must be more than $0.00 and given to 2 decimal places\n"
-            + "Please also " + "omit all symbols except the decimal point";
+            + "Please also omit all symbols except the decimal point";
 
     public final String serviceName;
     public final BigDecimal serviceCost;
