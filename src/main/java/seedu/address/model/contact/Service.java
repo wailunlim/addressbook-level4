@@ -1,12 +1,13 @@
 package seedu.address.model.contact;
 
-import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Defines the service types
@@ -21,10 +22,14 @@ enum ServiceType {
  */
 public class Service {
 
+    public static final String COST_REGEX = "(\\d*)\\.(\\d{2})";
+    public static final String NON_ZERO_REGEX = "[1-9]";
+
     public static final String MESSAGE_SERVICE_NAME_CONSTRAINTS =
             "Valid Services: photographer, hotel, catering, dress, ring, transport, invitation";
     public static final String MESSAGE_SERVICE_COST_CONSTRAINTS =
-            "Service cost must be more than $0.00 and given to 2 decimal places";
+            "Service cost must be more than $0.00 and given to 2 decimal places\n"
+            + "Please also " + "omit all symbols except the decimal point";
 
     public final String serviceName;
     public final BigDecimal serviceCost;
@@ -83,22 +88,12 @@ public class Service {
     }
 
     /**
-     * Returns true if a given cost is above 0 and has either 0 or 2 decimal places.
+     * Returns true if a given cost is above $0, has 2 decimal places and has no other symbols
      */
     public static boolean isValidServiceCost(String test) {
-        // If the string has no decimal places
-        if (!test.contains(".")) {
-            if (parseInt(test) > 0) {
-                return true;
-            }
-            return false;
-        }
-
-        // If the string has exactly 2 decimal places
-        if (test.length() - test.indexOf('.') - 1 != 2) {
-            return false;
-        }
-        return true;
+        Pattern pattern = Pattern.compile(NON_ZERO_REGEX);
+        Matcher matcher = pattern.matcher(test);
+        return test.matches(COST_REGEX) && matcher.find();
     }
 
     /**

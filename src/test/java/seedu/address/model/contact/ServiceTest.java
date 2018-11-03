@@ -45,12 +45,8 @@ public class ServiceTest {
         // different service -> returns false;
         assertNotEquals(HOTEL, TRANSPORT);
 
-        // same cost, different no. of decimal places -> returns true
-        Service editedTransport = new Service("transport", "288");
-        assertEquals(TRANSPORT, editedTransport);
-
         // different cost -> returns false
-        editedTransport = new Service("transport", "100");
+        Service editedTransport = new Service("transport", "100.00");
         assertNotEquals(TRANSPORT, editedTransport);
 
         // different service type -> returns false
@@ -73,10 +69,6 @@ public class ServiceTest {
 
         // different cost -> returns false
         editedService = new Service("transport", "100.00");
-        assertNotEquals(TRANSPORT.toString(), editedService.toString());
-
-        // different cost decimal -> returns false
-        editedService = new Service("transport", "288");
         assertNotEquals(TRANSPORT.toString(), editedService.toString());
 
         // different service -> returns false
