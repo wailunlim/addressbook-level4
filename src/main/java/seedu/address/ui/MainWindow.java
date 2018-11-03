@@ -17,7 +17,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -167,8 +166,6 @@ public class MainWindow extends UiPart<Stage> {
     void displayLoginWindow() {
         // Create new login stage for login window
         loginStage = new Stage();
-        loginStage.initOwner(primaryStage);
-        loginStage.initModality(Modality.WINDOW_MODAL);
         loginStage.centerOnScreen();
         loginWindow = new LoginWindow(loginStage, config, prefs, logic);
         loginStage.show();
@@ -202,46 +199,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the inner parts of the UI
-     */
-    void hideInnerParts() {
-        browserPlaceholder.setVisible(false);
-        personListPanelPlaceholder.setVisible(false);
-        statusbarPlaceholder.setVisible(false);
-        commandBoxPlaceholder.setVisible(false);
-        commandBoxPlaceholder.setManaged(false);
-        photoListPanelPlaceholder.setVisible(false);
-        hotelListPanelPlaceholder.setVisible(false);
-        cateringListPanelPlaceholder.setVisible(false);
-        dressListPanelPlaceholder.setVisible(false);
-        ringListPanelPlaceholder.setVisible(false);
-        transportListPanelPlaceholder.setVisible(false);
-        invitationListPanelPlaceholder.setVisible(false);
-    }
-
-    /**
-     * Shows the inner parts of the UI
-     */
-    void showInnerParts() {
-        browserPlaceholder.setVisible(true);
-        personListPanelPlaceholder.setVisible(true);
-        statusbarPlaceholder.setVisible(true);
-        commandBoxPlaceholder.setVisible(true);
-        commandBoxPlaceholder.setManaged(true);
-        photoListPanelPlaceholder.setVisible(true);
-        hotelListPanelPlaceholder.setVisible(true);
-        cateringListPanelPlaceholder.setVisible(true);
-        dressListPanelPlaceholder.setVisible(true);
-        ringListPanelPlaceholder.setVisible(true);
-        transportListPanelPlaceholder.setVisible(true);
-        invitationListPanelPlaceholder.setVisible(true);
-    }
-
-    /**
      * Handles logout event
+     * Hides main window and displays login window.
      */
     public void handleLogout() {
-        hideInnerParts();
+        hide();
         displayLoginWindow();
     }
 
@@ -368,10 +330,9 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleLoginSuccessEvent(LoginSuccessEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        show();
         if (!hasFilledParts) {
             fillInnerParts();
-        } else {
-            showInnerParts();
         }
     }
 

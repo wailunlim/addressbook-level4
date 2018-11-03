@@ -59,6 +59,7 @@ public class UiManager extends ComponentManager implements Ui {
             if (hasLoggedIn) {
                 raise(new LoginSuccessEvent());
             } else {
+                mainWindow.hide();
                 mainWindow.displayLoginWindow();
             }
 
