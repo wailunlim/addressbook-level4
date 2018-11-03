@@ -19,8 +19,8 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -57,8 +57,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         switch (contactType) {
         case CLIENT:
             return new Client(name, phone, email, address, tagList);
-        case SERVICE_PROVIDER:
-            return new ServiceProvider(name, phone, email, address, tagList);
+        case VENDOR:
+            return new Vendor(name, phone, email, address, tagList);
         default:
             // should nvr come here
             throw new RuntimeException("No such Contact Type");

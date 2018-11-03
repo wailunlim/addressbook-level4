@@ -241,75 +241,75 @@ Format: `client#id automatch`
 |* `client#123 automatch`
 |=====
 
-=== Manipulating all service providers: `serviceprovider`
+=== Manipulating all service providers: `vendor`
 
 ==== Creating a service provider
 
 You can register a service provider to the system with the necessary particulars.
 
-Format: `serviceprovider add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS [t/TAG]...`
+Format: `vendor add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`serviceprovider add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
+|`vendor add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
 |=====
 
 // tag::listSp[]
 ==== Listing and searching for service providers
 
-You can view service providers in the database as a list using the `serviceprovider list` command.
+You can view service providers in the database as a list using the `vendor list` command.
 
 If you do not key in any parameters, it will list out all the service providers,
 otherwise it will list all service providers matching all of the search parameters you provided.
 
-Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `vendor list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider list`
- * `serviceprovider list n/John Doe`
+|* `vendor list`
+ * `vendor list n/John Doe`
 |=====
 // end::listSp[]
 
-=== Manipulating a specific service provider: `serviceprovider#id`
+=== Manipulating a specific service provider: `vendor#id`
 
 ==== Viewing a service provider
 
 You can view the detailed information of a service provider by its id.
 
-Format: `serviceprovider#id select`
+Format: `vendor#id select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`serviceprovider#123 select`
+|`vendor#123 select`
 |=====
 
 ==== Deleting a service provider
 
 You can delete a service provider by its id.
 
-Format: `serviceprovider#id delete`
+Format: `vendor#id delete`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`serviceprovider#123 delete`
+|`vendor#123 delete`
 |=====
 
 ==== Updating a service provider profile
 
 You can update the details of a service provider by its id with new particulars.
 
-Format: `serviceprovider#id update [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
+Format: `vendor#id update [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 update p/98765432` (updates `serviceprovider#123` 's phone number)
- * `serviceprovider#123 update e/janedoe@gmail.com a/batcave` (updates `serviceprovider#123` 's email address and office address)
+|* `vendor#123 update p/98765432` (updates `vendor#123` 's phone number)
+ * `vendor#123 update e/janedoe@gmail.com a/batcave` (updates `vendor#123` 's email address and office address)
 |=====
 
 ==== Adding a service type supported by service provider
@@ -322,7 +322,7 @@ You must specify the cost which will be in _Singapore Dollars (SGD)_.
 Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 ====
 
-Format: `serviceprovider#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
+Format: `vendor#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
 Available Service Types `SERVICE_TYPE`:
 
@@ -337,8 +337,8 @@ Available Service Types `SERVICE_TYPE`:
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 addservice s/photography c/2000`
- * `serviceprovider#123 addservice s/catering c/10000`
+|* `vendor#123 addservice s/photography c/2000`
+ * `vendor#123 addservice s/catering c/10000`
 |=====
 
 ==== Automatching for a service provider
@@ -349,12 +349,12 @@ You can easily find clients whose service requirements match the services offere
 ====
 It only shows you the clients whose budgets can afford the service.
 ====
-Format: `serviceprovider#id automatch`
+Format: `vendor#id automatch`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider#123 automatch`
+|* `vendor#123 automatch`
 |=====
 
 === Listing entered commands: `history`

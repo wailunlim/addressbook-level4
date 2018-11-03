@@ -64,7 +64,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateServiceProvider_throwsCommandException() {
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact contactInList = model.getAddressBook().getContactList().get(0);
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
                 String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, contactInList.getType()));
@@ -72,13 +72,13 @@ public class AddCommandIntegrationTest {
 
     /**
      * Tries to add a duplicate client while only the service providers are shown. In heartsquare, a client cannot be
-     * a serviceprovider and vice versa, so this should still throw a command exception
+     * a vendor and vice versa, so this should still throw a command exception
      */
     @Test
     public void execute_duplicateServiceProviderWhileClientListInFocus_throwsCommandException() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactInList = model.getAddressBook().getContactList().get(0);
-        model.updateFilteredContactList(ContactType.SERVICE_PROVIDER.getFilter());
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         assertCommandFailure(new AddCommand(contactInList), model, commandHistory,
                 String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, contactInList.getType()));
     }

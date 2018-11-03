@@ -11,12 +11,12 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
-import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.vendor.Vendor;
 
 /**
- * A utility class to help with building ServiceProvider objects.
+ * A utility class to help with building Vendor objects.
  */
 public class ServiceProviderBuilder {
     public static final String DEFAULT_NAME = "Dominic Dong";
@@ -56,7 +56,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code ServiceProvider} that we are building.
+     * Sets the {@code Name} of the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withName(String name) {
         this.name = new Name(name);
@@ -64,7 +64,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code ServiceProvider} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -72,7 +72,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code ServiceProvider} that we are building.
+     * Sets the {@code Address} of the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withAddress(String address) {
         this.address = new Address(address);
@@ -80,7 +80,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code ServiceProvider} that we are building.
+     * Sets the {@code Phone} of the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -88,7 +88,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code ServiceProvider} that we are building.
+     * Sets the {@code Email} of the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withEmail(String email) {
         this.email = new Email(email);
@@ -96,7 +96,7 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Sets the {@code id} of the {@code ServiceProvider} that we are building.
+     * Sets the {@code id} of the {@code Vendor} that we are building.
      */
     public ServiceProviderBuilder withId(int id) {
         this.id = id;
@@ -104,7 +104,7 @@ public class ServiceProviderBuilder {
     }
 
     public Contact build() {
-        return new ServiceProvider(name, phone, email, address, tags, services, id);
+        return new Vendor(name, phone, email, address, tags, services, id);
     }
 
 }

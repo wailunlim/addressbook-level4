@@ -122,8 +122,8 @@ public class AddressBookParser {
         case SelectCommand.COMMAND_WORD_CLIENT:
             return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
-        case SelectCommand.COMMAND_WORD_SERVICE_PROVIDER:
-            return new SelectCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
+        case SelectCommand.COMMAND_WORD_VENDOR:
+            return new SelectCommandParser(ContactType.VENDOR).parse(identifier);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -164,29 +164,29 @@ public class AddressBookParser {
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case AutoMatchCommand.COMMAND_WORD_CLIENT:
-        case AutoMatchCommand.COMMAND_WORD_SERVICEPROVIDER:
+        case AutoMatchCommand.COMMAND_WORD_VENDOR:
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
-        case AddCommand.COMMAND_WORD_SERVICE_PROVIDER:
-            return new AddCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
+        case AddCommand.COMMAND_WORD_VENDOR:
+            return new AddCommandParser(ContactType.VENDOR).parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD_SERVICE_PROVIDER:
+        case DeleteCommand.COMMAND_WORD_VENDOR:
             requireEmptyArguments(arguments);
-            return new DeleteCommandParser(ContactType.SERVICE_PROVIDER).parse(identifier);
+            return new DeleteCommandParser(ContactType.VENDOR).parse(identifier);
 
-        case ListCommand.COMMAND_WORD_SERVICE_PROVIDER:
-            return new ListCommandParser(ContactType.SERVICE_PROVIDER).parse(arguments);
+        case ListCommand.COMMAND_WORD_VENDOR:
+            return new ListCommandParser(ContactType.VENDOR).parse(arguments);
 
-        case UpdateCommand.COMMAND_WORD_SERVICE_PROVIDER:
-            return new UpdateCommandParser(ContactType.SERVICE_PROVIDER)
+        case UpdateCommand.COMMAND_WORD_VENDOR:
+            return new UpdateCommandParser(ContactType.VENDOR)
                     .parse(String.format("%s %s",
-                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                            requireIdentifierNonNull(identifier, ContactType.VENDOR,
                                     UpdateCommand.MESSAGE_USAGE).substring(1), arguments));
 
-        case AddServiceCommand.COMMAND_WORD_SERVICE_PROVIDER:
-            return new AddServiceCommandParser(ContactType.SERVICE_PROVIDER)
+        case AddServiceCommand.COMMAND_WORD_VENDOR:
+            return new AddServiceCommandParser(ContactType.VENDOR)
                     .parse(String.format("%s %s",
-                            requireIdentifierNonNull(identifier, ContactType.SERVICE_PROVIDER,
+                            requireIdentifierNonNull(identifier, ContactType.VENDOR,
                                     AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         default:

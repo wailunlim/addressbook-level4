@@ -76,13 +76,13 @@ public class PersonUtil {
     }
 
     /**
-     * Creates a serviceprovider addservice input.
+     * Creates a vendor addservice input.
      * @param contact Contact to add service to.
      * @param service Service to be added.
-     * @return New string containing serviceprovider addservice input.
+     * @return New string containing vendor addservice input.
      */
     public static String getServiceProviderAddServiceCommand(Contact contact, Service service, Index index) {
-        return "serviceprovider#" + index.getOneBased() + " " + AddServiceCommand.COMMAND_WORD + " s/"
+        return "vendor#" + index.getOneBased() + " " + AddServiceCommand.COMMAND_WORD + " s/"
                 + service.getName() + " c/" + service.getCost();
     }
 }

@@ -20,8 +20,8 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.Service;
-import seedu.address.model.serviceprovider.ServiceProvider;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * JAXB-friendly version of the Client.
@@ -150,7 +150,7 @@ public class XmlAdaptedContact {
         }
         final Address modelAddress = new Address(address);
 
-        // Additional metadata to determine if contact is a Client or a ServiceProvider
+        // Additional metadata to determine if contact is a Client or a Vendor
 
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
@@ -166,8 +166,8 @@ public class XmlAdaptedContact {
         if (type.equals(ContactType.CLIENT)) {
             return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
-        if (type.equals(ContactType.SERVICE_PROVIDER)) {
-            return new ServiceProvider(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
+        if (type.equals(ContactType.VENDOR)) {
+            return new Vendor(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
 
         throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");

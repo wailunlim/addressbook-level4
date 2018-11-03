@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD_GENERAL = "%1$s%2$s select";
     public static final String COMMAND_WORD_CLIENT = "client select";
-    public static final String COMMAND_WORD_SERVICE_PROVIDER = "serviceprovider select";
+    public static final String COMMAND_WORD_VENDOR = "vendor select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
             + ": Selects the %1$s identified by the assigned unique %1$s ID.\n"
@@ -59,7 +59,7 @@ public class SelectCommand extends Command {
             throw new RuntimeException("ID is not unique!");
         }
 
-        // filtered list size is 1 (unique ID for client/serviceprovider)
+        // filtered list size is 1 (unique ID for client/vendor)
         Contact contactToSelect = filteredList.get(0);
         model.updateFilteredContactList(contactType.getFilter());
         EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromZeroBased(model.getFilteredContactList()
