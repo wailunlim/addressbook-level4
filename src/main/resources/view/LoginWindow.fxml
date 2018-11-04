@@ -60,7 +60,7 @@
 
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <TextField fx:id="loginCli" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
-                                       prefWidth="468.0" maxWidth="600" promptText="Enter login command..."
+                                       prefWidth="468.0" maxWidth="600" promptText="Enter a command..."
                                        style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
                                                -fx-border-radius: 20;" focusTraversable="false">
                                 <font>
