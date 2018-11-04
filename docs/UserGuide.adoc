@@ -191,12 +191,12 @@ This unique ID allows you to refer the contact at any point of time when using H
 [TIP]
 Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
 
+[TIP]
+These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+
 [NOTE]
 IDs can be similar for `client` and `vendor`.
 However, since the contact type and ID comes together, they would still refer to different contacts!
-
-[TIP]
-These IDs are persistent for one session. Each restart of Heart² compacts the IDs of the remaining contacts.
 
 ==== Viewing a contact
 
