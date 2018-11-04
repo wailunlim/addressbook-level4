@@ -52,6 +52,8 @@ image::format.png[width="256"]
 * Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
+* `<ID>` is to replaced with a valid ID 
 
 
 
@@ -137,7 +139,7 @@ TIP: All commands pertaining to contacts start with either `client` or `vendor`.
 
 You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
 
-Format: `CONTACT_TYPE add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -169,7 +171,7 @@ You can also `list` your different contacts by specifying the contact type to be
 Heart² also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
 To search, simply append your search parameters to the back of the original command.
 
-Format: `CONTACT_TYPE list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -203,7 +205,7 @@ However, since the contact type and ID comes together, they would still refer to
 You can `view` detailed information about a specific contact using its unique ID.
 This information will be displayed on the right panel in Heart².
 
-Format: `CONTACT_TYPE#id select`
+Format: `<CONTACT_TYPE>#<ID> select`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -220,7 +222,7 @@ Format: `CONTACT_TYPE#id select`
 
 You can also `delete` a contact from Heart², by specifying its unique ID.
 
-Format: `CONTACT_TYPE#id delete`
+Format: `<CONTACT_TYPE>#<ID> delete`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -237,7 +239,7 @@ Format: `CONTACT_TYPE#id delete`
 
 You can also `update` a contact's particulars, again by specifying its unique ID.
 
-Format: `CONTACT_TYPE#id update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -259,7 +261,7 @@ You must specify the cost which will be in _Singapore Dollars (SGD)_.
 ====
 Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 ====
-Format: `client#id addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
+Format: `client#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
 
 Available Service Types `SERVICE_TYPE`:
 
@@ -286,7 +288,7 @@ You can easily find service providers that can fulfill the requests services wit
 ====
 It only shows you the service providers within the budget of the client.
 ====
-Format: `client#id automatch`
+Format: `client#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -305,7 +307,7 @@ You must specify the cost which will be in _Singapore Dollars (SGD)_.
 Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 ====
 
-Format: `vendor#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
+Format: `vendor#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
 Available Service Types `SERVICE_TYPE`:
 
@@ -332,7 +334,7 @@ You can easily find clients whose service requirements match the services offere
 ====
 It only shows you the clients whose budgets can afford the service.
 ====
-Format: `vendor#id automatch`
+Format: `vendor#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
