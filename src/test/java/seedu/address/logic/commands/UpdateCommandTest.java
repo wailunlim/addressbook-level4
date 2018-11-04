@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -171,7 +171,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_clientList_success() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         Contact editedContact = new ClientBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
@@ -193,7 +193,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_serviceProviderList_success() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         Contact editedContact = new ServiceProviderBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
@@ -247,7 +247,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_duplicateClientFilteredList_failure() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit client in filtered list into a duplicate in address book
         Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
@@ -261,7 +261,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_duplicateServiceProviderFilteredList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit client in filtered list into a duplicate in address book
         Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
@@ -303,7 +303,7 @@ public class UpdateCommandTest {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         Contact contactOutsideFilteredList = model.getFilteredContactList().get(outOfBoundIndex.getZeroBased());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
@@ -382,7 +382,7 @@ public class UpdateCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
                 TypicalAccount.ROOTACCOUNT);
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+        showContactAtIndex(model, INDEX_SECOND_PERSON);
         Contact contactToEdit = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.updateContact(contactToEdit, editedContact);
         expectedModel.commitAddressBook();

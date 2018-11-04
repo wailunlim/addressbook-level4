@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -33,10 +33,12 @@ public class DeleteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexClientList_success() {
+    public void execute_validIdClientList_success() {
+        // delete the first client
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.CLIENT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -51,10 +53,12 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexServiceProviderList_success() {
+    public void execute_validIdServiceProviderList_success() {
+        // delete the first vendor. vendor == serviceprovider, no difference!
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.VENDOR);
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.VENDOR);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -69,23 +73,24 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexClientList_throwsCommandException() {
+    public void execute_nonExistentClientId_throwsCommandException() {
+        // delete using a clientId that is utilised
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
+        Index unusedId = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(unusedId, ContactType.CLIENT);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, unusedId.getOneBased()));
     }
 
     @Test
-    public void execute_invalidIndexServiceProviderList_throwsCommandException() {
+    public void execute_nonExistentVendorId_throwsCommandException() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.VENDOR);
+        Index unusedId = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(unusedId, ContactType.VENDOR);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, unusedId.getOneBased()));
     }
 
     /**
@@ -95,11 +100,11 @@ public class DeleteCommandTest {
      */
     @Test
     public void execute_clientShownInClientFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.CLIENT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -119,11 +124,11 @@ public class DeleteCommandTest {
      */
     @Test
     public void execute_serviceProviderShownInServiceProviderFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.VENDOR);
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.VENDOR);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -137,17 +142,17 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteClientNotShownInClientFilteredList_success() {
+    public void execute_clientNotShownInClientFilteredList_success() {
+        // identify the 2nd client for deletion
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Contact contactToDelete = model.getFilteredContactList().get(0);
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
 
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
+        // show only the first client only
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertFalse(model.getFilteredContactList().contains(contactToDelete));
+        Index idNotShownInCurrentList = Index.fromOneBased(contactToDelete.getId());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
+        DeleteCommand deleteCommand = new DeleteCommand(idNotShownInCurrentList, ContactType.CLIENT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -161,17 +166,17 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteServiceProviderNotShownInServiceProviderFilteredList_success() {
+    public void execute_deleteVendorNotShownInVendorFilteredList_success() {
+        // identify the 2nd vendor for deletion
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Contact contactToDelete = model.getFilteredContactList().get(0);
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
 
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
+        // show only the first vendor only
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertFalse(model.getFilteredContactList().contains(contactToDelete));
+        Index idNotShownInCurrentList = Index.fromOneBased(contactToDelete.getId());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.VENDOR);
+        DeleteCommand deleteCommand = new DeleteCommand(idNotShownInCurrentList, ContactType.VENDOR);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
                 contactToDelete);
@@ -185,13 +190,16 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteServiceProviderWhileShownClientFilteredList_success() {
+    public void execute_serviceProviderWhileShownClientFilteredList_success() {
+        // identify vendor to delete
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
+        // switch to client list
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         assertTrue(!model.getFilteredContactList().contains(contactToDelete));
 
+        // delete the vendor chosen previously
         DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
                 ContactType.VENDOR);
 
@@ -202,19 +210,23 @@ public class DeleteCommandTest {
 
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
+        // deleting vendor switches the filtered contact list to vendor list
         expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_deleteClientWhileShownServiceProviderFilteredList_success() {
+    public void execute_clientWhileShownServiceProviderFilteredList_success() {
+        // identify client to delete
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
 
+        // switch to vendor list
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         assertTrue(!model.getFilteredContactList().contains(contactToDelete));
 
+        //delete the client chosen previously
         DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
                 ContactType.CLIENT);
 
@@ -225,13 +237,14 @@ public class DeleteCommandTest {
 
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
+        //deleting client switches to client list
         expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void executeUndoRedo_validIndexFilteredClientList_success() throws Exception {
+    public void executeUndoRedo_validIdFilteredClientList_success() throws Exception {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
@@ -241,10 +254,10 @@ public class DeleteCommandTest {
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
 
-        // delete -> first client deleted
+        // delete -> first client in list deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered client list to show all persons
+        // undo -> reverts addressbook back to previous state and show client list
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -254,7 +267,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIndexFilteredServiceProviderList_success() throws Exception {
+    public void executeUndoRedo_validIdFilteredVendorList_success() throws Exception {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.VENDOR);
@@ -267,7 +280,7 @@ public class DeleteCommandTest {
         // delete -> first client deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered client list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered vendor list
         expectedModel.undoAddressBook();
         expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -278,14 +291,14 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexClientList_failure() {
+    public void executeUndoRedo_invalidIdClientList_failure() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
+        Index unusedId = Index.fromOneBased(model.getFilteredContactList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(unusedId, ContactType.CLIENT);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, unusedId.getOneBased()));
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -293,7 +306,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidIndexServiceProviderList_failure() {
+    public void executeUndoRedo_invalidIdVendorList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.VENDOR);
@@ -307,35 +320,92 @@ public class DeleteCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
-    /**
-     * 1. Deletes a {@code Client} from a filtered list.
-     * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted client in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the client object regardless of indexing.
-     */
     @Test
-    @Ignore
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON, ContactType.CLIENT);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+    public void executeUndoRedo_validIdWithDifferentFilteredList_sameClientDeleted() throws Exception {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+        // choose to delete the first contact in the client list
         Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.CLIENT);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
+                contactToDelete);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
         expectedModel.deleteContact(contactToDelete);
         expectedModel.commitAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
-        // delete -> deletes second client in unfiltered client list / first client in filtered client list
-        deleteCommand.execute(model, commandHistory);
+        // empty filtered list
+        showNoPerson(model);
 
-        // undo -> reverts addressbook back to previous state and filtered client list to show all persons
+        // even with filtered list is empty, still can delete a contact using its ID
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(contactToDelete, model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()));
-        // redo -> deletes same second client in unfiltered client list
+        // The contact after undoing is in the same position before deletion
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()), contactToDelete);
+
+        // show vendor list
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
+
+        // redo the deletion -- it doesn't matter what list is shown
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // the list is switched to client list
+        // the contact at position one of the list is no longer contactToDelete
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()).getType(),
+                ContactType.CLIENT);
+        assertNotEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()), contactToDelete);
+    }
+
+    @Test
+    public void executeUndoRedo_validIdWithDifferentFilteredList_sameVendorDeleted() throws Exception {
+        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
+
+        // choose to delete the first contact in the vendor list
+        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                ContactType.VENDOR);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete.getType(),
+                contactToDelete);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+        expectedModel.deleteContact(contactToDelete);
+        expectedModel.commitAddressBook();
+        expectedModel.updateFilteredContactList(ContactType.VENDOR.getFilter());
+
+        // empty filtered list
+        showNoPerson(model);
+
+        // even with filtered list is empty, still can delete a contact using its ID
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // The contact after undoing is in the same position before deletion
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()), contactToDelete);
+
+        // show vendor list
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+
+        // redo the deletion -- it doesn't matter what list is shown
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // the list is switched to vendor list
+        // the contact at position one of the list is no longer contactToDelete
+        showContactAtIndex(model, INDEX_FIRST_PERSON);
+        assertEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()).getType(),
+                ContactType.VENDOR);
+        assertNotEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()), contactToDelete);
     }
 
     @Test
