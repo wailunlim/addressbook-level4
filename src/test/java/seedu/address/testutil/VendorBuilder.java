@@ -18,7 +18,7 @@ import seedu.address.model.vendor.Vendor;
 /**
  * A utility class to help with building Vendor objects.
  */
-public class ServiceProviderBuilder {
+public class VendorBuilder {
     public static final String DEFAULT_NAME = "Dominic Dong";
     public static final String DEFAULT_PHONE = "999";
     public static final String DEFAULT_EMAIL = "dong.siji@gmail.com";
@@ -32,7 +32,7 @@ public class ServiceProviderBuilder {
     private Map<String, Service> services;
     private int id;
 
-    public ServiceProviderBuilder() {
+    public VendorBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -43,9 +43,9 @@ public class ServiceProviderBuilder {
     }
 
     /**
-     * Initializes the ServiceProviderBuilder with the data of {@code contactToCopy}.
+     * Initializes the VendorBuilder with the data of {@code contactToCopy}.
      */
-    public ServiceProviderBuilder(Contact contactToCopy) {
+    public VendorBuilder(Contact contactToCopy) {
         name = contactToCopy.getName();
         phone = contactToCopy.getPhone();
         email = contactToCopy.getEmail();
@@ -58,7 +58,7 @@ public class ServiceProviderBuilder {
     /**
      * Sets the {@code Name} of the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withName(String name) {
+    public VendorBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -66,15 +66,24 @@ public class ServiceProviderBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withTags(String ... tags) {
+    public VendorBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code services} into a {@code Map<String, Service>}
+     * and set it to the {@code Vendor} that we are building.
+     */
+    public VendorBuilder withServices(String ... services) {
+        this.services = SampleDataUtil.getServicesMap(services);
         return this;
     }
 
     /**
      * Sets the {@code Address} of the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withAddress(String address) {
+    public VendorBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -82,7 +91,7 @@ public class ServiceProviderBuilder {
     /**
      * Sets the {@code Phone} of the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withPhone(String phone) {
+    public VendorBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -90,7 +99,7 @@ public class ServiceProviderBuilder {
     /**
      * Sets the {@code Email} of the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withEmail(String email) {
+    public VendorBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
@@ -98,7 +107,7 @@ public class ServiceProviderBuilder {
     /**
      * Sets the {@code id} of the {@code Vendor} that we are building.
      */
-    public ServiceProviderBuilder withId(int id) {
+    public VendorBuilder withId(int id) {
         this.id = id;
         return this;
     }

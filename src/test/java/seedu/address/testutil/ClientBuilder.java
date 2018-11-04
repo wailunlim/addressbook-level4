@@ -73,6 +73,15 @@ public class ClientBuilder {
     }
 
     /**
+     * Parses the {@code services} into a {@code Map<String, Service>}
+     * and set it to the {@code Client} that we are building.
+     */
+    public ClientBuilder withServices(String ... services) {
+        this.services = SampleDataUtil.getServicesMap(services);
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code Client} that we are building.
      */
     public ClientBuilder withAddress(String address) {
@@ -101,14 +110,6 @@ public class ClientBuilder {
      */
     public ClientBuilder withId(int id) {
         this.id = id;
-        return this;
-    }
-
-    /**
-     *  Sets the {@code service} of the {@code Client} that we are building
-     */
-    public ClientBuilder withServices(Service service) {
-        this.services.put(service.getName(), service);
         return this;
     }
 

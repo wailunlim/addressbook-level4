@@ -14,8 +14,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ClientBuilder;
-import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
+import seedu.address.testutil.VendorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -44,7 +44,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newServiceProvider_success() {
-        Contact validContact = new ServiceProviderBuilder().build();
+        Contact validContact = new VendorBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
         expectedModel.addContact(validContact);

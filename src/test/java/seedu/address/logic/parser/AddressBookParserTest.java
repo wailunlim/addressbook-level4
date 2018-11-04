@@ -39,7 +39,7 @@ import seedu.address.model.contact.Service;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.ServiceProviderBuilder;
+import seedu.address.testutil.VendorBuilder;
 
 public class AddressBookParserTest {
     private static final String BLANK_SPACE = " ";
@@ -195,7 +195,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_vendor_addservice() throws Exception {
-        Contact contact = new ServiceProviderBuilder().build();
+        Contact contact = new VendorBuilder().build();
         Service service = new Service("photographer", "1000.00");
         AddServiceCommand command = (AddServiceCommand)
                 parser.parseCommand(PersonUtil.getServiceProviderAddServiceCommand(
