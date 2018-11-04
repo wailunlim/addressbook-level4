@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import guitests.guihandles.ServiceCardHandle;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Service;
 import seedu.address.testutil.ClientBuilder;
 
 public class ClientServiceCardTest extends GuiUnitTest {
@@ -18,7 +17,7 @@ public class ClientServiceCardTest extends GuiUnitTest {
     public void display() {
         Contact contact = new ClientBuilder()
                 .withId(1)
-                .withServices(new Service("photographer", "1000.00")).build();
+                .withServices("photographer $1000.00").build();
         ServiceCard serviceCard = new ServiceCard(contact, "photographer");
         uiPartRule.setUiPart(serviceCard);
         assertCardDisplay(serviceCard, contact, 1);
@@ -27,7 +26,7 @@ public class ClientServiceCardTest extends GuiUnitTest {
     @Test
     public void equals() {
         Contact contact = new ClientBuilder()
-                .withServices(new Service("photographer", "1000.00")).build();
+                .withServices("photographer $1000.00").build();
         ServiceCard serviceCard = new ServiceCard(contact, "photographer");
 
         // same client, same index -> returns true
@@ -46,7 +45,7 @@ public class ClientServiceCardTest extends GuiUnitTest {
         // different client, same index -> returns false
         Contact differentContact = new ClientBuilder()
                 .withName("differentName")
-                .withServices(new Service("photographer", "1000.00")).build();
+                .withServices("photographer $1000.00").build();
         assertFalse(serviceCard.equals(new ServiceCard(differentContact, "photographer")));
     }
 

@@ -45,69 +45,72 @@ public class TypicalContacts {
     public static final Contact ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends")
             .withId(clientId++)
-            .build();
+            .withTags("friends").build();
     public static final Contact BENSON = new ClientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withId(clientId++)
             .withTags("owesMoney", "friends").build();
     public static final Contact CARL = new ClientBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withId(clientId++).withAddress("wall street").build();
+            .withEmail("heinz@example.com").withId(clientId++).withAddress("wall street")
+            .withServices("hotel $200.00", "dress $80.00", "catering $1080.00").build();
     public static final Contact DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withId(clientId++).withAddress("10th street").withTags("friends")
-            .build();
+            .withServices("photographer $1888.80", "hotel $700.00", "ring $888.88").build();
     public static final Contact ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withId(clientId++).withAddress("michegan ave").build();
+            .withEmail("werner@example.com").withId(clientId++).withAddress("michegan ave")
+            .withServices("photographer $1000.00", "hotel $288.00", "catering $2000.00").build();
     public static final Contact FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withId(clientId++).withAddress("little tokyo").build();
+            .withEmail("lydia@example.com").withId(clientId++).withAddress("little tokyo")
+            .withServices("catering $2800.00").build();
     public static final Contact GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withId(clientId++).withAddress("4th street").build();
+            .withEmail("anna@example.com").withId(clientId++).withAddress("4th street")
+            .withServices("ring $2000.00").build();
 
     // ServiceProviders below
-    public static final Contact DOMINIC = new ServiceProviderBuilder().withName("Dominic Dong")
+    public static final Contact DOMINIC = new VendorBuilder().withName("Dominic Dong")
             .withAddress("123, Jurong East Ave 6, #08-111").withEmail("dominicdong@example.com")
             .withPhone("94311253")
             .withId(serviceProviderId++)
-            .withTags("friends").build();
-    public static final Contact EEHOOI = new ServiceProviderBuilder().withName("Ng Ee Hooi")
+            .withTags("friends")
+            .build();
+    public static final Contact EEHOOI = new VendorBuilder().withName("Ng Ee Hooi")
             .withAddress("313, Clementi Ave 5, #02-25")
             .withEmail("eehooid@example.com").withPhone("98762432")
             .withId(serviceProviderId++)
-            .withTags("owesMoney", "friends").build();
-    public static final Contact GAN = new ServiceProviderBuilder().withName("Gan Chin Yao")
+            .withTags("owesMoney", "friends")
+            .withServices("dress $68.00").build();
+    public static final Contact GAN = new VendorBuilder().withName("Gan Chin Yao")
             .withAddress("313, Pioneer Ave 5, #02-25")
             .withEmail("gan@example.com").withPhone("18762432")
             .withId(serviceProviderId++)
-            .build();
-    public static final Contact JIANJIE = new ServiceProviderBuilder().withName("Liau Jian Jie")
+            .withServices("ring $588.00", "invitation $100.00").build();
+    public static final Contact JIANJIE = new VendorBuilder().withName("Liau Jian Jie")
             .withAddress("444, River Valley Ave 5, #02-25")
             .withEmail("jj@example.com").withPhone("93762432")
             .withId(serviceProviderId++)
-            .build();
-    public static final Contact WAILUN = new ServiceProviderBuilder().withName("Lim Wai Lun")
+            .withServices("photographer $1888.00", "invitation $288.00").build();
+    public static final Contact WAILUN = new VendorBuilder().withName("Lim Wai Lun")
             .withAddress("313, Red Hill Ave 5, #02-25")
             .withEmail("wailunoob@example.com").withPhone("98761432")
             .withId(serviceProviderId++)
-            .build();
-    public static final Contact SIJI = new ServiceProviderBuilder().withName("Dong SiJi")
+            .withServices("transport $60.00", "dress $100.00").build();
+    public static final Contact SIJI = new VendorBuilder().withName("Dong SiJi")
             .withAddress("313, Buona Vista Ave 5, #02-25")
             .withEmail("dong.siji@example.com").withPhone("91232432")
             .withId(serviceProviderId++)
-            .build();
-    public static final Contact CHINYAO = new ServiceProviderBuilder().withName("Chino")
+            .withServices("catering $2800.00", "transport $100.80").build();
+    public static final Contact CHINYAO = new VendorBuilder().withName("Chino")
             .withAddress("313, Pasir Ris Ave 5, #02-25")
             .withEmail("chinoyaobi@example.com").withPhone("98711132")
             .withId(serviceProviderId++)
-            .build();
-    public static final Contact JON = new ServiceProviderBuilder().withName("Jon")
+            .withServices("hotel $600.00", "ring $1800.00").build();
+    public static final Contact JON = new VendorBuilder().withName("Jon")
             .withAddress("313, Clementi Ave 5, #02-25")
             .withEmail("jon@example.com").withPhone("91352468")
             .withId(serviceProviderId++)
-            .build();
-
-
+            .withServices("photographer $888.00", "invitation $100.00").build();
 
     private TypicalContacts() {} // prevents instantiation
 

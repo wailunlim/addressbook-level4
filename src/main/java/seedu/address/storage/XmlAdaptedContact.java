@@ -69,21 +69,6 @@ public class XmlAdaptedContact {
     }
 
     /**
-     * Constructs an {@code XmlAdaptedContact} with the given client details.
-     */
-    public XmlAdaptedContact(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                             ContactType type) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-        this.type = type;
-    }
-
-    /**
      * Converts a given Client into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedContact
@@ -99,7 +84,6 @@ public class XmlAdaptedContact {
         services = source.getServicesStream()
                 .map(XmlAdaptedService::new)
                 .collect(Collectors.toList());
-
         type = source.getType();
     }
 
@@ -109,13 +93,13 @@ public class XmlAdaptedContact {
      * @throws IllegalValueException if there were any data constraints violated in the adapted client
      */
     public Contact toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        final List<Service> personServices = new ArrayList<>();
+        final List<Tag> contactTags = new ArrayList<>();
+        final List<Service> contactServices = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            contactTags.add(tag.toModelType());
         }
         for (XmlAdaptedService service : services) {
-            personServices.add(service.toModelType());
+            contactServices.add(service.toModelType());
         }
 
         if (name == null) {
@@ -153,9 +137,9 @@ public class XmlAdaptedContact {
         // Additional metadata to determine if contact is a Client or a Vendor
 
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(contactTags);
         final Map<String, Service> modelServices = new HashMap<>();
-        for (Service service : personServices) {
+        for (Service service : contactServices) {
             modelServices.put(service.getName(), service);
         }
 
@@ -170,7 +154,7 @@ public class XmlAdaptedContact {
             return new Vendor(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelServices);
         }
 
-        throw new IllegalValueException("Illegal contact type. It can only be a client or a service provider.");
+        throw new IllegalValueException("Illegal contact type. It can only be a client or a vendor.");
     }
 
     @Override
@@ -183,13 +167,13 @@ public class XmlAdaptedContact {
             return false;
         }
 
-        XmlAdaptedContact otherPerson = (XmlAdaptedContact) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
-                && Objects.equals(email, otherPerson.email)
-                && Objects.equals(address, otherPerson.address)
-                && tagged.equals(otherPerson.tagged)
-                && type.equals(otherPerson.type)
-                && services.equals(otherPerson.services);
+        XmlAdaptedContact otherContact = (XmlAdaptedContact) other;
+        return Objects.equals(name, otherContact.name)
+                && Objects.equals(phone, otherContact.phone)
+                && Objects.equals(email, otherContact.email)
+                && Objects.equals(address, otherContact.address)
+                && tagged.equals(otherContact.tagged)
+                && type.equals(otherContact.type)
+                && services.equals(otherContact.services);
     }
 }

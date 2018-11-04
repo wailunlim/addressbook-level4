@@ -86,7 +86,7 @@ public abstract class Contact {
 
     // Get the services of the contact.
     public Map<String, Service> getServices() {
-        return services;
+        return Collections.unmodifiableMap(services);
     }
 
     // Get the services of the contact in a stream.

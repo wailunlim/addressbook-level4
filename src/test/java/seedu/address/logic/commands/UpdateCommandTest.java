@@ -30,8 +30,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
-import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
+import seedu.address.testutil.VendorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -62,9 +62,9 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_allFieldsSpecifiedServiceProviderList_success() {
+    public void execute_allFieldsSpecifiedVendorList_success() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        Contact editedContact = new ServiceProviderBuilder().build();
+        Contact editedContact = new VendorBuilder().build();
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.VENDOR);
 
@@ -107,12 +107,12 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedServiceProviderList_success() {
+    public void execute_someFieldsSpecifiedVendorList_success() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Index indexLastPerson = Index.fromOneBased(model.getFilteredContactList().size());
         Contact lastContact = model.getFilteredContactList().get(indexLastPerson.getZeroBased());
 
-        ServiceProviderBuilder personInList = new ServiceProviderBuilder(lastContact);
+        VendorBuilder personInList = new VendorBuilder(lastContact);
         Contact editedContact = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -151,7 +151,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedServiceProviderList_success() {
+    public void execute_noFieldSpecifiedVendorList_success() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, new EditContactDescriptor(),
                 ContactType.VENDOR);
@@ -191,12 +191,12 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_serviceProviderList_success() {
+    public void execute_vendorList_success() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         showContactAtIndex(model, INDEX_FIRST_PERSON);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Contact editedContact = new ServiceProviderBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
+        Contact editedContact = new VendorBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build(), ContactType.VENDOR);
 
@@ -223,7 +223,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_duplicateContactServiceProviderList_failure() {
+    public void execute_duplicateContactVendorList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
@@ -234,7 +234,7 @@ public class UpdateCommandTest {
 
     // Create a client that is a duplicate of a vendor --> command failure
     @Test
-    public void execute_duplicateClientAndServiceProviderList_failure() {
+    public void execute_duplicateClientAndVendorList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
@@ -259,7 +259,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_duplicateServiceProviderFilteredList_failure() {
+    public void execute_duplicateVendorFilteredList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         showContactAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -284,7 +284,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_invalidServiceProviderIndexServiceProviderList_failure() {
+    public void execute_invalidVendorIndexServiceProviderList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();

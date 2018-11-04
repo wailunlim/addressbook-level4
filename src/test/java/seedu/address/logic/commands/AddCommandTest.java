@@ -23,8 +23,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.account.Account;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ClientBuilder;
-import seedu.address.testutil.ServiceProviderBuilder;
 import seedu.address.testutil.TypicalAccount;
+import seedu.address.testutil.VendorBuilder;
 
 public class AddCommandTest {
 
@@ -57,7 +57,7 @@ public class AddCommandTest {
     @Test
     public void execute_serviceProviderAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
-        Contact validContact = new ServiceProviderBuilder().build();
+        Contact validContact = new VendorBuilder().build();
 
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub, commandHistory);
 
@@ -80,7 +80,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateServiceProvider_throwsCommandException() throws Exception {
-        Contact validContact = new ServiceProviderBuilder().build();
+        Contact validContact = new VendorBuilder().build();
         AddCommand addCommand = new AddCommand(validContact);
         ModelStub modelStub = new ModelStubWithContact(validContact);
 

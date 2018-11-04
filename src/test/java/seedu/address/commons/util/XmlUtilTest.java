@@ -50,7 +50,7 @@ public class XmlUtilTest {
     private static final List<XmlAdaptedTag> VALID_TAGS =
             Collections.singletonList(new XmlAdaptedTag("friends"));
     private static final List<XmlAdaptedService> VALID_SERVICES =
-            Collections.singletonList(new XmlAdaptedService("photographer $200"));
+            Collections.singletonList(new XmlAdaptedService("photographer $200.00"));
     private static final ContactType VALID_CONTACT_TYPE = ContactType.CLIENT;
 
     private static final Path VALID_ACCOUNTFILE = TEST_DATA_FOLDER.resolve("accountlist.xml");
@@ -105,7 +105,7 @@ public class XmlUtilTest {
         XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedContactWithRootElement.class);
         XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_SERVICES, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -114,7 +114,7 @@ public class XmlUtilTest {
         XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedContactWithRootElement.class);
         XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_SERVICES, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -123,7 +123,7 @@ public class XmlUtilTest {
         XmlAdaptedContact actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedContactWithRootElement.class);
         XmlAdaptedContact expectedPerson = new XmlAdaptedContact(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_CONTACT_TYPE);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_SERVICES, VALID_CONTACT_TYPE);
         assertEquals(expectedPerson, actualPerson);
     }
 
