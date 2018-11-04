@@ -168,11 +168,11 @@ public class AddressBookParser {
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case AutoMatchCommand.COMMAND_WORD_CLIENT:
-            requireIdentifierNonNull(identifier, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE);
+            requireIdentifierNonNull(identifier, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE_CLIENT);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AutoMatchCommand.COMMAND_WORD_VENDOR:
-            requireIdentifierNonNull(identifier, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE);
+            requireIdentifierNonNull(identifier, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE_VENDOR);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AddCommand.COMMAND_WORD_VENDOR:
