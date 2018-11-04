@@ -49,7 +49,7 @@ public class SelectCommandTest {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                ContactType.CLIENT));
+                outOfBoundsIndex.getOneBased()));
     }
 
     @Test

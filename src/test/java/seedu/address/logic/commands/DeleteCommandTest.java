@@ -75,7 +75,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.CLIENT);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, ContactType.VENDOR);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.VENDOR));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
     }
 
     /**
@@ -285,7 +285,7 @@ public class DeleteCommandTest {
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.CLIENT));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -300,7 +300,7 @@ public class DeleteCommandTest {
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ContactType.VENDOR));
+                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

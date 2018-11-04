@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+
 import seedu.address.logic.commands.AutoMatchCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code AutoMatchCommand} object
@@ -14,16 +17,17 @@ public class AutoMatchCommandParser implements Parser<AutoMatchCommand> {
      * Parses the given {@code String} of arguments in the context of the {@code AutoMatchCommand} and returns an
      * {@code AutoMatchCommand} object for execution.
      */
-    public AutoMatchCommand parse(String args) {
-        String trimmedArgs = args.trim();
+    public AutoMatchCommand parse(String args) throws ParseException {
 
-        if (trimmedArgs.isEmpty()) {
-            return new AutoMatchCommand(null, null);
-        }
-
-        String[] entity = trimmedArgs.split("#");
+        String[] entity = args.trim().split("#");
         String entityType = entity[ENTITY_TYPE];
-        String entityId = entity[ENTITY_ID];
+        String entityId;
+
+        try {
+            entityId = entity[ENTITY_ID];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
+        }
 
         return new AutoMatchCommand(entityType, entityId);
     }

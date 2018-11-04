@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
@@ -26,12 +25,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            Index id = ParserUtil.parseIndex(requireNonNull(args).substring(1));
+            Index id = ParserUtil.parseIndex(args.substring(1));
             return new DeleteCommand(id, contactType);
-        } catch (ParseException | NullPointerException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            String.format(DeleteCommand.MESSAGE_USAGE, contactType, "#<ID>")), e);
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, args.substring(1)));
         }
     }
 

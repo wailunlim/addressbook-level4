@@ -107,7 +107,6 @@ public class AddressBookParser {
 
         final String commandWord = getCommandWord(firstWord, secondWord);
 
-        System.out.println(arguments);
         switch (commandWord) {
 
         case RegisterAccountCommand.COMMAND_WORD:
@@ -120,9 +119,11 @@ public class AddressBookParser {
             return new EditPasswordCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD_CLIENT:
+            requireIdentifierNonNull(identifier, ContactType.CLIENT, SelectCommand.MESSAGE_USAGE);
             return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
         case SelectCommand.COMMAND_WORD_VENDOR:
+            requireIdentifierNonNull(identifier, ContactType.VENDOR, SelectCommand.MESSAGE_USAGE);
             return new SelectCommandParser(ContactType.VENDOR).parse(identifier);
 
         case ClearCommand.COMMAND_WORD:
@@ -149,6 +150,7 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD_CLIENT:
             requireEmptyArguments(arguments);
+            requireIdentifierNonNull(identifier, ContactType.CLIENT, DeleteCommand.MESSAGE_USAGE);
             return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
         case ListCommand.COMMAND_WORD_CLIENT:
@@ -166,7 +168,11 @@ public class AddressBookParser {
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case AutoMatchCommand.COMMAND_WORD_CLIENT:
+            requireIdentifierNonNull(identifier, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE);
+            return new AutoMatchCommandParser().parse(firstWord + identifier);
+
         case AutoMatchCommand.COMMAND_WORD_VENDOR:
+            requireIdentifierNonNull(identifier, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AddCommand.COMMAND_WORD_VENDOR:
@@ -175,6 +181,7 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD_VENDOR:
             requireEmptyArguments(arguments);
+            requireIdentifierNonNull(identifier, ContactType.VENDOR, DeleteCommand.MESSAGE_USAGE);
             return new DeleteCommandParser(ContactType.VENDOR).parse(identifier);
 
         case ListCommand.COMMAND_WORD_VENDOR:

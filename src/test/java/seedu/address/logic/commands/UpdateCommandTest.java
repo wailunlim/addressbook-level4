@@ -279,7 +279,8 @@ public class UpdateCommandTest {
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor, ContactType.CLIENT);
 
-        assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(updateCommand, model, commandHistory, String.format(
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -289,7 +290,8 @@ public class UpdateCommandTest {
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor, ContactType.VENDOR);
 
-        assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(updateCommand, model, commandHistory, String.format(
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
     }
 
     /**
@@ -356,7 +358,8 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, descriptor, ContactType.CLIENT);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(updateCommand, model, commandHistory, String.format(
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, outOfBoundIndex.getOneBased()));
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
