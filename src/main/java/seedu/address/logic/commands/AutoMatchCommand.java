@@ -56,7 +56,8 @@ public class AutoMatchCommand extends Command {
         requireNonNull(model);
 
         // Update filtered contact list to contain all contacts and get the list
-        model.updateFilteredContactList(x -> true);
+        EventsCenter.getInstance().post(new DeselectRequestEvent());
+        model.updateFilteredContactList(x -> false);
         model.getFilteredContactList();
 
         Contact contact;
@@ -116,8 +117,6 @@ public class AutoMatchCommand extends Command {
         // Post new event to display UI in table.
         EventsCenter.getInstance().post(new DisplayAutoMatchResultRequestEvent());
         // TODO: use the auto-match results to print a useful output.
-
-        EventsCenter.getInstance().post(new DeselectRequestEvent());
 
         ContactType resultContactType = contact instanceof Client ? ContactType.VENDOR
                 : ContactType.VENDOR;
