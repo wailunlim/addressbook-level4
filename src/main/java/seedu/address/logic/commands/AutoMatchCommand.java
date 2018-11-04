@@ -32,13 +32,13 @@ public class AutoMatchCommand extends Command {
     public static final String COMMAND_WORD_CLIENT = "client" + " " + COMMAND_WORD;
     public static final String COMMAND_WORD_VENDOR = "vendor" + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE_CLIENT = COMMAND_WORD + ": Finds all vendors that can fulfil any of the service"
-            + "requirements of the client at his/her listed cost price."
+    public static final String MESSAGE_USAGE_CLIENT = COMMAND_WORD + ": Finds all vendors that can fulfil any of the"
+            + "service requirements of the client at his/her listed cost price."
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: client#123 " + COMMAND_WORD + " automatch";
-    public static final String MESSAGE_USAGE_VENDOR = COMMAND_WORD + ": Finds all clients that has service requirements "
-            + "that can be served by the service provider at their listed cost price."
+    public static final String MESSAGE_USAGE_VENDOR = COMMAND_WORD + ": Finds all clients that has service "
+            + "requirements that can be served by the service provider at their listed cost price."
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: vendor#123 " + COMMAND_WORD + " automatch";
