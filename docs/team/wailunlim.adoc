@@ -14,8 +14,50 @@ Heart² is a desktop wedding application used for matching service providers to 
 == Summary of contributions
 
 * *Major enhancement*:
+
+Updated the command parser of Heart².
+
 ** What it does:
+
+Gives the users of Heart² a command syntax that is intuitive to use.
+
 ** Justification:
+
+Heart², being a Wedding Management System, supports two different types of contacts, namely `client` and `vendor`.
+However, we also noted that such added functionality might inadvertently add complexity to Heart².
+Keeping our users in mind, we thus sought to redesign our command syntax to make it intuitive to the user.
+
+** Highlights:
+
+Heart² features an intuitive command syntax for our users' benefit. Users can follow a simple rule summarised below:
+
+_Commands pertaining to contacts start with `client` and `vendor` respectively.
+To specify a particular `client` or `vendor`, simply append the unique ID of the contact at the back._
+
+Examples:
+
+`vendor list`
+
+`client add n/Bob e/bob@example.com p/999 a/Bobby Street`
+
+`vendor#3 update p/987`
+
+`client#5 delete`
+
+
+* *Major enhancement*:
+
+Extended the `add`, `delete, `update` and `select` commands of Heart².
+
+** What it does:
+
+Allows users to use these commands...
+
+** Justification:
+
+As a Wedding Management System, we identified that our key stakeholders are the clients and the vendors.
+We chose to...
+
 ** Highlights:
 
 * *Minor enhancement*:
