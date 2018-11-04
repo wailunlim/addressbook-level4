@@ -337,7 +337,7 @@ Available Service Types `SERVICE_TYPE`:
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `vendor#123 addservice s/photography c/2000`
+|* `vendor#123 addservice s/photographer c/2000`
  * `vendor#123 addservice s/catering c/10000`
 |=====
 
