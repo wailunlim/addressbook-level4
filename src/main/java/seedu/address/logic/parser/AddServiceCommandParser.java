@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -47,21 +47,28 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
                     String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
         }
 
-        Optional<String> serviceName = argMultimap.getValue(PREFIX_SERVICE);
-        Optional<String> serviceCost = argMultimap.getValue(PREFIX_COST);
+        List<String> allServiceNames = argMultimap.getAllValues(PREFIX_SERVICE);
+        List<String> allServiceCost = argMultimap.getAllValues(PREFIX_COST);
 
-        if (serviceName.isPresent() && serviceCost.isPresent()) {
-            if (!Service.isValidServiceName(serviceName.get())) {
-                throw new ParseException(Service.MESSAGE_SERVICE_NAME_CONSTRAINTS);
-            }
-            if (!Service.isValidServiceCost(serviceCost.get())) {
-                throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
-            }
-            Service service = new Service(serviceName.get(), serviceCost.get());
-            return new AddServiceCommand(id, service, contactType);
+        // Guard against missing or extraneous service name/cost
+        if (allServiceNames.size() != 1 || allServiceCost.size() != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
         }
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
+
+        String serviceName = allServiceNames.get(0);
+        String serviceCost = allServiceCost.get(0);
+
+        // Guard against invalid service types
+        if (!Service.isValidServiceName(serviceName)) {
+            throw new ParseException(Service.MESSAGE_SERVICE_NAME_CONSTRAINTS);
+        }
+        if (!Service.isValidServiceCost(serviceCost)) {
+            throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
+        }
+
+        Service service = new Service(serviceName, serviceCost);
+        return new AddServiceCommand(id, service, contactType);
     }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
