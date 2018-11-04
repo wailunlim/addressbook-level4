@@ -54,7 +54,7 @@ image::format.png[width="256"]
 * Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
-* `<ID>` is to replaced with a valid ID 
+* `<ID>` is to replaced with a valid ID
 
 
 
