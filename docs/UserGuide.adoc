@@ -44,6 +44,7 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
+
 The following format is consistent for all the commands listed in this section.
 
 image::format.png[width="256"]
@@ -66,7 +67,9 @@ image::format.png[width="256"]
 |=====
 
 image::commands.png[width="256"]
-The following section documents all the commands available in this application.
+
+Heart² is designed with an intuitive command syntax for your ease of use.
+The following section documents all the commands available for you in this application.
 
 === Viewing help : `help`
 
@@ -129,7 +132,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 |`change password o/jf3nv n/j9y3nd`
 |=====
 
-=== Manipulating contacts
+=== Working with contacts
 
 There are two types of contacts supported by Heart², namely `client` and `vendor`.
 
@@ -218,7 +221,7 @@ Format: `<CONTACT_TYPE>#<ID> select`
 |`vendor#3 select`
 |=====
 
-==== Deleting a client
+==== Deleting a contact
 
 You can also `delete` a contact from Heart², by specifying its unique ID.
 
@@ -235,7 +238,7 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 |`vendor#12 delete`
 |=====
 
-==== Updating a client profile
+==== Updating a contact
 
 You can also `update` a contact's particulars, again by specifying its unique ID.
 
