@@ -264,11 +264,10 @@ Attributes of the services your clients require or vendors can provide can be in
 ====
 Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
 ====
-Format: `<CONTACT_TPYE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
 Available Service Types `SERVICE_TYPE`:
 
-[width="%"]
 |=======
 |`photographer` |`dress` | invitation
 |`hotel` |`ring` |
