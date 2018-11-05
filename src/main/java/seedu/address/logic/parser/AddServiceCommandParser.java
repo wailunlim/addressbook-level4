@@ -66,7 +66,7 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
             throw new ParseException(Service.MESSAGE_SERVICE_COST_CONSTRAINTS);
         }
 
-        Service service = new Service(serviceName, serviceCost);
+        Service service = new Service(serviceName.toLowerCase(), serviceCost);
         return new AddServiceCommand(id, service, contactType);
     }
     /**

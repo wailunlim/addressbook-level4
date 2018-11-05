@@ -80,7 +80,7 @@ public class Service {
      */
     public static boolean isValidServiceName(String test) {
         for (ServiceType s : ServiceType.values()) {
-            if (s.name().equals(test)) {
+            if (s.name().equals(test.toLowerCase())) {
                 return true;
             }
         }
