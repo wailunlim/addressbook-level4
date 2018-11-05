@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
 
@@ -37,9 +38,7 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
         try {
             id = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format
-                    (MESSAGE_INVALID_COMMAND_FORMAT,
-                            String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, argMultimap.getPreamble()));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SERVICE, PREFIX_COST)) {
@@ -56,7 +55,7 @@ public class AddServiceCommandParser implements Parser<AddServiceCommand> {
                     String.format(AddServiceCommand.MESSAGE_USAGE, contactType, "#<ID>")));
         }
 
-        String serviceName = allServiceNames.get(0);
+        String serviceName = allServiceNames.get(0).toLowerCase();
         String serviceCost = allServiceCost.get(0);
 
         // Guard against invalid service types
