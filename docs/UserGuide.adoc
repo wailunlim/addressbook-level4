@@ -240,7 +240,7 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 
 ==== Updating a contact
 
-You can also `update` a contact's particulars, again by specifying its unique ID.
+You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
 Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
