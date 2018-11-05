@@ -93,6 +93,8 @@ Format: `logout`
 
 Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
+Condition: Username and password cannot be empty, or contain space.
+
 [NOTE]
 It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
@@ -113,7 +115,7 @@ either
 
 Change your current account password from an old password to a new password.
 
-Condition: your old password is typed in correctly, and new password should not be the same as old password.
+Condition: your old password is typed in correctly, and new password should not be the same as old password. Password cannot be empty or contains space.
 
 [CAUTION]
 Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
