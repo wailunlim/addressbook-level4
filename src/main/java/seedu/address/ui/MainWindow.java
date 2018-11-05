@@ -61,6 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private LoginWindow loginWindow;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -187,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         // Show status bar
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         // Show command box
@@ -333,6 +334,8 @@ public class MainWindow extends UiPart<Stage> {
         show();
         if (!hasFilledParts) {
             fillInnerParts();
+        } else {
+            statusBarFooter.setUsernameStatus("username: " + UserPrefs.getUsernameToDisplay());
         }
     }
 
