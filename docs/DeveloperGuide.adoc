@@ -1388,6 +1388,77 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Register an account
+
+*MSS*
+
+1.  User requests to register a new account
+2.  System validates the information entered and register the new account
+3.  User has successfully register a new account
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User is not a `SUPER_USER`.
++
+[none]
+** 1a1. System rejects the command to register a new account and feedback to the user that he is not a `SUPER_USER`.
++
+Use case ends.
+
+* 1b. User types in an invalid username.
++
+[none]
+** 1b1. System prompts the User the correct format of the command that can be used.
++
+Use case ends.
+
+* 1c. User types in an invalid password.
++
+[none]
+** 1c1. System prompts the User the correct format of the password that can be used.
++
+Use case ends.
+
+* 1d. User types in a username that already exists.
++
+[none]
+** 1d1. System prompts the User that the username has been taken and suggest the User to choose another username.
++
+Use case ends.
+
+
+=== Use case: Changing an existing account password
+
+*MSS*
+
+1.  User requests to change the password of his account
+2.  System validates the information entered and change the user password.
+3.  User's password is successfully updated.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User's old password is typed in wrongly.
++
+[none]
+** 1a1. System rejects the command to change the user's password and feedback to the user that his old password was typed in wrongly.
++
+Use case ends.
+
+[none]
+* 1b. User new password is invalid format.
++
+[none]
+** 1a1. System prompts the user that his password is not a valid password and proceed to tell the user whether he has entered an empty password or a password with space.
++
+Use case ends.
+
 // tag::listMSS[]
 [discrete]
 === Use case: List all the Clients or Service Providers
