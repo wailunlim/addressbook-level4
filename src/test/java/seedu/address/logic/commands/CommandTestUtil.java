@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactContainsKeywordsPredicate;
-import seedu.address.model.contact.Service;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -39,8 +40,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_SERVICE_PHOTO = "photographer";
     public static final String VALID_SERVICE_HOTEL = "hotel";
+    public static final String VALID_SERVICE_RING = "ring";
     public static final String VALID_SERVICE_COST_MIN = "0.01";
     public static final String VALID_SERVICE_COST_MID = "1000.00";
+    public static final String VALID_SERVICE_COST_RING = "2000.00";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -52,20 +55,25 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String SERVICE_DESC_HOTEL = " " + PREFIX_SERVICE + VALID_SERVICE_HOTEL;
+    public static final String SERVICE_DESC_RING = " " + PREFIX_SERVICE + VALID_SERVICE_RING;
+    public static final String SERVICE_COST_DESC_MID = " " + PREFIX_COST + VALID_SERVICE_COST_MID;
+    public static final String SERVICE_COST_DESC_RING = " " + PREFIX_COST + VALID_SERVICE_COST_RING;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SERVICE_DESC = " " + PREFIX_SERVICE + "venue"; // not in available list
+    public static final String INVALID_SERVICE_COST_DESC = " " + PREFIX_COST + "0.00"; // must be > 0
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final UpdateCommand.EditContactDescriptor DESC_AMY;
     public static final UpdateCommand.EditContactDescriptor DESC_BOB;
-    public static final Service SERVICE_PHOTO;
-    public static final Service SERVICE_HOTEL;
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -74,8 +82,6 @@ public class CommandTestUtil {
         DESC_BOB = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        SERVICE_PHOTO = new Service(VALID_SERVICE_PHOTO, VALID_SERVICE_COST_MID);
-        SERVICE_HOTEL = new Service(VALID_SERVICE_HOTEL, VALID_SERVICE_COST_MIN);
     }
 
     /**

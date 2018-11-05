@@ -15,16 +15,16 @@ image::dongsiji.png[width="150", align="left"]
 {empty}[https://github.com/dongsiji[github]] [<<dongsiji#, portfolio>>]
 
 Role: Testing +
-Component: Model, Logic
+Components: Model, Logic
 
 '''
 
 === Gan Chin Yao
 image::nightyeti.png[width="150", align="left"]
-{empty}[http://github.com/NightYeti[github]] [<<ganchinyao#, portfolio>>]
+{empty}[http://github.com/NightYeti[github]] [<<nightyeti#, portfolio>>]
 
 Role: Team Lead, Deliverables +
-Component: Logic, Storage
+Components: Logic, Storage
 
 '''
 
@@ -33,7 +33,7 @@ image::liaujianjie.png[width="150", align="left"]
 {empty}[http://github.com/liaujianjie[github]] [<<liaujianjie#, portfolio>>]
 
 Role: Code quality, Git expert +
-Component: Logic, Storage
+Components: Logic, Storage
 
 '''
 
@@ -42,7 +42,7 @@ image::wailunlim.png[width="150", align="left"]
 {empty}[http://github.com/wailunlim[github]] [<<limwailun#, portfolio>>]
 
 Role: Integration +
-Component: Model, Logic
+Components: Model, Logic
 
 '''
 
@@ -51,6 +51,6 @@ image::eehooi.png[width="150", align="left"]
 {empty}[http://github.com/eehooi[github]] [<<eehooi#, portfolio>>]
 
 Role: Documentation +
-Component: Logic, UI
+Components: Logic, UI
 
 '''
