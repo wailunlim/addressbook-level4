@@ -44,6 +44,7 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
+
 The following format is consistent for all the commands listed in this section.
 
 image::format.png[width="256"]
@@ -52,6 +53,9 @@ image::format.png[width="256"]
 * Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
+* `<ID>` is to replaced with a valid ID
+
 
 
 * Example: An example image shows the source code format for a particular command
@@ -63,7 +67,9 @@ image::format.png[width="256"]
 |=====
 
 image::commands.png[width="256"]
-The following section documents all the commands available in this application.
+
+Heart² is designed with an intuitive command syntax for your ease of use.
+The following section documents all the commands available for you in this application.
 
 === Viewing help : `help`
 
@@ -126,75 +132,127 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 |`change password o/jf3nv n/j9y3nd`
 |=====
 
-=== Manipulating all clients: `client`
+=== Working with contacts
 
-==== Creating a client
+There are two types of contacts supported by Heart², namely `client` and `vendor`.
 
-You can register a client and his/her particulars into the database.
+TIP: All commands pertaining to contacts start with either `client` or `vendor`.
 
-Format: `client add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
+==== Adding a contact
+
+You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
+
+Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 |=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor add n/Mary Jane p/98765432 e/maryjane@gmail.com a/123 Lorem Street, #67-89, Singapore 890321`
+|=====
 
 // tag::listClient[]
-==== Listing and searching for clients
+==== Listing and searching for contacts
 
-You can view clients in the database as a list using the `client list` command.
-
-If you do not key in any parameters, it will list out all the clients,
-otherwise it will list all clients matching all of the search parameters you provided.
-
-Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+You can also `list` your different contacts by specifying the contact type to be shown.
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client list`
- * `client list n/John Doe`
+|`client list`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list`
+|=====
+
+Heart² also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+To search, simply append your search parameters to the back of the original command.
+
+Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list n/John`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list p/98765432`
 |=====
 // end::listClient[]
 
-=== Manipulating a specific client: `client#id`
+=== Manipulating a specific contact
 
-==== Viewing a client
+Contacts in Heart² are assigned a unique ID each for you to refer back to them.
+This unique ID allows you to refer the contact at any point of time when using Heart².
 
-You can view the detailed information about a specific client by his/her id.
+[TIP]
+Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
 
-Format: `client#id select`
+[TIP]
+These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+
+[NOTE]
+IDs can be similar for `client` and `vendor`.
+However, since the contact type and ID comes together, they would still refer to different contacts!
+
+==== Viewing a contact
+
+You can `view` detailed information about a specific contact using its unique ID.
+This information will be displayed on the right panel in Heart².
+
+Format: `<CONTACT_TYPE>#<ID> select`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`client#123 select`
+|`client#3 select`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#3 select`
 |=====
 
-==== Deleting a client
+==== Deleting a contact
 
-You can delete a client by his/her id.
+You can also `delete` a contact from Heart², by specifying its unique ID.
 
-Format: `client#id delete`
+Format: `<CONTACT_TYPE>#<ID> delete`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client#123 delete`
 |=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#12 delete`
+|=====
 
-==== Updating a client profile
+==== Updating a contact
 
-You can update a client profile by his/her id with new particulars.
+You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
-Format: `client#id update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 update p/98765432` (updates `client#123` 's phone number)
- * `client#123 update n/Jane Doe e/janedoe@gmail.com` (updates `client#123` 's name and email address)
+|`client#3 update n/Jane Doe e/janedoe@gmail.com`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#2 update n/Bob Vans e/bobvans@gmail.com`
 |=====
 
 ==== Adding a service requirement for a client
@@ -206,7 +264,7 @@ You must specify the cost which will be in _Singapore Dollars (SGD)_.
 ====
 Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 ====
-Format: `client#id addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
+Format: `client#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
 
 Available Service Types `SERVICE_TYPE`:
 
@@ -233,7 +291,7 @@ You can easily find service providers that can fulfill the requests services wit
 ====
 It only shows you the service providers within the budget of the client.
 ====
-Format: `client#id automatch`
+Format: `client#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -241,76 +299,6 @@ Format: `client#id automatch`
 |* `client#123 automatch`
 |=====
 
-=== Manipulating all service providers: `vendor`
-
-==== Creating a service provider
-
-You can register a service provider to the system with the necessary particulars.
-
-Format: `vendor add n/COMPANY_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/OFFICE_ADDRESS [t/TAG]...`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|`vendor add n/Infinite Studios p/61234567 e/contact@infinitestudios.sg a/123 Infinite Loop`
-|=====
-
-// tag::listSp[]
-==== Listing and searching for service providers
-
-You can view service providers in the database as a list using the `vendor list` command.
-
-If you do not key in any parameters, it will list out all the service providers,
-otherwise it will list all service providers matching all of the search parameters you provided.
-
-Format: `vendor list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|* `vendor list`
- * `vendor list n/John Doe`
-|=====
-// end::listSp[]
-
-=== Manipulating a specific service provider: `vendor#id`
-
-==== Viewing a service provider
-
-You can view the detailed information of a service provider by its id.
-
-Format: `vendor#id select`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|`vendor#123 select`
-|=====
-
-==== Deleting a service provider
-
-You can delete a service provider by its id.
-
-Format: `vendor#id delete`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|`vendor#123 delete`
-|=====
-
-==== Updating a service provider profile
-
-You can update the details of a service provider by its id with new particulars.
-
-Format: `vendor#id update [n/COMPANY_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/OFFICE_ADDRESS] [t/TAG]...`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|* `vendor#123 update p/98765432` (updates `vendor#123` 's phone number)
- * `vendor#123 update e/janedoe@gmail.com a/batcave` (updates `vendor#123` 's email address and office address)
-|=====
 
 ==== Adding a service type supported by service provider
 
@@ -322,7 +310,7 @@ You must specify the cost which will be in _Singapore Dollars (SGD)_.
 Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
 ====
 
-Format: `vendor#id addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
+Format: `vendor#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
 
 Available Service Types `SERVICE_TYPE`:
 
@@ -349,7 +337,7 @@ You can easily find clients whose service requirements match the services offere
 ====
 It only shows you the clients whose budgets can afford the service.
 ====
-Format: `vendor#id automatch`
+Format: `vendor#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
