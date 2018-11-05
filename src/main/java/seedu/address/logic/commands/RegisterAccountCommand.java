@@ -39,8 +39,14 @@ public class RegisterAccountCommand extends Command {
             + "Please make sure to use only \"r/superuser\" "
             + "or r/readonlyuser\" for role.";
     public static final String MESSAGE_FAILURE_FILENOTFOUND = "Failed to find the file to save account to.";
-    public static final String MESSAGE_FAILURE_EMPTYUSERNAME = "Username cannot be empty.";
-    public static final String MESSAGE_FAILURE_EMPTYPASSWORD = "Pasword cannot be empty.";
+    public static final String MESSAGE_FAILURE_EMPTYUSERNAME = "Username cannot be empty."
+            + " Please try again with another username.";
+    public static final String MESSAGE_FAILURE_USERNAMEWITHSPACE = "Username cannot contain space."
+            + " Please try again with another username.";
+    public static final String MESSAGE_FAILURE_EMPTYPASSWORD = "Pasword cannot be empty."
+            + " Please try again with another password.";
+    public static final String MESSAGE_FAILURE_PASSWORDWITHSPACE = "Pasword cannot contain space."
+            + " Please try again with another password.";
     public static final String MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN = "You can only register an account after "
             + "logging in. Please contact your admin to get an account.";
     public static final String MESSAGE_FAILURE_DUPLICATE = "Username is taken. Please try again with another username.";

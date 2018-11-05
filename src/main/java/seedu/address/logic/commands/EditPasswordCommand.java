@@ -40,6 +40,14 @@ public class EditPasswordCommand extends Command {
     public static final String MESSAGE_FAILURE_SAMEPASSWORD = "Failed to change your password. "
             + "Your old password and new password is the same.";
     public static final String MESSAGE_FAILURE = "Failed to change your password.";
+    public static final String MESSAGE_FAILURE_EMPTYOLDPASSWORD = "Old password cannot be empty."
+            + " Please try again with your correct old password.";;
+    public static final String MESSAGE_FAILURE_OLDPASSWORDWITHSPACE = "Old password cannot contain space."
+            + " Please try again with your correct old password.";
+    public static final String MESSAGE_FAILURE_EMPTYNEWPASSWORD = "New Password cannot be empty."
+            + " Please try again with another new password.";;
+    public static final String MESSAGE_FAILURE_NEWPASSWORDWITHSPACE = "New Password cannot contain space."
+            + " Please try again with another new password.";
 
     private String userTypedOldPassword;
     private String userTypedNewPassword;
