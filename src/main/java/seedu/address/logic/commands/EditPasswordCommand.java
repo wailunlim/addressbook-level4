@@ -28,7 +28,7 @@ public class EditPasswordCommand extends Command {
             + "Parameters: "
             + PREFIX_OLDPASSWORD + "OLD_PASSWORD "
             + PREFIX_NEWPASSWORD + "NEW_PASSWORD "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_OLDPASSWORD + "thisIsMyOldPassw0rd "
             + PREFIX_NEWPASSWORD + "thisIsMyNewPassw0rd";
 

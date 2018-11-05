@@ -33,7 +33,7 @@ public class LoginCommand extends Command {
             + "Parameters: "
             + PREFIX_USERNNAME + "USERNAME "
             + PREFIX_PASSWORD + "PASSWORD "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_USERNNAME + "heartsquare "
             + PREFIX_PASSWORD + "H3artSquar3";
 

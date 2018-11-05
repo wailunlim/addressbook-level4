@@ -36,6 +36,9 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
         Optional<String> password = argMultimap.getValue(RegisterAccountCommand.PREFIX_PASSWORD);
         Optional<String> role = argMultimap.getValue(RegisterAccountCommand.PREFIX_ROLE);
 
+        ensureFieldNotEmptyString(username, RegisterAccountCommand.MESSAGE_FAILURE_EMPTYUSERNAME);
+        ensureFieldNotEmptyString(password, RegisterAccountCommand.MESSAGE_FAILURE_EMPTYPASSWORD);
+
         if (username.isPresent() && password.isPresent() && role.isPresent()) {
             String roleName = role.get();
 
@@ -51,6 +54,12 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterAccountCommand.MESSAGE_USAGE));
+    }
+
+    private void ensureFieldNotEmptyString(Optional<String> field, String commandFailureMessage) throws ParseException {
+        if (field.isPresent() && field.get().equals("")) {
+            throw new ParseException(commandFailureMessage);
+        }
     }
 
     /**
