@@ -138,7 +138,7 @@ There are two types of contacts supported by Heart², namely `client` and `vendo
 
 TIP: All commands pertaining to contacts start with either `client` or `vendor`.
 
-==== Adding a contact
+==== Adding a contact: `add`
 
 You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
 
@@ -156,7 +156,7 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 |=====
 
 // tag::listClient[]
-==== Listing and searching for contacts
+==== Listing and searching for contacts: `list`
 
 You can also `list` your different contacts by specifying the contact type to be shown.
 
@@ -190,8 +190,7 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 
 === Manipulating a specific contact
 
-Contacts in Heart² are assigned a unique ID each for you to refer back to them.
-This unique ID allows you to refer the contact at any point of time when using Heart².
+Contacts in Heart² are assigned a unique ID each for you to refer to the contact at any point of time when using Heart².
 
 [TIP]
 Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
@@ -203,25 +202,25 @@ These IDs are persistent for one session. Each restart of Heart reassigns IDs to
 IDs can be similar for `client` and `vendor`.
 However, since the contact type and ID comes together, they would still refer to different contacts!
 
-==== Viewing a contact
+==== Viewing a contact: `view`
 
 You can `view` detailed information about a specific contact using its unique ID.
 This information will be displayed on the right panel in Heart².
 
-Format: `<CONTACT_TYPE>#<ID> select`
+Format: `<CONTACT_TYPE>#<ID> view`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`client#3 select`
+|`client#3 view`
 |=====
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`vendor#3 select`
+|`vendor#3 view`
 |=====
 
-==== Deleting a contact
+==== Deleting a contact: `delete`
 
 You can also `delete` a contact from Heart², by specifying its unique ID.
 
@@ -235,10 +234,10 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`vendor#12 delete`
+|`vendor#123 delete`
 |=====
 
-==== Updating a contact
+==== Updating a contact: `update`
 
 You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
@@ -247,43 +246,50 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`client#3 update n/Jane Doe e/janedoe@gmail.com`
+|`client#123 update n/Jane Doe e/janedoe@gmail.com`
 |=====
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|`vendor#2 update n/Bob Vans e/bobvans@gmail.com`
+|`vendor#123 update n/Bob Vans e/bobvans@gmail.com`
 |=====
 
-==== Adding a service requirement for a client
+// tag::addservice[]
+==== Adding a service: `addservice`
 
-You can add a service requirement for a client by the client's id.
-You must specify the cost which will be in _Singapore Dollars (SGD)_.
+Attributes of the services your clients require or vendors can provide can be indicated using the
+ `addservice` command, by their unique IDs.
 
 [NOTE]
 ====
-Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
+Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
 ====
-Format: `client#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_BUDGET`
+Format: `<CONTACT_TPYE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
 Available Service Types `SERVICE_TYPE`:
 
-* `photographer`
-* `hotel`
-* `catering`
-* `dress`
-* `ring`
-* `transport`
-* `invitation`
+[width="%"]
+|=======
+|`photographer` |`dress` | invitation
+|`hotel` |`ring` |
+|`catering` |`transport` |
+|=======
+
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 addservice s/photographer c/2000`
- * `client#123 addservice s/catering c/10000`
+|`client#123 addservice s/photographer c/2000.00`
 |=====
 
-==== Automatching for a client
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 addservice s/catering c/10000.00`
+|=====
+// end::addservice[]
+
+==== Automatching for a client: `automatch`
 
 You can easily find service providers that can fulfill the requests services with this command.
 
@@ -299,37 +305,7 @@ Format: `client#<ID> automatch`
 |* `client#123 automatch`
 |=====
 
-
-==== Adding a service type supported by service provider
-
-You can add a service type supported by the service provider by its id.
-You must specify the cost which will be in _Singapore Dollars (SGD)_.
-
-[NOTE]
-====
-Please exclude spacing and symbols (e.g. '$' ',') when entering the cost
-====
-
-Format: `vendor#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST_ESTIMATE`
-
-Available Service Types `SERVICE_TYPE`:
-
-* `photographer`
-* `hotel`
-* `catering`
-* `dress`
-* `ring`
-* `transport`
-* `invitation`
-
-[cols="^,<5a", frame=none]
-|=====
-|image:exampleimage.png[width="64", role="center"]
-|* `vendor#123 addservice s/photographer c/2000`
- * `vendor#123 addservice s/catering c/10000`
-|=====
-
-==== Automatching for a service provider
+==== Automatching for a service provider: `automatch`
 
 You can easily find clients whose service requirements match the services offered by a service provider.
 
