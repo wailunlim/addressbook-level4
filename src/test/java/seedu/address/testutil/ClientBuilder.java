@@ -82,6 +82,14 @@ public class ClientBuilder {
     }
 
     /**
+     * Adds the {@code service} to the {@code Client} that we are building.
+     */
+    public ClientBuilder addService(Service service) {
+        this.services.put(service.getName(), service);
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code Client} that we are building.
      */
     public ClientBuilder withAddress(String address) {

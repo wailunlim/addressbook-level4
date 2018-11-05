@@ -21,10 +21,10 @@ Component: listing, searching
 
 === Gan Chin Yao
 image::nightyeti.png[width="150", align="left"]
-{empty}[http://github.com/NightYeti[github]] [<<ganchinyao#, portfolio>>]
+{empty}[http://github.com/NightYeti[github]] [<<nightyeti#, portfolio>>]
 
 Role: Integration +
-Component: login, autocomplete
+Component: login, logout, edit password, register account, salt and hash
 
 '''
 

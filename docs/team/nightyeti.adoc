@@ -52,7 +52,7 @@ image::minor.png[width="400"]
 === Minor enhancements
 
 * *Minor enhancement:* Allows user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User` role.
-* *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges tied to the user account helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` role as he/she does not need to modify data in the application.
+* *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` role as he/she does not need to modify data in the application.
 * *Functional Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/165/[EditPassword] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/89[Access privilege]
 * *Test Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditPasswordCommandTest.java[Edit password] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/model/account/AccountTest.java[Access privilege]
 
@@ -74,6 +74,9 @@ image::others.png[width="400"]
 * *Presentation*:
 ** Gave 2 product demos of the application to the entire class, the first targeting general audiences, and the second targeting company's higher management.
 
+* *All codes contributed*:
+** Check out link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=nightyeti[here]
+
 {empty} +
 
 == Contributions to the User Guide
@@ -83,7 +86,7 @@ image::userguideheader.png[width="400"]
 |_This section shows what I have contributed to the User Guide. It showcases my ability to write documentation targetting end-user._
 |===
 
-Github link to full User Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/UserGuide.adoc
+Link to the full User Guide: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/UserGuide.adoc[Github link]
 
 === Overview of contributions
 Below is an overview of what I have contributed towards the User Guide.
@@ -212,7 +215,7 @@ image::developerguideheader.png[width="400"]
 |_This section shows what I have contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Github link to full Developer Guide: https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc
+Link to the full Developer Guide: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/DeveloperGuide.adoc[Github link]
 
 === Overview of contributions
 Below in an overview of what I have contributed towards the Developer Guide.
@@ -244,7 +247,7 @@ image::parta.png[width="200"]
 === Account Storage component
 
 .Structure of the Account Storage Component
-image::AccountStorageClassDiagram.png[width="800"]
+image::AccountStorageClassDiagram.png[width="700"]
 
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/AccountStorage.java[`AccountStorage.java`]
@@ -268,22 +271,18 @@ All accounts are stored in a file call `/data/accountlist.xml`. This file is gen
 The diagram below shows what happen when a user launches the application:
 
 .Activity diagram when user launches the application
-image::accountstoragediagram.png[width="800"]
-
-{empty} +
+image::accountstoragediagram.png[width="700"]
 
 Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
 
 .Activity diagram when user registers an account
-image::accountcreationdiagram.png[width="800"]
-
-{empty} +
+image::accountcreationdiagram.png[width="700"]
 
 ==== Design Considerations
 ===== Aspect: What file type to store user account as?
 * *Alternative 1 (current choice):* Store it as a `xml` file locally.
 ** Pros: The code to write and read xml file is already present for adding address book contact initially in the Address Book - level 4 app. Hence, adopting this code and modifying it for account storage is easier than coming up with code from scratch.
-** Cons: Xml file is relatively wordy and verbose with all the opening and closing tag. For the same amount of account information, compared to other format such as `json`, more data has to be stored to account for tag elements.
+** Cons: Xml file is relatively wordy and verbose with all the opening and closing tags. For the same amount of account information, more data has to be stored using xml than format such as json.
 * *Alternative 2:* Store it as a `json` file locally.
 ** Pros: Simpler syntax than `xml` and hence less data is required to store the same amount of account information.
 ** Pros: Can be parsed into a ready-to-use JavaScript object.
