@@ -81,6 +81,14 @@ public class VendorBuilder {
     }
 
     /**
+     * Adds the {@code service} to the {@code Vendor} that we are building.
+     */
+    public VendorBuilder addService(Service service) {
+        this.services.put(service.getName(), service);
+        return this;
+    }
+
+    /**
      * Sets the {@code Address} of the {@code Vendor} that we are building.
      */
     public VendorBuilder withAddress(String address) {

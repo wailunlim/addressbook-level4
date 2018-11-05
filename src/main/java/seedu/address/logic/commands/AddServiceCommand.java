@@ -78,13 +78,15 @@ public class AddServiceCommand extends Command {
         if (filteredList.size() == 0) {
             // filtered list size is 0, meaning there is no such contact
             model.updateFilteredContactList(contactType.getFilter());
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                    id.getOneBased()));
         }
 
         Contact contactToEdit = filteredList.get(0);
         Contact editedContact;
 
         if (contactToEdit.hasService(service)) {
+            model.updateFilteredContactList(contactType.getFilter());
             throw new CommandException(MESSAGE_DUPLICATE_SERVICE);
         } else {
             editedContact = createContactWithService(contactToEdit, service);
@@ -130,7 +132,9 @@ public class AddServiceCommand extends Command {
 
         // state check
         AddServiceCommand e = (AddServiceCommand) other;
-        return id.equals(e.id);
+        return id.equals(e.id)
+                && service.equals(e.service)
+                && contactType.equals(contactType);
     }
 
 }
