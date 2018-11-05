@@ -417,6 +417,44 @@ Address book data are saved in the hard disk automatically after any command tha
 
 There is no need for you to save manually.
 
+== Command summary
+*Before logging in*
+
+* To log in: `login`
+* To get help: `help`
+* Close the application: `exit`
+
+*After logging in*
+
+* Register for a new account: `register account`
+* Log out of your account: `logout`
+* Change your account password: `change password`
+* View the detail of a client: `client# select`
+* View the detail of a vendor: `vendor# select`
+* Delete the entire data entries for both client and vendor: `clear`
+* Delete a particular data entry of a client: `client# delete`
+* Delete a particular data entry of a vendor: `vendor# delete`
+* List all the commands entered: `history`
+* Undo the previous command: `undo`
+* Redo the previous command: `redo`
+* Add an entry to the client: `client add`
+* Add an entry to the vendor: `vendor add`
+* Update the entry of a particular client: `client# update`
+* Update the entry of a particular vendor: `vendor# update`
+* List all the client data: `client list`
+* List all the vendor data: `vendor list`
+* Add a service requirement for a particular client: `client# addservice`
+* Add a service supported by a particular vendor: `vendor# addservice`
+* Auto find a match to fit a particular client's requirements: `client# automatch`
+* Auto find a match to fit a particular vendor's services: `vendor# automatch`
+* To get help: `help`
+* Close the application: `exit`
+
+*Coming in v2.0*
+
+* Retrieve forgotten password: `forget password`
+
+
 == FAQ
 image::faqpicture.png[width="400"]
 

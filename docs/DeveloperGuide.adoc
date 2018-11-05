@@ -509,6 +509,15 @@ if (!account.hasWritePrivilege()) {
 ** Pros: Since Role enum contains all the different roles such as `READ_ONLY_USER` and `SUPER_USER`, it is easy to reference all the different types of roles and the privileges in 1 file. This makes adding more roles and privileges in the future easy.
 ** Cons: It sounds awkward to have privileges associated with Role rather than with an Account.
 
+===== Aspect: What type of access control to use?
+* *Alternative 1 (current choice):* Role based access control. (RBAC)
+** Pros: Most relevant in the context of this application. Allows application owner to set privileges for employees.
+** Cons: User does not have a say in access control, even in content created by them.
+* *Alternative 2:* Discretionary Access Control (DAC)
+** Pros: Less restrictive. Allows individual complete control over content they have created.
+** Cons: Not really applicable in our context as we want to restrict employee access to data. Employee's access control based on their individual roles in the company seems more appropriate than employees having access based on the content they create.
+
+
 === Account storage
 All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
 
