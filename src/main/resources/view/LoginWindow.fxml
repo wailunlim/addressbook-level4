@@ -45,8 +45,8 @@
                             <Region prefHeight="140.0" prefWidth="601.0" />
                         </StackPane>
 
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
-                            <Label fx:id="statusPlaceholder" alignment="CENTER" wrapText="true" prefHeight="200.0" prefWidth="1000.0"
+                        <StackPane prefHeight="250.0" prefWidth="200.0">
+                            <Label fx:id="statusPlaceholder" alignment="CENTER" wrapText="true" prefHeight="250.0" prefWidth="1000.0"
                                    text="Welcome! Enter a command below.">
                                 <font>
                                     <Font size="16.0" />

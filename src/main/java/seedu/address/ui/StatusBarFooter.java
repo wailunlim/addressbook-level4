@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.UserPrefs;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -42,6 +43,8 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar syncStatus;
     @FXML
     private StatusBar saveLocationStatus;
+    @FXML
+    private StatusBar usernameStatus;
 
 
     public StatusBarFooter(Path saveLocation) {
@@ -49,6 +52,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setSyncStatus(SYNC_STATUS_INITIAL);
         setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
         registerAsAnEventHandler(this);
+        setUsernameStatus("username: " + UserPrefs.getUsernameToDisplay());
     }
 
     /**
@@ -71,6 +75,10 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private void setSyncStatus(String status) {
         Platform.runLater(() -> syncStatus.setText(status));
+    }
+
+    public void setUsernameStatus(String status) {
+        Platform.runLater(() -> usernameStatus.setText(status));
     }
 
     @Subscribe

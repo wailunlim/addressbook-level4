@@ -32,10 +32,28 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
         Optional<String> newPassword = argMultimap.getValue(EditPasswordCommand.PREFIX_NEWPASSWORD);
 
         if (oldPassword.isPresent() && newPassword.isPresent()) {
+            ensureFieldNotEmptyString(oldPassword, EditPasswordCommand.MESSAGE_FAILURE_EMPTYOLDPASSWORD);
+            ensureFieldNotEmptyString(newPassword, EditPasswordCommand.MESSAGE_FAILURE_EMPTYNEWPASSWORD);
+            ensureFieldDoesNotContainSpace(oldPassword, EditPasswordCommand.MESSAGE_FAILURE_OLDPASSWORDWITHSPACE);
+            ensureFieldDoesNotContainSpace(newPassword, EditPasswordCommand.MESSAGE_FAILURE_NEWPASSWORDWITHSPACE);
+
             return new EditPasswordCommand(oldPassword.get(), newPassword.get());
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPasswordCommand.MESSAGE_USAGE));
+    }
+
+    private void ensureFieldNotEmptyString(Optional<String> field, String commandFailureMessage) throws ParseException {
+        if (field.get().equals("")) {
+            throw new ParseException(commandFailureMessage);
+        }
+    }
+
+    private void ensureFieldDoesNotContainSpace(Optional<String> field, String commandFailureMessage)
+            throws ParseException {
+        if (field.get().contains(" ")) {
+            throw new ParseException(commandFailureMessage);
+        }
     }
 
     /**

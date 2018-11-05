@@ -65,6 +65,9 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case RegisterAccountCommand.COMMAND_WORD:
+            throw new ParseException(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

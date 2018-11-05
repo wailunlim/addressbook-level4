@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 public class LogoutCommand extends Command {
     public static final String COMMAND_WORD = "logout";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Log out of the application. "
-            + "Example: " + COMMAND_WORD;
+            + "\nExample: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Successfully logged out.";
 

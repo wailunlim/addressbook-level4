@@ -39,6 +39,11 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
         if (username.isPresent() && password.isPresent() && role.isPresent()) {
             String roleName = role.get();
 
+            ensureFieldNotEmptyString(username, RegisterAccountCommand.MESSAGE_FAILURE_EMPTYUSERNAME);
+            ensureFieldNotEmptyString(password, RegisterAccountCommand.MESSAGE_FAILURE_EMPTYPASSWORD);
+            ensureFieldDoesNotContainSpace(username, RegisterAccountCommand.MESSAGE_FAILURE_USERNAMEWITHSPACE);
+            ensureFieldDoesNotContainSpace(password, RegisterAccountCommand.MESSAGE_FAILURE_PASSWORDWITHSPACE);
+
             if (roleName.equalsIgnoreCase("superuser")) {
                 Account account = new Account(username.get(), password.get(), Role.SUPER_USER);
                 return new RegisterAccountCommand(account);
@@ -51,6 +56,19 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RegisterAccountCommand.MESSAGE_USAGE));
+    }
+
+    private void ensureFieldNotEmptyString(Optional<String> field, String commandFailureMessage) throws ParseException {
+        if (field.get().equals("")) {
+            throw new ParseException(commandFailureMessage);
+        }
+    }
+
+    private void ensureFieldDoesNotContainSpace(Optional<String> field, String commandFailureMessage)
+            throws ParseException {
+        if (field.get().contains(" ")) {
+            throw new ParseException(commandFailureMessage);
+        }
     }
 
     /**

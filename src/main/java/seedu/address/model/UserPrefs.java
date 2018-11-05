@@ -11,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
+    private static String usernameToDisplay = "";
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
 
@@ -36,6 +37,14 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public static void setUsernameToDisplay(String name) {
+        usernameToDisplay = name;
+    }
+
+    public static String getUsernameToDisplay() {
+        return usernameToDisplay;
     }
 
     @Override
