@@ -14,6 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.account.Account;
 import seedu.address.model.account.AccountList;
 import seedu.address.model.account.Role;
@@ -81,6 +82,7 @@ public class LoginCommand extends Command {
                 accountToCommit.transformToHashedAccount();
                 model.commitUserLoggedInSuccessfully(accountToCommit);
                 EventsCenter.getInstance().post(new DeselectRequestEvent());
+                UserPrefs.setUsernameToDisplay(username);
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         } catch (DataConversionException e) {
