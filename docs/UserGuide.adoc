@@ -334,7 +334,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undo the previous command: 'undo'
+=== Undo the previous command: `undo`
 
 Undo the commands that you have entered in chronological order.
 
@@ -350,7 +350,7 @@ The application will show either the client list or service
 provider list corresponding to the command that was undone.
 ====
 
-=== Redo the commands undone: 'redo'
+=== Redo the commands undone: `redo`
 
 Redo the commands that you have undone by undo in chronological order.
 
