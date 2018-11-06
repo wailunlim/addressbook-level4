@@ -550,21 +550,36 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 
 === Add clients and vendors feature
-*_Heart²_* allows you to be able to distinguish between clients and vendors.
+*_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor`.
 
-When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'vendor' by appending 'client' or 'vendor' during adding:
+* `client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House`
+* `vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC`
 
-* 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
-* 'vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
+The above commands adds a `client` and a `service provider` together with the details provided respectively.
 
-The above commands adds a 'client' and a 'vendor' with the specified information respectively.
+This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
 
-This facilitates many other features of *_Heart²_* for your convenience!
+==== Current Implementation
+Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
+When adding a contact, either a new `Client` or a `Vendor` is instantiated.
+Both `Client` and `Vendor` objects are added to a list of generic type `Contact`.
 
-==== Implementation
+In order to differentiate them, there  is a abstract method `Contact#getType()` that `Client` and `Vendor` implements differently.
+`Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
-The keyword 'client' or 'vendor' is used to determine whether a 'Client' or a 'Vendor' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'Vendor' objects. Filters are then applied based on subsequent commands to select only 'client' or 'vendor' objects.
+==== Design Considerations
+Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
 
+* *Alternative 1* (current choice):
+`Client` and `Vendor` objects are stored in a more general `Contact` list.
+** Pros: Easy to implement, only need to tweak the inherited legacy list slightly.
+
+** Cons: Cannot tell immediately if an element in the `Contact` list is a `Client` or `Vendor`.
+
+* *Alternative 2*:
+Hold `Client` and `Vendor` objects differently in two different lists.
+** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
+** Cons: Difficult and extremely tedious to implement.
 
 === Remove clients and vendors feature
 *_Heart²_* allows you to remove 'client' and 'vendor' if you so wish to!
