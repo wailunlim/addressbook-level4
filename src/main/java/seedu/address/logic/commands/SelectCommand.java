@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
             + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
-    public static final String MESSAGE_SELECT_CONTACT_SUCCESS = "Viewing %1$s: %2$s";
+    public static final String MESSAGE_SELECT_CONTACT_SUCCESS = "Viewing %1$s#%2$s";
 
     private final Index id;
     private final ContactType contactType;
