@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import seedu.address.logic.commands.AutoMatchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,7 +18,7 @@ public class AutoMatchCommandParser implements Parser<AutoMatchCommand> {
      * Parses the given {@code String} of arguments in the context of the {@code AutoMatchCommand} and returns an
      * {@code AutoMatchCommand} object for execution.
      */
-    public AutoMatchCommand parse(String args) throws ParseException {
+    public AutoMatchCommand parse(String args) throws ParseException, NumberFormatException {
 
         String[] entity = args.trim().split("#");
         String entityType = entity[ENTITY_TYPE];
@@ -29,7 +30,11 @@ public class AutoMatchCommandParser implements Parser<AutoMatchCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_FORMAT, args));
         }
 
-        return new AutoMatchCommand(entityType, entityId);
+        try {
+            return new AutoMatchCommand(entityType, Integer.parseInt(entityId));
+        } catch (NumberFormatException exception) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, entityId));
+        }
     }
 
 }

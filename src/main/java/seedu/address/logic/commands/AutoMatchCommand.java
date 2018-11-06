@@ -45,11 +45,10 @@ public class AutoMatchCommand extends Command {
             + "Example: vendor#123 " + COMMAND_WORD + " automatch";
 
     private final ContactType contactType;
-    private final String contactId;
+    private final int contactId;
 
-    public AutoMatchCommand(String contactType, String contactId) throws ParseException, NullPointerException {
+    public AutoMatchCommand(String contactType, int contactId) throws ParseException, NullPointerException {
         requireNonNull(contactType);
-        requireNonNull(contactId);
         this.contactType = ContactType.fromString(contactType);
         this.contactId = contactId;
     }
@@ -67,7 +66,6 @@ public class AutoMatchCommand extends Command {
 
         try {
             // Find the contact for which we are going to find matches for
-            int contactId = Integer.parseInt(this.contactId);
             contact = model
                     .getAddressBook()
                     .getContactList()
@@ -199,6 +197,6 @@ public class AutoMatchCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AutoMatchCommand // instanceof handles nulls
                 && contactType.equals(((AutoMatchCommand) other).contactType)
-                && contactId.equals(((AutoMatchCommand) other).contactId)); // state check
+                && contactId == ((AutoMatchCommand) other).contactId); // state check
     }
 }
