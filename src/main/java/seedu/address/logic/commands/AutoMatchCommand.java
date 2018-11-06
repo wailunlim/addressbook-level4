@@ -47,7 +47,9 @@ public class AutoMatchCommand extends Command {
     private final ContactType contactType;
     private final String contactId;
 
-    public AutoMatchCommand(String contactType, String contactId) throws ParseException {
+    public AutoMatchCommand(String contactType, String contactId) throws ParseException, NullPointerException {
+        requireNonNull(contactType);
+        requireNonNull(contactId);
         this.contactType = ContactType.fromString(contactType);
         this.contactId = contactId;
     }
@@ -70,8 +72,8 @@ public class AutoMatchCommand extends Command {
                     .getAddressBook()
                     .getContactList()
                     .stream()
-                    .filter(c -> (contactType.equals("client") && c instanceof Client)
-                            || (contactType.equals("vendor") && c instanceof Vendor))
+                    .filter(c -> (contactType == ContactType.CLIENT && c instanceof Client)
+                            || (contactType == ContactType.VENDOR && c instanceof Vendor))
                     .filter(c -> c.getId() == contactId)
                     .findFirst()
                     .get();
@@ -115,13 +117,14 @@ public class AutoMatchCommand extends Command {
         model.updateAutoMatchResult(autoMatchResult);
         model.updateFilteredContactList(c -> autoMatchResult.getContacts().contains(c));
 
-        // Post new event to display UI in table.
+        // Post event to display results in table.
         EventsCenter.getInstance().post(new DisplayAutoMatchResultRequestEvent());
-        // TODO: use the auto-match results to print a useful output.
 
+        // Post event to display summary in text box.
         ContactType resultContactType = contact instanceof Client ? ContactType.VENDOR
                 : ContactType.VENDOR;
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(contact));
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         resultContactType));
