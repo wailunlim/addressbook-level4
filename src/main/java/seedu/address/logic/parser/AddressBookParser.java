@@ -122,10 +122,12 @@ public class AddressBookParser {
             return new EditPasswordCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD_CLIENT:
+            requireEmptyArguments(arguments, ContactType.CLIENT, SelectCommand.MESSAGE_USAGE);
             requireIdentifierNonNull(identifier, ContactType.CLIENT, SelectCommand.MESSAGE_USAGE);
             return new SelectCommandParser(ContactType.CLIENT).parse(identifier);
 
         case SelectCommand.COMMAND_WORD_VENDOR:
+            requireEmptyArguments(arguments, ContactType.VENDOR, SelectCommand.MESSAGE_USAGE);
             requireIdentifierNonNull(identifier, ContactType.VENDOR, SelectCommand.MESSAGE_USAGE);
             return new SelectCommandParser(ContactType.VENDOR).parse(identifier);
 
@@ -152,7 +154,7 @@ public class AddressBookParser {
             return new AddCommandParser(ContactType.CLIENT).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_CLIENT:
-            requireEmptyArguments(arguments);
+            requireEmptyArguments(arguments, ContactType.CLIENT, DeleteCommand.MESSAGE_USAGE);
             requireIdentifierNonNull(identifier, ContactType.CLIENT, DeleteCommand.MESSAGE_USAGE);
             return new DeleteCommandParser(ContactType.CLIENT).parse(identifier);
 
@@ -171,10 +173,12 @@ public class AddressBookParser {
                             AddServiceCommand.MESSAGE_USAGE).substring(1), arguments));
 
         case AutoMatchCommand.COMMAND_WORD_CLIENT:
+            requireEmptyArguments(arguments, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE_CLIENT);
             requireIdentifierNonNull(identifier, ContactType.CLIENT, AutoMatchCommand.MESSAGE_USAGE_CLIENT);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
         case AutoMatchCommand.COMMAND_WORD_VENDOR:
+            requireEmptyArguments(arguments, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE_VENDOR);
             requireIdentifierNonNull(identifier, ContactType.VENDOR, AutoMatchCommand.MESSAGE_USAGE_VENDOR);
             return new AutoMatchCommandParser().parse(firstWord + identifier);
 
@@ -183,7 +187,7 @@ public class AddressBookParser {
             return new AddCommandParser(ContactType.VENDOR).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD_VENDOR:
-            requireEmptyArguments(arguments);
+            requireEmptyArguments(arguments, ContactType.VENDOR, DeleteCommand.MESSAGE_USAGE);
             requireIdentifierNonNull(identifier, ContactType.VENDOR, DeleteCommand.MESSAGE_USAGE);
             return new DeleteCommandParser(ContactType.VENDOR).parse(identifier);
 
@@ -211,8 +215,10 @@ public class AddressBookParser {
     /**
      * Ensure that the {@code String} object is non-null.
      * @param identifier The {@code String} object that is to be non-null
+     * @param contactType The {@code ContactType} of the command.
+     * @param messageUsage The correct usage of the command.
      * @return The {@code String} object, if it's non-null
-     * @throws ParseException if {@code String} object is actually null
+     * @throws ParseException If {@code String} object is actually null
      */
     private String requireIdentifierNonNull(String identifier, ContactType contactType, String messageUsage)
             throws ParseException {
@@ -225,22 +231,26 @@ public class AddressBookParser {
     }
 
     /**
-     * Ensures that there are no arguments specified.
-     * @param args
-     * @throws ParseException if there are arguments present i.e not null
+     * Ensure that the {@code String} object is empty.
+     * @param args The {@code String} object that is to be empty.
+     * @param contactType The {@code ContactType} of the command.
+     * @param messageUsage The correct usage of the command.
+     * @throws ParseException If {@code String} object is not empty.
      */
-    private void requireEmptyArguments(String args) throws ParseException {
+    private void requireEmptyArguments(String args, ContactType contactType, String messageUsage)
+            throws ParseException {
         if (args.trim().length() > 0) {
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(messageUsage, contactType, "#<ID>")));
         }
     }
 
     /**
      * Ensure that the {@code String} object is null.
      * @param identifier The {@code String} object that is to be null.
-     * @param contactType The contactType of the command.
+     * @param contactType The {@code ContactType} of the command.
      * @param messageUsage The correct usage of the command.
-     * @throws ParseException if {@code String} object is not null
+     * @throws ParseException If {@code String} object is not null
      */
     private void requireNullIdentifier(String identifier, ContactType contactType, String messageUsage)
             throws ParseException {

@@ -54,7 +54,7 @@ image::format.png[width="256"]
 * Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
-* `<ID>` is to replaced with a valid ID
+* `<ID>` is to replaced with a valid ID, and only integers are recognised as an ID.
 
 
 
@@ -268,12 +268,12 @@ Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude s
 ====
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
-Available Service Types `SERVICE_TYPE`:
+Available service types for `SERVICE_TYPE`:
 
 |=======
-|`photographer` |`dress` | invitation
-|`hotel` |`ring` |
-|`catering` |`transport` |
+|`photographer`|`dress`    | `invitation`
+|`hotel`       |`ring`     |
+|`catering`    |`transport`|
 |=======
 
 
@@ -303,7 +303,7 @@ Format: `client#<ID> automatch`
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client#123 automatch`
+|`client#123 automatch`
 |=====
 
 ==== Automatching for a service provider: `automatch`
@@ -319,7 +319,7 @@ Format: `vendor#<ID> automatch`
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `vendor#123 automatch`
+|`vendor#123 automatch`
 |=====
 
 === Listing entered commands: `history`
@@ -416,6 +416,8 @@ There is no need for you to save manually.
 *Coming in v2.0*
 
 * Retrieve forgotten password: `forget password`
+* Assigning vendors to clients: `client# assign vendor#`
+* Assigning clients to vendors: `vendor# assign client#`
 
 
 == FAQ
