@@ -26,7 +26,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ContactType;
-import seedu.address.model.contact.Contact;
 
 /**
  * Parses user input.
