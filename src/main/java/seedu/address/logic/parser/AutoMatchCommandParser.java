@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_FORMAT;
 
 import seedu.address.logic.commands.AutoMatchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,7 +26,7 @@ public class AutoMatchCommandParser implements Parser<AutoMatchCommand> {
         try {
             entityId = entity[ENTITY_ID];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
+            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_FORMAT, args));
         }
 
         return new AutoMatchCommand(entityType, entityId);

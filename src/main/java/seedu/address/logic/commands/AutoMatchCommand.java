@@ -14,6 +14,7 @@ import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AutoMatchResult;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
@@ -43,11 +44,11 @@ public class AutoMatchCommand extends Command {
             + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: vendor#123 " + COMMAND_WORD + " automatch";
 
-    private final String contactType;
+    private final ContactType contactType;
     private final String contactId;
 
-    public AutoMatchCommand(String contactType, String contactId) {
-        this.contactType = contactType;
+    public AutoMatchCommand(String contactType, String contactId) throws ParseException {
+        this.contactType = ContactType.fromString(contactType);
         this.contactId = contactId;
     }
 

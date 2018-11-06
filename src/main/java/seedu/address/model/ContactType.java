@@ -1,7 +1,10 @@
 package seedu.address.model;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CONTACT_TYPE;
+
 import java.util.function.Predicate;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.vendor.Vendor;
@@ -19,7 +22,7 @@ public enum ContactType {
 
         @Override
         public String toString() {
-            return "client";
+            return CLIENT_STRING;
         }
     },
     VENDOR {
@@ -30,9 +33,29 @@ public enum ContactType {
 
         @Override
         public String toString() {
-            return "vendor";
+            return VENDOR_STRING;
         }
     };
 
+    private static final String CLIENT_STRING = "client";
+    private static final String VENDOR_STRING = "vendor";
+
     public abstract Predicate<Contact> getFilter();
+
+    /**
+     * Utility static function to get a {@code ContactType} from a {@code string}.
+     *
+     * @param string The string to convert from.
+     * @return The contact type from the string.
+     */
+    public static ContactType fromString(String string) throws ParseException {
+        switch (string) {
+        case CLIENT_STRING:
+            return CLIENT;
+        case VENDOR_STRING:
+            return VENDOR;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_TYPE, string));
+        }
+    }
 }
