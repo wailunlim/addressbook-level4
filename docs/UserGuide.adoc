@@ -101,8 +101,11 @@ Register a new account for this application. You can only register a new account
 
 Condition: Username and password cannot be empty, or contain space.
 
-[NOTE]
-It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+|=====
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 
@@ -123,8 +126,11 @@ Change your current account password from an old password to a new password.
 
 Condition: your old password is typed in correctly, and new password should not be the same as old password. Password cannot be empty or contains space.
 
-[CAUTION]
-Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
+|=====
 
 Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
@@ -138,7 +144,11 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 There are two types of contacts supported by Heart², namely `client` and `vendor`.
 
-TIP: All commands pertaining to contacts start with either `client` or `vendor`.
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|All commands pertaining to contacts start with either `client` or `vendor`.
+|=====
 
 ==== Adding a contact: `add`
 
@@ -194,15 +204,24 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 
 Contacts in Heart² are assigned a unique ID each for you to refer to the contact at any point of time when using Heart².
 
-[TIP]
-Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
 
-[TIP]
-These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
+|=====
 
-[NOTE]
-IDs can be similar for `client` and `vendor`.
-However, since the contact type and ID comes together, they would still refer to different contacts!
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+|=====
+
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|IDs can be similar for `client` and `vendor`. However, since the contact type and ID comes together, they would still refer to different contacts!
+|=====
 
 ==== Viewing a contact: `view`
 
@@ -262,10 +281,12 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 Attributes of the services your clients require or vendors can provide can be indicated using the
  `addservice` command, by their unique IDs.
 
-[NOTE]
-====
-Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
-====
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
+|=====
+
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
 Available service types for `SERVICE_TYPE`:
@@ -294,10 +315,12 @@ Available service types for `SERVICE_TYPE`:
 
 You can easily find service providers that can fulfill the requests services with this command.
 
-[NOTE]
-====
-It only shows you the service providers within the budget of the client.
-====
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|It only shows you the service providers within the budget of the client.
+|=====
+
 Format: `client#<ID> automatch`
 
 [cols="^,<5a", frame=none]
@@ -310,10 +333,12 @@ Format: `client#<ID> automatch`
 
 You can easily find clients whose service requirements match the services offered by a service provider.
 
-[NOTE]
-====
-It only shows you the clients whose budgets can afford the service.
-====
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|It only shows you the clients whose budgets can afford the service.
+|=====
+
 Format: `vendor#<ID> automatch`
 
 [cols="^,<5a", frame=none]
@@ -328,10 +353,11 @@ Lists all the commands that you have entered in reverse chronological order.
 
 Format: `history`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+|=====
 
 // tag::undoredo[]
 === Undo the previous command: `undo`
@@ -340,15 +366,17 @@ Undo the commands that you have entered in chronological order.
 
 Format: `undo`
 
-[NOTE]
-====
-The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
-====
-[NOTE]
-====
-The application will show either the client list or service
-provider list corresponding to the command that was undone.
-====
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
+|=====
+
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|The application will show either the client list or service provider list corresponding to the command that was undone.
+|=====
 
 === Redo the commands undone: `redo`
 
@@ -356,16 +384,17 @@ Redo the commands that you have undone by undo in chronological order.
 
 Format: `redo`
 
-[NOTE]
-====
-Commands that have been undone will be reset upon a `clear` command.
-====
-[NOTE]
-====
-The application will show either the client list or service
-provider list corresponding to the command that was redone.
-====
-// end::undoredo[]
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Commands that have been undone will be reset upon a `clear` command.
+|=====
+
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|The application will show either the client list or service provider list corresponding to the command that was redone.
+|=====
 
 
 === Exiting the program : `exit`
