@@ -1,0 +1,72 @@
+= Ng Ee Hooi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Heart²
+
+---
+
+== Overview
+
+This document serves to note down my contributions to *_Heart²_*, my team's product for the
+Software Engineering module, CS2103T, offered by the  National University of Singapore (NUS) School of Computing.
+
+*_Heart²_* is a desktop software meant for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
+It is primarily used for matching various wedding service providers to clients' specific needs.
+
+The user keys in commands using a _Command Line Interface (CLI)_, and views the command results on a _Graphical User Interface (GUI)_ created with JavaFX.
+*_Heart²_* was built upon a given base code provided by the SE-EDU team in CS2103T.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+This section provides the overall view of my contributions to *_Heart²_*.
+
+=== Major Enhancements
+
+1. *Ability to add a service under a client and service provider*
+** What it does: Allows the user to specify a service type and cost requested by the client or offered by the service provider.
+** Justification: This feature is a crucial first step for the `AutoMatchCommand` as it provides the criteria for
+filtering of service providers for the client to provide the most suitable matching.
+** Highlights:
+** Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+2. *Viewing the results of the `AutoMatchCommand` in a tabular view*
+** What it does: Shows the user the service providers that fulfill the client requirements or the clients that the service providers can serve in a table.
+** Justification: This feature is important for the `AutoMatchCommand` as it presents all results together for easy selection.
+** Highlights:
+** Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+=== Minor enhancement
+1. Login window UI display before login and after logout.
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+
+
+=== Other contributions
+** Documentation
+*** Changed GUI images for login and main screen.
+*** Updated Ui class diagram to incorporate new `LoginWindow` and `ServiceListPanel`.
+*** Added design considerations for `LoginCommand` and `AutoMatchCommand`.
+*** Added implementation details for `AddServiceCommand` (Pull request https://github.com/CS2103-AY1819S1-F10-3/main/pull/185[#185])
+
+== Contributions to the User Guide
+This section includes excerpts of the User Guide that I have contributed to.
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addservice]
+
+
+== Contributions to the Developer Guide
+This section includes excerpts of the Developer Guide that I have contributed to.
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addservice]
+
+include::../DeveloperGuide.adoc[tag=automatchtable]
