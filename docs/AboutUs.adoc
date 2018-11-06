@@ -15,7 +15,7 @@ image::dongsiji.png[width="150", align="left"]
 {empty}[https://github.com/dongsiji[github]] [<<dongsiji#, portfolio>>]
 
 Role: Testing +
-Component: listing, searching
+Components: Model, Logic
 
 '''
 
@@ -23,8 +23,8 @@ Component: listing, searching
 image::nightyeti.png[width="150", align="left"]
 {empty}[http://github.com/NightYeti[github]] [<<nightyeti#, portfolio>>]
 
-Role: Integration +
-Component: login, logout, edit password, register account, salt and hash
+Role: Team Lead, Deliverables +
+Components: Logic, Storage
 
 '''
 
@@ -32,8 +32,8 @@ Component: login, logout, edit password, register account, salt and hash
 image::liaujianjie.png[width="150", align="left"]
 {empty}[http://github.com/liaujianjie[github]] [<<liaujianjie#, portfolio>>]
 
-Role: Code quality +
-Component: services, matching
+Role: Code quality, Git expert +
+Components: Logic, Storage
 
 '''
 
@@ -41,16 +41,16 @@ Component: services, matching
 image::wailunlim.png[width="150", align="left"]
 {empty}[http://github.com/wailunlim[github]] [<<limwailun#, portfolio>>]
 
-Role: Documentation +
-Component: add, update and delete
+Role: Integration +
+Components: Model, Logic
 
 '''
 
 === Ng Ee Hooi
 image::eehooi.png[width="150", align="left"]
-{empty}[http://github.com/eehooi[github]] [<<ngeehooi#, portfolio>>]
+{empty}[http://github.com/eehooi[github]] [<<eehooi#, portfolio>>]
 
-Role: Team lead +
-Component: UI, matching
+Role: Documentation +
+Components: Logic, UI
 
 '''
