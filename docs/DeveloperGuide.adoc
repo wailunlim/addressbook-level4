@@ -582,18 +582,40 @@ Hold `Client` and `Vendor` objects differently in two different lists.
 ** Cons: Difficult and extremely tedious to implement.
 
 === Remove clients and vendors feature
-*_Heart²_* allows you to remove 'client' and 'vendor' if you so wish to!
+*_Heart²_* allows the user to delete any contact, by specifying firstly either `client` or `vendor`, and then the unique ID assigned to the contact.
 
-This can be easily done by specifying the 'client' or 'vendor' at the front:
+* `client#2 delete`
+* `vendor#3 delete`
 
-* 'client remove 1'
-* 'vendor remove 2'
+The above commands deletes the `client` given the unique ID #2 and the `vendor` given the unique ID #3.
 
-The above commands removes the 'client' in index 1 of the 'client' list and the 'vendor' in index 2 of the 'vendor' list respectively.
+This feature makes use of the fact that contacts are either `Client` or `Vendor` objects.
 
-==== Implementation
+==== Current Implementation
+The current implementation filters the contact list by contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the specific ID of the `client` or `vendor`.
 
-The keyword 'client' or 'vendor' is used to determine the context of  whether a 'client' or 'vendor' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
+Since IDs are unique, after applying this filter, the list can only have a maximum length of 1.
+This would indicate that the contact in the list is the contact we are to delete.
+However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
+We then can feedback to the user that the ID given is invalid.
+
+==== Design Considerations
+Aspect: How should the user specify a deletion?
+
+* *Alternative 1* (current choice):
+Delete the contact based on the contact type and the unique ID.
+** Pros: Allows the user to delete any contact at any point of time, save time as the user does not need to traverse to a list that shows the contact.
+By using unique IDs to delete, we are able to delete the correct contact using the same command no matter what list is shown to the user.
+
+** Cons: Might be still a bit limiting as users have to be able to remember the specific unique ID of the `client` or `vendor` to delete.
+
+* *Alternative 2*:
+Delete the contact based solely on the relative index of the contact in the list that is shown to the user.
+** Pros: Legacy implementation, no change would have been required.
+
+** Cons: The user is limited to delete only what he/she is shown on the list.
 
 === Edit clients and vendors feature
 *_Heart²_* allows you to make changes to existing 'client' and 'vendor' too!
