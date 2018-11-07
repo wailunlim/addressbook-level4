@@ -710,14 +710,14 @@ Gives better control over the searching.
 
 === Finding matches between clients and service providers
 
-The application boasts matchmaking features that reduces the (once-laborious) task of matching service providers a single command.
+The application boasts auto-matching features that reduces the (once-laborious) task of matching service providers a single command.
 
 ==== High level design
 
-.High level overview of how matchmaking works
-image::matchmaking.png[width:"800"]
+.High level overview of how auto-matching works
+image::auto-matching.png[width:"800"]
 
-1. On invocation, the matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
+1. On invocation, the auto-matching algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
 2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
 
 ==== Design considerations

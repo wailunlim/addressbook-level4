@@ -64,6 +64,7 @@ format.
 during our discussions.
 ** Spearheaded the various architecture design discussions.
 ** Smashed a ton of bugs!
+** Refactored `ServiceProvider` to `Vendor`
 
 == Contributions to the User Guide
 
@@ -73,7 +74,88 @@ during our discussions.
 end-users._
 |===
 
-===
+=== Modifying the global structure of user guide
+
+Since I was involved in the modelling of our application, I took charge in making the first wave of sweeping updates to our user guide. In doing so, I created a clear separation between _entity types_ (such as `client`) and _entity instances_ (like `client#123`).
+
+Commands acting on a collection of a specific entity type were preceded by the name of the entity type whilst commands acting on a specific entity instance are preceded by a composition of the instance entity type and identifier.
+
+Example documentation of a command that acts on an entity type:
+
+====
+Listing and searching for clients
+
+You can view clients in the database as a list using the `client list` command.
+
+If you do not key in any parameters, it will list out all the clients,
+otherwise it will list all clients matching all of the search parameters you provided.
+
+Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|* `client list`
+ * `client list n/John Doe`
+|=====
+====
+
+Example documentation of a command that acts on an entity instance:
+
+====
+Deleting a contact: `delete`
+
+You can also `delete` a contact from Heart², by specifying its unique ID.
+
+Format: `<CONTACT_TYPE>#<ID> delete`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 delete`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 delete`
+|=====
+====
+
+=== Documentation for auto-matching
+
+I wrote the entire instructions for using one of the most critial feature of our application--auto-matching.
+
+====
+Automatching for a client: `automatch`
+
+You can easily find service providers that can fulfill the requests services with this command.
+
+[cols="^,<9a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|It only shows you the service providers within the budget of the client.
+|=====
+
+Format: `client#<ID> automatch`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 automatch`
+|=====
+====
+
+You can see it https://cs2103-ay1819s1-f10-3.github.io/main/UserGuide.html#automatching-for-a-client-code-automatch-code[in the user guide].
+
+=== Adding icons
+
+Additionally, I have added some coloured icons for notes, tips and warnings to provide a consistent visual format when additional content is appended.
+
+====
+image:icon-notes.png[width="48"]
+image:icon-tips.png[width="48"]
+image:icon-danger.png[width="48"]
+====
 
 == Contributions to the Developer Guide
 
@@ -81,3 +163,23 @@ end-users._
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project._
 |===
+
+=== Document design decisions for auto-matching
+
+I documented the design decisions behind auto-matching and created a custom graphic to assist in the explanation. Below is an excerpt from the developer guide:
+
+====
+Finding matches between clients and service providers
+
+The application boasts auto-matching features that reduces the (once-laborious) task of matching service providers a single command.
+
+High level design
+
+.High level overview of how auto-matching works
+image::auto-matching.png[width:"800"]
+
+1. On invocation, the auto-matching algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Service Providers.
+2. The service providers are then sorted by a fair ranking algorithm to ensure even distribution of jobs between Service Providers.
+====
+
+To see more, check it out https://cs2103-ay1819s1-f10-3.github.io/main/DeveloperGuide.html#finding-matches-between-clients-and-service-providers[in the developer guide].
