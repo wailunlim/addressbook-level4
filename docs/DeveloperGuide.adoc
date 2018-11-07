@@ -1597,28 +1597,8 @@ The User of the application; the Project Manager of a wedding planning company t
 A single request related to the wedding that the Client expects. The Project Manager plans for and provide this request from a Vendor. The event encapsulates many different services, such as: wedding photography, formal wedding attire rental, banquet catering, invitation printing, and many others.
 
 [appendix]
-== Product Survey
-image::appendixgheader.png[width="320"]
-
-*Product Name*
-
-(This section is to be filled in later)
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
-image::appendixhheader.png[width="320"]
+image::appendixgheader.png[width="320"]
 
 Given below are instructions to test the app manually.
 
