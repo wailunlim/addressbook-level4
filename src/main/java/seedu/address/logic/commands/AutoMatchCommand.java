@@ -14,6 +14,7 @@ import seedu.address.commons.events.ui.DisplayAutoMatchResultRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AutoMatchResult;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
@@ -36,18 +37,19 @@ public class AutoMatchCommand extends Command {
             + "service requirements of the client at his/her listed cost price."
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: #<ID> (must be a positive integer)\n"
-            + "Example: client#123 " + COMMAND_WORD + " automatch";
+            + "Example: client#123 " + COMMAND_WORD;
     public static final String MESSAGE_USAGE_VENDOR = COMMAND_WORD + ": Finds all clients that has service "
             + "requirements that can be served by the service provider at their listed cost price."
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: #<ID> (must be a positive integer)\n"
-            + "Example: vendor#123 " + COMMAND_WORD + " automatch";
+            + "Example: vendor#123 " + COMMAND_WORD;
 
-    private final String contactType;
-    private final String contactId;
+    private final ContactType contactType;
+    private final int contactId;
 
-    public AutoMatchCommand(String contactType, String contactId) {
-        this.contactType = contactType;
+    public AutoMatchCommand(String contactType, int contactId) throws ParseException, NullPointerException {
+        requireNonNull(contactType);
+        this.contactType = ContactType.fromString(contactType);
         this.contactId = contactId;
     }
 
@@ -64,13 +66,12 @@ public class AutoMatchCommand extends Command {
 
         try {
             // Find the contact for which we are going to find matches for
-            int contactId = Integer.parseInt(this.contactId);
             contact = model
                     .getAddressBook()
                     .getContactList()
                     .stream()
-                    .filter(c -> (contactType.equals("client") && c instanceof Client)
-                            || (contactType.equals("vendor") && c instanceof Vendor))
+                    .filter(c -> (contactType == ContactType.CLIENT && c instanceof Client)
+                            || (contactType == ContactType.VENDOR && c instanceof Vendor))
                     .filter(c -> c.getId() == contactId)
                     .findFirst()
                     .get();
@@ -114,13 +115,14 @@ public class AutoMatchCommand extends Command {
         model.updateAutoMatchResult(autoMatchResult);
         model.updateFilteredContactList(c -> autoMatchResult.getContacts().contains(c));
 
-        // Post new event to display UI in table.
+        // Post event to display results in table.
         EventsCenter.getInstance().post(new DisplayAutoMatchResultRequestEvent());
-        // TODO: use the auto-match results to print a useful output.
 
+        // Post event to display summary in text box.
         ContactType resultContactType = contact instanceof Client ? ContactType.VENDOR
                 : ContactType.VENDOR;
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(contact));
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredContactList().size(),
                         resultContactType));
@@ -195,6 +197,6 @@ public class AutoMatchCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AutoMatchCommand // instanceof handles nulls
                 && contactType.equals(((AutoMatchCommand) other).contactType)
-                && contactId.equals(((AutoMatchCommand) other).contactId)); // state check
+                && contactId == ((AutoMatchCommand) other).contactId); // state check
     }
 }

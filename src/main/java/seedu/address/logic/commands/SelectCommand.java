@@ -20,16 +20,16 @@ import seedu.address.model.contact.Contact;
  */
 public class SelectCommand extends Command {
 
-    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s select";
-    public static final String COMMAND_WORD_CLIENT = "client select";
-    public static final String COMMAND_WORD_VENDOR = "vendor select";
+    public static final String COMMAND_WORD_GENERAL = "%1$s%2$s view";
+    public static final String COMMAND_WORD_CLIENT = "client view";
+    public static final String COMMAND_WORD_VENDOR = "vendor view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL
-            + ": Selects the %1$s identified by the assigned unique %1$s ID.\n"
+            + ": Selects the %1$s identified by the assigned unique %1$s ID to view.\n"
             + "Parameters: #<ID> (must be a positive integer)\n"
             + "Example: " + String.format(COMMAND_WORD_GENERAL, "%1$s", "#3");
 
-    public static final String MESSAGE_SELECT_CONTACT_SUCCESS = "Selected %1$s: %2$s";
+    public static final String MESSAGE_SELECT_CONTACT_SUCCESS = "Viewing %1$s#%2$s";
 
     private final Index id;
     private final ContactType contactType;
