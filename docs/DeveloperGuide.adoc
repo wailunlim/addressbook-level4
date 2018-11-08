@@ -23,7 +23,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
 
 Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job of wedding planning agencies simpler.
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
-Users can find suitable vendors providing services for couples using just a few keystrokes with our enterprise featureset.
+Users can find suitable vendors providing wedding services for couples using just a few keystrokes with our enterprise featureset.
 
 This developer guide is a self-contained resource designed to align all developers around a common vision. It helps
 developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
@@ -587,7 +587,7 @@ The above commands removes the 'client' in index 1 of the 'client' list and the 
 
 The keyword 'client' or 'vendor' is used to determine the context of  whether a 'client' or 'vendor' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
 
-=== Edit clients and vendor feature
+=== Edit clients and vendors feature
 *_Heart²_* allows you to make changes to existing 'client' and 'vendor' too!
 
 With the list of 'client' or 'vendor' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
