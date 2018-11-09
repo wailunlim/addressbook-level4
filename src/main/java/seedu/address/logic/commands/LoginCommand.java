@@ -82,7 +82,7 @@ public class LoginCommand extends Command {
                 accountToCommit.transformToHashedAccount();
                 model.commitUserLoggedInSuccessfully(accountToCommit);
                 EventsCenter.getInstance().post(new DeselectRequestEvent());
-                UserPrefs.setUsernameToDisplay(username);
+                UserPrefs.setUsernameAndRoleToDisplay(username + " / " + userAccountRole.getRole());
                 return new CommandResult(MESSAGE_SUCCESS);
             }
         } catch (DataConversionException e) {
