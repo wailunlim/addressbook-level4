@@ -22,7 +22,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 image::intropicture.png[width="256"]
 
 Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
-You can find suitable wedding service providers for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
+You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
 
@@ -313,12 +313,12 @@ Available service types for `SERVICE_TYPE`:
 
 ==== Automatching for a client: `automatch`
 
-You can easily find service providers that can fulfill the requests services with this command.
+You can easily find vendors that can fulfill the requests services with this command.
 
 [cols="^,<9a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|It only shows you the service providers within the budget of the client.
+|It only shows you the vendors within the budget of the client.
 |=====
 
 Format: `client#<ID> automatch`
@@ -329,9 +329,9 @@ Format: `client#<ID> automatch`
 |`client#123 automatch`
 |=====
 
-==== Automatching for a service provider: `automatch`
+==== Automatching for a vendor: `automatch`
 
-You can easily find clients whose service requirements match the services offered by a service provider.
+You can easily find clients whose service requirements match the services offered by a vendor.
 
 [cols="^,<9a", frame=none]
 |=====
@@ -375,7 +375,7 @@ Format: `undo`
 [cols="^,<9a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|The application will show either the client list or service provider list corresponding to the command that was undone.
+|The application will show either the client list or vendor list corresponding to the command that was undone.
 |=====
 
 === Redo the commands undone: `redo`
@@ -393,7 +393,7 @@ Format: `redo`
 [cols="^,<9a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|The application will show either the client list or service provider list corresponding to the command that was redone.
+|The application will show either the client list or vendor list corresponding to the command that was redone.
 |=====
 
 
