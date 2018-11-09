@@ -13,7 +13,7 @@ public class UserPrefs {
 
     private static String usernameAndRoleToDisplay = "";
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path addressBookFilePath = Paths.get("data" , "heart2.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
