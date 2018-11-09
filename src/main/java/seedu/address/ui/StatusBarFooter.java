@@ -52,7 +52,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setSyncStatus(SYNC_STATUS_INITIAL);
         setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
         registerAsAnEventHandler(this);
-        setUsernameStatus("username: " + UserPrefs.getUsernameToDisplay());
+        setUsernameStatus("username: " + UserPrefs.getUsernameAndRoleToDisplay());
     }
 
     /**

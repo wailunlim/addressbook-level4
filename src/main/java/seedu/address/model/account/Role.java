@@ -6,5 +6,15 @@ package seedu.address.model.account;
  * in the database.
  */
 public enum Role {
-    SUPER_USER, READ_ONLY_USER
+    SUPER_USER("super_user"), READ_ONLY_USER("read_only_user");
+
+    private String role;
+
+    Role(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
 }

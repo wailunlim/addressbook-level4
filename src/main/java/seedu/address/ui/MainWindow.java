@@ -335,7 +335,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!hasFilledParts) {
             fillInnerParts();
         } else {
-            statusBarFooter.setUsernameStatus("username: " + UserPrefs.getUsernameToDisplay());
+            statusBarFooter.setUsernameStatus("username: " + UserPrefs.getUsernameAndRoleToDisplay());
         }
     }
 
