@@ -56,7 +56,7 @@ The following format is consistent for all the commands listed in this section.
 * `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`.
 * `<ID>` is to replaced with a valid ID, and only integers are recognised as an ID.
 
-* An example table shows the source code format for a particular command, below shows one instance of such a table.
+* An example table shows the usage with actual data for a particular command. Below shows one instance of such a table.
 
 ._An example table for login command_
 [cols="^,<5a", frame=none]
