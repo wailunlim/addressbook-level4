@@ -563,7 +563,7 @@ This unique ID is used by many other commands, namely: `add`, `delete`, `update`
 It allows for these commands to be executed at any point in *_Heart²_*, with always the same context.
 
 ==== Design Considerations
-Aspect: How should we refer to contacts in *_Heart²_*?
+===== Aspect: How should we refer to contacts in *_Heart²_*?
 
 * *Alternative 1*:
 Use the legacy implementation, which is to use the relative position of the contact in the list.
@@ -610,7 +610,7 @@ In order to differentiate them, there is an abstract method `Contact#getType()` 
 `Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
 ==== Design Considerations
-Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
+===== Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
 
 * *Alternative 1* (current choice):
 `Client` and `Vendor` objects are stored in a more general `Contact` list.
@@ -624,7 +624,7 @@ Hold `Client` and `Vendor` objects differently in two different lists.
 ** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
 ** Cons: Difficult and extremely tedious to implement.
 
-Aspect: How restrictive should the definition of a duplicate contact be?
+===== Aspect: How restrictive should the definition of a duplicate contact be?
 
 * *Alternative 1*:
 It should be regardless of contact type, meaning a `client` and a `vendor` cannot have the same name *and* either the same phone number *or* email.
@@ -662,7 +662,7 @@ However, if the list is of size 0, this means that the contact that is specified
 We then can feedback to the user that the ID specified is invalid.
 
 ==== Design Considerations
-Aspect: How should the user specify a deletion?
+===== Aspect: How should the user specify a deletion?
 
 * *Alternative 1* (current choice):
 Delete the contact based on the contact type and the unique ID.
@@ -716,7 +716,7 @@ However, if the list is of size 0, this means that the contact that is specified
 We then can feedback to the user that the ID specified is invalid.
 
 ==== Design Considerations
-Aspect: Should a similar (have the same name *and* same phone number *or* email) `client` and `vendor` object be updated together?
+===== Aspect: Should a similar (have the same name *and* same phone number *or* email) `client` and `vendor` object be updated together?
 
 * *Alternative 1* (current choice):
 A `client` can be similar to a `vendor`, but they are still considered independent contacts in *_Heart²_*.
