@@ -45,9 +45,9 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
-The following format is consistent for all the commands listed in this section.
-
 image::format.png[width="256"]
+
+The following format is consistent for all the commands listed in this section.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -67,7 +67,7 @@ image::format.png[width="256"]
 
 image::callouts2.png[width="256"]
 
-Callouts are a rectangular box with icon and words to point out some information. Below are the 3 callouts that will be used consistently throughout this document:
+Callouts are a rectangular box with icon and words to point out various types of information. Below are the 3 callouts that will be used consistently throughout this document:
 
 [cols="^,<5a", frame=none]
 |=====
@@ -78,13 +78,13 @@ Callouts are a rectangular box with icon and words to point out some information
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+|This represents a *tip*. A tip is information that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+|This represents a *warning*. A warning is information that is extremely important. You should be cautious and read the warning statement carefully.
 |=====
 
 {empty} +
