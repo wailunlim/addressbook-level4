@@ -586,22 +586,23 @@ We believe that this can give users more control and power over their work using
 However, we also do realise that users might find it hard to remember the unique ID assigned to the contact.
 While users can quickly look at a recent contact using the command `history`, a possibly quality-of-life improvement would be to implement a mnemonic unique identifier.
 
-=== Add contacts feature
-*_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor`.
+=== Add contact feature
+*_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor` in the command.
 
 * `client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House`
 * `vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC`
 
-The above commands adds a `client` and a `service provider`respectively, together with the details provided.
+The above commands add a `client` and a `vendor`, together with the details provided, respectively.
 
 This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
+It complements the unique ID feature earlier to ensure that a `client` and a `vendor` with the same ID are still differentiable due to the contact type.
 
 ==== Current Implementation
 Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
 When adding a contact, either a new `Client` or a `Vendor` object is instantiated.
 Both `Client` and `Vendor` objects are added to a list of generic type `Contact`.
 
-In order to differentiate them, there  is an abstract method `Contact#getType()` that `Client` and `Vendor` implements differently.
+In order to differentiate them, there is an abstract method `Contact#getType()` that `Client` and `Vendor` implement differently.
 `Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
 ==== Design Considerations
@@ -609,31 +610,33 @@ Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
 
 * *Alternative 1* (current choice):
 `Client` and `Vendor` objects are stored in a more general `Contact` list.
-** Pros: Easy to implement, only need to tweak the inherited legacy list slightly.
+** Pros: Easy to implement by tweak the inherited legacy list slightly.
 
 ** Cons: Cannot tell immediately if an element in the `Contact` list is a `Client` or `Vendor`.
+This might take a longer time to display lists, due to having to filter them every time.
 
 * *Alternative 2*:
 Hold `Client` and `Vendor` objects differently in two different lists.
 ** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
 ** Cons: Difficult and extremely tedious to implement.
 
-=== Remove clients and vendors feature
-*_Heart²_* allows the user to delete any contact, by specifying firstly either `client` or `vendor`, and then the unique ID assigned to the contact.
+=== Delete contact feature
+*_Heart²_* allows the user to delete any contact, using the combination of its contact type and its unique ID, followed by `delete`.
 
 * `client#2 delete`
 * `vendor#3 delete`
 
-The above commands deletes the `client` given the unique ID #2 and the `vendor` given the unique ID #3.
+The above commands delete the `client` given the unique ID #2 and the `vendor` given the unique ID #3.
 
 This feature makes use of the fact that contacts are either `Client` or `Vendor` objects.
+The unique ID is then used to identify the particular `Client` or `Vendor` object to be deleted.
 
 ==== Current Implementation
-The current implementation filters the contact list by contact type and ID.
+The current implementation filters the contact list by the specified contact type and ID.
 The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
-This first predicate is then combined with another predicate that is looking for the specific ID of the `client` or `vendor`.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
 
-Since IDs are unique, after applying this filter, the list can only have a maximum length of 1.
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
 This would indicate that the contact in the list is the contact we are to delete.
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
 We then can feedback to the user that the ID given is invalid.
@@ -654,8 +657,8 @@ Delete the contact based solely on the relative index of the contact in the list
 
 ** Cons: The user is limited to delete only what he/she is shown on the list.
 
-=== Edit clients and vendors feature
-*_Heart²_* allows you to make changes to existing 'client' and 'vendor' too!
+=== Update contact feature
+*_Heart²_* allows the user to update any contact, using again the combination of its contact type and its unique ID, followed by `update`.
 
 With the list of 'client' or 'vendor' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
 
