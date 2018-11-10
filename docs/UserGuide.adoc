@@ -158,8 +158,6 @@ Format: `logout`
 
 Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
-Condition: Username and password cannot be empty, or contain space.
-
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
@@ -188,20 +186,18 @@ either
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
+|Username and password cannot be empty, or contain space.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
 |Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
 |=====
 
 === Change the current password : `change password`
 
 Change your current account password from an old password to a new password.
-
-Condition: your old password is typed in correctly, and new password should not be the same as old password. Password cannot be empty or contains space.
-
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
-|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -215,6 +211,18 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`change password o/jf3nv n/j9y3nd`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|New password should not be the same as old password, and it cannot be empty, or contain space.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
 |=====
 
 === Working with contacts
