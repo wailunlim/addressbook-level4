@@ -58,7 +58,7 @@ image::format.png[width="256"]
 
 * Example: An `example table` shows the source code format for a particular command
 
-._An example table for login command
+._An example table for login command_
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
