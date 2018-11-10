@@ -250,11 +250,8 @@ public class UpdateCommandTest {
     @Test
     public void execute_duplicateClientFilteredList_failure() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        showContactAtIndex(model, INDEX_FIRST_PERSON);
-
         // edit client in filtered list into a duplicate in address book
-        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        Contact contactInList = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList).build(), ContactType.CLIENT);
 
@@ -264,11 +261,8 @@ public class UpdateCommandTest {
     @Test
     public void execute_duplicateVendorFilteredList_failure() {
         model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        showContactAtIndex(model, INDEX_FIRST_PERSON);
-
-        // edit client in filtered list into a duplicate in address book
-        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_PERSON.getZeroBased());
-        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
+        // edit vendor in filtered list into a duplicate in address book
+        Contact contactInList = model.getFilteredContactList().get(INDEX_SECOND_PERSON.getZeroBased());
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new EditContactDescriptorBuilder(contactInList).build(), ContactType.VENDOR);
 

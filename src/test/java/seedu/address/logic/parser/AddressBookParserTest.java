@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddServiceCommand;
+import seedu.address.logic.commands.AutoMatchCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
@@ -105,7 +106,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    //TODO: update input
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#"
@@ -215,5 +215,50 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_updateCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(UpdateCommand.COMMAND_WORD_CLIENT + " n/test name");
+    }
+
+    @Test
+    public void parseCommand_viewCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(SelectCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_addServiceCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(AddServiceCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_deleteCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(DeleteCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(DeleteCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_autoMatchCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AutoMatchCommand.MESSAGE_USAGE_CLIENT, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(AutoMatchCommand.COMMAND_WORD_CLIENT);
     }
 }
