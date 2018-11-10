@@ -624,6 +624,22 @@ Hold `Client` and `Vendor` objects differently in two different lists.
 ** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
 ** Cons: Difficult and extremely tedious to implement.
 
+Aspect: How restrictive should the definition of a duplicate contact be?
+
+* *Alternative 1*:
+It should be regardless of contact type, meaning a `client` and a `vendor` cannot have the same name *and* either the same phone number *or* email.
+
+** Pros: No additional implementation required. The legacy implementation already supports this.
+
+** Cons: Less flexibility for our users. A `client` cannot be a `vendor` possibly.
+
+* *Alternative 2* (current choice):
+A `client` and a `vendor` can have similar fields, meaining a `client` and a `vendor` can possibly have the same name, phone number *and/or* email.
+
+** Pros: More flexibility for our users. A `client` can be a `vendor` too, which is possible in the real world.
+
+** Cons: Additional implementation to have.
+
 === Delete contact feature
 *_Heart²_* allows the user to delete any contact, using the combination of its contact type and its unique ID, followed by `delete`.
 
