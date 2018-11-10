@@ -155,6 +155,12 @@ either
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
 |=====
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
+|=====
+
 === Change the current password : `change password`
 
 Change your current account password from an old password to a new password.

@@ -1361,9 +1361,6 @@ Use case ends.
 [none]
 ** Use case resumes from step 3.
 
-+
-Use case ends.
-
 === Use case: Logout
 
 *MSS*
