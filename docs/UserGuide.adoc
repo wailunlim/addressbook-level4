@@ -371,8 +371,8 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 // tag::addservice[]
 ==== Adding a service: `addservice`
 
-Attributes of the services your clients require or vendors can provide can be indicated using the
- `addservice` command, by their unique IDs.
+You can add attributes of the services your clients require or what vendors can provide by using the
+ `addservice` command specified by the contacts' unique IDs.
 
 [cols="^,<5a", frame=none]
 |=====
