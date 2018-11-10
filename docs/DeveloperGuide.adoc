@@ -17,7 +17,7 @@ endif::[]
 
 image::guidefordevelopers.png[width="600"]
 
-By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`      Licence: `MIT`
 
 == Introduction
 
