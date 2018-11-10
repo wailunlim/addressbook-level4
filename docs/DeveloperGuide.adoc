@@ -549,22 +549,59 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 ===== Storing password
 Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 
-=== Add clients and vendors feature
+=== Unique ID feature
+*_Heart²_* assigns a unique ID to every `client` and `vendor` when they are added into *_Heart²_*.
+This ID is unique within their contact type, meaning that a `client` and a `vendor` may have the same ID, but since this ID comes hand in hand with the contact type, they are effectively unique.
+These IDs are last for a single session, and *_Heart²_* reassigns the IDs at the start of the next session.
+
+==== Current Implementation
+Both the `Client` and `Vendor` class have a `public static` running counter starting from 1.
+When a `client` or `vendor` is created, it is assigned that number, before incrementing it by 1.
+The `contact` then has this ID for this session, and the user can use this ID, coupled with the contact type to always refer to this particular contact.
+
+This unique ID is used by many other commands, namely: `add`, `delete`, `update`, `view`, `addservice`, `automatch`.
+It allows for these commands to be executed at any point in *_Heart²_*, with always the same context.
+
+==== Design Considerations
+Aspect: How should we refer to contacts in *_Heart²_*?
+
+* *Alternative 1*:
+Use the legacy implementation, which is to use the relative position of the contact in the list.
+
+** Pros: No change is required, as it is the legacy implementation.
+
+** Cons: Users have to navigate to a list that shows that contact, and the relative position of that contact may keep changing throughout a session.
+
+* *Alternative 2* (current choice):
+
+** Pros: Users are able to refer back to a particular contact at any time, without requiring the current list shown to contain that contact.
+Also, this ID will never change during a session, so the user can confidently use the ID knowing that it will always refer to that contact.
+
+** Cons: Users still have to remember this unique ID to refer back to the contact. It might be hard to remember the ID.
+
+After much consideration, we decided to go with option 2.
+*_Heart²_* is built for speed, and we would like to give our users flexibility to execute any command within *_Heart²_* at any time.
+We believe that this can give users more control and power over their work using *_Heart²_*, and therefore we chose to implement this unique ID system.
+
+However, we also do realise that users might find it hard to remember the unique ID assigned to the contact.
+While users can quickly look at a recent contact using the command `history`, a possibly quality-of-life improvement would be to implement a mnemonic unique identifier.
+
+=== Add contacts feature
 *_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor`.
 
 * `client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House`
 * `vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC`
 
-The above commands adds a `client` and a `service provider` together with the details provided respectively.
+The above commands adds a `client` and a `service provider`respectively, together with the details provided.
 
 This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
 
 ==== Current Implementation
 Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
-When adding a contact, either a new `Client` or a `Vendor` is instantiated.
+When adding a contact, either a new `Client` or a `Vendor` object is instantiated.
 Both `Client` and `Vendor` objects are added to a list of generic type `Contact`.
 
-In order to differentiate them, there  is a abstract method `Contact#getType()` that `Client` and `Vendor` implements differently.
+In order to differentiate them, there  is an abstract method `Contact#getType()` that `Client` and `Vendor` implements differently.
 `Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
 ==== Design Considerations

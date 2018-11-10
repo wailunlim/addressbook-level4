@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 
-//TODO: Confirm that this javadoc is accurate, especially the last sentence.
 /**
  * A list of contacts that enforces uniqueness between its elements and does not allow nulls.
  * A contact is considered unique by comparing using {@code Contact#isSameContact(Contact)}. As such, adding and
