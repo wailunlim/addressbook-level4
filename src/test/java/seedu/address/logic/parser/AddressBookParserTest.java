@@ -335,7 +335,28 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
 
-        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD);
+        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD
+                + " u/testAccount p/testPassword");
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_registerAccountCommandWithIllegalIdentifier_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RegisterAccountCommand.MESSAGE_USAGE));
+
+        parser.parseCommandBeforeLoggedIn(" register#1 account u/testAccount p/testPassword");
+    }
+
+    @Test
+    public void parseCommand_changePasswordCommandWithIllegalIdentifier_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditPasswordCommand.MESSAGE_USAGE));
+
+        parser.parseCommand(" change#1 password o/rootPassword n/testPassword");
     }
 
     @Test
