@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD_CLIENT = "client add";
     public static final String COMMAND_WORD_VENDOR = "vendor add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a %1$s to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_GENERAL + ": Adds a %1$s to the application. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
-    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the application.";
 
     private final Contact toAdd;
 

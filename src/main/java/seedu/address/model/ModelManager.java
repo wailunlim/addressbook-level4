@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Heart²: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredContacts = new FilteredList<>(versionedAddressBook.getContactList());

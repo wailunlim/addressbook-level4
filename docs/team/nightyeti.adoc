@@ -24,7 +24,7 @@ It is cross-platform and can be compiled for both Windows and Mac OS.
 
 image::projectteam.png[width="400"]
 
-*_Heart²_* was developed on top of the link:https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook - Level 4] application. It consists of 5 dedicated members, including myself. My role in *_Heart²_* was a software engineer, tasked to create a `Login` feature from scratch and `Privileges` system for different types of user accounts.
+*_Heart²_* was developed on top of the link:https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook - Level 4] application. It consists of 5 dedicated members, including myself. I was the Team Lead in *_Heart²_*, and doubled up as a software engineer. I coded a `Login` feature from scratch and `Privileges` system for different types of user accounts.
 
 {empty} +
 
@@ -52,7 +52,7 @@ image::minor.png[width="400"]
 === Minor enhancements
 
 * *Minor enhancement:* Allows user to `edit password` as well as creating account access privilege with either `Super User` or `Read-Only User` role.
-* *Justification:* Edit password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` role as he/she does not need to modify data in the application.
+* *Justification:* Editing password is needed as user may want to change his/her password from time to time, especially for compromised accounts. Allocating account privileges helps in preventing unnecessary modifications to the application database. For example, an employee tasked as call-support role would be allocated `Read-Only User` role as he/she does not need to modify data in the application.
 * *Functional Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/165/[EditPassword] | link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/89[Access privilege]
 * *Test Code contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/logic/commands/EditPasswordCommandTest.java[Edit password] | link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/src/test/java/seedu/address/model/account/AccountTest.java[Access privilege]
 
@@ -68,8 +68,8 @@ image::others.png[width="400"]
 ** Contributed to the User Guide and Developer Guide for this application. See Section 3 below for more details.
 
 * *Community*:
-** Contributed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] on Github.
-** Reviewed 30+ link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?q=reviewed-by%3ANightYeti[pull requests] by other authors on Github.
+** Contributed 40+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] on Github.
+** Reviewed 40+ link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?q=reviewed-by%3ANightYeti[pull requests] by other authors on Github.
 
 * *Presentation*:
 ** Gave 2 product demos of the application to the entire class, the first targeting general audiences, and the second targeting company's higher management.
@@ -114,14 +114,14 @@ I crafted a format which was used consistently by my team throughout the entire 
 The above is the `example format` used consistently throughout the User Guide. User can simply copy `client#1 addservice t/photography p/2000` as a command and run it in the application. This allows users to copy a working command conveniently and paste it into the application to trigger the command.
 
 ==== Wrote content for the User Guide
-I have written paragraphs relating to the new commands I have added to the application to teach users how to use those commands. The exact content I have written for the User Guide is shown below in Section 3.2.
+I have written paragraphs relating to the new commands I have added to the application to teach users how to use those commands. The content I have written for the User Guide is shown below in Section 3.2.
 
 === Extract of User Guide written
 
 image::extract.png[width="400"]
 
 |===
-|_The following paragraphs show the exact extract I have written for the User Guide. Below are two different portions taken from the same User Guide, labelled as part `A` and part `B`._
+|_The following paragraphs show partially the extract I have written for the User Guide. Below are two different portions taken from the same User Guide, labelled as part `A` and part `B` in this portfolio._
 |===
 
 image::quotestart.png[width="180"]
@@ -229,13 +229,13 @@ image::developerguideexample.png[width="450"]
 The image on the right shown above is an example of a title header I have created to better differentiate each sections. This showcases my ability to create graphic assets from scratch.
 
 ==== Wrote content for the Developer Guide
-I have written paragraphs relating to the implementation details, created diagrams, and documented use cases for the Developer Guide. The exact content I have written is shown below in Section 4.2.
+I have written paragraphs relating to the implementation details, created diagrams, and documented use cases for the Developer Guide. The content I have written is shown below in Section 4.2.
 
 === Extract of Developer Guide written
 image::extract.png[width="400"]
 
 |===
-|_The following paragraphs show the exact extract I have written for the Developer Guide. Below are three different portions taken from the same Developer Guide, labelled as part `A`, part `B`, and part `C`._
+|_The following paragraphs show partially the extract I have written for the Developer Guide. Below are three different portions taken from the same Developer Guide, labelled as part `A`, part `B`, and part `C` in this portfolio._
 |===
 
 image::quotestart.png[width="180"]
@@ -345,8 +345,5 @@ Use case ends.
 +
 [none]
 ** Use case resumes from step 3.
-
-+
-Use case ends.
 
 image:quoteend.png[width="180"]

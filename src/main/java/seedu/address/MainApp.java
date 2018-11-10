@@ -92,14 +92,14 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                LOGGER.info("Data file not found. Will be starting with a sample AddressBook");
+                LOGGER.info("Data file not found. Will be starting with a sample Heart²");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            LOGGER.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            LOGGER.warning("Data file not in the correct format. Will be starting with an empty Heart²");
             initialData = new AddressBook();
         } catch (IOException e) {
-            LOGGER.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            LOGGER.warning("Problem while reading from the file. Will be starting with an empty Heart²");
             initialData = new AddressBook();
         }
 
@@ -164,7 +164,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            LOGGER.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            LOGGER.warning("Problem while reading from the file. Will be starting with an empty Heart²");
             initializedPrefs = new UserPrefs();
         }
 

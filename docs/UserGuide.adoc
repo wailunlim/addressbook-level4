@@ -38,7 +38,7 @@ image::UiLoginDiagram.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
-.  After keying in the right login command, the GUI for the main page should appear:
+.  After logging in, the GUI for the main page should appear:
 +
 image::Ui.png[width="790"]
 
@@ -56,20 +56,49 @@ image::format.png[width="256"]
 * `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
 * `<ID>` is to replaced with a valid ID, and only integers are recognised as an ID.
 
+* Example: An `example table` shows the source code format for a particular command
 
-
-* Example: An example image shows the source code format for a particular command
-
+._An example table for login command
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`login u/rootUser p/rootPassword`
 |=====
 
+image::callouts2.png[width="256"]
+
+Callouts are a rectangular box with icon and words to point out some information. Below are the 3 callouts that will be used consistently throughout this document:
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|This represents a *note*. A note is information that is important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+|=====
+
+{empty} +
+
 image::commands.png[width="256"]
 
 Heart² is designed with an intuitive command syntax for your ease of use.
 The following section documents all the commands available for you in this application.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging in the the application.
+|=====
 
 === Viewing help : `help`
 
@@ -89,6 +118,12 @@ Format: `login u/USERNAME p/PASSWORD`
 |`login u/rootUser p/rootPassword`
 |=====
 
+=== Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
 === Logging out : `logout`
 
 Securely logs you out of the system.
@@ -101,7 +136,7 @@ Register a new account for this application. You can only register a new account
 
 Condition: Username and password cannot be empty, or contain space.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
@@ -120,13 +155,19 @@ either
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
 |=====
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
+|=====
+
 === Change the current password : `change password`
 
 Change your current account password from an old password to a new password.
 
 Condition: your old password is typed in correctly, and new password should not be the same as old password. Password cannot be empty or contains space.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
 |Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -144,7 +185,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 There are two types of contacts supported by Heart², namely `client` and `vendor`.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
 |All commands pertaining to contacts start with either `client` or `vendor`.
@@ -205,19 +246,19 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 Contacts in Heart² are assigned a unique ID each for you to refer to the contact at any point of time when using Heart².
 
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
 |Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
 |=====
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
 |These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
 |=====
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |IDs can be similar for `client` and `vendor`. However, since the contact type and ID comes together, they would still refer to different contacts!
@@ -281,7 +322,7 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 Attributes of the services your clients require or vendors can provide can be indicated using the
  `addservice` command, by their unique IDs.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
@@ -315,7 +356,7 @@ Available service types for `SERVICE_TYPE`:
 
 You can easily find vendors that can fulfill the requests services with this command.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the vendors within the budget of the client.
@@ -333,7 +374,7 @@ Format: `client#<ID> automatch`
 
 You can easily find clients whose service requirements match the services offered by a vendor.
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the clients whose budgets can afford the service.
@@ -353,7 +394,7 @@ Lists all the commands that you have entered in reverse chronological order.
 
 Format: `history`
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
@@ -366,13 +407,13 @@ Undo the commands that you have entered in chronological order.
 
 Format: `undo`
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
 |=====
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |The application will show either the client list or vendor list corresponding to the command that was undone.
@@ -384,24 +425,17 @@ Redo the commands that you have undone by undo in chronological order.
 
 Format: `redo`
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |Commands that have been undone will be reset upon a `clear` command.
 |=====
 
-[cols="^,<9a", frame=none]
+[cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |The application will show either the client list or vendor list corresponding to the command that was redone.
 |=====
-
-
-=== Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
 
 === Saving the data
 
@@ -412,34 +446,34 @@ There is no need for you to save manually.
 == Command summary
 *Before logging in*
 
-* To log in: `login`
 * To get help: `help`
+* To log in: `login`
 * Close the application: `exit`
 
 *After logging in*
 
 * Register for a new account: `register account`
-* Log out of your account: `logout`
 * Change your account password: `change password`
-* View the detail of a client: `client# select`
-* View the detail of a vendor: `vendor# select`
-* Delete the entire data entries for both client and vendor: `clear`
-* Delete a particular data entry of a client: `client# delete`
-* Delete a particular data entry of a vendor: `vendor# delete`
-* List all the commands entered: `history`
-* Undo the previous command: `undo`
-* Redo the previous command: `redo`
 * Add an entry to the client: `client add`
 * Add an entry to the vendor: `vendor add`
-* Update the entry of a particular client: `client# update`
-* Update the entry of a particular vendor: `vendor# update`
-* List all the client data: `client list`
-* List all the vendor data: `vendor list`
 * Add a service requirement for a particular client: `client# addservice`
 * Add a service supported by a particular vendor: `vendor# addservice`
-* Auto find a match to fit a particular client's requirements: `client# automatch`
-* Auto find a match to fit a particular vendor's services: `vendor# automatch`
+* Update the entry of a particular client: `client# update`
+* Update the entry of a particular vendor: `vendor# update`
+* Delete a particular data entry of a client: `client# delete`
+* Delete a particular data entry of a vendor: `vendor# delete`
+* Delete the entire data entries for all clients and vendors: `clear`
+* List all the commands entered in this session: `history`
+* Undo the previous command: `undo`
+* Redo the previous command: `redo`
+* View the details of a client: `client# select`
+* View the details of a vendor: `vendor# select`
+* List all the clients' data: `client list`
+* List all the vendors' data: `vendor list`
+* Automatically find a match to fit a particular client's requirements: `client# automatch`
+* Automatically find a match to fit a particular vendor's services: `vendor# automatch`
 * To get help: `help`
+* Log out of your account: `logout`
 * Close the application: `exit`
 
 *Coming in v2.0*

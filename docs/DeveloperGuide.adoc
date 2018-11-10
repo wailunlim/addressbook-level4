@@ -17,7 +17,7 @@ endif::[]
 
 image::guidefordevelopers.png[width="600"]
 
-By: `Team Heart²`      Since: `Aug 2018`      Licence: `MIT`
+By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -151,7 +151,7 @@ This section shows an overview of the design decisions for this application. It 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+._Architecture Diagram_
 image::Architecture.png[width="600"]
 
 {empty} +
@@ -185,7 +185,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+._Class Diagram of the Logic Component_
 image::LogicClassDiagram.png[width="800"]
 
 {empty} +
@@ -195,7 +195,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1) +
+._Component interactions for `delete 1` command (part 1)_ +
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -203,7 +203,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2) +
+._Component interactions for `delete 1` command (part 2)_ +
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -214,7 +214,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+._Structure of the UI Component_
 image::UiClassDiagram.png[width="800"]
 
 {empty} +
@@ -235,7 +235,7 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+._Structure of the Logic Component_
 image::LogicClassDiagram.png[width="800"]
 
 {empty} +
@@ -250,7 +250,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+._Interactions Inside the Logic Component for the `delete 1` Command_
 image::DeletePersonSdForLogic.png[width="800"]
 
 {empty} +
@@ -258,7 +258,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+._Structure of the Model Component_
 image::ModelClassDiagram.png[width="800"]
 
 {empty} +
@@ -281,7 +281,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+._Structure of the Storage Component_
 image::StorageClassDiagram.png[width="800"]
 
 {empty} +
@@ -295,7 +295,7 @@ The `Storage` component,
 
 === Account Storage component
 
-.Structure of the Account Storage Component
+._Structure of the Account Storage Component_
 image::AccountStorageClassDiagram.png[width="800"]
 
 {empty} +
@@ -414,13 +414,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredoDisplay[]
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -449,7 +442,7 @@ Before user can use *_Heart²_*, they must first log in with a registered accoun
 ==== Before logging in
 User is presented with a login UI:
 
-.The login screen when user launches the application.
+._The login screen when user launches the application._
 image::UiLoginDiagram.png[width="800"]
 
 {empty} +
@@ -523,14 +516,14 @@ All accounts are stored in a file call `/data/accountlist.xml`. This file is gen
 
 The diagram below shows what happen when a user launches the application:
 
-.Activity diagram when user launches the application
+._Activity diagram when user launches the application_
 image::accountstoragediagram.png[width="800"]
 
 {empty} +
 
 Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
 
-.Activity diagram when user registers an account
+._Activity diagram when user registers an account_
 image::accountcreationdiagram.png[width="800"]
 
 {empty} +
@@ -714,7 +707,7 @@ The application boasts matchmaking features that reduces the (once-laborious) ta
 
 ==== High level design
 
-.High level overview of how auto-matching works
+._High level overview of how auto-matching works_
 image::auto-matching.png[width:"800"]
 
 1. On invocation, the auto-matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Vendors.
@@ -761,7 +754,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
+._Saving documentation as PDF files in Chrome_
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
@@ -1268,7 +1261,6 @@ image::appendixdheader.png[width="320"]
 
 (For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
 === Use case: Add Client/Vendor
 
 *MSS*
@@ -1289,7 +1281,6 @@ Use case ends.
 Use case ends.
 
 
-[discrete]
 === Use case: Update Client/Vendor
 
 *MSS*
@@ -1310,7 +1301,6 @@ Use case ends.
 Use case ends.
 
 
-[discrete]
 === Use case: Delete Client/Vendor
 
 *MSS*
@@ -1330,8 +1320,6 @@ Use case ends.
 +
 Use case ends.
 
-
-[discrete]
 === Use case: Login
 
 *MSS*
@@ -1373,11 +1361,6 @@ Use case ends.
 [none]
 ** Use case resumes from step 3.
 
-+
-Use case ends.
-
-
-[discrete]
 === Use case: Logout
 
 *MSS*
@@ -1388,7 +1371,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
 === Use case: Register an account
 
 *MSS*
@@ -1430,7 +1412,6 @@ Use case ends.
 +
 Use case ends.
 
-
 === Use case: Changing an existing account password
 
 *MSS*
@@ -1459,8 +1440,6 @@ Use case ends.
 +
 Use case ends.
 
-// tag::listMSS[]
-[discrete]
 === Use case: List all the Clients or Vendors
 
 *MSS*
@@ -1481,7 +1460,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
 === Use case: Filter and show Client’s or Vendor’s info according to the filter
 
 *MSS*
@@ -1507,9 +1485,7 @@ Use case ends.
 
 +
 Use case ends.
-// end::listMSS[]
 
-[discrete]
 === Use case: Match the most suitable Vendor to a Client's needs
 
 *MSS*
@@ -1541,34 +1517,28 @@ Use case ends.
 == Non Functional Requirements
 image::appendixeheader.png[width="320"]
 
-[Discrete]
 === Availability
 .  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Application should only be available for Wedding Managers with login credentials
 .  Application should be available 24hrs everyday without down time
 .  Data stored into the Application should be available to Users without corruption
 
-[Discrete]
 === Performance
 .  Application should be able to hold up to 1000 Clients and 1000 Vendors without a noticeable sluggishness in performance for typical usage.
 
-[Discrete]
 === Usability
 .  Application should be intuitive and easy to use for users after following the User Guide
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  A user without any technical knowledge should be able to use the program efficiently with the help of the user guide.
 
-[Discrete]
 === Reliability
 .  Application should be able to match Vendor to Client's needs correctly.
 .  Application should be able to perform all the commands without fail.
 
-[Discrete]
 === Scalability
 .  Application should be able to scale automatically even after reaching 1000 Clients or 1000 Vendors.
 .  Huge number of Clients and Vendors's data may cause some waiting time for commands to process, but Application should still be able to execute all the commands without fail.
 
-[Discrete]
 === Data Integrity
 .  Only authorized Users with specific login credentials should be able to add, update, or delete data directly from the Application.
 .  All monetary amounts should be accurate to 2 decimal places.
@@ -1596,50 +1566,3 @@ The User of the application; the Project Manager of a wedding planning company t
 
 [[event]] Event::
 A single request related to the wedding that the Client expects. The Project Manager plans for and provide this request from a Vendor. The event encapsulates many different services, such as: wedding photography, formal wedding attire rental, banquet catering, invitation printing, and many others.
-
-[appendix]
-== Instructions for Manual Testing
-image::appendixgheader.png[width="320"]
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
