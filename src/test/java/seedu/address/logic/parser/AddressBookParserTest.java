@@ -374,4 +374,26 @@ public class AddressBookParserTest {
         parser.parseCommand(ContactType.CLIENT + "#1 " + AutoMatchCommand.COMMAND_WORD
                 + " n/additional argument");
     }
+
+    @Test
+    public void parseCommand_addServiceArgumentsWithoutPrefix_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        // no prefix s/ in "photography"
+        parser.parseCommand(ContactType.CLIENT + "#1 " + AddServiceCommand.COMMAND_WORD
+                + " photography");
+    }
+
+    @Test
+    public void parseCommand_updateArgumentsWithoutPrefix_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        // no prefix n/ in "name"
+        parser.parseCommand(ContactType.CLIENT + "#1 " + UpdateCommand.COMMAND_WORD
+                + " name");
+    }
 }
