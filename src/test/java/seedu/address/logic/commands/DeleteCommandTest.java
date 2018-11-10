@@ -7,15 +7,20 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.address.logic.commands.DeleteCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -28,8 +33,12 @@ import seedu.address.testutil.TypicalAccount;
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+    private Model modelWithoutWritePrivilege = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            TypicalAccount.READ_ONLY_USER_ACCOUNT);
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -321,7 +330,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIdWithDifferentFilteredList_sameClientDeleted() throws Exception {
+    public void executeUndoRedo_validIdWithDifferentFilteredList_sameClientDeleted() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
 
         // choose to delete the first contact in the client list
@@ -428,6 +437,20 @@ public class DeleteCommandTest {
 
         // different client -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
+
+    @Test
+    public void execute_noDeletePrivilege_throwsLackOfPrivilegeException()
+            throws CommandException, LackOfPrivilegeException {
+        modelWithoutWritePrivilege.updateFilteredContactList(ContactType.VENDOR.getFilter());
+        Contact contactToDelete = modelWithoutWritePrivilege.getFilteredContactList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
+
+        thrown.expect(LackOfPrivilegeException.class);
+        thrown.expectMessage(String.format(COMMAND_WORD_GENERAL, contactToDelete.getType(), "#<ID>"));
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromOneBased(contactToDelete.getId()),
+                contactToDelete.getType());
+        deleteCommand.execute(modelWithoutWritePrivilege, commandHistory);
     }
 
     /**

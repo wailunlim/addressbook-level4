@@ -85,7 +85,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         toAdd = new ClientBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PersonUtil.getAddClientCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -117,26 +117,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate client -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = PersonUtil.getAddClientCommand(HOON);
         assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, HOON.getType()));
 
         /* Case: add a duplicate client except with different phone -> rejected */
         toAdd = new ClientBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PersonUtil.getAddClientCommand(toAdd);
         assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different email -> rejected */
         toAdd = new ClientBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PersonUtil.getAddClientCommand(toAdd);
         assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different address -> rejected */
         toAdd = new ClientBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PersonUtil.getAddClientCommand(toAdd);
         assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: add a duplicate client except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = PersonUtil.getAddClientCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, toAdd.getType()));
 
         /* Case: missing name -> rejected */
@@ -204,7 +204,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Contact toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(PersonUtil.getAddClientCommand(toAdd), toAdd);
     }
 
     /**

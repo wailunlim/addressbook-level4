@@ -22,11 +22,17 @@ import seedu.address.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code client}.
+     * Returns an add client command string for adding the {@code client}.
      */
-    public static String getAddCommand(Contact contact) {
-        //TODO: update this input for the add command after finalising parser
+    public static String getAddClientCommand(Contact contact) {
         return AddCommand.COMMAND_WORD_CLIENT + " " + getPersonDetails(contact);
+    }
+
+    /**
+     * Returns an add vendor command string for adding the {@code vendor}.
+     */
+    public static String getAddVendorCommand(Contact contact) {
+        return AddCommand.COMMAND_WORD_VENDOR + " " + getPersonDetails(contact);
     }
 
     /**

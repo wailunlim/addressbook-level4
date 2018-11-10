@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddServiceCommand;
+import seedu.address.logic.commands.AutoMatchCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
@@ -50,9 +51,17 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addClient() throws Exception {
         Contact contact = new ClientBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddClientCommand(contact));
+        assertEquals(new AddCommand(contact), command);
+    }
+
+
+    @Test
+    public void parseCommand_addVendor() throws Exception {
+        Contact contact = new VendorBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddVendorCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
 
@@ -105,8 +114,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    //TODO: update input
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deleteClient() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#"
                         + INDEX_FIRST_PERSON.getOneBased()));
@@ -114,7 +122,15 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_deleteVendor() throws Exception {
+        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+                String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.VENDOR, "#"
+                        + INDEX_FIRST_PERSON.getOneBased()));
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.VENDOR), command);
+    }
+
+    @Test
+    public void parseCommand_editClient() throws Exception {
         Contact contact = new ClientBuilder().build();
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         UpdateCommand command = (UpdateCommand) parser.parseCommand(String.format(COMMAND_WORD_GENERAL,
@@ -124,13 +140,23 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_editVendor() throws Exception {
+        Contact contact = new VendorBuilder().build();
+        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(String.format(COMMAND_WORD_GENERAL,
+                ContactType.VENDOR, "#" + INDEX_FIRST_PERSON.getOneBased()) + " "
+                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.VENDOR), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_listClients() throws Exception {
         // No arguments
         ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
         ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
@@ -143,6 +169,23 @@ public class AddressBookParserTest {
         command = (ListCommand) parser.parseCommand(
                 String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " n/Alice Bob");
         assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
+
+    }
+
+    @Test
+    public void parseCommand_listVendors() throws Exception {
+        // No arguments
+        ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
+        ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
+                ContactType.VENDOR));
+        assertEquals(new ListCommand(predicate, ContactType.VENDOR), command);
+
+        // One Argument
+        predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
+                Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
+        command = (ListCommand) parser.parseCommand(
+                String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.VENDOR) + " n/Alice Bob");
+        assertEquals(new ListCommand(predicate, ContactType.VENDOR), command);
 
     }
 
@@ -166,10 +209,17 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_select() throws Exception {
+    public void parseCommand_selectClient() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                "client#" + INDEX_FIRST_PERSON.getOneBased() + " view");
+                ContactType.CLIENT.toString() + "#" + INDEX_FIRST_PERSON.getOneBased() + " view");
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_selectVendor() throws Exception {
+        SelectCommand command = (SelectCommand) parser.parseCommand(
+                ContactType.VENDOR.toString() + "#" + INDEX_FIRST_PERSON.getOneBased() + " view");
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.VENDOR), command);
     }
 
     @Test
@@ -215,5 +265,113 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_updateCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(UpdateCommand.COMMAND_WORD_CLIENT + " n/test name");
+    }
+
+    @Test
+    public void parseCommand_viewCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(SelectCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_addServiceCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(AddServiceCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_addCommandWithIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
+
+        parser.parseCommand("client#1 add n/test name e/test@example.com p/11111111 a/address");
+    }
+
+    @Test
+    public void parseCommand_listCommandWithIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(ListCommand.MESSAGE_USAGE, ContactType.CLIENT)));
+
+        parser.parseCommand("client#1 list");
+    }
+
+    @Test
+    public void parseCommand_deleteCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(DeleteCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(DeleteCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommand_autoMatchCommandNoIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AutoMatchCommand.MESSAGE_USAGE_CLIENT, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(AutoMatchCommand.COMMAND_WORD_CLIENT);
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_registerAccountCommand_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
+
+        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD);
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_unknownCommand_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_UNKNOWN_COMMAND));
+
+        parser.parseCommandBeforeLoggedIn("unknownCommand");
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_invalidCommandFormat_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE)));
+
+        // an invalid command format
+        parser.parseCommandBeforeLoggedIn("");
+    }
+
+    @Test
+    public void parseCommand_selectCommandWithArguments_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(String.format(SelectCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
+                "#1") + " n/additional argument");
+    }
+
+    @Test
+    public void parseCommand_autoMatchCommandWithArguments_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AutoMatchCommand.MESSAGE_USAGE_CLIENT)));
+
+        parser.parseCommand(ContactType.CLIENT + "#1 " + AutoMatchCommand.COMMAND_WORD
+                + " n/additional argument");
     }
 }

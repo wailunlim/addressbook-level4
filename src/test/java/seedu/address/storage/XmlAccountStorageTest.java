@@ -141,7 +141,7 @@ public class XmlAccountStorageTest {
     public void saveAccount_invalidAccount_throwsNullPointerException() {
         thrown.expect(IllegalArgumentException.class);
         try {
-            new XmlAccountStorage(TEST_ACCOUNTLIST_PATH).saveAccount(TypicalAccount.EMPTYUSERNAME_ACCOUNT);
+            new XmlAccountStorage(TEST_ACCOUNTLIST_PATH).saveAccount(TypicalAccount.EMPTY_USERNAME_ACCOUNT);
         } catch (IOException e) {
             throw new AssertionError("There should not be an error writing to the file.", e);
         }
