@@ -261,4 +261,29 @@ public class AddressBookParserTest {
 
         parser.parseCommand(AutoMatchCommand.COMMAND_WORD_CLIENT);
     }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_registerAccountCommand_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
+
+        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD);
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_unknownCommand_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_UNKNOWN_COMMAND));
+
+        parser.parseCommandBeforeLoggedIn("unknownCommand");
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_invalidCommandFormat_throwsParseexception() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE)));
+
+        // an invalid command format
+        parser.parseCommandBeforeLoggedIn("");
+    }
 }
