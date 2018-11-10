@@ -488,6 +488,7 @@ Format: `redo`
 |image:icon-notes.png[width="48", role="center"]
 |The application will show either the client list or vendor list corresponding to the command that was redone.
 |=====
+// end::undoredo[]
 
 === Saving the data
 
