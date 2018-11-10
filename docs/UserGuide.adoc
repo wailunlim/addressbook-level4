@@ -518,8 +518,8 @@ There is no need for you to save manually.
 * List all the commands entered in this session: `history`
 * Undo the previous command: `undo`
 * Redo the previous command: `redo`
-* View the details of a client: `client# select`
-* View the details of a vendor: `vendor# select`
+* View the details of a client: `client# view`
+* View the details of a vendor: `vendor# view`
 * List all the clients' data: `client list`
 * List all the vendors' data: `vendor list`
 * Automatically find a match to fit a particular client's requirements: `client# automatch`
