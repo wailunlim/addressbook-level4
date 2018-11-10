@@ -335,7 +335,28 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
 
-        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD);
+        parser.parseCommandBeforeLoggedIn(RegisterAccountCommand.COMMAND_WORD
+                + " u/testAccount p/testPassword");
+    }
+
+    @Test
+    public void parseCommandBeforeLoggedIn_registerAccountCommandWithIllegalIdentifier_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RegisterAccountCommand.MESSAGE_USAGE));
+
+        parser.parseCommandBeforeLoggedIn(" register#1 account u/testAccount p/testPassword");
+    }
+
+    @Test
+    public void parseCommand_changePasswordCommandWithIllegalIdentifier_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditPasswordCommand.MESSAGE_USAGE));
+
+        parser.parseCommand(" change#1 password o/rootPassword n/testPassword");
     }
 
     @Test
@@ -373,5 +394,27 @@ public class AddressBookParserTest {
 
         parser.parseCommand(ContactType.CLIENT + "#1 " + AutoMatchCommand.COMMAND_WORD
                 + " n/additional argument");
+    }
+
+    @Test
+    public void parseCommand_addServiceArgumentsWithoutPrefix_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        // no prefix s/ in "photography"
+        parser.parseCommand(ContactType.CLIENT + "#1 " + AddServiceCommand.COMMAND_WORD
+                + " photography");
+    }
+
+    @Test
+    public void parseCommand_updateArgumentsWithoutPrefix_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        // no prefix n/ in "name"
+        parser.parseCommand(ContactType.CLIENT + "#1 " + UpdateCommand.COMMAND_WORD
+                + " name");
     }
 }

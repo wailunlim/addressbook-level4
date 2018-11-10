@@ -41,11 +41,11 @@ public class RegisterAccountCommand extends Command {
     public static final String MESSAGE_FAILURE_FILENOTFOUND = "Failed to find the file to save account to.";
     public static final String MESSAGE_FAILURE_EMPTYUSERNAME = "Username cannot be empty."
             + " Please try again with another username.";
-    public static final String MESSAGE_FAILURE_USERNAMEWITHSPACE = "Username cannot contain space."
+    public static final String MESSAGE_FAILURE_USERNAMEWITHSPACE = "Username cannot contain spaces."
             + " Please try again with another username.";
-    public static final String MESSAGE_FAILURE_EMPTYPASSWORD = "Pasword cannot be empty."
+    public static final String MESSAGE_FAILURE_EMPTYPASSWORD = "Password cannot be empty."
             + " Please try again with another password.";
-    public static final String MESSAGE_FAILURE_PASSWORDWITHSPACE = "Pasword cannot contain space."
+    public static final String MESSAGE_FAILURE_PASSWORDWITHSPACE = "Password cannot contain spaces."
             + " Please try again with another password.";
     public static final String MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN = "You can only register an account after "
             + "logging in. Please contact your admin to get an account.";

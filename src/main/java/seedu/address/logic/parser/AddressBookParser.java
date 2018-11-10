@@ -53,6 +53,7 @@ public class AddressBookParser {
         }
 
         final String commandWord = getCommandWord(matcher.group("firstWord"), matcher.group("secondWord"));
+        final String identifier = matcher.group("identifier");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -66,6 +67,7 @@ public class AddressBookParser {
             return new ExitCommand();
 
         case RegisterAccountCommand.COMMAND_WORD:
+            requireNullIdentifier(identifier, RegisterAccountCommand.MESSAGE_USAGE);
             throw new ParseException(RegisterAccountCommand.MESSAGE_REGISTERACCOUNT_INVOKEATLOGIN);
 
         default:
@@ -112,12 +114,14 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case RegisterAccountCommand.COMMAND_WORD:
+            requireNullIdentifier(identifier, RegisterAccountCommand.MESSAGE_USAGE);
             return new RegisterAccountCommandParser().parse(arguments);
 
         case LogoutCommand.COMMAND_WORD:
             return new LogoutCommand();
 
         case EditPasswordCommand.COMMAND_WORD:
+            requireNullIdentifier(identifier, EditPasswordCommand.MESSAGE_USAGE);
             return new EditPasswordCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD_CLIENT:
@@ -245,7 +249,7 @@ public class AddressBookParser {
     }
 
     /**
-     * Ensure that the {@code String} object is null.
+     * Ensure that the {@code String} object is null. This returns a more specific command format message.
      * @param identifier The {@code String} object that is to be null.
      * @param contactType The {@code ContactType} of the command.
      * @param messageUsage The correct usage of the command.
@@ -256,6 +260,18 @@ public class AddressBookParser {
         if (identifier != null) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     String.format(messageUsage, contactType, "#<ID>")));
+        }
+    }
+
+    /**
+     * Ensure that the {@code String} object is null. This returns a general invalid command format message.
+     * @param identifier The {@code String} object that is to be null.
+     * @throws ParseException If {@code String} object is not null
+     */
+    private void requireNullIdentifier(String identifier, String messageUsage) throws ParseException {
+        if (identifier != null) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    messageUsage));
         }
     }
 }

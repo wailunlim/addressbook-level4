@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.SERVICE_COST_DESC_MID;
 import static seedu.address.logic.commands.CommandTestUtil.SERVICE_DESC_HOTEL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERVICE_COST_MID;
@@ -27,13 +26,17 @@ public class AddServiceCommandParserTest {
     public void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(clientParser, VALID_SERVICE_HOTEL,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, VALID_SERVICE_HOTEL));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
         assertParseFailure(vendorParser, VALID_SERVICE_HOTEL,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, VALID_SERVICE_HOTEL));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
 
         // Invalid index specified
-        assertParseFailure(clientParser, "", String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
-        assertParseFailure(vendorParser, "", String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
+        assertParseFailure(clientParser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+        assertParseFailure(vendorParser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
 
         // no service type specified
         assertParseFailure(clientParser, "1" + SERVICE_COST_DESC_MID,
@@ -62,27 +65,35 @@ public class AddServiceCommandParserTest {
     public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure(clientParser, "-5" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "-5"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
         assertParseFailure(vendorParser, "-5" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "-5"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
 
         // zero index
         assertParseFailure(clientParser, "0" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "0"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
         assertParseFailure(vendorParser, "0" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "0"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
 
         // invalid arguments being parsed as preamble
         assertParseFailure(clientParser, "1 some random string" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 some random string"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
         assertParseFailure(vendorParser, "1 some random string" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 some random string"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
 
         // invalid prefix being parsed as preamble
         assertParseFailure(clientParser, "1 i/ string" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 i/ string"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
         assertParseFailure(vendorParser, "1 i/ string" + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, "1 i/ string"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.VENDOR, "#<ID>")));
     }
 
     @Test

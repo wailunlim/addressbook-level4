@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -163,12 +164,14 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#0") + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, 0));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (-1) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#-1") + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, -1));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(UpdateCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredContactList().size() + 1;
@@ -176,10 +179,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 ContactType.CLIENT, "#" + invalidIndex) + " " + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, invalidIndex));
 
-        /* Case: missing index -> rejected */
-        assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_UNKNOWN_COMMAND, String.format(UpdateCommand.MESSAGE_USAGE,
-                        ContactType.CLIENT, "#<ID>")));
+        /* Case: unknown command -> rejected */
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: missing all fields -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,

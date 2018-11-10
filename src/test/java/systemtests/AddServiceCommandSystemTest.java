@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.AddServiceCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.logic.commands.AddServiceCommand.MESSAGE_DUPLICATE_SERVICE;
@@ -91,12 +90,14 @@ public class AddServiceCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#0") + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, 0));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (-1) -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
                 ContactType.CLIENT, "#-1") + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, -1));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredContactList().size() + 1;
@@ -107,7 +108,8 @@ public class AddServiceCommandSystemTest extends AddressBookSystemTest {
         /* Case: missing index -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL, ContactType.CLIENT, "# ")
                         + SERVICE_DESC_HOTEL + SERVICE_COST_DESC_MID,
-                String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ""));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AddServiceCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
 
         /* Case: missing all fields -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,
