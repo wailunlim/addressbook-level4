@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.ArrayList;
@@ -13,7 +15,6 @@ import seedu.address.model.contact.ContactContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactInformation;
 
 public class ListCommandParserTest {
-
     private ListCommandParser parser = new ListCommandParser(ContactType.CLIENT);
 
     @Test
@@ -32,7 +33,7 @@ public class ListCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsListCommand() throws Exception {
+    public void parse_validArgs_returnsListCommand() {
         // no leading and trailing whitespaces
         ListCommand expectedListCommand =
                 new ListCommand(new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
@@ -40,6 +41,12 @@ public class ListCommandParserTest {
                         ContactType.CLIENT);
 
         assertParseSuccess(parser, " n/Alice Bob", expectedListCommand);
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, " n/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(ListCommand.MESSAGE_USAGE, ContactType.CLIENT)));
     }
 
 }
