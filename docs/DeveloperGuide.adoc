@@ -723,7 +723,8 @@ A `client` can be similar to a `vendor`, but they are still considered independe
 
 ** Pros: No implementation required. The user has the choice to have their `client` and `vendor` be similar or not be.
 
-** Cons: There might be cases where the user might want to see both contacts as the same. In this case, they will have to update both manually.
+** Cons: There are scenarios where the user would like to update the details of both the `client` and `vendor` together as they are similar.
+In this case, they will have to update both manually.
 
 * *Alternative 2*:
 Updating a similar `client` or `vendor` should update its counterpart.
