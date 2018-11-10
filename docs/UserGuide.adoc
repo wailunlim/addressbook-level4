@@ -97,7 +97,7 @@ The following section documents all the commands available for you in this appli
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging in the the application.
+|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application.
 |=====
 
 === Viewing help : `help`
@@ -116,7 +116,11 @@ Format: `help`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
 
-Condition: You must not already been logged in. Otherwise, it will be an unknown command.
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Condition of use: You must not be logged in. Otherwise, it will be an unknown command.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
