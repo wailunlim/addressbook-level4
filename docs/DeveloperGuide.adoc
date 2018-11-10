@@ -661,22 +661,6 @@ This would indicate that the contact in the list is the contact we are to delete
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
 We then can feedback to the user that the ID specified is invalid.
 
-==== Design Considerations
-===== Aspect: How should the user specify a deletion?
-
-* *Alternative 1* (current choice):
-Delete the contact based on the contact type and the unique ID.
-** Pros: Allows the user to delete any contact at any point of time, save time as the user does not need to traverse to a list that shows the contact.
-By using unique IDs to delete, we are able to delete the correct contact using the same command no matter what list is shown to the user.
-
-** Cons: Might be still a bit limiting as users have to be able to remember the specific unique ID of the `client` or `vendor` to delete.
-
-* *Alternative 2*:
-Delete the contact based solely on the relative index of the contact in the list that is shown to the user.
-** Pros: Legacy implementation, no change would have been required.
-
-** Cons: The user is limited to delete only what he/she is shown on the list.
-
 === Update contact feature
 *_Heart²_* allows the user to update any contact, using the combination of its contact type and its unique ID, followed by `update`.
 
@@ -738,6 +722,37 @@ A lot of people have separate phone numbers and emails for personal use and work
 
 However, there will definitely be cases where users might want such similar contacts to be linked and updated together.
 A possible quality-of-life improvement would be to allow an option (command) to link such similar contacts to each other, for updating.
+
+=== View contact feature
+*_Heart²_* allows the user to view any contact, using the combination of its contact type and its unique ID, followed by `view`.
+
+* `client#3 view`
+* `vendor#6 view`
+
+The above commands selects the `client` with the unique ID #3 and the `vendor` with the unique ID #6 respectively for viewing.
+The contact's card is shown on the panel on the right in *_Heart²_*, containing all the information regarding the contact.
+
+[TIP]
+By using `view`, all the information regarding the contact will be shown.
+This includes the name, phone number, email address, tags, residential (`client`) or office address (`vendor`), and services requested (`client`) or services offered (`vendor`).
+
+==== Implementation
+The `view` command uses a similar implementation to the `add`, `delete` and `update` commands.
+The current implementation filters the contact list by the specified contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
+
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
+After obtaining this contact, a new `JumpToListRequestEvent` is posted to the event bus.
+The `PersonListPanel` class is registered as an event handler, and it handles this `JumpToListRequestEvent` with `PersonListPanel#handleJumpToListRequestEvent(JumpToListRequestEvent)`.
+The contact's card is then selected for viewing.
+
+However, if the list is of size 0, this means that the contact that is specified for viewing does not exist.
+We then can feedback to the user that the ID specified is invalid.
+
+==== Design Considerations
+The implementation of `view` was chosen to also use the combination of the contact type and ID to select a contact for viewing.
+This is part of a standardisation effort to have cohesiveness in the command syntax.
 
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
