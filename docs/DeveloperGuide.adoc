@@ -699,6 +699,28 @@ A contact is considered a duplicate if they are of the same contact type *and* h
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
 We then can feedback to the user that the ID specified is invalid.
 
+==== Design Considerations
+Aspect: Should a similar (have the same name *and* same phone number *or* email) `client` and `vendor` object be updated together?
+
+* *Alternative 1* (current choice):
+A `client` can be similar to a `vendor`, but they are still considered independent contacts in *_Heart²_*.
+
+** Pros: No implementation required. The user has the choice to have their `client` and `vendor` be similar or not be.
+
+** Cons: There might be cases where the user might want to see both contacts as the same. In this case, they will have to update both manually.
+
+* *Alternative 2*:
+Updating a similar `client` or `vendor` should update its counterpart.
+
+** Pros: The user can update a similar `client` and `vendor` together.
+
+** Cons: Hard to implement. Also, the user will lack the flexibility of having his `client` and `vendor` be updated individually.
+
+After much consideration, we decided to choose option 1, so that our user can have more flexibility in *_Heart²_*.
+A lot of people have separate phone numbers and emails for personal use and work, and thus it made sense to us that these contacts should still be updated separately.
+However, there will definitely be cases where users might want such similar contacts to be linked and updated together.
+A possible quality-of-life improvement would be to allow an option (command) to link such similar contacts to each other, for updating.
+
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
 
