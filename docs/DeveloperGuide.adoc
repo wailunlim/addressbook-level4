@@ -597,6 +597,10 @@ The above commands add a `client` and a `vendor`, together with the details prov
 This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
 It complements the unique ID feature earlier to ensure that a `client` and a `vendor` with the same ID are still differentiable due to the contact type.
 
+Adding of duplicate contacts are not allowed in *_Heart²_*.
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
 ==== Current Implementation
 Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
 When adding a contact, either a new `Client` or a `Vendor` object is instantiated.
@@ -658,19 +662,42 @@ Delete the contact based solely on the relative index of the contact in the list
 ** Cons: The user is limited to delete only what he/she is shown on the list.
 
 === Update contact feature
-*_Heart²_* allows the user to update any contact, using again the combination of its contact type and its unique ID, followed by `update`.
+*_Heart²_* allows the user to update any contact, using the combination of its contact type and its unique ID, followed by `update`.
 
-With the list of 'client' or 'vendor' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
+* 'client#1 update n/Wai Lua'
+* 'vendor#2 update p/9046 3328'
 
-* 'edit 1 n/Wai Lua'
-* 'edit 2 p/9046 3328'
+The above commands update the name of the `client` given the unique ID #2 to "Wai Lua", and the phone number of the `vendor` given the unique ID #2 to 9046 3328.
 
-The above commands will update the name of the first contact to Wai Lua and the phone number of the second contact to 9046 3328 respectively.
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
+As mentioned earlier, duplicate contacts are not allowed in *_Heart²_*.
+Thus, when updating, the user is not allowed to update a contact in *_Heart²_* if updating it will result in duplicated contacts.
 
 ==== Implementation
 
-The index specified determines the contact in question. The arguments following the index is parsed and used to create an EditContactDescriptor.
-This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'vendor' is first performed to create a correct replacement contact, before updating the contact list.
+The current implementation uses part of the legacy implementation to do the updating of contacts.
+The arguments are parsed and tokenized using `ArgumentTokenizer#tokenize(String, Prefix...)`.
+An `EditContactDescriptor` object is then created to hold this new information temporarily.
+
+[TIP]
+The prefixes applicable to `update` are `n/`, `p/`, `e/`, `a/`, `t/`. At least one of them follow the `update` command.
+
+Then, the current implementation filters the contact list by the specified contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
+
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
+The contact in this list would be the contact to be updated.
+A new contact is created using `UpdateCommand#createEditedContact(Contact, EditContactDescriptor, ContactType)`.
+The next step is then to ensure that this new contact is not a duplicate contact, before replacing the old contact in *_Heart²_*.
+
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
+However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
+We then can feedback to the user that the ID given is invalid.
 
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
