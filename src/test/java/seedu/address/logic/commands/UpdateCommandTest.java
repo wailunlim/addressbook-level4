@@ -235,18 +235,6 @@ public class UpdateCommandTest {
         assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
-    // Create a client that is a duplicate of a vendor --> command failure
-    @Test
-    public void execute_duplicateClientAndVendorList_failure() {
-        model.updateFilteredContactList(ContactType.VENDOR.getFilter());
-        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
-        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_SECOND_PERSON, descriptor, ContactType.CLIENT);
-
-        assertCommandFailure(updateCommand, model, commandHistory, UpdateCommand.MESSAGE_DUPLICATE_CONTACT);
-    }
-
     @Test
     public void execute_duplicateClientFilteredList_failure() {
         model.updateFilteredContactList(ContactType.CLIENT.getFilter());
@@ -406,7 +394,7 @@ public class UpdateCommandTest {
 
         assertCommandFailure(updateCommand, readOnlyModel, commandHistory,
                 "You do not have privilege to access \'" + String.format(COMMAND_WORD_GENERAL,
-                ContactType.CLIENT, "#<ID>") + "\' command.");
+                        ContactType.CLIENT, "#<ID>") + "\' command.");
     }
 
     @Test
