@@ -104,11 +104,23 @@ The following section documents all the commands available for you in this appli
 
 Opens a new window that contains the user guide to help you find out any information you need.
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot `undo` a help.
+|=====
+
 Format: `help`
 
 === Logging in : `login`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot `undo` a login.
+|=====
 
 Format: `login u/USERNAME p/PASSWORD`
 
@@ -128,6 +140,12 @@ Format: `exit`
 
 Securely logs you out of the system.
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot `undo` a logout.
+|=====
+
 Format: `logout`
 
 === Registering a new account : `register account`
@@ -140,6 +158,12 @@ Condition: Username and password cannot be empty, or contain space.
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot `undo` registering a new account.
 |=====
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
@@ -173,6 +197,12 @@ Condition: your old password is typed in correctly, and new password should not 
 |Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
 |=====
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot `undo` changing of password.
+|=====
+
 Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 [cols="^,<5a", frame=none]
@@ -195,9 +225,9 @@ There are two types of contacts supported by Heart², namely `client` and `vendo
 
 You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
 
-Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
-
 Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
+Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -305,9 +335,9 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 
 You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
-Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
-
 Condition: You cannot update a contact to make the contact equals to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
