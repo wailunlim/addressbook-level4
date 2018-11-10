@@ -60,8 +60,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addVendor() throws Exception {
-        Contact contact = new ClientBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddClientCommand(contact));
+        Contact contact = new VendorBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddVendorCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
 
@@ -114,7 +114,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deleteClient() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT, "#"
                         + INDEX_FIRST_PERSON.getOneBased()));
@@ -122,7 +122,15 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_deleteVendor() throws Exception {
+        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+                String.format(DeleteCommand.COMMAND_WORD_GENERAL, ContactType.VENDOR, "#"
+                        + INDEX_FIRST_PERSON.getOneBased()));
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, ContactType.VENDOR), command);
+    }
+
+    @Test
+    public void parseCommand_editClient() throws Exception {
         Contact contact = new ClientBuilder().build();
         UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         UpdateCommand command = (UpdateCommand) parser.parseCommand(String.format(COMMAND_WORD_GENERAL,
@@ -132,13 +140,23 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_editVendor() throws Exception {
+        Contact contact = new VendorBuilder().build();
+        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(String.format(COMMAND_WORD_GENERAL,
+                ContactType.VENDOR, "#" + INDEX_FIRST_PERSON.getOneBased()) + " "
+                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.VENDOR), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_listClients() throws Exception {
         // No arguments
         ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
         ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
@@ -151,6 +169,23 @@ public class AddressBookParserTest {
         command = (ListCommand) parser.parseCommand(
                 String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT) + " n/Alice Bob");
         assertEquals(new ListCommand(predicate, ContactType.CLIENT), command);
+
+    }
+
+    @Test
+    public void parseCommand_listVendors() throws Exception {
+        // No arguments
+        ContactContainsKeywordsPredicate predicate = new ContactContainsKeywordsPredicate();
+        ListCommand command = (ListCommand) parser.parseCommand(String.format(ListCommand.COMMAND_WORD_GENERAL,
+                ContactType.VENDOR));
+        assertEquals(new ListCommand(predicate, ContactType.VENDOR), command);
+
+        // One Argument
+        predicate = new ContactContainsKeywordsPredicate(new ContactInformation(Optional.of("Alice Bob"),
+                Optional.empty(), Optional.empty(), Optional.empty(), new ArrayList<>()));
+        command = (ListCommand) parser.parseCommand(
+                String.format(ListCommand.COMMAND_WORD_GENERAL, ContactType.VENDOR) + " n/Alice Bob");
+        assertEquals(new ListCommand(predicate, ContactType.VENDOR), command);
 
     }
 
@@ -174,10 +209,17 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_select() throws Exception {
+    public void parseCommand_selectClient() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                "client#" + INDEX_FIRST_PERSON.getOneBased() + " view");
+                ContactType.CLIENT.toString() + "#" + INDEX_FIRST_PERSON.getOneBased() + " view");
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_selectVendor() throws Exception {
+        SelectCommand command = (SelectCommand) parser.parseCommand(
+                ContactType.VENDOR.toString() + "#" + INDEX_FIRST_PERSON.getOneBased() + " view");
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON, ContactType.VENDOR), command);
     }
 
     @Test
