@@ -197,6 +197,8 @@ You can `add` a contact together with its particulars into Heart² by specifying
 
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
+Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
@@ -304,6 +306,8 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
 Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+Condition: You cannot update a contact to make the contact equals to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [cols="^,<5a", frame=none]
 |=====
