@@ -39,7 +39,7 @@ Components: Logic, Storage
 
 === Lim Wai Lun
 image::wailunlim.png[width="150", align="left"]
-{empty}[http://github.com/wailunlim[github]] [<<limwailun#, portfolio>>]
+{empty}[http://github.com/wailunlim[github]] [<<wailunlim#, portfolio>>]
 
 Role: Integration, Java guru +
 Components: Model, Logic
