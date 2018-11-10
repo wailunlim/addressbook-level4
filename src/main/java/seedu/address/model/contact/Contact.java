@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.model.ContactType;
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vendor.Vendor;
 
 /**
  * An abstract class the client and the service provider inherits.
@@ -105,7 +107,8 @@ public abstract class Contact {
 
         return otherContact != null
                 && otherContact.getName().equals(getName())
-                && ((otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail())));
+                && ((otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail())))
+                && (otherContact.getClass().equals(this.getClass()));
     }
 
     /**
