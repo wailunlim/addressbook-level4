@@ -1566,3 +1566,107 @@ The User of the application; the Project Manager of a wedding planning company t
 
 [[event]] Event::
 A single request related to the wedding that the Client expects. The Project Manager plans for and provide this request from a Vendor. The event encapsulates many different services, such as: wedding photography, formal wedding attire rental, banquet catering, invitation printing, and many others.
+
+[appendix]
+== Instructions for Manual Testing
+image::appendixgheader.png[width="320"]
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+For all commands except for `login`, `help`, and `exit`, user is expected to have already logged in to the application successfully and be at the main screen GUI page, not the login GUI page.
+
+=== Launch the application
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the login page GUI. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+=== Shutdown the application
+
+. Exit the application with a command
+
+.. Test case: `exit` +
+   Expected: The GUI screen closes and the application exits.
+
+. Exit the application by clicking on the GUI close button or force quitting the app (e.g. `alt` + `f4` on Windows, and `cmd` + `q` on Mac)
+
+.. Expected: The GUI screen closes and the application exits.
+
+=== Deleting a client
+
+. Deleting a client while all clients are listed
+
+.. Prerequisites: List all clients using the `client list` command. Multiple clients in the list.
+.. Test case: `client#1 delete` +
+   Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `client#0 delete` +
+   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `client3 delete`, `client#x delete` (where x is not a client's id), `delete client#1` +
+   Expected: Similar to previous.
+
+=== Deleting a vendor
+
+. Deleting a vendor while all vendors are listed
+
+.. Prerequisites: List all vendors using the `vendor list` command. Multiple vendors in the list.
+.. Test case: `vendor#1 delete` +
+   Expected: First vendor is deleted from the list. Details of the deleted vendor shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `vendor#0 delete` +
+   Expected: No vendor is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `vendor3 delete`, `vendor#x delete` (where x is not a vendor's id), `delete vendor#1` +
+   Expected: Similar to previous.
+
+=== Logging in
+
+. Log in to the application on new launch, or on log out.
+
+.. Prerequisites: User must not already been logged in.
+.. Test case: `login u/rootUser p/rootPassword` +
+   Expected: Successfully logged in as rootUser. Login GUI is closed, and the main screen GUI is shown. Your username and your account role (either a super_user or read_only_user) are shown at the footer of the app.
+.. Test case: `login u/YourCreatedUsername p/YourCreatedPassword` +
+   Expected: Successfully logged in as YourCreatedUsername. Login GUI is closed, and the main screen GUI is shown. Your username and your account role (either a super_user or read_only_user) are shown at the footer of the app.
+.. Incorrect commands to try: `login u/YourCreatedUsername p/YourOldPassword`, `login u/YourCreatedUsername p/WrongPassword`, `login u/WrongUsername p/YourCreatedPassword` +
+   Expected: Failed to log in. GUI remains on the same page, with a feedback saying that the username or password is wrong.
+
+. Log in to the application after logging in.
+
+.. Prerequisites: User must have already logged in successfully and on the main screen GUI page.
+.. Test case: `login u/rootUser p/rootPassword` +
+   Expected: Unknown command.
+
+=== Logging out
+
+. Log out of the application
+
+.. Test case: `logout` +
+   Expected: Successfully logged out. Main screen GUI is closed, and login screen GUI appears.
+
+=== Registering a new account
+
+. Register a new account that can be used as login credentials subsequently.
+
+.. Prerequisites: User account must be a super_user_account.
+.. Test case: `register account u/newUserName p/newPassword r/superuser` +
+   Expected: Screen GUI feedback to say that you have successfully registered an account. You can now `logout` and log in with `login u/newUserName p/newPassword`.
+.. Test case: `register account u/us3r p/p@ssw0rD r/readonlyuser` +
+   Expected: Screen GUI feedback to say that you have successfully registered an account. You can now `logout` and log in with `login u/us3r p/p@ssw0rD`.
+.. Incorrect commands to try: `login u/ p/password r/superuser`, `login u/username p/ r/readonlyuser` (basically cannot contain empty field in any of u/ p/ or r/ parameter), `login u/usernameAlreadyExist p/password r/superuser`
+
+=== Changing your account password
+
+. Change your current account password to a new password.
+
+.. Prerequisites: You must know your old password.
+.. Test case: `change password o/rootPassword n/newPassword` +
+   Expected: Screen GUI feedback to say that you have successfully changed your password. You can now `logout` and log in with `login u/rootUser p/newPassword`.
+.. Incorrect commands to try: `changepassword o/rootPassword n/newPassword`, `change password o/WrongOldPassword n/newPasword`, `change password o/rootPassword n/`
