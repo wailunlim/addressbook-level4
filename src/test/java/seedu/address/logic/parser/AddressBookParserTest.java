@@ -347,11 +347,31 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommandBeforeLoggedIn_invalidCommandFormat_throwsParseexception() throws Exception {
+    public void parseCommandBeforeLoggedIn_invalidCommandFormat_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE)));
 
         // an invalid command format
         parser.parseCommandBeforeLoggedIn("");
+    }
+
+    @Test
+    public void parseCommand_selectCommandWithArguments_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(SelectCommand.MESSAGE_USAGE, ContactType.CLIENT, "#<ID>")));
+
+        parser.parseCommand(String.format(SelectCommand.COMMAND_WORD_GENERAL, ContactType.CLIENT,
+                "#1") + " n/additional argument");
+    }
+
+    @Test
+    public void parseCommand_autoMatchCommandWithArguments_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AutoMatchCommand.MESSAGE_USAGE_CLIENT)));
+
+        parser.parseCommand(ContactType.CLIENT + "#1 " + AutoMatchCommand.COMMAND_WORD
+                + " n/additional argument");
     }
 }
