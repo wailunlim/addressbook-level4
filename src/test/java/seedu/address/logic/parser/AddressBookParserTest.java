@@ -245,6 +245,24 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addCommandWithIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(AddCommand.MESSAGE_USAGE, ContactType.CLIENT)));
+
+        parser.parseCommand("client#1 add n/test name e/test@example.com p/11111111 a/address");
+    }
+
+    @Test
+    public void parseCommand_listCommandWithIdentifier_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(ListCommand.MESSAGE_USAGE, ContactType.CLIENT)));
+
+        parser.parseCommand("client#1 list");
+    }
+
+    @Test
     public void parseCommand_deleteCommandNoIdentifier_throwsParseException() throws ParseException {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
