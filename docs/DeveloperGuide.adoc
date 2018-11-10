@@ -643,7 +643,7 @@ This first predicate is then combined with another predicate that is looking for
 Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
 This would indicate that the contact in the list is the contact we are to delete.
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
-We then can feedback to the user that the ID given is invalid.
+We then can feedback to the user that the ID specified is invalid.
 
 ==== Design Considerations
 Aspect: How should the user specify a deletion?
@@ -682,7 +682,7 @@ The arguments are parsed and tokenized using `ArgumentTokenizer#tokenize(String,
 An `EditContactDescriptor` object is then created to hold this new information temporarily.
 
 [TIP]
-The prefixes applicable to `update` are `n/`, `p/`, `e/`, `a/`, `t/`. At least one of them follow the `update` command.
+The prefixes applicable to `update` are `n/`, `p/`, `e/`, `a/`, `t/`. At least one of them must follow the `update` command.
 
 Then, the current implementation filters the contact list by the specified contact type and ID.
 The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
@@ -697,7 +697,7 @@ The next step is then to ensure that this new contact is not a duplicate contact
 A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
 
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
-We then can feedback to the user that the ID given is invalid.
+We then can feedback to the user that the ID specified is invalid.
 
 === Viewing Search Results [Coming in v2.0]
 After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
