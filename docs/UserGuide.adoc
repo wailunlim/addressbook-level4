@@ -116,6 +116,8 @@ Format: `help`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
 
+Condition: You must not already been logged in. Otherwise, it will be an unknown command.
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
