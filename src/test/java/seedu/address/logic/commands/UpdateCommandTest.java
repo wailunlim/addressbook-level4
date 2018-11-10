@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.address.logic.commands.UpdateCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -40,6 +41,8 @@ import seedu.address.testutil.VendorBuilder;
 public class UpdateCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), TypicalAccount.ROOTACCOUNT);
+    private Model readOnlyModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            TypicalAccount.READ_ONLY_USER_ACCOUNT);
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -398,6 +401,18 @@ public class UpdateCommandTest {
         // redo -> edits same second client in unfiltered client list
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_noWritePrivilege_throwsLackOfPrivilegeException() {
+        model.updateFilteredContactList(ContactType.CLIENT.getFilter());
+        Contact editedContact = new ClientBuilder().build();
+        UpdateCommand.EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
+
+        assertCommandFailure(updateCommand, readOnlyModel, commandHistory,
+                "You do not have privilege to access \'" + String.format(COMMAND_WORD_GENERAL,
+                ContactType.CLIENT, "#<ID>") + "\' command.");
     }
 
     @Test
