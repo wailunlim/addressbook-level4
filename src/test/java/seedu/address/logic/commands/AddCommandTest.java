@@ -91,7 +91,8 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_noWritePrivilege_throwsLackOfPrivilegeException() throws Exception {
+    public void execute_noWritePrivilege_throwsLackOfPrivilegeException()
+            throws CommandException, LackOfPrivilegeException {
         Contact validContact = new ClientBuilder().build();
         AddCommand addCommand = new AddCommand(validContact);
         ModelStub modelStub = new ModelStubWithoutWritePrivilege();
