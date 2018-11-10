@@ -151,7 +151,7 @@ This section shows an overview of the design decisions for this application. It 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+._Architecture Diagram_
 image::Architecture.png[width="600"]
 
 {empty} +
@@ -185,7 +185,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+._Class Diagram of the Logic Component_
 image::LogicClassDiagram.png[width="800"]
 
 {empty} +
@@ -195,7 +195,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1) +
+._Component interactions for `delete 1` command (part 1)_ +
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -203,7 +203,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2) +
+._Component interactions for `delete 1` command (part 2)_ +
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -214,7 +214,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+._Structure of the UI Component_
 image::UiClassDiagram.png[width="800"]
 
 {empty} +
@@ -235,7 +235,7 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+._Structure of the Logic Component_
 image::LogicClassDiagram.png[width="800"]
 
 {empty} +
@@ -250,7 +250,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+._Interactions Inside the Logic Component for the `delete 1` Command_
 image::DeletePersonSdForLogic.png[width="800"]
 
 {empty} +
@@ -258,7 +258,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+._Structure of the Model Component_
 image::ModelClassDiagram.png[width="800"]
 
 {empty} +
@@ -281,7 +281,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+._Structure of the Storage Component_
 image::StorageClassDiagram.png[width="800"]
 
 {empty} +
@@ -295,7 +295,7 @@ The `Storage` component,
 
 === Account Storage component
 
-.Structure of the Account Storage Component
+._Structure of the Account Storage Component_
 image::AccountStorageClassDiagram.png[width="800"]
 
 {empty} +
@@ -449,7 +449,7 @@ Before user can use *_Heart²_*, they must first log in with a registered accoun
 ==== Before logging in
 User is presented with a login UI:
 
-.The login screen when user launches the application.
+._The login screen when user launches the application._
 image::UiLoginDiagram.png[width="800"]
 
 {empty} +
@@ -523,14 +523,14 @@ All accounts are stored in a file call `/data/accountlist.xml`. This file is gen
 
 The diagram below shows what happen when a user launches the application:
 
-.Activity diagram when user launches the application
+._Activity diagram when user launches the application_
 image::accountstoragediagram.png[width="800"]
 
 {empty} +
 
 Only a `SUPER_USER` is allowed to create a new account, either for himself, or on behalf of another person. The diagram below shows what happen when a user attempts to register a new account:
 
-.Activity diagram when user registers an account
+._Activity diagram when user registers an account_
 image::accountcreationdiagram.png[width="800"]
 
 {empty} +
@@ -714,7 +714,7 @@ The application boasts matchmaking features that reduces the (once-laborious) ta
 
 ==== High level design
 
-.High level overview of how auto-matching works
+._High level overview of how auto-matching works_
 image::auto-matching.png[width:"800"]
 
 1. On invocation, the auto-matchmaking algorithm functionally maps all service requirements from a Client into predicates for performing the first step of filtering the Vendors.
@@ -761,7 +761,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
+._Saving documentation as PDF files in Chrome_
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
