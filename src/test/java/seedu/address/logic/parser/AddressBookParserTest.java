@@ -51,9 +51,17 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addClient() throws Exception {
         Contact contact = new ClientBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(contact));
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddClientCommand(contact));
+        assertEquals(new AddCommand(contact), command);
+    }
+
+
+    @Test
+    public void parseCommand_addVendor() throws Exception {
+        Contact contact = new ClientBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddClientCommand(contact));
         assertEquals(new AddCommand(contact), command);
     }
 

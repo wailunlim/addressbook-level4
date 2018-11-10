@@ -217,7 +217,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a client with new values same as another client's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(PersonUtil.getAddClientCommand(BOB));
         assertTrue(getModel().getAddressBook().getContactList().contains(BOB));
         Index id = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredContactList().get(id.getZeroBased()).equals(BOB));
