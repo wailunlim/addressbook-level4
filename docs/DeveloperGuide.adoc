@@ -734,6 +734,7 @@ Updating a similar `client` or `vendor` should update its counterpart.
 
 After much consideration, we decided to choose option 1, so that our user can have more flexibility in *_Heart²_*.
 A lot of people have separate phone numbers and emails for personal use and work, and thus it made sense to us that these contacts should still be updated separately.
+
 However, there will definitely be cases where users might want such similar contacts to be linked and updated together.
 A possible quality-of-life improvement would be to allow an option (command) to link such similar contacts to each other, for updating.
 
