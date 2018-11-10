@@ -1268,7 +1268,6 @@ image::appendixdheader.png[width="320"]
 
 (For all use cases below, the *System* is the *_Heart²_* application, and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
 === Use case: Add Client/Vendor
 
 *MSS*
@@ -1289,7 +1288,6 @@ Use case ends.
 Use case ends.
 
 
-[discrete]
 === Use case: Update Client/Vendor
 
 *MSS*
@@ -1310,7 +1308,6 @@ Use case ends.
 Use case ends.
 
 
-[discrete]
 === Use case: Delete Client/Vendor
 
 *MSS*
@@ -1330,8 +1327,6 @@ Use case ends.
 +
 Use case ends.
 
-
-[discrete]
 === Use case: Login
 
 *MSS*
@@ -1376,8 +1371,6 @@ Use case ends.
 +
 Use case ends.
 
-
-[discrete]
 === Use case: Logout
 
 *MSS*
@@ -1388,7 +1381,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
 === Use case: Register an account
 
 *MSS*
@@ -1430,7 +1422,6 @@ Use case ends.
 +
 Use case ends.
 
-
 === Use case: Changing an existing account password
 
 *MSS*
@@ -1459,8 +1450,6 @@ Use case ends.
 +
 Use case ends.
 
-// tag::listMSS[]
-[discrete]
 === Use case: List all the Clients or Vendors
 
 *MSS*
@@ -1481,7 +1470,6 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
 === Use case: Filter and show Client’s or Vendor’s info according to the filter
 
 *MSS*
@@ -1507,9 +1495,7 @@ Use case ends.
 
 +
 Use case ends.
-// end::listMSS[]
 
-[discrete]
 === Use case: Match the most suitable Vendor to a Client's needs
 
 *MSS*
@@ -1541,34 +1527,28 @@ Use case ends.
 == Non Functional Requirements
 image::appendixeheader.png[width="320"]
 
-[Discrete]
 === Availability
 .  Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Application should only be available for Wedding Managers with login credentials
 .  Application should be available 24hrs everyday without down time
 .  Data stored into the Application should be available to Users without corruption
 
-[Discrete]
 === Performance
 .  Application should be able to hold up to 1000 Clients and 1000 Vendors without a noticeable sluggishness in performance for typical usage.
 
-[Discrete]
 === Usability
 .  Application should be intuitive and easy to use for users after following the User Guide
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  A user without any technical knowledge should be able to use the program efficiently with the help of the user guide.
 
-[Discrete]
 === Reliability
 .  Application should be able to match Vendor to Client's needs correctly.
 .  Application should be able to perform all the commands without fail.
 
-[Discrete]
 === Scalability
 .  Application should be able to scale automatically even after reaching 1000 Clients or 1000 Vendors.
 .  Huge number of Clients and Vendors's data may cause some waiting time for commands to process, but Application should still be able to execute all the commands without fail.
 
-[Discrete]
 === Data Integrity
 .  Only authorized Users with specific login credentials should be able to add, update, or delete data directly from the Application.
 .  All monetary amounts should be accurate to 2 decimal places.
