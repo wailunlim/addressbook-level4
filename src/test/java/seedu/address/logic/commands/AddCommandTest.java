@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.AutoMatchResult;
 import seedu.address.model.Model;
@@ -86,6 +87,18 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(AddCommand.MESSAGE_DUPLICATE_CONTACT, validContact.getType()));
+        addCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_noWritePrivilege_throwsLackOfPrivilegeException()
+            throws CommandException, LackOfPrivilegeException {
+        Contact validContact = new ClientBuilder().build();
+        AddCommand addCommand = new AddCommand(validContact);
+        ModelStub modelStub = new ModelStubWithoutWritePrivilege();
+
+        thrown.expect(LackOfPrivilegeException.class);
+        thrown.expectMessage(String.format(AddCommand.COMMAND_WORD_GENERAL, validContact.getType()));
         addCommand.execute(modelStub, commandHistory);
     }
 
@@ -238,6 +251,16 @@ public class AddCommandTest {
         @Override
         public Account getUserAccount() {
             return TypicalAccount.ROOTACCOUNT;
+        }
+    }
+
+    /**
+     * A Model stub that does NOT have write privilege.
+     */
+    private class ModelStubWithoutWritePrivilege extends ModelStub {
+        @Override
+        public Account getUserAccount() {
+            return TypicalAccount.READ_ONLY_USER_ACCOUNT;
         }
     }
 
