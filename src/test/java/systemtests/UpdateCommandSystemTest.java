@@ -179,10 +179,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 ContactType.CLIENT, "#" + invalidIndex) + " " + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, invalidIndex));
 
-        /* Case: missing index -> rejected */
-        assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_UNKNOWN_COMMAND, String.format(UpdateCommand.MESSAGE_USAGE,
-                        ContactType.CLIENT, "#<ID>")));
+        /* Case: unknown command -> rejected */
+        assertCommandFailure(UpdateCommand.COMMAND_WORD + NAME_DESC_BOB, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: missing all fields -> rejected */
         assertCommandFailure(String.format(COMMAND_WORD_GENERAL,

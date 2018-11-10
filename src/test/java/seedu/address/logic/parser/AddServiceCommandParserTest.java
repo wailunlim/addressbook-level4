@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.SERVICE_COST_DESC_MID;
 import static seedu.address.logic.commands.CommandTestUtil.SERVICE_DESC_HOTEL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERVICE_COST_MID;

@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.AddServiceCommand.COMMAND_WORD_GENERAL;
 import static seedu.address.logic.commands.AddServiceCommand.MESSAGE_DUPLICATE_SERVICE;
@@ -27,7 +26,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddServiceCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.model.ContactType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
