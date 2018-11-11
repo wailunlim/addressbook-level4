@@ -1819,6 +1819,9 @@ Given below are instructions to test the app manually.
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 For all commands except for `login`, `help`, and `exit`, user is expected to have already logged in to the application successfully and be at the main screen GUI page, not the login GUI page.
 
+[NOTE]
+For all `add`, `update`, `delete`, `clear`, and `register account` commands, the account that executes it must be a `SUPER_USER` account.
+
 === Launch the application
 
 . Initial launch
@@ -1897,7 +1900,7 @@ For all commands except for `login`, `help`, and `exit`, user is expected to hav
 
 . Register a new account that can be used as login credentials subsequently.
 
-.. Prerequisites: User account must be a super_user_account.
+.. Prerequisites: User account must be a `SUPER_USER`.
 .. Test case: `register account u/newUserName p/newPassword r/superuser` +
    Expected: Screen GUI feedback to say that you have successfully registered an account. You can now `logout` and log in with `login u/newUserName p/newPassword`.
 .. Test case: `register account u/us3r p/p@ssw0rD r/readonlyuser` +
