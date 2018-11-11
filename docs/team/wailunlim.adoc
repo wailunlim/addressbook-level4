@@ -5,13 +5,52 @@
 
 == PROJECT: Heart²
 
----
+This portfolio aims to document my contributions to the project *_Heart²_*.
+
+GitHub: https://github.com/CS2103-AY1819S1-F10-3/main
 
 == Overview
 
-Heart² is a desktop wedding application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*_Heart²_* is a desktop wedding application for wedding planners to efficiently manage their clients and vendors.
+*_Heart²_* allows wedding planners to quickly find suitable clients and vendors by automatically matching them together based on the vendors' services and the client's requirements.
+The user primarily interacts with *_Heart²_* through a CLI, and it has a GUI created with JavaFX.
+*_Heart²_* is written in Java, with about 10 kLoC.
 
 == Summary of contributions
+
+* *Major enhancement*:
+
+Enabled support for two different types of contacts, clients and vendors, in *_Heart²_*.
+
+** What it does:
+
+Allows the user to be work with two different types of contacts using *_Heart²_*.
+
+** Justification:
+
+*_Heart²_* is made for wedding planners to efficiently manage their clients and vendors, two of their key stakeholders.
+Therefore, we chose to model the contacts in *_Heart²_* after clients and vendors.
+
+** Highlights
+
+. This enhancement serves as the foundation our many of the features in *_Heart²_*, including:
+`add`, `delete`, `update`, `view`, `list`, `addservice` and `automatch`.
+
+. In *_Heart²_*, the users are presented with two separated lists.
+However, in *_Heart²_*, there is only one contact list for both clients and vendors.
+Filters are constantly applied to this contact list as commands are entered so as to maintain the illusion of a distinct list to the user.
+
+. This enhancement required extensive refactoring of the codebase as the inherited, legacy code only supported a single contact.
+*_Heart²_* currently supports two types of contacts, and can easily be extended to support even more types of contacts with this enhancement.
+
+* *Major enhancement*:
+
+Implemented unique IDs for contacts.
+
+** What it does:
+
+
+~~~~~~~~~~~~~~~
 
 * *Major enhancement*:
 
