@@ -69,23 +69,14 @@ image::callouts2.png[width="256"]
 
 Callouts are rectangular boxes with an icon and words to point out various types of information. Below are 3 callouts that will be used throughout this document:
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
-|=====
+[NOTE]
+This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
-|=====
+[TIP]
+This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|This represents a *warning*. A warning denotes information of crucial importance, and you should be extremely cautious when reading the statement.
-|=====
+[WARNING]
+This represents a *warning*. A warning denotes something of crucial importance, and you should be extremely cautious when reading the statement.
 
 {empty} +
 
@@ -94,11 +85,8 @@ image::commands.png[width="256"]
 *_Heart²_* is designed with an intuitive command syntax for your ease of use.
 The following section documents all the commands available for you in this application.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application.
-|=====
+[NOTE]
+Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and will be mark as Unknown Command prior to logging in.
 
 === Viewing help : `help`
 
@@ -106,11 +94,8 @@ Opens a new window that contains the user guide to help you find out any informa
 
 Format: `help`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot `undo` a help.
-|=====
+[NOTE]
+You cannot `undo` a help.
 
 === Logging in : `login`
 
@@ -118,17 +103,11 @@ Securely logs you in to access the system. By default, a root account with `SUPE
 
 Format: `login u/USERNAME p/PASSWORD`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Condition of use: You must not be logged in. Otherwise, it will be an unknown command.
-|=====
+[NOTE]
+Condition of use: You must not be logged in. Otherwise, it will be an unknown command.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot `undo` a login.
-|=====
+[NOTE]
+You cannot `undo` a login.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -148,35 +127,23 @@ Securely logs you out of the system.
 
 Format: `logout`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot `undo` a logout.
-|=====
+[NOTE]
+You cannot `undo` a logout.
 
 === Registering a new account : `register account`
 
-Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+Register a new account for this application. You can only register a new account after logging in with a `SUPER_USER` account. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
 Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|`r/ROLE`: either `r/superuser` or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
-|=====
+[NOTE]
+`r/ROLE`: either `r/superuser` or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
-|=====
+[NOTE]
+It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot `undo` registering a new account.
-|=====
+[NOTE]
+You cannot `undo` registering a new account.
 
 
 [cols="^,<5a", frame=none]
@@ -185,17 +152,11 @@ Format: `register account u/USERNAME p/PASSWORD r/ROLE`
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
 |=====
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Username and password cannot be empty, or contain space.
-|=====
+[WARNING]
+Username and password cannot be empty, or contain space.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
-|=====
+[WARNING]
+Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
 
 === Change the current password : `change password`
 
@@ -203,11 +164,8 @@ Change your current account password from an old password to a new password.
 
 Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot `undo` changing of password.
-|=====
+[NOTE]
+You cannot `undo` changing of password.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -215,27 +173,18 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 |`change password o/jf3nv n/j9y3nd`
 |=====
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|New password should not be the same as old password, and it cannot be empty, or contain space.
-|=====
+[WARNING]
+New password should not be the same as old password, and it cannot be empty, or contain space.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
-|=====
+[WARNING]
+Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
 
 === Working with contacts
 
 There are two types of contacts supported by *_Heart²_*, namely `client` and `vendor`.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|All commands pertaining to contacts start with either `client` or `vendor`.
-|=====
+[TIP]
+All commands pertaining to contacts start with either `client` or `vendor`.
 
 ==== Adding a contact: `add`
 
@@ -243,11 +192,8 @@ You can `add` a contact together with its particulars into *_Heart²_* by specif
 
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot add a contact that already exists in the application. Two contacts are considered equal if they are of the same type (either both clients or both vendors), possess the same name and either the same phone number or the same email address.
-|=====
+[NOTE]
+You cannot add a contact that already exists in the application. Two contacts are considered equal if they are of the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -261,11 +207,8 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 |`vendor add n/Mary Jane p/98765432 e/maryjane@gmail.com a/123 Lorem Street, #67-89, Singapore 890321`
 |=====
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|You can `undo` and `redo` adding of a contact!
-|=====
+[TIP]
+You can `undo` and `redo` adding of a contact!
 
 // tag::list[]
 ==== Listing and searching for contacts: `list`
@@ -312,39 +255,25 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
 
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
-|=====
+[TIP]
+Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
-|=====
+[TIP]
+These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|IDs can be similar for `client` and `vendor`. However, since the contact type and ID come hand in hand, the contacts are still effectively unique!
-|=====
+[NOTE]
+IDs can be similar for `client` and `vendor`. However, since the contact type and ID come hand in hand, the contacts are still effectively unique!
 
 ==== Viewing a contact: `view`
 
 You can `view` detailed information about a specific contact using its unique ID.
 This information will be displayed on the right panel in *_Heart²_*.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
-|=====
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|*Any* command following `view` will hide the information shown before on the panel on the right.
-|=====
+[TIP]
+`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
+
+[NOTE]
+*Any* command following `view` will hide the information shown before on the panel on the right.
 
 Format: `<CONTACT_TYPE>#<ID> view`
 
@@ -358,11 +287,9 @@ Format: `<CONTACT_TYPE>#<ID> view`
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#3 view`
 |=====
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
-|=====
+
+[TIP]
+Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
 
 ==== Deleting a contact: `delete`
 
@@ -380,11 +307,9 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#123 delete`
 |=====
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|You can `undo` and `redo` deleting a contact!
-|=====
+
+[TIP]
+You can `undo` and `redo` deleting a contact!
 
 ==== Updating a contact: `update`
 
@@ -392,11 +317,8 @@ You can also `update` a contact's particulars, again by specifying its unique ID
 
 Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|You cannot update a contact to make the contact equalivalent to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
-|=====
+[NOTE]
+You cannot update a contact to make the contact equalivalent to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -408,11 +330,9 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#123 update n/Bob Vans e/bobvans@gmail.com`
 |=====
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|You can `undo` and `redo` updating a contact!
-|=====
+
+[TIP]
+You can `undo` and `redo` updating a contact!
 
 // tag::addservice[]
 ==== Adding a service: `addservice`
@@ -420,17 +340,11 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 You can add attributes of the services your clients require or vendors can provide by using the
  `addservice` command specified by the contacts' unique IDs.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Every service can only be added *once*. Updating this service is not supported.
-|=====
+[WARNING]
+Every service can only be added *once*. Updating this service is not supported.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
-|=====
+[NOTE]
+Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
 
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
@@ -453,24 +367,17 @@ Available service types for `SERVICE_TYPE`:
 |`vendor#123 addservice s/catering c/10000.00`
 |=====
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-tips.png[width="48", role="center"]
-|You can `undo` and `redo` adding a service to a contact!
-|=====
-// end::addservice[]
+[TIP]
+You can `undo` and `redo` adding a service to a contact!
 
 ==== Automatching for a client: `automatch`
 
-You can easily find vendors that can fulfill the requests services with this command.
+You can easily find vendors that can fulfill the request services with this command.
 
 Format: `client#<ID> automatch`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|It only shows you the vendors within the budget of the client.
-|=====
+[NOTE]
+It only shows you the vendors within the budget requirement that fulfils a particular service requirement of the client.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -484,11 +391,8 @@ You can easily find clients whose service requirements match the services offere
 
 Format: `vendor#<ID> automatch`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|It only shows you the clients whose budgets can afford the service.
-|=====
+[NOTE]
+It only shows you the clients whose budgets can afford the service of the particular vendor.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -502,11 +406,8 @@ Lists all the commands that you have entered in reverse chronological order.
 
 Format: `history`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-|=====
+[NOTE]
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 
 // tag::undoredo[]
 === Undo the previous command: `undo`
@@ -515,17 +416,11 @@ Undo the commands that you have entered in chronological order.
 
 Format: `undo`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
-|=====
+[NOTE]
+The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|The application will show either the client list or vendor list corresponding to the command that was undone.
-|=====
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was undone.
 
 === Redo the commands undone: `redo`
 
@@ -533,18 +428,11 @@ Redo the commands that you have undone by undo in chronological order.
 
 Format: `redo`
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Commands that have been undone will be reset upon a `clear` command.
-|=====
+[NOTE]
+Commands that have been undone will be reset upon a `clear` command.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|The application will show either the client list or vendor list corresponding to the command that was redone.
-|=====
-// end::undoredo[]
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was redone.
 
 === Saving the data
 
