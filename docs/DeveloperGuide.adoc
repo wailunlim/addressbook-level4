@@ -1932,7 +1932,7 @@ For all commands except for `login`, `help`, and `exit`, user is expected to hav
    Expected: List all vendors that matches the parameters provided. Test with different combinations of parameters and invalid ones to verify functionality of list.
 
 // tag::addservicemanual[]
-=== Adding a new service request for a client or vendor
+=== Adding a new service request
 
 . Adding a new service to a client or vendor with no service requests
 
