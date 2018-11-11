@@ -196,7 +196,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `client#1 delete`.
 
 ._Component interactions for `client#1 delete ` command (part 1)_ +
-image::SDforDeletePerson.png[width="800"]
+image::SdForDeleteClient.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -204,7 +204,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 ._Component interactions for `client#1 delete` command (part 2)_ +
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SdForDeleteClientEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
