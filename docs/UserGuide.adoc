@@ -283,6 +283,9 @@ Format: `<CONTACT_TYPE> list`
 *_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
 To search, simply append your search parameters to the back of the original command.
 
+Only contacts that matches all the search parameters will be displayed to you in the form of a list.
+Searching is done through substring matching, so you do not need to enter the full name, just part of the name will do.
+
 Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
