@@ -107,12 +107,30 @@ Due to having two possibilities (`client` and `vendor`) for these commands, and 
 This also means that these text feedback can be easily extended if we choose to add more contact types in the future.
 
 
-* *Code contributed*:
-test
+** *Code contributed*:
 
-* *Other contributions*:
-test
+The following pull requests are some examples of my code contribution, both functional and test code, to the *_Heart²_* project.
 
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/83[[Functional code]]
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/86[[Functional code]]
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/132[[Functional code]]
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/161[[Functional code]]
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/193[[Functional code]]
+
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/303[[Test code]]
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/300[[Test code]]
+
+
+** *Other contributions*:
+
+. Helped solve bug fixes in *_Heart²_*.
+
+. Participated actively in discussions regarding *_Heart²_* and its features.
+
+. As of 11 November 2018:
+.. Contributed 39 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+author%3Awailunlim+is%3Aclosed[pull requests] on Github.
+.. Reviewed 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+reviewed-by%3Awailunlim+[pull requests] on Github.
+.. Raised 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=✓&q=is%3Aclosed+is%3Aissue+author%3Awailunlim+[issues] on Github.
 
 == Contributions to the User Guide
 
