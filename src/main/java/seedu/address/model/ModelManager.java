@@ -174,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitUserLoggedOutSuccessfully() {
         userAccount = null;
+        versionedAddressBook.clearState();
     }
 
     @Override

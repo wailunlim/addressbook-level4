@@ -34,6 +34,13 @@ public class CommandHistory {
         return new LinkedList<>(userInputHistory);
     }
 
+    /**
+     * Delete the entire command history.
+     */
+    public void clear() {
+        userInputHistory.clear();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

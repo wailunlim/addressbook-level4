@@ -20,6 +20,16 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
+     * Remove all states in the addressBookStateList except the latest one
+     */
+    public void clearState() {
+        ReadOnlyAddressBook temp = addressBookStateList.get(addressBookStateList.size() - 1);
+        addressBookStateList.clear();
+        addressBookStateList.add(temp);
+        currentStatePointer = 0;
+    }
+
+    /**
      * Saves a copy of the current {@code AddressBook} state at the end of the state list.
      * Undone states are removed from the state list.
      */

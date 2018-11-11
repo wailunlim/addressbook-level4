@@ -60,6 +60,25 @@ public class VersionedAddressBookTest {
     }
 
     @Test
+    public void resetState_success() {
+        VersionedAddressBook versionedAddressBook = prepareAddressBookList(
+                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+
+        versionedAddressBook.commit();
+        assertAddressBookListStatus(versionedAddressBook,
+                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
+                addressBookWithBob,
+                Collections.emptyList());
+
+        versionedAddressBook.clearState();
+        versionedAddressBook.commit();
+        assertAddressBookListStatus(versionedAddressBook,
+                Arrays.asList(addressBookWithBob),
+                addressBookWithBob,
+                Collections.emptyList());
+    }
+
+    @Test
     public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
         VersionedAddressBook versionedAddressBook = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);

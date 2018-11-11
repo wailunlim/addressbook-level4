@@ -19,6 +19,7 @@ public class LogoutCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         model.commitUserLoggedOutSuccessfully();
         EventsCenter.getInstance().post(new LogoutRequestEvent());
+        history.clear();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

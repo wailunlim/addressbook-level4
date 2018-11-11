@@ -7,6 +7,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -43,7 +45,11 @@ public class LogicManager extends ComponentManager implements Logic {
             }
             return command.execute(model, history);
         } finally {
-            history.add(commandText);
+            // do not add to history for logging in as it reveals user password.
+            // do not add to history if logging out, as it is terminating a session.
+            if (!commandText.contains(LoginCommand.COMMAND_WORD) && !commandText.equals(LogoutCommand.COMMAND_WORD)) {
+                history.add(commandText);
+            }
         }
     }
 

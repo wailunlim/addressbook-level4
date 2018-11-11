@@ -37,6 +37,20 @@ public class CommandHistoryTest {
     }
 
     @Test
+    public void clear() {
+        final String validCommand = "clear";
+        final String invalidCommand = "adds Bob";
+
+        history.add(validCommand);
+        history.add(invalidCommand);
+        assertFalse(history.getHistory().size() == 0);
+        assertEquals(Arrays.asList(validCommand, invalidCommand), history.getHistory());
+
+        history.clear();
+        assertTrue(history.getHistory().size() == 0);
+    }
+
+    @Test
     public void equals() {
         final CommandHistory commandHistoryWithA = new CommandHistory();
         commandHistoryWithA.add("a");
