@@ -158,7 +158,7 @@ You cannot `undo` registering a new account.
 |=====
 
 [WARNING]
-Username and password cannot be empty, or contain space.
+Username and password cannot be empty, or contain spaces.
 
 [WARNING]
 Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -179,7 +179,7 @@ You cannot `undo` changing of password.
 |=====
 
 [WARNING]
-New password should not be the same as old password, and it cannot be empty, or contain space.
+New password should not be the same as old password, and it cannot be empty, or contain spaces.
 
 [WARNING]
 Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -520,4 +520,4 @@ image::faqpicture.png[width="400"]
 *A*: Yes, this application is open-source and can be use for free, even commercially.
 
 *[red]#Q*#: [red]#How can I report an issue?# +
-*A*: You can raise an issue in the issue section and our team will get back to you as soon as possbile.
+*A*: You can raise an issue in the issue section and our team will get back to you as soon as possible.

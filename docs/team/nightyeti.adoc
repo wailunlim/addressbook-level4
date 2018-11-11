@@ -74,7 +74,7 @@ image::others.png[width="400"]
 * *Presentation*:
 ** Gave 2 product demos of the application to the entire class, the first targeting general audiences, and the second targeting company's higher management.
 
-* *All codes contributed*:
+* *All code contributed*:
 ** Check out link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=nightyeti[here]
 
 {empty} +
