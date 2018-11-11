@@ -18,7 +18,7 @@ The user primarily interacts with *_Heart²_* through a CLI, and it has a GUI cr
 
 == Summary of contributions
 
-=== *Major enhancement*:
+=== *Major enhancement 1*:
 
 Enabled support for two different types of contacts, clients and vendors, in *_Heart²_*.
 
@@ -43,7 +43,7 @@ Filters are constantly applied to this contact list as commands are entered so a
 . This enhancement required extensive refactoring of the codebase as the inherited, legacy code only supported a single contact.
 *_Heart²_* currently supports two types of contacts, and can easily be extended to support even more types of contacts with this enhancement.
 
-=== *Major enhancement*:
+=== *Major enhancement 2*:
 
 Implemented unique IDs for contacts.
 
@@ -71,7 +71,7 @@ With this unique ID system, our users are able to simplify and improve their wor
 Commands pertaining to a contact type start with the contact type (`client` or `vendor`).
 More specific commands pertaining to a specific contact have the unique ID appended to the contact type.
 
-=== *Minor enhancement*:
+=== *Minor enhancement 1*:
 
 Updated the main parser that parses all commands entered by the user.
 
@@ -89,7 +89,7 @@ It required some research on regular expressions in Java and tinkering in JShell
 In the end, only a single parser is used to parse and identify all of *_Heart²_* commands when they are entered by the user.
 
 
-=== *Minor enhancement*:
+=== *Minor enhancement 2*:
 
 Extended the `add`, `delete`, `update` and `view` commands in *_Heart²_*.
 
