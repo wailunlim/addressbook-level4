@@ -88,6 +88,9 @@ The following section documents all the commands available for you in this appli
 [NOTE]
 Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and will be mark as Unknown Command prior to logging in.
 
+[NOTE]
+For all commands that require an `#ID`, your ID must be a valid ID that matches the entries that you have. This user guide's ID `#123` may not be available in your data. Change the ID accordingly to the ID that you wish for a command.
+
 === Viewing help : `help`
 
 Opens a new window that contains the user guide to help you find out any information you need.
