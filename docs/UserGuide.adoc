@@ -337,6 +337,11 @@ This information will be displayed on the right panel in *_Heart²_*.
 |image:icon-tips.png[width="48", role="center"]
 |`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
 |=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|*Any* command following `view` will hide the information shown before on the panel on the right.
+|=====
 
 Format: `<CONTACT_TYPE>#<ID> view`
 
