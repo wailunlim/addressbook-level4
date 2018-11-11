@@ -193,18 +193,18 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `client#1 delete`.
 
-._Component interactions for `delete 1` command (part 1)_ +
-image::SDforDeletePerson.png[width="800"]
+._Component interactions for `client#1 delete ` command (part 1)_ +
+image::SdForDeleteClient.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-._Component interactions for `delete 1` command (part 2)_ +
-image::SDforDeletePersonEventHandling.png[width="800"]
+._Component interactions for `client#1 delete` command (part 2)_ +
+image::SdForDeleteClientEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -248,10 +248,10 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("client#1 delete")` API call.
 
-._Interactions Inside the Logic Component for the `delete 1` Command_
-image::DeletePersonSdForLogic.png[width="800"]
+._Interactions Inside the Logic Component for the `client#1 delete` Command_
+image::DeleteClientSdForLogic.png[width="800"]
 
 {empty} +
 
@@ -551,51 +551,213 @@ Currently, the list of accounts is stored locally on data/accountlist.xml. For s
 ===== Storing password
 Username is stored in plaintext in accountlist.xml, as username is not private information. However, user password is hashed with `PBKDF2WithHmacSHA512` algorithm together with a `salt`, to prevent password from being visible in plaintext. `PBKDF2WithHmacSHA512` is deliberately chosen as it is a link:https://adambard.com/blog/3-wrong-ways-to-store-a-password/[slower] algorithm, thus slowing down brute-force attack for finding out user password. The hashing algorithm is present in `PasswordAuthentication` class and the implementation is based off this link:http://stackoverflow.com/a/2861125/3474[stackoverflow] answer.
 
-=== Add clients and vendors feature
-*_Heart²_* allows you to be able to distinguish between clients and vendors.
+=== Unique ID feature
+*_Heart²_* assigns a unique ID to every `client` and `vendor` when they are added into *_Heart²_*.
+This ID is unique within their contact type, meaning that a `client` and a `vendor` may have the same ID, but since this ID comes hand in hand with the contact type, they are effectively unique.
+These IDs are last for a single session, and *_Heart²_* reassigns the IDs at the start of the next session.
 
-When adding a new contact to *_Heart²_*, you would have to specify whether the contact is a 'client' or a 'vendor' by appending 'client' or 'vendor' during adding:
+==== Current Implementation
+Both the `Client` and `Vendor` class have a `public static` running counter starting from 1.
+When a `client` or `vendor` is created, it is assigned that number, before incrementing it by 1.
+The `contact` then has this ID for this session, and the user can use this ID, coupled with the contact type to always refer to this particular contact.
 
-* 'client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House'
-* 'vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC'
+This unique ID is used by many other commands, namely: `add`, `delete`, `update`, `view`, `addservice`, `automatch`.
+It allows for these commands to be executed at any point in *_Heart²_*, with always the same context.
 
-The above commands adds a 'client' and a 'vendor' with the specified information respectively.
+==== Design Considerations
+===== Aspect: How should we refer to contacts in *_Heart²_*?
 
-This facilitates many other features of *_Heart²_* for your convenience!
+* *Alternative 1*:
+Use the legacy implementation, which is to use the relative position of the contact in the list.
+
+** Pros: No change is required, as it is the legacy implementation.
+
+** Cons: Users have to navigate to a list that shows that contact, and the relative position of that contact may keep changing throughout a session.
+
+* *Alternative 2* (current choice):
+
+** Pros: Users are able to refer back to a particular contact at any time, without requiring the current list shown to contain that contact.
+Also, this ID will never change during a session, so the user can confidently use the ID knowing that it will always refer to that contact.
+
+** Cons: Users still have to remember this unique ID to refer back to the contact. It might be hard to remember the ID.
+
+After much consideration, we decided to go with option 2.
+*_Heart²_* is built for speed, and we would like to give our users flexibility to execute any command within *_Heart²_* at any time.
+We believe that this can give users more control and power over their work using *_Heart²_*, and therefore we chose to implement this unique ID system.
+
+However, we also do realise that users might find it hard to remember the unique ID assigned to the contact.
+While users can quickly look at a recent contact using the command `history`, a possibly quality-of-life improvement would be to implement a mnemonic unique identifier.
+
+=== Add contact feature
+*_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor` in the command.
+
+* `client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House`
+* `vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC`
+
+The above commands add a `client` and a `vendor`, together with the details provided, respectively.
+
+This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
+It complements the unique ID feature earlier to ensure that a `client` and a `vendor` with the same ID are still differentiable due to the contact type.
+
+Adding of duplicate contacts are not allowed in *_Heart²_*.
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
+==== Current Implementation
+Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
+When adding a contact, either a new `Client` or a `Vendor` object is instantiated.
+Both `Client` and `Vendor` objects are added to a list of generic type `Contact`.
+
+In order to differentiate them, there is an abstract method `Contact#getType()` that `Client` and `Vendor` implement differently.
+`Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
+
+==== Design Considerations
+===== Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
+
+* *Alternative 1* (current choice):
+`Client` and `Vendor` objects are stored in a more general `Contact` list.
+** Pros: Easy to implement by tweak the inherited legacy list slightly.
+
+** Cons: Cannot tell immediately if an element in the `Contact` list is a `Client` or `Vendor`.
+This might take a longer time to display lists, due to having to filter them every time.
+
+* *Alternative 2*:
+Hold `Client` and `Vendor` objects differently in two different lists.
+** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
+** Cons: Difficult and extremely tedious to implement.
+
+===== Aspect: How restrictive should the definition of a duplicate contact be?
+
+* *Alternative 1*:
+It should be regardless of contact type, meaning a `client` and a `vendor` cannot have the same name *and* either the same phone number *or* email.
+
+** Pros: No additional implementation required. The legacy implementation already supports this.
+
+** Cons: Less flexibility for our users. A `client` cannot be a `vendor` possibly.
+
+* *Alternative 2* (current choice):
+A `client` and a `vendor` can have similar fields, meaining a `client` and a `vendor` can possibly have the same name, phone number *and/or* email.
+
+** Pros: More flexibility for our users. A `client` can be a `vendor` too, which is possible in the real world.
+
+** Cons: Additional implementation to have.
+
+=== Delete contact feature
+*_Heart²_* allows the user to delete any contact, using the combination of its contact type and its unique ID, followed by `delete`.
+
+* `client#2 delete`
+* `vendor#3 delete`
+
+The above commands delete the `client` given the unique ID #2 and the `vendor` given the unique ID #3.
+
+This feature makes use of the fact that contacts are either `Client` or `Vendor` objects.
+The unique ID is then used to identify the particular `Client` or `Vendor` object to be deleted.
+
+==== Current Implementation
+The current implementation filters the contact list by the specified contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
+
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
+This would indicate that the contact in the list is the contact we are to delete.
+However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
+We then can feedback to the user that the ID specified is invalid.
+
+[TIP]
+The sequence diagram for the `delete` command can be found together with the structure of the logic component <<DeveloperGuide.adoc#Design-Logic, here>>.
+
+=== Update contact feature
+*_Heart²_* allows the user to update any contact, using the combination of its contact type and its unique ID, followed by `update`.
+
+* 'client#1 update n/Wai Lua'
+* 'vendor#2 update p/9046 3328'
+
+The above commands update the name of the `client` given the unique ID #2 to "Wai Lua", and the phone number of the `vendor` given the unique ID #2 to 9046 3328.
+
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
+As mentioned earlier, duplicate contacts are not allowed in *_Heart²_*.
+Thus, when updating, the user is not allowed to update a contact in *_Heart²_* if updating it will result in duplicated contacts.
 
 ==== Implementation
 
-The keyword 'client' or 'vendor' is used to determine whether a 'Client' or a 'Vendor' is instantiated before adding to the contact list. The contact list is a single list containing both 'Client' and 'Vendor' objects. Filters are then applied based on subsequent commands to select only 'client' or 'vendor' objects.
+The current implementation uses part of the legacy implementation to do the updating of contacts.
+The arguments are parsed and tokenized using `ArgumentTokenizer#tokenize(String, Prefix...)`.
+An `EditContactDescriptor` object is then created to hold this new information temporarily.
 
+[TIP]
+The prefixes applicable to `update` are `n/`, `p/`, `e/`, `a/`, `t/`. At least one of them must follow the `update` command.
 
-=== Remove clients and vendors feature
-*_Heart²_* allows you to remove 'client' and 'vendor' if you so wish to!
+Then, the current implementation filters the contact list by the specified contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
 
-This can be easily done by specifying the 'client' or 'vendor' at the front:
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
+The contact in this list would be the contact to be updated.
+A new contact is created using `UpdateCommand#createEditedContact(Contact, EditContactDescriptor, ContactType)`.
+The next step is then to ensure that this new contact is not a duplicate contact, before replacing the old contact in *_Heart²_*.
 
-* 'client remove 1'
-* 'vendor remove 2'
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
 
-The above commands removes the 'client' in index 1 of the 'client' list and the 'vendor' in index 2 of the 'vendor' list respectively.
+However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
+We then can feedback to the user that the ID specified is invalid.
+
+==== Design Considerations
+===== Aspect: Should a similar (have the same name *and* same phone number *or* email) `client` and `vendor` object be updated together?
+
+* *Alternative 1* (current choice):
+A `client` can be similar to a `vendor`, but they are still considered independent contacts in *_Heart²_*.
+
+** Pros: No implementation required. The user has the choice to have their `client` and `vendor` be similar or not be.
+
+** Cons: There are scenarios where the user would like to update the details of both the `client` and `vendor` together as they are similar.
+In this case, they will have to update both manually.
+
+* *Alternative 2*:
+Updating a similar `client` or `vendor` should update its counterpart.
+
+** Pros: The user can update a similar `client` and `vendor` together.
+
+** Cons: Hard to implement. Also, the user will lack the flexibility of having his `client` and `vendor` be updated individually.
+
+After much consideration, we decided to choose option 1, so that our user can have more flexibility in *_Heart²_*.
+A lot of people have separate phone numbers and emails for personal use and work, and thus it made sense to us that these contacts should still be updated separately.
+
+However, there will definitely be cases where users might want such similar contacts to be linked and updated together.
+A possible quality-of-life improvement would be to allow an option (command) to link such similar contacts to each other, for updating.
+
+=== View contact feature
+*_Heart²_* allows the user to view any contact, using the combination of its contact type and its unique ID, followed by `view`.
+
+* `client#3 view`
+* `vendor#6 view`
+
+The above commands selects the `client` with the unique ID #3 and the `vendor` with the unique ID #6 respectively for viewing.
+The contact's card is shown on the panel on the right in *_Heart²_*, containing all the information regarding the contact.
+
+[TIP]
+By using `view`, all the information regarding the contact will be shown.
+This includes the name, phone number, email address, tags, residential (`client`) or office address (`vendor`), and services requested (`client`) or services offered (`vendor`).
 
 ==== Implementation
+The `view` command uses a similar implementation to the `add`, `delete` and `update` commands.
+The current implementation filters the contact list by the specified contact type and ID.
+The predicate to filter by `client` and `vendor` can be retrieved by `ContactType.CLIENT#getFilter()` and `ContactType.VENDOR#getFilter()` respectively.
+This first predicate is then combined with another predicate that is looking for the ID of the `client` or `vendor`, specified in the command.
 
-The keyword 'client' or 'vendor' is used to determine the context of  whether a 'client' or 'vendor' is to be deleted to select the appropriate contact based on the 'index' specified. The contact in question is then removed from the contact list.
+Since IDs are unique, after filtering by this (combined) predicate, the list can only have a maximum length of 1.
+After obtaining this contact, a new `JumpToListRequestEvent` is posted to the event bus.
+The `PersonListPanel` class is registered as an event handler, and it handles this `JumpToListRequestEvent` with `PersonListPanel#handleJumpToListRequestEvent(JumpToListRequestEvent)`.
+The contact's card is then selected for viewing.
 
-=== Edit clients and vendors feature
-*_Heart²_* allows you to make changes to existing 'client' and 'vendor' too!
+However, if the list is of size 0, this means that the contact that is specified for viewing does not exist.
+We then can feedback to the user that the ID specified is invalid.
 
-With the list of 'client' or 'vendor' shown on the GUI, simply specify the index of the contact in question, followed by the field to be edited:
-
-* 'edit 1 n/Wai Lua'
-* 'edit 2 p/9046 3328'
-
-The above commands will update the name of the first contact to Wai Lua and the phone number of the second contact to 9046 3328 respectively.
-
-==== Implementation
-
-The index specified determines the contact in question. The arguments following the index is parsed and used to create an EditContactDescriptor.
-This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'vendor' is first performed to create a correct replacement contact, before updating the contact list.
+==== Design Considerations
+The implementation of `view` was chosen to also use the combination of the contact type and ID to select a contact for viewing.
+This is part of a standardisation effort to have cohesiveness in the command syntax.
 
 // tag::addservice[]
 === Adding a service request for client or vendor feature
