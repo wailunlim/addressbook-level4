@@ -760,10 +760,50 @@ The implementation of `view` was chosen to also use the combination of the conta
 This is part of a standardisation effort to have cohesiveness in the command syntax.
 
 // tag::addservice[]
-=== Adding a service request for client or vendor feature
-Attributes of the services the user's clients require or vendors can provide can be indicated using the `addservice` command, by their unique IDs.
+=== Adding a service request feature
+*_Heart²_* allows the user to add attributes of the services the user's clients require or vendors can provide.
+ They can be indicated using the `addservice` command, by their unique IDs:
+
+ * `client#123 addservice s/photographer c/1000.00`
+ * `vendor#123 addservice s/photographer c/1000.00`
 
 ==== Implementation
+
+Given below is a sequence diagram of how the `addservice` operation works:
+
+.Add Service Command Sequence Diagram
+image::AddServiceSequenceDiagram.png[width="800]
+
+The command is first parsed into the `AddServiceCommandParser`, which breaks up the arguments into their respective fields.
+A new `Service` is created and parsed into the `AddServiceCommand` along with the ID.
+
+Only when there is no existing request of that service type that the specified service request can be added with `AddServiceCommand#createContactWithService()`.
+All fields of the `Contact` including the existing services would be copied over to a new `Contact` with the `EditContactDescriptor` in `UpdateCommand`.
+Next, the new service would be added with `EditCommandDescriptor#addservice()`.
+
+The contact would be updated with `Model#updateContact()` and later saved into the `AddressBook` storage.
+
+==== Design Considerations
+
+===== Aspect 1: Cost storage
+* *Alternative 1 (current choice)*: Store with `BigDecimal`.
+** Pros: More precise representation, crucial to sensitive data like money.
+** Cons: Difficult to retrieve value for display and parsing.
+* *Alternative 2*: Store with `Double`.
+** Pros: Easier to retrieve value for display and parsing.
+** Cons: Less precise representation, may lose accuracy.
+
+===== Aspect 2: Updating of Service request
+* *Alternative 1 (current choice)*: No updating allowed. Each request type can only be entered once.
+** Pros: Easy to implement.
+** Cons: Users who made a mistake while updating would have to delete and add the entire contact to the database.
+* *Alternative 2*: Update with the same `addservice` command.
+** Pros: Users can still update without much hassle.
+** Cons: Users might accidentally overwrite the wrong data.
+* *Alternative 3*: Update with the `update` command.
+** Pros: Users can update with less possibility of overwriting the wrong data.
+** Cons: Difficult to implement. `UpdateCommand` would have too many command variations.
+In addition, both the service cost and type has to be stated in the command.
 
 // end::addservice[]
 
