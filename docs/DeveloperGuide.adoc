@@ -21,14 +21,14 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 
 == Introduction
 
-Welcome to *_Heart²_*! _Heart²_ is a desktop software intended to make the job of wedding planning agencies simpler.
+Welcome to *_Heart²_*! *_Heart²_* is a desktop software intended to make the job of wedding planning agencies simpler.
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
 Users can find suitable vendors providing wedding services for couples using just a few keystrokes with our enterprise featureset.
 
 This developer guide is a self-contained resource designed to align all developers around a common vision. It helps
 developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
 
-So if you want to know how to make _Heart²_ even better, here's where you start!
+So if you want to know how to make *_Heart²_* even better, here's where you start!
  +
 
 image::calloutpic.png[width="256"]

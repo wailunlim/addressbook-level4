@@ -215,7 +215,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 === Working with contacts
 
-There are two types of contacts supported by Heart², namely `client` and `vendor`.
+There are two types of contacts supported by *_Heart²_*, namely `client` and `vendor`.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -225,7 +225,7 @@ There are two types of contacts supported by Heart², namely `client` and `vendo
 
 ==== Adding a contact: `add`
 
-You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
+You can `add` a contact together with its particulars into *_Heart²_* by specifying its contact type first, that is, `client` or `vendor`.
 
 Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
@@ -258,7 +258,7 @@ You can also `list` your different contacts by specifying the contact type to be
 |`vendor list`
 |=====
 
-Heart² also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+*_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
 To search, simply append your search parameters to the back of the original command.
 
 Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
@@ -277,7 +277,7 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 
 === Manipulating a specific contact
 
-Contacts in Heart² are assigned a unique ID each for you to refer to the contact at any point of time when using Heart².
+Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
 
 
 [cols="^,<5a", frame=none]
@@ -289,7 +289,7 @@ Contacts in Heart² are assigned a unique ID each for you to refer to the contac
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+|These IDs are persistent for one session. Each restart of *_Heart²_* reassigns IDs to contacts, effectively compacting the IDs of your contacts.
 |=====
 
 [cols="^,<5a", frame=none]
@@ -301,7 +301,7 @@ Contacts in Heart² are assigned a unique ID each for you to refer to the contac
 ==== Viewing a contact: `view`
 
 You can `view` detailed information about a specific contact using its unique ID.
-This information will be displayed on the right panel in Heart².
+This information will be displayed on the right panel in *_Heart²_*.
 
 Format: `<CONTACT_TYPE>#<ID> view`
 
@@ -318,7 +318,7 @@ Format: `<CONTACT_TYPE>#<ID> view`
 
 ==== Deleting a contact: `delete`
 
-You can also `delete` a contact from Heart², by specifying its unique ID.
+You can also `delete` a contact from *_Heart²_*, by specifying its unique ID.
 
 Format: `<CONTACT_TYPE>#<ID> delete`
 
