@@ -355,6 +355,11 @@ Format: `<CONTACT_TYPE>#<ID> view`
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#3 view`
 |=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
+|=====
 
 ==== Deleting a contact: `delete`
 
