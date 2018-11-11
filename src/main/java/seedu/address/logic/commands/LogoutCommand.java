@@ -4,7 +4,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 
 /**
  * Log the user out of the application.
