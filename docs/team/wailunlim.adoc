@@ -33,7 +33,7 @@ Therefore, we chose to model the contacts in *_Heart²_* after clients and vendo
 
 ** Highlights
 
-. This enhancement serves as the foundation our many of the features in *_Heart²_*, including:
+. This enhancement serves a foundation of many features in *_Heart²_*, including:
 `add`, `delete`, `update`, `view`, `list`, `addservice` and `automatch`.
 
 . In *_Heart²_*, the users are presented with two separated lists.
@@ -49,6 +49,38 @@ Implemented unique IDs for contacts.
 
 ** What it does:
 
+Allows the user to refer to contacts by their unique IDs.
+
+** Justification:
+
+The inherited implementation from AddressBook (Level 4) had users use the contact's relative position in the currently shown list to refer to that contact.
+For our users to make use of their time most efficiently, we chose to have our users be able to refer to contacts using IDs, as opposed to the previous implementation.
+
+In the previous, inherited implementation from AddressBook (Level 4), the user must ensure that the current list shown in the UI contains the contact *and* check the contact's relative position on the list.
+With unique IDs for contacts, the context of the commands do not change, and this allows our users to know quickly the context of their commands and thus execute any command at any point of time in *_Heart²_*.
+
+With this unique ID system, our users are able to simplify and improve their workflow on *_Heart²_*,
+
+** Highlights:
+
+. This enhancement serves as another foundation of many features in *_Heart²_*, including:
+`delete`, `update`, `view`, `addservice` and `automatch`.
+
+. Together with the contact type, it allows *_Heart²_* to be able to offer a very simple and intuitive command syntax.
+Commands pertaining to a contact type start with the contact type (`client` or `vendor`).
+In addition, commands pertaining to a specific contact have the unique ID appended to the contact type.
+
+** *Minor enhancement*:
+
+Extended the `add`, `delete`, `update` and `view` commands in *_Heart²_*.
+
+** What it does:
+
+Gives functionality to those commands.
+
+** Highlights:
+
+. This enhancement is built on the previous two
 
 ~~~~~~~~~~~~~~~
 
