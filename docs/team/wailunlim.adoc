@@ -70,6 +70,24 @@ With this unique ID system, our users are able to simplify and improve their wor
 Commands pertaining to a contact type start with the contact type (`client` or `vendor`).
 In addition, commands pertaining to a specific contact have the unique ID appended to the contact type.
 
+** Minor enhancement*:
+
+Updated the main parser that parses all commands entered by the user.
+
+** What it does:
+
+Implements the command syntax enabled by the two previously mentioned enhancements.
+
+** Highlights:
+
+. This enhancement although minor proved to be quite a challenge, because commands differ in their components.
++
+For example, `help` consists of just a word, `client list` consists of two words, `vendor#3 delete` consists of 2 words and the unique ID, and lastly `client#1 update n/Wai Lun` consists of 2 words, the unique ID and the parameters for the command.
++
+It required some research on regular expressions in Java and tinkering in JShell.
+In the end, only a single parser is used to parse and identify all of *_Heart²_* commands when they are entered by the user.
+
+
 ** *Minor enhancement*:
 
 Extended the `add`, `delete`, `update` and `view` commands in *_Heart²_*.
@@ -80,7 +98,7 @@ Gives functionality to those commands.
 
 ** Highlights:
 
-. This enhancement is built on the previous two
+. This enhancement is built on the two previously mentioned enhanc
 
 ~~~~~~~~~~~~~~~
 
