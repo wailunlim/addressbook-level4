@@ -33,16 +33,16 @@ So if you want to know how to make _Heart²_ even better, here's where you start
 
 image::calloutpic.png[width="256"]
 
-Callouts are a rectangular box with icon and words to point out some information. Below are the 3 callouts that will be used consistently throughout this document:
+Callouts are rectangular boxes with an icon and words to point out some information. Below are 3 callouts that will be used throughout this document:
 
 [NOTE]
-This represents a *note*. A note is information that is important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
 
 [TIP]
-This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
 
 [WARNING]
-This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+This represents a *warning*. A warning denotes something of crucial importance, and you should be extremely cautious when reading the statement.
 
 {empty} +
 
@@ -52,7 +52,7 @@ toc::[]
 
 image::settingup.png[width="200"]
 
-This section sets up your local computer and import all the necessary tools required to run this application.
+This section provides information on setting up your local computer and importing all the necessary tools required to run this application.
 
 [WARNING]
 Read this section in detail and follow the configurations carefully. Otherwise, the application may not work as expected.
@@ -221,7 +221,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `LoginWindow` and a `MainWindow`. The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow`. The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -450,22 +450,24 @@ image::UiLoginDiagram.png[width="800"]
 There are only 3 commands available for user to execute:
 
 * `login` : Login to the system with a username and password
-* `help` : Shows the help panel
+* `help` : Show the help panel
 * `exit` : Quit the application
 
 ==== After logging in
-The `LoginWindow` would direct to open the `MainWindow` upon successful login, by parsing in the current `stage`.
+The `LoginWindow` is hidden and the `MainWindow` is shown upon successful login.
 
-User can execute any commands available, provided the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+The user can execute all available commands, if the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
 
+// tag::loginui[]
 ==== Design Considerations
-===== Aspect: When to show the Login UI
-* *Alternative 1 (current choice):* Deploy the `LoginWindow` only upon launch.
-** Pros: Similar to existing applications, easier for users to use
-** Cons: Difficult to implement
-* *Alternative 2:* Incorporate `LoginWindow` within `MainWindow`
-** Pros: Easy to implement
-** Cons: Users are able to see the main UI before login
+===== Aspect: How to show the Login UI
+* *Alternative 1 (current choice):* Deploy the `LoginWindow` upon launch by parsing a new `loginStage` each time.
+** Pros: Similar to existing applications, easier for users to use. Hides all `MainWindow` details.
+** Cons: Creation of a new `loginStage` may result in performance issues.
+* *Alternative 2:* Deploy the `LoginWindow` as a modal window above the `MainWindow`.
+** Pros: Easy to implement.
+** Cons: Users are able to see the `MainWindow` before login. Requires the hiding and showing of inner parts in the `MainWindow` which may result in performance issues.
+// end::loginui[]
 
 === Account creation
 Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
@@ -595,31 +597,44 @@ The above commands will update the name of the first contact to Wai Lua and the 
 The index specified determines the contact in question. The arguments following the index is parsed and used to create an EditContactDescriptor.
 This EditContactDescriptor is then used in conjunction with the earlier in contact in question to create a new contact. A check on whether the contact is a 'client' or 'vendor' is first performed to create a correct replacement contact, before updating the contact list.
 
-=== Viewing Search Results [Coming in v2.0]
-After the user entered the command into the `CommandBox`, the `BrowserPanel` would be deployed to list the search results in a tabular form:
+// tag::addservice[]
+=== Adding a service request for client or vendor feature
+Attributes of the services the user's clients require or vendors can provide can be indicated using the `addservice` command, by their unique IDs.
 
+==== Implementation
+
+// end::addservice[]
+
+=== Automatch feature
+
+==== Implementation
+
+// tag::automatchui[]
+==== Search Result Display
+After the user enters the `automatch` command into the `CommandBox`, individual `ServiceListPanel` s would be deployed to list the search results in a tabular form:
+
+.Automatch table view
 image::Ui.png[width"800"]
 
-==== Profile
-The client's profile would be displayed on the left, so as to facilitate the user in picking the vendors while keeping the requirements in mind.
+===== Profile
+The enquired contact's profile would be displayed on the right, so as to facilitate the user in picking the vendors or clients while keeping the requirements in mind.
+The contact's data is extracted from `Contact#getUrlContactData()` and the text is set at their respective placeholders.
 
-Data would be extracted from the client's `Contact` and the text would be set at their respective placeholders, with the
-tags at the bottom left.
-
-==== Tabular View
-The results would be listed from the most to the least relevant based on the client's needs.
+===== Tabular View
+The results would be listed from the most to the least relevant based on the enquired contact's price requests.
 Users can then scroll through the list to view the other results in decreasing relevancy.
 
-
-==== Design Considerations
-===== Aspect: How to display search results
+===== Design Considerations
+====== Aspect: How to display search results
 * *Alternative 1 (current choice):* Present in a table
-** Pros: Provides a bird's-eye view of all plausible vendors for the client so that the user can pick
-the combination that best suits the client easily
-** Cons: May have performance issues in terms of extracting of data
+** Pros: Provides a bird's-eye view of all plausible vendors for the enquired client or clients for the enquired vendor
+so that the user can pick the combination that best suits the client or vendor easily
+** Cons: May have performance issues in terms of the extraction of data
 * *Alternative 2:* Present in a list
 ** Pros: More efficient performance
-** Cons: Users need to scroll through the list for each vendor individually
+** Cons: Users need to scroll through the list for each contact individually without knowing which service category
+the contact falls under.
+// end::automatchui[]
 
 // tag::list[]
 === List Feature

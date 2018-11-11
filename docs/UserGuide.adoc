@@ -67,31 +67,31 @@ image::format.png[width="256"]
 
 image::callouts2.png[width="256"]
 
-Callouts are a rectangular box with icon and words to point out some information. Below are the 3 callouts that will be used consistently throughout this document:
+Callouts are rectangular boxes with an icon and words to point out some information. Below are 3 callouts that will be used throughout this document:
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|This represents a *note*. A note is information that is important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+|This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|This represents a *tip*. A tip is something that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+|This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|This represents a *warning*. You should be extremely cautious and read the warning statement carefully.
+|This represents a *warning*. A warning denotes something of crucial importance, and you should be extremely cautious when reading the statement.
 |=====
 
 {empty} +
 
 image::commands.png[width="256"]
 
-Heart² is designed with an intuitive command syntax for your ease of use.
+*_Heart²_* is designed with an intuitive command syntax for your ease of use.
 The following section documents all the commands available for you in this application.
 
 [cols="^,<5a", frame=none]
@@ -360,6 +360,12 @@ Attributes of the services your clients require or vendors can provide can be in
 
 [cols="^,<5a", frame=none]
 |=====
+|image:icon-danger.png[width="48", role="center"]
+|Every service can only be added *once*. You can undo this command but cannot update it in the future.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
 |image:icon-notes.png[width="48", role="center"]
 |Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
 |=====
@@ -369,9 +375,8 @@ Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 Available service types for `SERVICE_TYPE`:
 
 |=======
-|`photographer`|`dress`    | `invitation`
-|`hotel`       |`ring`     |
-|`catering`    |`transport`|
+|`photographer` |`hotel`         | `catering`   |`dress`
+|`ring`         |`transport`     | `invitation` |
 |=======
 
 
@@ -502,8 +507,8 @@ There is no need for you to save manually.
 * List all the commands entered in this session: `history`
 * Undo the previous command: `undo`
 * Redo the previous command: `redo`
-* View the details of a client: `client# select`
-* View the details of a vendor: `vendor# select`
+* View the details of a client: `client# view`
+* View the details of a vendor: `vendor# view`
 * List all the clients' data: `client list`
 * List all the vendors' data: `vendor list`
 * Automatically find a match to fit a particular client's requirements: `client# automatch`
