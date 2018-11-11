@@ -67,31 +67,31 @@ The following format is consistent for all the commands listed in this section.
 
 image::callouts2.png[width="256"]
 
-Callouts are a rectangular box with icon and words to point out various types of information. Below are the 3 callouts that will be used consistently throughout this document:
+Callouts are rectangular boxes with an icon and words to point out various types of information. Below are 3 callouts that will be used throughout this document:
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|This represents a *note*. A note is information that is important, but may not be applicable to you. Be sure to read a note and see if it is applicable to you.
+|This represents a *note*. A note indicates additional important information. Be sure to read these notes as they might be applicable to you!
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|This represents a *tip*. A tip is information that is often handy, and good for you to know. Tip is often not crucial, and you can choose to skip them.
+|This represents a *tip*. A tip denotes something that is often handy, and good for you to know. Tips are often less crucial, and you can choose to skip them.
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|This represents a *warning*. A warning is information that is extremely important. You should be cautious and read the warning statement carefully.
+|This represents a *warning*. A warning denotes information of crucial importance, and you should be extremely cautious when reading the statement.
 |=====
 
 {empty} +
 
 image::commands.png[width="256"]
 
-Heart² is designed with an intuitive command syntax for your ease of use.
+*_Heart²_* is designed with an intuitive command syntax for your ease of use.
 The following section documents all the commands available for you in this application.
 
 [cols="^,<5a", frame=none]
@@ -229,7 +229,7 @@ Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 === Working with contacts
 
-There are two types of contacts supported by Heart², namely `client` and `vendor`.
+There are two types of contacts supported by *_Heart²_*, namely `client` and `vendor`.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -239,7 +239,7 @@ There are two types of contacts supported by Heart², namely `client` and `vendo
 
 ==== Adding a contact: `add`
 
-You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
+You can `add` a contact together with its particulars into *_Heart²_* by specifying its contact type first, that is, `client` or `vendor`.
 
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
@@ -280,7 +280,7 @@ Format: `<CONTACT_TYPE> list`
 |`vendor list`
 |=====
 
-Heart² also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+*_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
 To search, simply append your search parameters to the back of the original command.
 
 Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
@@ -300,7 +300,7 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 
 === Manipulating a specific contact
 
-Contacts in Heart² are assigned a unique ID each for you to refer to the contact at any point of time when using Heart².
+Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
 
 
 [cols="^,<5a", frame=none]
@@ -312,7 +312,7 @@ Contacts in Heart² are assigned a unique ID each for you to refer to the contac
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+|These IDs are persistent for one session. Each restart of *_Heart²_* reassigns IDs to contacts, effectively compacting the IDs of your contacts.
 |=====
 
 [cols="^,<5a", frame=none]
@@ -324,7 +324,7 @@ Contacts in Heart² are assigned a unique ID each for you to refer to the contac
 ==== Viewing a contact: `view`
 
 You can `view` detailed information about a specific contact using its unique ID.
-This information will be displayed on the right panel in Heart².
+This information will be displayed on the right panel in *_Heart²_*.
 
 Format: `<CONTACT_TYPE>#<ID> view`
 
@@ -341,7 +341,7 @@ Format: `<CONTACT_TYPE>#<ID> view`
 
 ==== Deleting a contact: `delete`
 
-You can also `delete` a contact from Heart², by specifying its unique ID.
+You can also `delete` a contact from *_Heart²_*, by specifying its unique ID.
 
 Format: `<CONTACT_TYPE>#<ID> delete`
 
@@ -382,17 +382,28 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 // tag::addservice[]
 ==== Adding a service: `addservice`
 
-You can add attributes of the services your clients require or what vendors can provide by using the
+You can add attributes of the services your clients require or vendors can provide by using the
  `addservice` command specified by the contacts' unique IDs.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Every service can only be added *once*. You can undo this command but cannot update it in the future.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
+|=====
 
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
 Available service types for `SERVICE_TYPE`:
 
 |=======
-|`photographer`|`dress`    | `invitation`
-|`hotel`       |`ring`     |
-|`catering`    |`transport`|
+|`photographer` |`hotel`         | `catering`   |`dress`
+|`ring`         |`transport`     | `invitation` |
 |=======
 
 [cols="^,<5a", frame=none]
