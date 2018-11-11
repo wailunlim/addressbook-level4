@@ -193,9 +193,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `client#1 delete`.
 
-._Component interactions for `delete 1` command (part 1)_ +
+._Component interactions for `client#1 delete ` command (part 1)_ +
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -203,7 +203,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-._Component interactions for `delete 1` command (part 2)_ +
+._Component interactions for `client#1 delete` command (part 2)_ +
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -248,9 +248,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("client#1 delete")` API call.
 
-._Interactions Inside the Logic Component for the `delete 1` Command_
+._Interactions Inside the Logic Component for the `client#1 delete` Command_
 image::DeleteClientSdForLogic.png[width="800"]
 
 {empty} +
