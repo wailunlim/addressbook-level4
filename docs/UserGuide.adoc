@@ -415,7 +415,7 @@ You can add attributes of the services your clients require or vendors can provi
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|Every service can only be added *once*. You can undo this command but cannot update it in the future.
+|Every service can only be added *once*. Updating this service is not supported.
 |=====
 
 [cols="^,<5a", frame=none]
