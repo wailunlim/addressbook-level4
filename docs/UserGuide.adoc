@@ -246,7 +246,7 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+|You cannot add a contact that already exists in the application. Two contacts are considered equal if they are of the same type (either both clients or both vendors), possess the same name and either the same phone number or the same email address.
 |=====
 
 [cols="^,<5a", frame=none]
@@ -259,6 +259,12 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor add n/Mary Jane p/98765432 e/maryjane@gmail.com a/123 Lorem Street, #67-89, Singapore 890321`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|You can `undo` and `redo` adding of a contact!
 |=====
 
 // tag::list[]
@@ -301,7 +307,7 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 |=====
 // end::list[]
 
-=== Manipulating a specific contact
+=== Working with a specific contact
 
 Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
 
@@ -315,19 +321,30 @@ Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the co
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|These IDs are persistent for one session. Each restart of *_Heart²_* reassigns IDs to contacts, effectively compacting the IDs of your contacts.
+|These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
 |=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|IDs can be similar for `client` and `vendor`. However, since the contact type and ID comes together, they would still refer to different contacts!
+|IDs can be similar for `client` and `vendor`. However, since the contact type and ID come hand in hand, the contacts are still effectively unique!
 |=====
 
 ==== Viewing a contact: `view`
 
 You can `view` detailed information about a specific contact using its unique ID.
 This information will be displayed on the right panel in *_Heart²_*.
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|*Any* command following `view` will hide the information shown before on the panel on the right.
+|=====
 
 Format: `<CONTACT_TYPE>#<ID> view`
 
@@ -340,6 +357,11 @@ Format: `<CONTACT_TYPE>#<ID> view`
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#3 view`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
 |=====
 
 ==== Deleting a contact: `delete`
@@ -357,6 +379,11 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#123 delete`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|You can `undo` and `redo` deleting a contact!
 |=====
 
 ==== Updating a contact: `update`
@@ -381,6 +408,11 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#123 update n/Bob Vans e/bobvans@gmail.com`
 |=====
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|You can `undo` and `redo` updating a contact!
+|=====
 
 // tag::addservice[]
 ==== Adding a service: `addservice`
@@ -391,7 +423,7 @@ You can add attributes of the services your clients require or vendors can provi
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|Every service can only be added *once*. You can undo this command but cannot update it in the future.
+|Every service can only be added *once*. Updating this service is not supported.
 |=====
 
 [cols="^,<5a", frame=none]
@@ -419,6 +451,12 @@ Available service types for `SERVICE_TYPE`:
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor#123 addservice s/catering c/10000.00`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-tips.png[width="48", role="center"]
+|You can `undo` and `redo` adding a service to a contact!
 |=====
 // end::addservice[]
 
