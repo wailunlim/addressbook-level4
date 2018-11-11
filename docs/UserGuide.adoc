@@ -411,12 +411,6 @@ Available service types for `SERVICE_TYPE`:
 
 [cols="^,<5a", frame=none]
 |=====
-|image:icon-notes.png[width="48", role="center"]
-|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
-|=====
-
-[cols="^,<5a", frame=none]
-|=====
 |image:exampleimage.png[width="64", role="center"]
 |`client#123 addservice s/photographer c/2000.00`
 |=====

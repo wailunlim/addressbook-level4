@@ -1451,6 +1451,8 @@ image::appendixdheader.png[width="320"]
 
 === Use case: Add Client/Vendor
 
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
 *MSS*
 
 1.  User requests to add a new Client/Vendor
@@ -1470,6 +1472,8 @@ Use case ends.
 
 
 === Use case: Update Client/Vendor
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
 
 *MSS*
 
@@ -1491,6 +1495,8 @@ Use case ends.
 
 === Use case: Delete Client/Vendor
 
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
 *MSS*
 
 1.  User requests to delete an existing Client/Vendor
@@ -1509,6 +1515,8 @@ Use case ends.
 Use case ends.
 
 === Use case: Login
+
+*Preconditions*: User is logged out.
 
 *MSS*
 
@@ -1551,6 +1559,8 @@ Use case ends.
 
 === Use case: Logout
 
+*Preconditions*: User is logged in.
+
 *MSS*
 
 1.  User requests to logout from the System
@@ -1560,6 +1570,8 @@ Use case ends.
 Use case ends.
 
 === Use case: Register an account
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
 
 *MSS*
 
@@ -1602,6 +1614,8 @@ Use case ends.
 
 === Use case: Changing an existing account password
 
+*Preconditions*: User is logged in.
+
 *MSS*
 
 1.  User requests to change the password of his account
@@ -1630,6 +1644,8 @@ Use case ends.
 
 === Use case: List all the Clients or Vendors
 
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
 *MSS*
 
 1.  User enters the list command and requests to view either all the Clients, or all the Vendors.
@@ -1649,6 +1665,8 @@ Use case ends.
 Use case ends.
 
 === Use case: Filter and show Client’s or Vendor’s info according to the filter
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
 
 *MSS*
 
@@ -1674,7 +1692,43 @@ Use case ends.
 +
 Use case ends.
 
+// tag::addserviceuc[]
+=== Use Case: Adding a new service request
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
+*Guarantees*:
+
+* Service would be added to the specified contact only if the command is successful.
+* The new service addition will not wipe out the previous service additions.
+
+*MSS*
+
+1. User enters the add service command with the specified client or vendor, along with the service type and price.
+2. System adds the service to the contact and displays the result of the command in the result display.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid ID.
+[none]
+** 1a1. System prompts User that the ID is invalid.
+** Use case ends.
+* 1b. System detects an invalid service type.
+[none]
+** 1b1. System prompts User with the available service types.
+** Use case ends.
+* 1c. System detects an invalid service cost.
+[none]
+** 1c1. System prompts User with the cost format requirements.
+** Use case ends.
+// end::addserviceuc[]
+
 === Use case: Match the most suitable Vendor to a Client's needs
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
 
 *MSS*
 
@@ -1876,3 +1930,32 @@ For all commands except for `login`, `help`, and `exit`, user is expected to hav
    Expected: List all clients that matches the parameters provided. Test with different combinations of parameters and invalid ones to verify functionality of list.
 .. Test case: `vendor list n/... p/... e/... a/... t/...` +
    Expected: List all vendors that matches the parameters provided. Test with different combinations of parameters and invalid ones to verify functionality of list.
+
+// tag::addservicemanual[]
+=== Adding a new service request
+
+. Adding a new service to a client or vendor with no service requests
+
+.. Prerequisites: You must create a new client or vendor with no service requests
+.. Test case: `<CONTACT_TYPE>#1 addservice s/photographer c/1000.00` +
+   Expected: Service is added to the contact. Details of the service and the contact's name shown in status message.
+   You can now `view` the contact to rectify that the service is added with `<CONTACT_TYPE>#1 view`.
+   This would display the contact's information under "Service Requested" in the `BrowserPanel` on the right.
+.. Incorrect commands to try: `<CONTACT_TYPE>#1 addservice s/florist c/1000.00`, `<CONTACT_TYPE>#1 addservice s/photographer c/1000`, `<CONTACT_TYPE>#1 addservice s/photographer c/$1000.00`
+
+. Adding a new service to a client or vendor with existing service requests
+
+.. Prerequisites: You must have a client or vendor with at least one existing service request, that is not of `photographer` type
+.. Test case: `<CONTACT_TYPE>#1 addservice s/photographer c/1000.00` +
+   Expected: Service is added to the contact. Details of the service and the contact's name shown in status message.
+   You can now `view` the contact to rectify that the service is added with `<CONTACT_TYPE>#1 view`.
+   This would display the contact's information under "Service Requested" in the `BrowserPanel` on the right, in addition to the existing services listed previously.
+.. Incorrect commands to try: `<CONTACT_TYPE>#1 addservice s/florist c/1000.00`, `<CONTACT_TYPE>#1 addservice s/photographer c/1000`, `<CONTACT_TYPE>#1 addservice s/photographer c/$1000.00`
+
+. Adding a duplicate service to a client or vendor
+
+.. Prerequisites: You must have a client or vendor with a `photographer` type service request
+.. Test case: `<CONTACT_TYPE>#1 addservice s/photographer c/1000.00` +
+   Expected: Service is not added to the client. Duplicate service message shown in status message.
+   You can now `view` the contact to rectify that the service is not overwritten with `<CONTACT_TYPE>#1 view`.
+// end::addservicemanual[]
