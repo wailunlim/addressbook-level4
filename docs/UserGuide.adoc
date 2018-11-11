@@ -104,17 +104,19 @@ The following section documents all the commands available for you in this appli
 
 Opens a new window that contains the user guide to help you find out any information you need.
 
+Format: `help`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` a help.
 |=====
 
-Format: `help`
-
 === Logging in : `login`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
+
+Format: `login u/USERNAME p/PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -127,8 +129,6 @@ Securely logs you in to access the system. By default, a root account with `SUPE
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` a login.
 |=====
-
-Format: `login u/USERNAME p/PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -146,17 +146,25 @@ Format: `exit`
 
 Securely logs you out of the system.
 
+Format: `logout`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` a logout.
 |=====
 
-Format: `logout`
-
 === Registering a new account : `register account`
 
 Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
+
+Format: `register account u/USERNAME p/PASSWORD r/ROLE`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|`r/ROLE`: either `r/superuser` or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -170,12 +178,6 @@ Register a new account for this application. You can only register a new account
 |You cannot `undo` registering a new account.
 |=====
 
-Format: `register account u/USERNAME p/PASSWORD r/ROLE`
-
-`r/ROLE`:
-either
-`r/superuser`
- or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -199,13 +201,13 @@ either
 
 Change your current account password from an old password to a new password.
 
+Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` changing of password.
 |=====
-
-Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -239,15 +241,20 @@ There are two types of contacts supported by Heart², namely `client` and `vendo
 
 You can `add` a contact together with its particulars into Heart² by specifying its contact type first, that is, `client` or `vendor`.
 
-Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
-
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
@@ -259,11 +266,14 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 
 You can view all the contact of a specific type in a list by specifying the contact type to be shown.
 
+Format: `<CONTACT_TYPE> list`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client list`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
@@ -280,6 +290,7 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 |image:exampleimage.png[width="64", role="center"]
 |`client list n/John`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
@@ -349,13 +360,13 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 
 You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot update a contact to make the contact equalivalent to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 |=====
-
-Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -374,12 +385,6 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 You can add attributes of the services your clients require or what vendors can provide by using the
  `addservice` command specified by the contacts' unique IDs.
 
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-notes.png[width="48", role="center"]
-|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
-|=====
-
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
 Available service types for `SERVICE_TYPE`:
@@ -390,6 +395,11 @@ Available service types for `SERVICE_TYPE`:
 |`catering`    |`transport`|
 |=======
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -408,13 +418,13 @@ Available service types for `SERVICE_TYPE`:
 
 You can easily find vendors that can fulfill the requests services with this command.
 
+Format: `client#<ID> automatch`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the vendors within the budget of the client.
 |=====
-
-Format: `client#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -426,13 +436,13 @@ Format: `client#<ID> automatch`
 
 You can easily find clients whose service requirements match the services offered by a vendor.
 
+Format: `vendor#<ID> automatch`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the clients whose budgets can afford the service.
 |=====
-
-Format: `vendor#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
