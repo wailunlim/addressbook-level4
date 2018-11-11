@@ -264,7 +264,7 @@ Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_AD
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|You can `undo` adding of a contact!
+|You can `undo` and `redo` adding of a contact!
 |=====
 
 // tag::list[]
@@ -370,7 +370,7 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|You can `undo` deleting a contact!
+|You can `undo` and `redo` deleting a contact!
 |=====
 
 ==== Updating a contact: `update`
@@ -398,7 +398,7 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|You can `undo` updating a contact!
+|You can `undo` and `redo` updating a contact!
 |=====
 
 // tag::addservice[]
@@ -449,7 +449,7 @@ Available service types for `SERVICE_TYPE`:
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-tips.png[width="48", role="center"]
-|You can `undo` adding of a contact!
+|You can `undo` and `redo` adding a service to a contact!
 |=====
 // end::addservice[]
 
