@@ -45,18 +45,18 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
-The following format is consistent for all the commands listed in this section.
-
 image::format.png[width="256"]
+
+The following format is consistent for all the commands listed in this section.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`
+* `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`.
 * `<ID>` is to replaced with a valid ID, and only integers are recognised as an ID.
 
-* Example: An `example table` shows the source code format for a particular command
+* An example table shows the usage with actual data for a particular command. Below shows one instance of such a table.
 
 ._An example table for login command_
 [cols="^,<5a", frame=none]
@@ -67,7 +67,7 @@ image::format.png[width="256"]
 
 image::callouts2.png[width="256"]
 
-Callouts are rectangular boxes with an icon and words to point out some information. Below are 3 callouts that will be used throughout this document:
+Callouts are rectangular boxes with an icon and words to point out various types of information. Below are 3 callouts that will be used throughout this document:
 
 [cols="^,<5a", frame=none]
 |=====
@@ -84,7 +84,7 @@ Callouts are rectangular boxes with an icon and words to point out some informat
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-danger.png[width="48", role="center"]
-|This represents a *warning*. A warning denotes something of crucial importance, and you should be extremely cautious when reading the statement.
+|This represents a *warning*. A warning denotes information of crucial importance, and you should be extremely cautious when reading the statement.
 |=====
 
 {empty} +
@@ -97,12 +97,14 @@ The following section documents all the commands available for you in this appli
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
-|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging in the the application.
+|Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application.
 |=====
 
 === Viewing help : `help`
 
 Opens a new window that contains the user guide to help you find out any information you need.
+
+Format: `help`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -110,21 +112,23 @@ Opens a new window that contains the user guide to help you find out any informa
 |You cannot `undo` a help.
 |=====
 
-Format: `help`
-
 === Logging in : `login`
 
 Securely logs you in to access the system. By default, a root account with `SUPER_USER` privilege is provided, using the username `rootUser` and password `rootPassword`.
 
-Condition: You must not already been logged in. Otherwise, it will be an unknown command.
+Format: `login u/USERNAME p/PASSWORD`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Condition of use: You must not be logged in. Otherwise, it will be an unknown command.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` a login.
 |=====
-
-Format: `login u/USERNAME p/PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -142,19 +146,25 @@ Format: `exit`
 
 Securely logs you out of the system.
 
+Format: `logout`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |You cannot `undo` a logout.
 |=====
 
-Format: `logout`
-
 === Registering a new account : `register account`
 
 Register a new account for this application. You can only register a new account via an account with `SUPER_USER` privilege. By default, `rootUser` is a default account with `SUPER_USER` privilege.
 
-Condition: Username and password cannot be empty, or contain space.
+Format: `register account u/USERNAME p/PASSWORD r/ROLE`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|`r/ROLE`: either `r/superuser` or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -168,17 +178,17 @@ Condition: Username and password cannot be empty, or contain space.
 |You cannot `undo` registering a new account.
 |=====
 
-Format: `register account u/USERNAME p/PASSWORD r/ROLE`
-
-`r/ROLE`:
-either
-`r/superuser`
- or `r/readonlyuser` to create a `SUPER_USER` account or `READ_ONLY_USER` account respectively.
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`register account u/myNewUsername p/p@ssw0rd r/superuser`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Username and password cannot be empty, or contain space.
 |=====
 
 [cols="^,<5a", frame=none]
@@ -191,13 +201,7 @@ either
 
 Change your current account password from an old password to a new password.
 
-Condition: your old password is typed in correctly, and new password should not be the same as old password. Password cannot be empty or contains space.
-
-[cols="^,<5a", frame=none]
-|=====
-|image:icon-danger.png[width="48", role="center"]
-|Make sure your new password is typed correctly. There is no confirmation prompt once you execute the command.
-|=====
+Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -205,12 +209,22 @@ Condition: your old password is typed in correctly, and new password should not 
 |You cannot `undo` changing of password.
 |=====
 
-Format: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
-
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`change password o/jf3nv n/j9y3nd`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|New password should not be the same as old password, and it cannot be empty, or contain space.
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-danger.png[width="48", role="center"]
+|Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
 |=====
 
 === Working with contacts
@@ -227,31 +241,39 @@ There are two types of contacts supported by *_Heart²_*, namely `client` and `v
 
 You can `add` a contact together with its particulars into *_Heart²_* by specifying its contact type first, that is, `client` or `vendor`.
 
-Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
-
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Condition: You cannot add a contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client add n/John Doe p/87654321 e/johndoe@gmail.com a/123 Lorem Street, #45-67, Singapore 890123`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor add n/Mary Jane p/98765432 e/maryjane@gmail.com a/123 Lorem Street, #67-89, Singapore 890321`
 |=====
 
-// tag::listClient[]
+// tag::list[]
 ==== Listing and searching for contacts: `list`
 
-You can also `list` your different contacts by specifying the contact type to be shown.
+You can view all the contact of a specific type in a list by specifying the contact type to be shown.
+
+Format: `<CONTACT_TYPE> list`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`client list`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
@@ -268,12 +290,13 @@ Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a
 |image:exampleimage.png[width="64", role="center"]
 |`client list n/John`
 |=====
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
 |`vendor list p/98765432`
 |=====
-// end::listClient[]
+// end::list[]
 
 === Manipulating a specific contact
 
@@ -337,9 +360,13 @@ Format: `<CONTACT_TYPE>#<ID> delete`
 
 You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
 
-Condition: You cannot update a contact to make the contact equals to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
-
 Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|You cannot update a contact to make the contact equalivalent to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -355,8 +382,8 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 // tag::addservice[]
 ==== Adding a service: `addservice`
 
-Attributes of the services your clients require or vendors can provide can be indicated using the
- `addservice` command, by their unique IDs.
+You can add attributes of the services your clients require or vendors can provide by using the
+ `addservice` command specified by the contacts' unique IDs.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -379,6 +406,11 @@ Available service types for `SERVICE_TYPE`:
 |`ring`         |`transport`     | `invitation` |
 |=======
 
+[cols="^,<5a", frame=none]
+|=====
+|image:icon-notes.png[width="48", role="center"]
+|Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
+|=====
 
 [cols="^,<5a", frame=none]
 |=====
@@ -397,13 +429,13 @@ Available service types for `SERVICE_TYPE`:
 
 You can easily find vendors that can fulfill the requests services with this command.
 
+Format: `client#<ID> automatch`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the vendors within the budget of the client.
 |=====
-
-Format: `client#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -415,13 +447,13 @@ Format: `client#<ID> automatch`
 
 You can easily find clients whose service requirements match the services offered by a vendor.
 
+Format: `vendor#<ID> automatch`
+
 [cols="^,<5a", frame=none]
 |=====
 |image:icon-notes.png[width="48", role="center"]
 |It only shows you the clients whose budgets can afford the service.
 |=====
-
-Format: `vendor#<ID> automatch`
 
 [cols="^,<5a", frame=none]
 |=====
@@ -477,6 +509,7 @@ Format: `redo`
 |image:icon-notes.png[width="48", role="center"]
 |The application will show either the client list or vendor list corresponding to the command that was redone.
 |=====
+// end::undoredo[]
 
 === Saving the data
 
@@ -485,34 +518,30 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need for you to save manually.
 
 == Command summary
+
+Below is a summary of the commands available for you to use.
+
 *Before logging in*
 
 * To get help: `help`
-* To log in: `login`
+* To log in: `login u/USERNAME p/PASSWORD`
 * Close the application: `exit`
 
 *After logging in*
 
-* Register for a new account: `register account`
-* Change your account password: `change password`
-* Add an entry to the client: `client add`
-* Add an entry to the vendor: `vendor add`
-* Add a service requirement for a particular client: `client# addservice`
-* Add a service supported by a particular vendor: `vendor# addservice`
-* Update the entry of a particular client: `client# update`
-* Update the entry of a particular vendor: `vendor# update`
-* Delete a particular data entry of a client: `client# delete`
-* Delete a particular data entry of a vendor: `vendor# delete`
-* Delete the entire data entries for all clients and vendors: `clear`
+* Register for a new account: `register account u/USERNAME p/PASSWORD r/ROLE`
+* Change your account password: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+* Add a contact: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+* Add a service requirement: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+* Update a specific contact: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+* List contacts that matches the inputs: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+* Automatically find a match that fits a particular contact's requirements: `<CONTACT_TYPE>#<ID> automatch`
+* View a specific contact: `<CONTACT_TYPE>#<ID> view`
+* Delete a specific contact: `<CONTACT_TYPE>#<ID> delete`
+* Delete all contacts: `clear`
 * List all the commands entered in this session: `history`
 * Undo the previous command: `undo`
-* Redo the previous command: `redo`
-* View the details of a client: `client# view`
-* View the details of a vendor: `vendor# view`
-* List all the clients' data: `client list`
-* List all the vendors' data: `vendor list`
-* Automatically find a match to fit a particular client's requirements: `client# automatch`
-* Automatically find a match to fit a particular vendor's services: `vendor# automatch`
+* Redo the previous undone command: `redo`
 * To get help: `help`
 * Log out of your account: `logout`
 * Close the application: `exit`
