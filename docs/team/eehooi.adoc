@@ -6,67 +6,134 @@
 == PROJECT: Heart²
 
 ---
+This document serves to note down my contributions to https://github.com/CS2103-AY1819S1-F10-3/main[*_Heart²_*], my team's product for our
+Software Engineering project.
 
 == Overview
 
-This document serves to note down my contributions to *_Heart²_*, my team's product for the
-Software Engineering module, CS2103T, offered by the  National University of Singapore (NUS) School of Computing.
-
 *_Heart²_* is a desktop software meant for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
-It is primarily used for matching various wedding service providers to clients' specific needs.
+It is primarily used for matching various wedding vendors to clients' specific needs.
 
 The user keys in commands using a _Command Line Interface (CLI)_, and views the command results on a _Graphical User Interface (GUI)_ created with JavaFX.
-*_Heart²_* was built upon a given base code provided by the SE-EDU team in CS2103T.
-It is written in Java, and has about 10 kLoC.
+*_Heart²_* was built upon a given https://github.com/se-edu/addressbook-level4[base code] provided by the SE-EDU team.
+It is written in Java, and has about 20 kLoC.
+
+*_Heart²_* also supports both Windows and Mac operating systems.
 
 == Summary of contributions
 
 This section provides the overall view of my contributions to *_Heart²_*.
+All my pull requests (PRs) can be found https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+author%3Aeehooi[here].
 
 === Major Enhancements
 
-1. *Ability to add a service under a client and service provider*
-** What it does: Allows the user to specify a service type and cost requested by the client or offered by the service provider.
-** Justification: This feature is a crucial first step for the `AutoMatchCommand` as it provides the criteria for
-filtering of service providers for the client to provide the most suitable matching.
-** Highlights:
-** Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
+I have contributed 2 supportive features for *_Heart²_*'s main feature `AutoMatch`.
+`AutoMatch` finds all vendors that fulfill the specified client's requirements or clients that the specified vendor can serve.
 
-2. *Viewing the results of the `AutoMatchCommand` in a tabular view*
-** What it does: Shows the user the service providers that fulfill the client requirements or the clients that the service providers can serve in a table.
-** Justification: This feature is important for the `AutoMatchCommand` as it presents all results together for easy selection.
-** Highlights:
-** Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
+1. *Ability to add a `Service` under a client and vendor*
+** *What it does:* Allows the user to specify a service type and cost requested by the client or offered by the vendor.
+** *Justification:* This feature is a crucial first step for `AutoMatch` as it provides the criteria for
+filtering out the matching contacts for a particular contact enquired.
+** *Code contributed:* Activation [https://github.com/CS2103-AY1819S1-F10-3/main/pull/174[#174]],
+Enhancement [https://github.com/CS2103-AY1819S1-F10-3/main/pull/202[#202]],
+`Service` Cost BigDecimal Integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/229[#229],
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/237[#237]],
+Test [https://github.com/CS2103-AY1819S1-F10-3/main/pull/280[#280], https://github.com/CS2103-AY1819S1-F10-3/main/pull/284[#284]]
+
+2. *Viewing the results of `AutoMatch` in a tabular view*
+** *What it does:* Shows the user the vendors that fulfill the client requirements or the clients that the vendors can serve in a single table.
+** *Justification:* This feature categorises the results of `AutoMatch` based on each service type.
+Instead of returning users a single string of vendor names, displaying the results in a single table with the relevant information would enable a much easier selection.
+** *Highlights:* I had to pick up a new XML-based user interface markup language, FXML, from scratch in order to incorporate this new `UiPart`.
+Furthermore, this enhancement required the integration of 3 major components of *_Heart²_*: `Logic`, `Model` and `Ui` in order to populate the table with the right information.
+** *Code contributed:* Design [https://github.com/CS2103-AY1819S1-F10-3/main/pull/162[#162]], Integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/206[#206]]
 
 === Minor enhancement
-1. Login window UI display before login and after logout.
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+1. *Login window UI display before login and after logout*
+** *What it does:* Prevents the user from accessing the `MainWindow` before login and after logout.
+** *Justification:* This enhancement complements the `Login` and `Logout` feature.
+With a separate login window, it would be clear to users that they would have to login in order to access the data.
+This prevents confusion as to why the data is not shown on the main screen.
+** *Highlights:* This enhancement disrupts the original flow of logic of displaying the `MainWindow` right when *_Heart²_* is launched.
+I had to create a new `loginStage` and activate it based on the respective `Event` raised, whilst hiding the `primaryStage`.
+Detailed understanding of how `Event` and event `Subscribers` worked was also critical.
+** *Code contributed:* Design [https://github.com/CS2103-AY1819S1-F10-3/main/pull/66[#66], https://github.com/CS2103-AY1819S1-F10-3/main/pull/101[#101]],
+Activation [https://github.com/CS2103-AY1819S1-F10-3/main/pull/148[#148], https://github.com/CS2103-AY1819S1-F10-3/main/pull/154[#154]],
+Enhancement [https://github.com/CS2103-AY1819S1-F10-3/main/pull/163[#163], https://github.com/CS2103-AY1819S1-F10-3/main/pull/207[#207],
+https://github.com/CS2103-AY1819S1-F10-3/main/pull/231[#231], https://github.com/CS2103-AY1819S1-F10-3/main/pull/276[#276]],
+Logout integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/189[#189]]
 
 
 === Other contributions
-** Documentation
-*** Changed GUI images for login and main screen.
+** *Project Management*
+*** Did minor refactoring to make the code more comprehensive and uniform. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/280[#280]]
+*** Updated App name to *_Heart²_*. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/111[#111]]
+*** Removed unnecessary images. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/103[#103]]
+** *Documentation*
+*** Changed GUI images for login and main window. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/211[#211], https://github.com/CS2103-AY1819S1-F10-3/main/pull/215[#215], https://github.com/CS2103-AY1819S1-F10-3/main/pull/285[#285]]
 *** Updated Ui class diagram to incorporate new `LoginWindow` and `ServiceListPanel`.
-*** Added design considerations for `LoginCommand` and `AutoMatchCommand`.
-*** Added implementation details for `AddServiceCommand` (Pull request https://github.com/CS2103-AY1819S1-F10-3/main/pull/185[#185])
+*** Added and updated introductions to the User Guide and Developer Guide. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/55[#55], https://github.com/CS2103-AY1819S1-F10-3/main/pull/56[#56]]
+*** Added design considerations for `LoginCommand` and `AutoMatchCommand`. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/110[#110]]
+*** Added implementation details for `AddServiceCommand` [https://github.com/CS2103-AY1819S1-F10-3/main/pull/185[#185], https://github.com/CS2103-AY1819S1-F10-3/main/pull/323[#323]]
+*** Updated roles in AboutUs. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/285[#285]]
+** *Minor UI Contributions*
+*** Update tag color to fit in with *_Heart²_*'s theme [https://github.com/CS2103-AY1819S1-F10-3/main/pull/44[#44]]
+*** Generate URL string of `Contact` details for `BrowserPanel` [https://github.com/CS2103-AY1819S1-F10-3/main/pull/208[#208]]
+*** Updated *_Heart²_* launch logo. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/296[#296]]
+** *Create Sample Data for `.jar` launch* [https://github.com/CS2103-AY1819S1-F10-3/main/pull/301[#301]]
+** *Community*
+*** Actively looked through and approved PRs.
+*** Actively raised issues in the issue tracker.
+*** Always ensured that at least one team member has approved my PR before merging.
+** *Tools*
+*** Set up Coveralls. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/38[#38]]
+** *Overall Code Contributed:* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=eehooi[RepoSense]
 
 == Contributions to the User Guide
-This section includes excerpts of the User Guide that I have contributed to.
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_This section includes excerpts of the User Guide that I have contributed to._
 |===
+
+=== Excerpt: Add Service Feature
+
+---
 
 include::../UserGuide.adoc[tag=addservice]
 
 
 == Contributions to the Developer Guide
-This section includes excerpts of the Developer Guide that I have contributed to.
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section includes excerpts of the Developer Guide that I have contributed to._
 |===
+
+=== Excerpt 1: Login UI Design Considerations
+
+---
+
+include::../DeveloperGuide.adoc[tag=loginui]
+
+=== Excerpt 2: Add Service Feature
+
+---
 
 include::../DeveloperGuide.adoc[tag=addservice]
 
-include::../DeveloperGuide.adoc[tag=automatchtable]
+=== Excerpt 3: Automatch UI Design Considerations
+
+---
+
+include::../DeveloperGuide.adoc[tag=automatchui]
+
+=== Excerpt 4: Add Service Use Case
+
+---
+
+include::../DeveloperGuide.adoc[tag=addserviceuc]
+
+=== Excerpt 5: Add Service Manual Testing
+
+---
+
+include::../DeveloperGuide.adoc[tag=addservicemanual]
