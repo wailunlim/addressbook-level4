@@ -22,16 +22,16 @@ The user primarily interacts with *_Heart²_* through a CLI, and it has a GUI cr
 
 Enabled support for two different types of contacts, clients and vendors, in *_Heart²_*.
 
-** What it does:
+** *What it does*:
 
 Allows the user to be work with two different types of contacts using *_Heart²_*.
 
-** Justification:
+** *Justification*:
 
 *_Heart²_* is made for wedding planners to efficiently manage their clients and vendors, two of their key stakeholders.
 Therefore, we chose to model the contacts in *_Heart²_* after clients and vendors.
 
-** Highlights
+** *Highlights*:
 
 . This enhancement serves a foundation of many features in *_Heart²_*, including:
 `add`, `delete`, `update`, `view`, `list`, `addservice` and `automatch`.
@@ -47,11 +47,11 @@ Filters are constantly applied to this contact list as commands are entered so a
 
 Implemented unique IDs for contacts.
 
-** What it does:
+** *What it does*:
 
 Allows the user to refer to contacts by their unique IDs.
 
-** Justification:
+** *Justification*:
 
 The inherited implementation from AddressBook (Level 4) had users use the contact's relative position in the currently shown list to refer to that contact.
 For our users to make use of their time most efficiently, we chose to have our users be able to refer to contacts using IDs, as opposed to the previous implementation.
@@ -61,24 +61,25 @@ With unique IDs for contacts, the context of the commands do not change, and thi
 
 With this unique ID system, our users are able to simplify and improve their workflow on *_Heart²_*,
 
-** Highlights:
+** *Highlights*:
 
 . This enhancement serves as another foundation of many features in *_Heart²_*, including:
 `delete`, `update`, `view`, `addservice` and `automatch`.
 
 . Together with the contact type, it allows *_Heart²_* to be able to offer a very simple and intuitive command syntax.
++
 Commands pertaining to a contact type start with the contact type (`client` or `vendor`).
-In addition, commands pertaining to a specific contact have the unique ID appended to the contact type.
+More specific commands pertaining to a specific contact have the unique ID appended to the contact type.
 
 === *Minor enhancement*:
 
 Updated the main parser that parses all commands entered by the user.
 
-** What it does:
+** *What it does*:
 
 Implements the command syntax enabled by the two previously mentioned enhancements.
 
-** Highlights:
+** *Highlights*:
 
 . This enhancement although minor proved to be quite a challenge, because commands differ in their components.
 +
@@ -92,19 +93,18 @@ In the end, only a single parser is used to parse and identify all of *_Heart²_
 
 Extended the `add`, `delete`, `update` and `view` commands in *_Heart²_*.
 
-** What it does:
+** *What it does*:
 
 Gives functionality to the mentioned commands.
 
-** Highlights:
+** *Highlights*:
 
 . This enhancement makes use of and relies on all three enhancements mentioned above.
 
 . The text feedback to the user is customised based on the command entered by the user.
-+
 Due to having two possibilities (`client` and `vendor`) for these commands, and in order avoid "hard-coding" every possible text feedback to the user, these text feedback use Java's string formatting feature.
 +
-This also means that these text feedback can be easily extended if we choose to add more contact types in the future.
+With this, the text feedback can be easily extended for even more contact types if we choose to add more contact types in the future.
 
 
 === *Code contributed*:
