@@ -4,6 +4,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LogoutRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 /**
  * Log the user out of the application.
@@ -19,6 +20,7 @@ public class LogoutCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         model.commitUserLoggedOutSuccessfully();
         EventsCenter.getInstance().post(new LogoutRequestEvent());
+        history.clear();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
