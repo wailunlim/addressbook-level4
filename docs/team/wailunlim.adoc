@@ -94,11 +94,17 @@ Extended the `add`, `delete`, `update` and `view` commands in *_Heart²_*.
 
 ** What it does:
 
-Gives functionality to those commands.
+Gives functionality to the mentioned commands.
 
 ** Highlights:
 
-. This enhancement is built on the two previously mentioned enhanc
+. This enhancement makes use of and relies on all three enhancements mentioned above.
+
+. The text feedback to the user is customised based on the command entered by the user.
++
+Due to having two possibilities (`client` and `vendor`) for these commands, and in order avoid "hard-coding" every possible text feedback to the user, these text feedback use Java's string formatting feature.
++
+This also means that these text feedback can be easily extended if we choose to add more contact types in the future.
 
 ~~~~~~~~~~~~~~~
 
