@@ -374,6 +374,7 @@ Available service types for `SERVICE_TYPE`:
 
 [TIP]
 You can `undo` and `redo` adding a service to a contact!
+// end::addservice[]
 
 ==== Automatching for a client: `automatch`
 
