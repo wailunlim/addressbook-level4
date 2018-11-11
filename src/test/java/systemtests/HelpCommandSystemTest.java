@@ -31,7 +31,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     private final GuiRobot guiRobot = new GuiRobot();
 
     @Test
-    @Ignore
     public void openHelpWindow() {
         //use accelerator
         getCommandBox().click();
