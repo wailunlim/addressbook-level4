@@ -1603,7 +1603,7 @@ Use case ends.
 
 === Use case: Changing an existing account password
 
-*Preconditions*: User is logged in with a `SUPER_USER` account.
+*Preconditions*: User is logged in.
 
 *MSS*
 
@@ -1682,7 +1682,7 @@ Use case ends.
 Use case ends.
 
 // tag::addserviceuc[]
-=== Use Case: Add a new service request for the Client or Vendor
+=== Use Case: Adding a new service request
 
 *Preconditions*: User is logged in with a `SUPER_USER` account.
 
