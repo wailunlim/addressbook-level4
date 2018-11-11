@@ -1,18 +1,15 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalContacts.getTypicalContacts;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
@@ -36,21 +33,6 @@ public class ClientListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private PersonListPanelHandle personListPanelHandle;
-
-    @Test
-    @Ignore
-    public void display() {
-        initUi(TYPICAL_CONTACTS);
-
-        for (int i = 0; i < TYPICAL_CONTACTS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_CONTACTS.get(i));
-            Contact expectedContact = TYPICAL_CONTACTS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
-
-            assertCardDisplaysPerson(expectedContact, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
-        }
-    }
 
     @Test
     public void handleJumpToListRequestEvent() {

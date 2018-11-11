@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -16,7 +15,6 @@ import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -349,40 +347,6 @@ public class UpdateCommandTest {
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    }
-
-    /**
-     * 1. Edits a {@code Client} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited client in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the client object regardless of indexing.
-     */
-    @Test
-    @Ignore
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Contact editedContact = new ClientBuilder().build();
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor, ContactType.CLIENT);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
-                TypicalAccount.ROOTACCOUNT);
-
-        showContactAtIndex(model, INDEX_SECOND_PERSON);
-        Contact contactToEdit = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.updateContact(contactToEdit, editedContact);
-        expectedModel.commitAddressBook();
-
-        // edit -> edits second client in unfiltered client list / first client in filtered client list
-        updateCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered client list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased()), contactToEdit);
-        // redo -> edits same second client in unfiltered client list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
