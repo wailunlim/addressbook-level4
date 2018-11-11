@@ -407,7 +407,7 @@ It only shows you the clients whose budgets can afford the service of the partic
 
 === Listing entered commands: `history`
 
-Lists all the commands that you have entered in reverse chronological order.
+Lists all the commands that you have entered in reverse chronological order for this particular session. Histories are deleted upon exiting the app.
 
 Format: `history`
 
@@ -417,7 +417,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undo the previous command: `undo`
 
-Undo the commands that you have entered in chronological order.
+Undo the commands that you have entered in chronological order for this particular session. Once you exit the application, you cannot `undo` a command from the last session.
 
 Format: `undo`
 
@@ -429,7 +429,7 @@ The application will show either the client list or vendor list corresponding to
 
 === Redo the commands undone: `redo`
 
-Redo the commands that you have undone by undo in chronological order.
+Redo the commands that you have undone by undo in chronological order for this particular session. Once you exit the application, you cannot `redo` a command from the last session.
 
 Format: `redo`
 
