@@ -661,6 +661,9 @@ This would indicate that the contact in the list is the contact we are to delete
 However, if the list is of size 0, this means that the contact that is specified to be deleted does not exist.
 We then can feedback to the user that the ID specified is invalid.
 
+[TIP]
+The sequence diagram for the `delete` command can be found together with the structure of the logic component <<DeveloperGuide.adoc#Design-Logic, here>>.
+
 === Update contact feature
 *_Heart²_* allows the user to update any contact, using the combination of its contact type and its unique ID, followed by `update`.
 
