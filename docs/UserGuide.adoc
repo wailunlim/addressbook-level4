@@ -198,7 +198,7 @@ You can `add` a contact together with its particulars into *_Heart²_* by specif
 Format: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
 
 [NOTE]
-You cannot add a contact that already exists in the application. Two contacts are considered equal if they are of the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+You cannot add a contact that already exists in the application. Two contacts are considered duplicates if they are of the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [cols="^,<5a", frame=none]
 |=====
@@ -323,7 +323,7 @@ You can also `update` a contact's particulars, again by specifying its unique ID
 Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [NOTE]
-You cannot update a contact to make the contact equalivalent to another contact that already exists in the application. Two contacts are considered equal if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+You cannot update a contact to another contact that already exists in the application. Two contacts are considered duplicates if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [cols="^,<5a", frame=none]
 |=====
