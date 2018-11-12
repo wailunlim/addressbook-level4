@@ -1,7 +1,7 @@
-= Contributed Code
+= Contributed Code For List Command
 
 |===
-| Below is a collection of all the contributed code that I have done.
+| Below is a collection of all the functional code that I have contributed for the list feature.
 |===
 
 * link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/47[find function]
