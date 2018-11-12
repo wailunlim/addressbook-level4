@@ -20,7 +20,7 @@ It is written in Java, and has about 20 kLoC.
 
 *_Heart²_* also supports both Windows and Mac operating systems.
 
-== Summary of contributions
+== Summary of Contributions
 
 This section provides the overall view of my contributions to *_Heart²_*.
 All my pull requests (PRs) can be found https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+author%3Aeehooi[here].
@@ -48,7 +48,7 @@ Instead of returning users a single string of vendor names, displaying the resul
 Furthermore, this enhancement required the integration of 3 major components of *_Heart²_*: `Logic`, `Model` and `Ui` in order to populate the table with the right information.
 ** *Code contributed:* Design [https://github.com/CS2103-AY1819S1-F10-3/main/pull/162[#162]], Integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/206[#206]]
 
-=== Minor enhancement
+=== Minor Enhancement
 1. *Login window UI display before login and after logout*
 ** *What it does:* Prevents the user from accessing the `MainWindow` before login and after logout.
 ** *Justification:* This enhancement complements the `Login` and `Logout` feature.
@@ -64,7 +64,7 @@ https://github.com/CS2103-AY1819S1-F10-3/main/pull/231[#231], https://github.com
 Logout Integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/189[#189]]
 
 
-=== Other contributions
+=== Other Contributions
 ** *Project Management*
 *** Did minor refactoring to make the code more comprehensive and uniform. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/280[#280]]
 *** Updated App name to *_Heart²_*. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/111[#111]]

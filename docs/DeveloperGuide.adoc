@@ -1887,28 +1887,16 @@ For all `add`, `update`, `delete`, `clear`, and `register account` commands, the
 
 .. Expected: The GUI screen closes and the application exits.
 
-=== Deleting a client
+=== Deleting a contact
 
-. Deleting a client while all clients are listed
+. Deleting a contact while all contacts of that type are listed
 
-.. Prerequisites: List all clients using the `client list` command. Multiple clients in the list.
-.. Test case: `client#1 delete` +
-   Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `client#0 delete` +
-   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `client3 delete`, `client#x delete` (where x is not a client's id), `delete client#1` +
-   Expected: Similar to previous.
-
-=== Deleting a vendor
-
-. Deleting a vendor while all vendors are listed
-
-.. Prerequisites: List all vendors using the `vendor list` command. Multiple vendors in the list.
-.. Test case: `vendor#1 delete` +
-   Expected: First vendor is deleted from the list. Details of the deleted vendor shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `vendor#0 delete` +
-   Expected: No vendor is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `vendor3 delete`, `vendor#x delete` (where x is not a vendor's id), `delete vendor#1` +
+.. Prerequisites: List all contacts of that type using the `list` command. Multiple contacts of that type in the list.
+.. Test case: `<CONTACT_TYPE>#1 delete` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `<CONTACT_TYPE>#0 delete` +
+   Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `<CONTACT_TYPE>3 delete`, `<CONTACT_TYPE>#x delete` (where x is not a contact's id), `delete <CONTACT_TYPE>#1` +
    Expected: Similar to previous.
 
 === Logging in
