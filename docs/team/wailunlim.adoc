@@ -119,6 +119,7 @@ The following pull requests are some examples of my code contribution, both func
 . https://github.com/CS2103-AY1819S1-F10-3/main/pull/300[[Adding tests for uncovered lines]]
 . https://github.com/CS2103-AY1819S1-F10-3/main/pull/303[[Finding and fixing bugs, and adding test cases to cover them]]
 
+My full code contribution to *_Heart²_* can be viewed https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wailunlim&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[here].
 
 === *Other contributions*:
 
