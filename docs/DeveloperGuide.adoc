@@ -1905,10 +1905,10 @@ For all `add`, `update`, `delete`, `clear`, and `register account` commands, the
 . Adding a contact in Heart²
 
 .. Test case: `<CONTACT_TYPE> add n/Test user e/test@example.com a/test address p/11111111 t/test` +
-   Expected: The contact is added to the either the `client` list or the `vendor` list, depending on the contact type specified in the command. Timestamp in the status bar is updated.
+   Expected: The contact is added to either the `client` or `vendor` list, depending on the contact type specified in the command. Timestamp in the status bar is updated.
 .. Test case: `<CONTACT_TYPE> add n/Test two user e/test a/test address 2 p/22222222 t/test` +
    Expected: No contact is added. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect `add` commands to try: commands missing required fields, adding a duplicate contact (same name, contact type and email address or phone number).
+.. Other incorrect `add` commands to try: commands missing required fields, adding a duplicate contact (same name, contact type and email address or phone number). +
    Expected: Similar to previous.
 
 === Deleting a contact
@@ -1932,7 +1932,7 @@ For all `add`, `update`, `delete`, `clear`, and `register account` commands, the
    Expected: The contact with ID #1 has its name updated in Heart². Details of the updated contact are shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `<CONTACT_TYPE>#0 update e/test@example.com` +
    Expected: No contact is updated. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect `update` commands to try: updating a contact to another contact already present in Heart² (same name, contact type and email address or phone number).
+.. Other incorrect `update` commands to try: updating a contact to another contact already present in Heart² (same name, contact type and email address or phone number). +
    Expected: Similar to previous.
 
 === Viewing a contact
@@ -1944,7 +1944,7 @@ For all `add`, `update`, `delete`, `clear`, and `register account` commands, the
    Expected: The contact with ID #1 has its information displayed on the panel on the right of Heart². The contact card on the panel on the left of Heart² is selected.
 .. Test case: `<CONTACT_TYPE>#0 view` +
    Expected: The contact card on the panel on the left is empty. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect `view` commands to try: `client#1 view asdf`, `client view`.
+.. Other incorrect `view` commands to try: `client#1 view asdf`, `client view`. +
    Expected: Similar to previous.
 
 === Logging in
