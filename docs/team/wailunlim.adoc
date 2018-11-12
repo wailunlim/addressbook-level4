@@ -124,10 +124,12 @@ The following pull requests are some examples of my code contribution, both func
 
 . Helped solve bug fixes in *_Heart²_*.
 
+. Helped with checking all documents for spelling and grammar mistakes.
+
 . Participated actively in discussions regarding *_Heart²_* and its features.
 
-. As of 11 November 2018:
-.. Contributed 39 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+author%3Awailunlim+is%3Aclosed[pull requests] on Github.
+. As of 12 November 2018:
+.. Contributed 40 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+author%3Awailunlim+is%3Aclosed[pull requests] on Github.
 .. Reviewed 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+reviewed-by%3Awailunlim+[pull requests] on Github.
 .. Raised 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=✓&q=is%3Aclosed+is%3Aissue+author%3Awailunlim+[issues] on Github.
 
