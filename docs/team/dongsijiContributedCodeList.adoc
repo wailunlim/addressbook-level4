@@ -13,3 +13,4 @@
 * link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/141[remove EntryContainsKeywordsPredicate class]
 * link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/142[make list case insensitive]
 * link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/171[fix null pointer from empty inputs]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/241[fix identifier not caught as error for list command]
