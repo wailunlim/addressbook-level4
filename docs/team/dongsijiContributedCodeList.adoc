@@ -1,0 +1,19 @@
+= Contributed Code For List Command
+
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+
+|===
+| Below is a collection of all the functional code that I have contributed for the list feature.
+|===
+
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/47[find function]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/59[add list functionality into find]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/71[delete list command]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/91[refactor find to list]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/129[change any match to all match]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/136[update parser for list]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/141[remove EntryContainsKeywordsPredicate class]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/142[make list case insensitive]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/171[fix null pointer from empty inputs]
+* link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/241[fix identifier not caught as error for list command]

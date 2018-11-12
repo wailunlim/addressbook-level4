@@ -2,58 +2,315 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
+[none]
 == PROJECT: Heart²
+
+The purpose of this document is to document the contribution that I have made in the project: *_Heart²_*
+as a student undertaking the module CS2103T under NUS School of Computing.
+
+*_Heart²_* github link: https://github.com/CS2103-AY1819S1-F10-3/main
 
 ---
 
-== Overview
+== Introduction
 
-Heart² is a desktop wedding application used for matching service providers to clients. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*_Heart²_* is a desktop software aiming to make the job of wedding planning agencies simpler.
+It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
+Users can find suitable wedding service providers for clients using just a few keystrokes with our enterprise featureset.
+
+The project is written in Java and has about 10 thousand lines of code. The user interacts with the application mainly using a Command Line Interface (CLI),
+and it also has a Graphic User Interface (GUI) created with JavaFX for users who are not so adept with the keyboard.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+|===
+|Below is a summary of the contributions that I have made to the project.
+|===
 
-* *Minor enhancement*:
+=== Major Enhancement
+* *Major enhancement*: Revamp the `list` command.
+* *Functionality*: The user is able to use the `list` command to list all clients or vendors. They are also able to use the command to search through clients and vendors by providing the relevant keywords that they want to search for.
+* *Justification*: By having both the searching and listing functionality in one command the user will have less commands to familiarise with and it increases the ease of use of the application.
+* *Highlights*: To revamp the list command, I need to have a deep understanding of how the commands work as well as how the parser works, which I spent time to familiarise myself with. I also had to change how some of the information was stored in the application, so that the relevant information could be retrieved easily when needed.
+* *Functional Code Contributed*: link:https://github.com/dongsiji/main/blob/dongsiji-pp/docs/team/dongsijiContributedCodeList.adoc[all code]
+* *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/150[all tests]
 
-* *Code contributed*:
+=== Minor Enhancement
+* *Minor enhancement*: Enhance `undo` and `redo` commands to display the list which was modified.
+* *Functionality*: The list shown to the user after executing the `undo` and `redo` commands will be the list of clients or vendors that was changed through the command.
+* *Justification*: This is to allow the user to be able to see what was changed at a glance without needing to navigate to the corresponding list.
+* *Functional Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all code]
+* *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all tests]
 
-* *Other contributions*:
+=== Other Contributions
 
+* *Community*:
+** Reported bugs and provide suggestions to other team members' code. Check it out link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Atype.Bug+involves%3Adongsiji[here].
+
+* *Documentation*:
+** Wrote the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
+** Contributed to the User Guide and Developer Guide for this project. See below for more details.
+
+* *Summary of contributions*:
+** Over 35 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?page=1&q=is%3Apr+author%3Adongsiji&utf8=%E2%9C%93[Pull Requests] on Github.
+** Over 25 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[Issues] raised on Github.
+** Over 30 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Adongsiji[Reviews] of Pull Requests on Github.
+** Overview of all link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dongsiji&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[contributions].
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|Below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
-include::../UserGuide.adoc[tag=listClient]
+=== Listing and searching for contacts: `list`
 
-{empty} +
+You can view all the contact of a specific type in a list by specifying the contact type to be shown.
 
-include::../UserGuide.adoc[tag=listSp]
+Format: `<CONTACT_TYPE> list`
 
-{empty} +
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list`
+|=====
 
-include::../UserGuide.adoc[tag=undoredo]
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list`
+|=====
+
+*_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+To search, simply append your search parameters to the back of the original command.
+
+Only contacts that matches all the search parameters will be displayed to you in the form of a list.
+Searching is done through substring matching, so you do not need to enter the full name, just part of the name will do.
+
+Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list n/John`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list p/98765432`
+|=====
+
+=== Undo the previous command: `undo`
+
+Undo the commands that you have entered in chronological order for this particular session. Once you logout or exit the application, you cannot `undo` a command from the last session.
+
+Format: `undo`
+
+[NOTE]
+The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
+
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was undone.
+
+=== Redo the commands undone: `redo`
+
+Redo the commands that you have undone by undo in chronological order for this particular session. Once you logout or exit the application, you cannot `redo` a command from the last session.
+
+Format: `redo`
+
+[NOTE]
+Commands that have been undone will be reset upon a `clear` command.
+
+[NOTE]
+The application will show either the client list or vendor list corresponding to the command that was redone.
+
+=== Command summary
+
+Below is a summary of the commands available for you to use.
+
+*Before logging in*
+
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To get help | `help`
+|To log in | `login u/USERNAME p/PASSWORD`
+|To close the application | `exit`
+|===
+
+*After logging in*
+
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To register a new account | `register account u/USERNAME p/PASSWORD r/ROLE`
+|To change your account password | `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+|To add a contact | `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+|To add a service requirement | `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+|To update a specific contact | `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To list contacts that matches the inputs | `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To find a match that fits a particular contact's requirements | `<CONTACT_TYPE>#<ID> automatch`
+|To view a specific contact | `<CONTACT_TYPE>#<ID> view`
+|To delete a specific contact | `<CONTACT_TYPE>#<ID> delete`
+|To delete all contacts | `clear`
+|To list all the commands entered in this session | `history`
+|To undo the previous command | `undo`
+|To redo the previous undone command | `redo`
+|To get help | `help`
+|To log out of your account | `logout`
+|To close the application | `exit`
+|===
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|Below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredoDisplay]
+=== List Feature
+*_Heart²_* allows you view all the clients or the vendors with a simple command: `list`.
 
-{empty} +
+When listing contacts, you would have to specify whether the contact is a client or a vendor
+by prefixing it to list:
 
-include::../DeveloperGuide.adoc[tag=list]
+* `client list`
+* `vendor list`
 
-{empty} +
+Below shows an example of how listing all clients works:
 
-include::../DeveloperGuide.adoc[tag=listMSS]
+._The UI showing how to list all clients._
+image::ListAllClients.png[width="800"]
+
+Furthermore, you are also able to add keywords after the list to do filtering, and each keyword is specified to
+belong to a category and only contacts which contains all of the keywords in their respective categories will be shown.
+
+[NOTE]
+====
+Categories include:
+
+* `n/ NAME`
+* `p/ PHONE_NUMBER`
+* `e/ EMAIL_ADDRESS`
+* `a/ ADDRESS`
+* `t/ TAGS`
+====
+
+Below shows an example of how list filtering works:
+
+._The UI showing list filtering._
+image::ListClientsWithKeywords.png[width="800"]
+
+==== Implementation
+
+The keywords from the command to be used for filtering is parsed by the `ListCommandParser` into a `ContactInformation`
+and passed to a `Predicate` to be used for filtering. The `Predicate` is implemented as `ContactContainsKeywordsPredicate`.
+
+Below is a sequence diagram showing the creation of the `ListCommand`.
+
+._The Sequence Diagram of the creation of a list command._
+image::ListSequenceDiagram1.png[width="800"]
+
+We use a `FilteredList` and pass the combination of 2 `Predicates` into it, one to filter the type of contact,
+clients or vendors and the other is to filter by keywords, which is the `ContactContainsKeywordsPredicate` from the `ListCommandParser`.
+
+Below is a sequence diagram showing the execution of the `ListCommand`.
+
+._The Sequence Diagram of the execution of a list command._
+image::ListSequenceDiagram2.png[width="800"]
+
+==== Design considerations
+
+[none]
+==== Aspect 1: Substring Matching or Word Matching
+* *Alternative 1 (current choice):* Substring matching.
+** Pros: Users would be able to view a wider range of results that matches the substring they have given. Easier to use.
+** Cons: Irrelevant results might not be filtered away if they contain the substring.
+* *Alternative 2:* Word matching.
+** Pros: Guarantees that no irrelevant results are shown.
+** Cons: Relevant results that have a small difference in the wording will be filtered away and not shown.
+
+[none]
+==== Aspect 2: Categorised or Non-categorised keywords
+* *Alternative 1 (current choice):* Categorised keywords.
+** Pros: Users are able to specify which keywords they want to search for in which category.
+Gives better control over the searching.
+** Cons: Users have to follow a specific format to type the keywords.
+* *Alternative 2:* Non-categorised keywords.
+** Pros: User can type in the keywords in any order they want. Easier to use.
+** Cons: Irrelevant results that contains the keywords will be shown.
+
+[none]
+==== Aspect 3: All Match or Any Match
+* *Alternative 1 (current choice):* All match.
+** Pros: Users can specify what they want to search for and filter out all irrelevant results.
+** Cons: Users are not able to search for multiple things, when they only require one of them to match.
+* *Alternative 2:* Any match.
+** Pros: Users are able to obtain a wider search result. Easier to use.
+** Cons: Irrelevant results that contains only one or a few keywords will be shown as well.
+
+=== Undo and Redo Aspect: What it shows after undo/redo command successfully executes
+
+* *Alternative 1 (current choice):* Shows the list that was changed due to the undo/redo command.
+** Pros: Easy for the user to identify what was changed, whether a client or vendor was modified.
+** Cons: It switches the list out of the current filter and the user have to re-type the list command if he wants to filter the list.
+* *Alternative 2:* Keeps showing what was shown before the command was executed.
+** Pros: Easy to implement.
+** Cons: Hard for the user to identify what was changed in the addressbook.
+* *Alternative 3:* Show what was changed, before and after.
+** Pros: User can easily tell what was changed.
+** Cons: Hard to implement, need to have an additional UI components to show what was changed and need additional components to store the list before it was changed.
+
+=== Use Cases
+
+==== Use case: List all the Clients or Vendors
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
+*MSS*
+
+1.  User enters the list command and requests to view either all the Clients, or all the Vendors.
+2.  System returns either a list with all the Clients' information, or all the Vendors' information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no Client or no Vendor available
++
+[none]
+** 2a1. System returns an empty list.
+
++
+Use case ends.
+
+==== Use case: Filter and show Client’s or Vendor’s info according to the filter
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
+*MSS*
+
+1.  User enters the list command and requests to view either Client’s or Vendor’s information with some
+keywords provided indicated by prefixes.
+2.  The System displays a list of Clients or Vendors whose information matches what was provided.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters a prefix that does not exist.
++
+[none]
+** 1a1. System prompts the User the correct format of the command and prefixes that can be used.
+
+* 1b. User enters an empty prefix.
++
+[none]
+** 1b1. System prompts the User the correct format of the command and prefixes that can be used.
+
++
+Use case ends.
