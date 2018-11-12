@@ -24,7 +24,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 image::intropicture.png[width="256"]
 
 Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
-You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
+You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise feature set. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
 
@@ -51,12 +51,12 @@ image::format.png[width="256"]
 
 The following format is consistent for all the commands listed in this section.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as in `add n/John Doe`.
 * Items in square brackets are optional. E.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times, including zero times. E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. E.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* `<CONTACT_TYPE>` is to replaced with either `client` OR `vendor`.
-* `<ID>` is to replaced with a valid ID, and only integers are recognised as an ID.
+* `<CONTACT_TYPE>` is to replaced with either `client` *or* `vendor`.
+* `<ID>` is to replaced with a valid ID, and only positive integers are recognised as an ID.
 
 * An example table shows the usage with actual data for a particular command. Below shows one instance of such a table.
 
@@ -88,7 +88,7 @@ image::commands.png[width="256"]
 The following section documents all the commands available for you in this application.
 
 [NOTE]
-Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and will be mark as Unknown Command prior to logging in.
+Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and might be marked as Unknown Command prior to logging in.
 
 [NOTE]
 For all commands that require an `#ID`, your ID must be a valid ID that matches the entries that you have. This user guide's ID `#123` may not be available in your data. Change the ID accordingly to the ID that you wish for a command.
@@ -158,7 +158,7 @@ You cannot `undo` registering a new account.
 |=====
 
 [WARNING]
-Username and password cannot be empty, or contain space.
+Username and password cannot be empty, or contain spaces.
 
 [WARNING]
 Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -179,7 +179,7 @@ You cannot `undo` changing of password.
 |=====
 
 [WARNING]
-New password should not be the same as old password, and it cannot be empty, or contain space.
+New password should not be the same as old password, and it cannot be empty, or contain spaces.
 
 [WARNING]
 Make sure your password is typed correctly. There is no confirmation prompt once you execute the command.
@@ -218,7 +218,7 @@ You can `undo` and `redo` adding of a contact!
 // tag::list[]
 ==== Listing and searching for contacts: `list`
 
-You can view all the contact of a specific type in a list by specifying the contact type to be shown.
+You can view all the contacts of a specific type in a list by specifying the contact type to be shown.
 
 Format: `<CONTACT_TYPE> list`
 
@@ -261,7 +261,7 @@ Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the co
 
 
 [TIP]
-Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
+Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`.
 
 [TIP]
 These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
@@ -326,7 +326,7 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 You cannot update a contact to another contact that already exists in the application. Two contacts are considered duplicates if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
 [NOTE]
-When editing tags, adding of tags is ont cumulative and existing tags of the contact will be removed.
+When editing tags, adding of tags is not cumulative and existing tags of the contact will be removed.
 
 [TIP]
 You can remove all tags for a contact by updating the contact with `t/` (without specifying any tags after it)!
@@ -355,7 +355,7 @@ You can add attributes of the services your clients require or vendors can provi
 Every service can only be added *once*. Updating this service is not supported.
 
 [NOTE]
-Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',')
+Specify the cost in _Singapore Dollars (SGD)_ to 2 decimal places, and exclude spacing and symbols (e.g. '$' ',').
 
 Format: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
 
@@ -384,7 +384,7 @@ You can `undo` and `redo` adding a service to a contact!
 
 ==== Automatching for a client: `automatch`
 
-You can easily find vendors that can fulfill the request services with this command.
+You can easily find vendors that can fulfil the request services with this command.
 
 Format: `client#<ID> automatch`
 
@@ -422,7 +422,7 @@ By default, the following commands will have their parameters censored when savi
 * `register account`
 * `change password`
 
-The command `logout` will not be save to history as the session has ended due to logging out.
+The command `logout` will not be saved to history as the session has ended due to logging out.
 
 Format: `history`
 
@@ -517,7 +517,7 @@ image::faqpicture.png[width="400"]
 *A*: This application is cross-platform, and can be used on both Windows and Mac OS.
 
 *[red]#Q*#: [red]#Is this application free-of-charge?# +
-*A*: Yes, this application is open-source and can be use for free, even commercially.
+*A*: Yes, this application is open-source and can be used for free, even commercially.
 
 *[red]#Q*#: [red]#How can I report an issue?# +
-*A*: You can raise an issue in the issue section and our team will get back to you as soon as possbile.
+*A*: You can raise an issue in the issue section and our team will get back to you as soon as possible.
