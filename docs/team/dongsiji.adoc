@@ -4,7 +4,8 @@
 :stylesDir: ../stylesheets
 :sectnums:
 
-= PROJECT: Heart²
+[none]
+== PROJECT: Heart²
 
 The purpose of this document is to document the contribution that I have made in the project: *_Heart²_*
 as a student undertaking the module CS2103T under NUS School of Computing.

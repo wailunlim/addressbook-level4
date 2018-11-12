@@ -1,5 +1,8 @@
 = Contributed Code For List Command
 
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+
 |===
 | Below is a collection of all the functional code that I have contributed for the list feature.
 |===
