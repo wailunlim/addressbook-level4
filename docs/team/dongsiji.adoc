@@ -164,16 +164,6 @@ Below is a summary of the commands available for you to use.
 |To close the application | `exit`
 |===
 
-*Coming in v2.0*
-
-[cols="^30,^70", options="header"]
-|===
-|FEATURE |FORMAT
-|To retrieve forgotten password | `forget password`
-|To assigning vendors to clients | `client# assign vendor#`
-|To assigning clients to vendors | `vendor# assign client#`
-|===
-
 == Contributions to the Developer Guide
 
 |===
@@ -273,7 +263,9 @@ Gives better control over the searching.
 ** Pros: User can easily tell what was changed.
 ** Cons: Hard to implement, need to have an additional UI components to show what was changed and need additional components to store the list before it was changed.
 
-=== Use case: List all the Clients or Vendors
+=== Use Cases
+
+==== Use case: List all the Clients or Vendors
 
 *Preconditions*: User is logged in with a `SUPER_USER` account.
 
@@ -295,7 +287,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: Filter and show Client’s or Vendor’s info according to the filter
+==== Use case: Filter and show Client’s or Vendor’s info according to the filter
 
 *Preconditions*: User is logged in with a `SUPER_USER` account.
 
