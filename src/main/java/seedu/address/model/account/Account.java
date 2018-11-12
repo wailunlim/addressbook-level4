@@ -78,7 +78,6 @@ public class Account {
 
     /**
      * The root user account hardcoded.
-     * @return
      */
     public static Account getRootAccount() {
         return new Account("rootUser", "rootPassword", Role.SUPER_USER);
