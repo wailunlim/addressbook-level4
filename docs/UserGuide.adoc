@@ -495,8 +495,8 @@ Below is a summary of the commands available for you to use.
 |===
 |FEATURE |FORMAT
 |To retrieve forgotten password | `forget password`
-|To assigning vendors to clients | `client# assign vendor#`
-|To assigning clients to vendors | `vendor# assign client#`
+|To assigning vendors to clients | `client#<ID> assign vendor#<ID>`
+|To assigning clients to vendors | `vendor#<ID> assign client#<ID>`
 |===
 
 == FAQ
