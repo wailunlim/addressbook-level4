@@ -325,6 +325,12 @@ Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDR
 [NOTE]
 You cannot update a contact to another contact that already exists in the application. Two contacts are considered duplicates if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
 
+[NOTE]
+When editing tags, adding of tags is ont cumulative and existing tags of the contact will be removed.
+
+[TIP]
+You can remove all tags for a contact by updating the contact with `t/` (without specifying any tags after it)!
+
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
