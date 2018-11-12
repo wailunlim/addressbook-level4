@@ -46,11 +46,14 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 === Other Contributions
 
 * *Community*:
-** Reported bugs and provide suggestions to other team members' code: https://github.com/CS2103-AY1819S1-F10-3/main/issues/198[1], https://github.com/CS2103-AY1819S1-F10-3/main/issues/134[2], https://github.com/CS2103-AY1819S1-F10-3/main/issues/133[3]
+** Reported bugs and provide suggestions to other team members' code. Check it out link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[here].
 
 * *Documentation*:
 ** Wrote the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
 ** Contributed to the User Guide and Developer Guide for this project. See below for more details.
+
+* *All code contributed*:
+** Check it out link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dongsiji&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[here].
 
 == Contributions to the User Guide
 
