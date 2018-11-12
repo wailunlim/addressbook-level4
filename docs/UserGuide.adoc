@@ -458,9 +458,13 @@ Below is a summary of the commands available for you to use.
 
 *Before logging in*
 
-* To get help: `help`
-* To log in: `login u/USERNAME p/PASSWORD`
-* To close the application: `exit`
+[width="100%",cols="10%,90%",options="header",]
+|===
+|FEATURE |FORMAT
+|To get help | `help`
+|To log in | `login u/USERNAME p/PASSWORD`
+|To close the application | `exit`
+|===
 
 *After logging in*
 
