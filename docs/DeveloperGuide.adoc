@@ -611,6 +611,10 @@ Both `Client` and `Vendor` objects are added to a list of generic type `Contact`
 In order to differentiate them, there is an abstract method `Contact#getType()` that `Client` and `Vendor` implement differently.
 `Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
+Below is the sequence diagram of `add`.
+
+image::AddClientSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 ===== Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
 
