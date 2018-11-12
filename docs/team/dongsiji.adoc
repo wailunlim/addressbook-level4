@@ -46,14 +46,17 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 === Other Contributions
 
 * *Community*:
-** Reported bugs and provide suggestions to other team members' code. Check it out link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[here].
+** Reported bugs and provide suggestions to other team members' code. Check it out link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Atype.Bug+involves%3Adongsiji[here].
 
 * *Documentation*:
 ** Wrote the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
 ** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 
-* *All code contributed*:
-** Check it out link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dongsiji&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[here].
+* *Summary of contributions as of 12 November*:
+** Total of 35 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?page=1&q=is%3Apr+author%3Adongsiji&utf8=%E2%9C%93[Pull Requests] on Github.
+** Total of 27 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[Issues] raised on Github.
+** Total of 32 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Adongsiji[Reviews] of Pull Requests on Github.
+** Overview of all link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dongsiji&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[contributions].
 
 == Contributions to the User Guide
 
