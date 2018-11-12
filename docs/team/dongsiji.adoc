@@ -53,10 +53,10 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 ** Wrote the link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/AboutUs.adoc[about us] documentation.
 ** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 
-* *Summary of contributions as of 12 November*:
-** Total of 35 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?page=1&q=is%3Apr+author%3Adongsiji&utf8=%E2%9C%93[Pull Requests] on Github.
-** Total of 27 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[Issues] raised on Github.
-** Total of 32 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Adongsiji[Reviews] of Pull Requests on Github.
+* *Summary of contributions*:
+** Over 35 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?page=1&q=is%3Apr+author%3Adongsiji&utf8=%E2%9C%93[Pull Requests] on Github.
+** Over 25 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adongsiji+[Issues] raised on Github.
+** Over 30 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3Adongsiji[Reviews] of Pull Requests on Github.
 ** Overview of all link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dongsiji&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[contributions].
 
 == Contributions to the User Guide
