@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.model.ContactType;
-import seedu.address.model.client.Client;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -55,10 +54,6 @@ public class CollectionUtil {
                     .anyMatch(contactToCheck -> contactToCheck.equals(contact))).collect(Collectors.toList());
         }
 
-        if (diffList.get(0) instanceof Client) {
-            return ContactType.CLIENT;
-        } else {
-            return ContactType.VENDOR;
-        }
+        return diffList.get(0).getType();
     }
 }
