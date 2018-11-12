@@ -2,7 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
+[none]
 == PROJECT: Heart²
 
 This portfolio aims to document my contributions to the project *_Heart²_*.
@@ -141,11 +143,205 @@ My full code contribution to *_Heart²_* can be viewed https://nus-cs2103-ay1819
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide._
 |===
+
+=== Working with a specific contact
+
+Contacts in *_Heart²_* are assigned a unique ID each for you to refer to the contact at any point of time when using *_Heart²_*.
+
+
+[TIP]
+Commands pertaining to one specific contact have an additional unique ID appended to the back of `client` or `vendor`
+
+[TIP]
+These IDs are persistent for one session. Each restart of Heart reassigns IDs to contacts, effectively accounting for deleted contacts and compacting the IDs of your contacts.
+
+[NOTE]
+IDs can be similar for `client` and `vendor`. However, since the contact type and ID come hand in hand, the contacts are still effectively unique!
+
+==== Viewing a contact: `view`
+
+You can `view` detailed information about a specific contact using its unique ID.
+This information will be displayed on the right panel in *_Heart²_*.
+
+[TIP]
+`view` shows you all the information regarding the specific client, which includes the name, phone number, email address, tags, residential (client) or office (vendor) address and services requested (client) or offered (vendor).
+
+[NOTE]
+*Any* command following `view` will hide the information shown before on the panel on the right.
+
+Format: `<CONTACT_TYPE>#<ID> view`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#3 view`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#3 view`
+|=====
+
+[TIP]
+Clicking on the contact panels on the left of *_Heart²_*'s GUI corresponds to a `view` command for that contact!
+
+==== Deleting a contact: `delete`
+
+You can also `delete` a contact from *_Heart²_*, by specifying its unique ID.
+
+Format: `<CONTACT_TYPE>#<ID> delete`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 delete`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 delete`
+|=====
+
+[TIP]
+You can `undo` and `redo` deleting a contact!
+
+==== Updating a contact: `update`
+
+You can also `update` a contact's particulars, again by specifying its unique ID, followed by the updated fields.
+
+Format: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[NOTE]
+You cannot update a contact to another contact that already exists in the application. Two contacts are considered duplicates if they are the same type (either both clients or both vendors), possess the same name, and either the same phone number or the same email address.
+
+[NOTE]
+When editing tags, adding of tags is ont cumulative and existing tags of the contact will be removed.
+
+[TIP]
+You can remove all tags for a contact by updating the contact with `t/` (without specifying any tags after it)!
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client#123 update n/Jane Doe e/janedoe@gmail.com`
+|=====
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor#123 update n/Bob Vans e/bobvans@gmail.com`
+|=====
+
+[TIP]
+You can `undo` and `redo` updating a contact!
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide._
 |===
+
+=== Unique ID feature
+*_Heart²_* assigns a unique ID to every `client` and `vendor` when they are added into *_Heart²_*.
+This ID is unique within their contact type, meaning that a `client` and a `vendor` may have the same ID, but since this ID comes hand in hand with the contact type, they are effectively unique.
+These IDs are last for a single session, and *_Heart²_* reassigns the IDs at the start of the next session.
+
+==== Current Implementation
+Both the `Client` and `Vendor` class have a `public static` running counter starting from 1.
+When a `client` or `vendor` is created, it is assigned that number, before incrementing it by 1.
+The `contact` then has this ID for this session, and the user can use this ID, coupled with the contact type to always refer to this particular contact.
+
+This unique ID is used by many other commands, namely: `add`, `delete`, `update`, `view`, `addservice`, `automatch`.
+It allows for these commands to be executed at any point in *_Heart²_*, with always the same context.
+
+==== Design Considerations
+===== Aspect: How should we refer to contacts in *_Heart²_*?
+
+* *Alternative 1*:
+Use the legacy implementation, which is to use the relative position of the contact in the list.
+
+** Pros: No change is required, as it is the legacy implementation.
+
+** Cons: Users have to navigate to a list that shows that contact, and the relative position of that contact may keep changing throughout a session.
+
+* *Alternative 2* (current choice):
+
+** Pros: Users are able to refer back to a particular contact at any time, without requiring the current list shown to contain that contact.
+Also, this ID will never change during a session, so the user can confidently use the ID knowing that it will always refer to that contact.
+
+** Cons: Users still have to remember this unique ID to refer back to the contact. It might be hard to remember the ID.
+
+After much consideration, we decided to go with option 2.
+*_Heart²_* is built for speed, and we would like to give our users flexibility to execute any command within *_Heart²_* at any time.
+We believe that this can give users more control and power over their work using *_Heart²_*, and therefore we chose to implement this unique ID system.
+
+However, we also do realise that users might find it hard to remember the unique ID assigned to the contact.
+While users can quickly look at a recent contact using the command `history`, a possibly quality-of-life improvement would be to implement a mnemonic unique identifier.
+
+=== Add contact feature
+*_Heart²_* requires users to explicitly specify whether the contact to be added is a `client` or a `vendor` in the command.
+
+* `client add n/Wai Lun p/90463327 e/wailun@u.nus.edu a/PGP House`
+* `vendor add n/Lun Wai p/72336409 e/lunwai@u.nus.edu a/RVRC`
+
+The above commands add a `client` and a `vendor`, together with the details provided, respectively.
+
+This differentiation between `client` and `vendor` facilitates many other features of *_Heart²_*.
+It complements the unique ID feature earlier to ensure that a `client` and a `vendor` with the same ID are still differentiable due to the contact type.
+
+Adding of duplicate contacts are not allowed in *_Heart²_*.
+[NOTE]
+A contact is considered a duplicate if they are of the same contact type *and* have the same name *and* have *either* the same phone number *or* email address.
+
+==== Current Implementation
+Both `Client` and `Vendor` classes inherit from an abstract `Contact` class.
+When adding a contact, either a new `Client` or a `Vendor` object is instantiated.
+Both `Client` and `Vendor` objects are added to a list of generic type `Contact`.
+
+In order to differentiate them, there is an abstract method `Contact#getType()` that `Client` and `Vendor` implement differently.
+`Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
+
+When adding a contact, the parser first distinguishes whether it is an addition of a `client` or `vendor`.
+The correct `ContactType` enum is then passed to `AddCommandParser`.
+The `AddCommandParser` parses the argument to create the appropriate contact, and creates the appropriate `AddCommand`.
+
+This `AddCommand` is passed back to the `LogicManager`, and the method `execute()` is called.
+The contact is then added to the model.
+
+Below is the sequence diagram of a `client add` command.
+
+image::AddClientSequenceDiagram.png[width="800"]
+
+
+
+==== Design Considerations
+===== Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
+
+* *Alternative 1* (current choice):
+`Client` and `Vendor` objects are stored in a more general `Contact` list.
+** Pros: Easy to implement by tweak the inherited legacy list slightly.
+
+** Cons: Cannot tell immediately if an element in the `Contact` list is a `Client` or `Vendor`.
+This might take a longer time to display lists, due to having to filter them every time.
+
+* *Alternative 2*:
+Hold `Client` and `Vendor` objects differently in two different lists.
+** Pros: Able to get `Client` or `Vendor` immediately without having to go through the entire `Contact` list as in alternative 1.
+** Cons: Difficult and extremely tedious to implement.
+
+===== Aspect: How restrictive should the definition of a duplicate contact be?
+
+* *Alternative 1*:
+It should be regardless of contact type, meaning a `client` and a `vendor` cannot have the same name *and* either the same phone number *or* email.
+
+** Pros: No additional implementation required. The legacy implementation already supports this.
+
+** Cons: Less flexibility for our users. A `client` cannot be a `vendor` possibly.
+
+* *Alternative 2* (current choice):
+A `client` and a `vendor` can have similar fields, meaining a `client` and a `vendor` can possibly have the same name, phone number *and/or* email.
+
+** Pros: More flexibility for our users. A `client` can be a `vendor` too, which is possible in the real world.
+
+** Cons: Additional implementation to have.
