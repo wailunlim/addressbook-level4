@@ -530,6 +530,18 @@ image::accountcreationdiagram.png[width="800"]
 
 {empty} +
 
+To change the default root account, navigate to the static method `getRootAccount()` in `Account.java`:
+
+[source,java]
+public static Account getRootAccount() {
+    return new Account("rootUser", "rootPassword", Role.SUPER_USER);
+}
+
+Change the `rootUser`, `rootPassword`, and `Role.SUPER_USER` accordingly to your needs. It is necessary to have a default root account, otherwise no account will exist and one cannot execute the `register account` command without first logging in.
+
+[WARNING]
+It is advisable to assign `SUPER_USER` as the root account. Otherwise, you are not able to register any other account without first logging in to a `SUPER_USER` account.
+
 ==== Design Considerations
 ===== Aspect: What file type to store user account as?
 * *Alternative 1 (current choice):* Store it as a `xml` file locally.
