@@ -24,7 +24,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 image::intropicture.png[width="256"]
 
 Welcome to *_Heart²_*! *_Heart²_* is a desktop software for wedding planning agencies to efficiently manage clients' and agency companies' profiles.
-You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise featureset. Jump over to <<Quick Start>> to get started.
+You can find suitable vendors providing services for couples using just a few keystrokes with our enterprise feature set. Jump over to <<Quick Start>> to get started.
 
 == Quick Start
 
@@ -88,7 +88,7 @@ image::commands.png[width="256"]
 The following section documents all the commands available for you in this application.
 
 [NOTE]
-Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and will be mark as Unknown Command prior to logging in.
+Only `help`, `login`, and `exit` commands are available prior to logging in. The rest of the commands are only available after logging into the application, and might be marked as Unknown Command prior to logging in.
 
 [NOTE]
 For all commands that require an `#ID`, your ID must be a valid ID that matches the entries that you have. This user guide's ID `#123` may not be available in your data. Change the ID accordingly to the ID that you wish for a command.

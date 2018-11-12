@@ -23,7 +23,7 @@ By: `Team Heart²`      Since: `Aug 2018`      Last updated: `November 2018`    
 
 Welcome to *_Heart²_*! *_Heart²_* is a desktop software intended to make the job of wedding planning agencies simpler.
 It provides simple yet powerful features to efficiently manage clients' and agency companies' profiles.
-Users can find suitable vendors providing wedding services for couples using just a few keystrokes with our enterprise featureset.
+Users can find suitable vendors providing wedding services for couples using just a few keystrokes with our enterprise feature set.
 
 This developer guide is a self-contained resource designed to align all developers around a common vision. It helps
 developers of all levels learn more about the workings behind the scenes and how to make use of them effectively.
@@ -305,8 +305,8 @@ image::AccountStorageClassDiagram.png[width="800"]
 The `AccountStorage` component
 
 * can save the Account data in xml format and read it back.
-* can populate a default root Account data in xml format if missing
-* can update existing Account password stored in the storage
+* can populate a default root Account data in xml format if missing.
+* can update existing Account password stored in the storage.
 
 [[Design-Commons]]
 === Common classes
@@ -437,10 +437,10 @@ Certain properties of the application can be controlled (e.g App name, logging l
 // tag::login[]
 === Login Feature
 
-Before user can use *_Heart²_*, they must first log in with a registered account.
+Before the user can use *_Heart²_*, they must first log in with a registered account.
 
 ==== Before logging in
-User is presented with a login UI:
+The user is presented with a login UI:
 
 ._The login screen when user launches the application._
 image::UiLoginDiagram.png[width="800"]
@@ -456,7 +456,7 @@ There are only 3 commands available for user to execute:
 ==== After logging in
 The `LoginWindow` is hidden and the `MainWindow` is shown upon successful login.
 
-The user can execute all available commands, if the user-account is given the correct privilege. However, user cannot execute the `login` command again since he is already logged in.
+The user can execute all available commands, if the user-account is given the correct privilege. However, the user cannot execute the `login` command again since he is already logged in.
 
 // tag::loginui[]
 ==== Design Considerations
@@ -470,13 +470,13 @@ The user can execute all available commands, if the user-account is given the co
 // end::loginui[]
 
 === Account creation
-Account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
+An account is created for the purpose of logging in and authenticating the user, before the user is allowed to use the application. This protects the confidentiality and data integrity of the application.
 
 [NOTE]
-User can only register for an account via an existing account with `SUPER_USER` privilege. It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
+The user can only register for an account via an existing account with `SUPER_USER` privilege. It may sound counter-intuitive to require an account before registering a new account. We make this requirement as only authorised personal should be given an account. Ideally, the owner of the application should dictate the account given to employees by helping them register an account.
 
 ==== Types of account
-There are 2 types of account:
+There are 2 types of accounts:
 
 * `SUPER_USER` : A user that is capable of executing all commands available in the application.
 * `READ_ONLY_USER` : A user that is capable of executing all commands except registering new account, adding, editing, and deleting entries in the database.
@@ -516,7 +516,7 @@ if (!account.hasWritePrivilege()) {
 === Account storage
 All accounts are stored in a file call `/data/accountlist.xml`. This file is generated on the fly during first launch and populated with a root account. By default, a root account is hardcoded into the application with the username `rootUser` and password `rootPassword` with the role `SUPER_USER`.
 
-The diagram below shows what happen when a user launches the application:
+The diagram below shows what happens when a user launches the application:
 
 ._Activity diagram when user launches the application_
 image::accountstoragediagram.png[width="800"]
