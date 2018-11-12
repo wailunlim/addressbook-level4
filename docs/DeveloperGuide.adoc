@@ -611,9 +611,18 @@ Both `Client` and `Vendor` objects are added to a list of generic type `Contact`
 In order to differentiate them, there is an abstract method `Contact#getType()` that `Client` and `Vendor` implement differently.
 `Client` objects return a `ContactType.CLIENT` enum while `Vendor` objects return a `ContactType.VENDOR` enum.
 
-Below is the sequence diagram of `add`.
+When adding a contact, the parser first distinguishes whether it is an addition of a `client` or `vendor`.
+The correct `ContactType` enum is then passed to `AddCommandParser`.
+The `AddCommandParser` parses the argument to create the appropriate contact, and creates the appropriate `AddCommand`.
+
+This `AddCommand` is passed back to the `LogicManager`, and the method `execute()` is called.
+The contact is then added to the model.
+
+Below is the sequence diagram of a `client add` command.
 
 image::AddClientSequenceDiagram.png[width="800"]
+
+
 
 ==== Design Considerations
 ===== Aspect: How should we store `Client` and `Vendor` objects in *_Heart²_*?
