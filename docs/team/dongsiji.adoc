@@ -30,16 +30,16 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 
 === Major Enhancement
 * *Major enhancement*: Revamp the `list` command.
-* *Functionality*: The user is able to use this command to list all clients or service providers and they are also able to use the command to search through clients and service providers by providing the relevant keywords that they want to search for.
+* *Functionality*: The user is able to use the `list` command to list all clients or vendors. They are also able to use the command to search through clients and vendors by providing the relevant keywords that they want to search for.
 * *Justification*: By having both the searching and listing functionality in one command the user will have less commands to familiarise with and it increases the ease of use of the application.
-* *Highlights*: To revamp the list command, I had to have a deep understanding of how the commands work and revamp the parser for the command first. I also had to change how some of the information was stored in the application, so that the relevant information could be obtained when necessary.
-* *Functional Code Contributed*: link:dongsijiContributedCode.adoc[all code]
+* *Highlights*: To revamp the list command, I need to have a deep understanding of how the commands work as well as how the parser works, which I spent time to familiarise myself with. I also had to change how some of the information was stored in the application, so that the relevant information could be retrieved easily when needed.
+* *Functional Code Contributed*: link:https://github.com/dongsiji/main/blob/dongsiji-pp/docs/team/dongsijiContributedCode.adoc[all code]
 * *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/150[all tests]
 
 === Minor Enhancement
-* *Minor enhancement*: Enable `undo` and `redo` commands to show the relevant list.
-* *Functionality*: The list shown to the user after executing the `undo` and `redo` commands will be the list of clients or service providers that was changed through the command.
-* *Justification*: To allow the user to be able to see what was changed clearly.
+* *Minor enhancement*: Enhance `undo` and `redo` commands to display the list which was modified.
+* *Functionality*: The list shown to the user after executing the `undo` and `redo` commands will be the list of clients or vendors that was changed through the command.
+* *Justification*: This is to allow the user to be able to see what was changed at a glance without needing to navigate to the corresponding list.
 * *Functional Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all code]
 * *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/188[all tests]
 
