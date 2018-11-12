@@ -109,15 +109,17 @@ With this, the text feedback can be easily extended for even more contact types 
 
 === *Code contributed*:
 
+As of 12 November 2018, I have contributed over 40 https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+author%3Awailunlim+is%3Aclosed[pull requests] on *_Heart²_*'s GitHub.
+
 The following pull requests are some examples of my code contribution, both functional and test code, to the *_Heart²_* project.
 
-. https://github.com/CS2103-AY1819S1-F10-3/main/pull/83[[Support for different types of contacts]]
-. https://github.com/CS2103-AY1819S1-F10-3/main/pull/161[[Implementing the unique ID feature]]
-. https://github.com/CS2103-AY1819S1-F10-3/main/pull/193[[Displaying the correct text feedback to the user]]
+. https://github.com/CS2103-AY1819S1-F10-3/main/pull/83[Support for different types of contacts.]
+. https://github.com/CS2103-AY1819S1-F10-3/main/pull/161[Implementing the unique ID feature.]
+. https://github.com/CS2103-AY1819S1-F10-3/main/pull/193[Displaying the correct text feedback to the user.]
 
 
-. https://github.com/CS2103-AY1819S1-F10-3/main/pull/300[[Adding tests for uncovered lines]]
-. https://github.com/CS2103-AY1819S1-F10-3/main/pull/303[[Finding and fixing bugs, and adding test cases to cover them]]
+. https://github.com/CS2103-AY1819S1-F10-3/main/pull/300[Adding tests for uncovered lines.]
+. https://github.com/CS2103-AY1819S1-F10-3/main/pull/303[Finding and fixing bugs, and adding test cases to cover them.]
 
 My full code contribution to *_Heart²_* can be viewed https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=wailunlim&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[here].
 
@@ -127,13 +129,13 @@ My full code contribution to *_Heart²_* can be viewed https://nus-cs2103-ay1819
 
 . Helped with checking all documents for spelling and grammar mistakes.
 
-. Participated actively in discussions regarding *_Heart²_* and its features.
-
-. As of 11 November 2018:
-.. Reviewed 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+reviewed-by%3Awailunlim+[pull requests] on Github.
-.. Raised 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=✓&q=is%3Aclosed+is%3Aissue+author%3Awailunlim+[issues] on Github.
+. As of 12 November 2018:
+.. Reviewed 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?utf8=✓&q=is%3Apr+reviewed-by%3Awailunlim+[pull requests] on *_Heart²_*'s Github.
+.. Raised 21 link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?utf8=✓&q=is%3Aclosed+is%3Aissue+author%3Awailunlim+[issues] on *_Heart²_*'s Github.
 
 . Restructured and generalised the commands regarding `client` and `vendor` in the user guide for a better reading experience.
+
+. Participated actively in discussions regarding *_Heart²_* and its features.
 
 == Contributions to the User Guide
 
