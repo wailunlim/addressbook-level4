@@ -7,8 +7,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.LackOfPrivilegeException;
 import seedu.address.logic.parser.AddressBookParser;
@@ -21,6 +23,8 @@ import seedu.address.model.contact.Contact;
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
+    private static final String PARAMETER_CENSORED = " <Parameter Censored>";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -36,8 +40,9 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException, LackOfPrivilegeException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+        Command command = null;
+
         try {
-            Command command;
             if (model.isUserLoggedIn()) {
                 command = addressBookParser.parseCommand(commandText);
             } else {
@@ -45,10 +50,19 @@ public class LogicManager extends ComponentManager implements Logic {
             }
             return command.execute(model, history);
         } finally {
-            // do not add to history for logging in as it reveals user password.
             // do not add to history if logging out, as it is terminating a session.
-            if (!commandText.contains(LoginCommand.COMMAND_WORD) && !commandText.equals(LogoutCommand.COMMAND_WORD)) {
-                history.add(commandText);
+            if (!commandText.equals(LogoutCommand.COMMAND_WORD)) {
+                // if history is any of these instances, censored the parameter as it contains
+                // sensitive information
+                if (command instanceof LoginCommand) {
+                    history.add(LoginCommand.COMMAND_WORD + PARAMETER_CENSORED);
+                } else if (command instanceof RegisterAccountCommand) {
+                    history.add(RegisterAccountCommand.COMMAND_WORD + PARAMETER_CENSORED);
+                } else if (command instanceof EditPasswordCommand) {
+                    history.add(EditPasswordCommand.COMMAND_WORD + PARAMETER_CENSORED);
+                } else {
+                    history.add(commandText);
+                }
             }
         }
     }
