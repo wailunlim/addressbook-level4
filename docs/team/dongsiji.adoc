@@ -58,75 +58,67 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 |Below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
-=== Listing and searching for clients
+=== Listing and searching for contacts: `list`
 
-You can view clients in the database as a list using the `client list` command.
+You can view all the contact of a specific type in a list by specifying the contact type to be shown.
 
-If you do not key in any parameters, it will list out all the clients,
-otherwise it will list all clients matching all of the search parameters you provided.
-
-Format: `client list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+Format: `<CONTACT_TYPE> list`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `client list`
- * `client list n/John Doe`
+|`client list`
 |=====
-
-{empty} +
-
-=== Listing and searching for service providers
-
-You can view service providers in the database as a list using the `serviceprovider list` command.
-
-If you do not key in any parameters, it will list out all the service providers,
-otherwise it will list all service providers matching all of the search parameters you provided.
-
-Format: `serviceprovider list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
 
 [cols="^,<5a", frame=none]
 |=====
 |image:exampleimage.png[width="64", role="center"]
-|* `serviceprovider list`
- * `serviceprovider list n/John Doe`
+|`vendor list`
 |=====
 
-{empty} +
+*_Heart²_* also supports searching via name, phone number, email, address and tags for you to quickly find your contacts.
+To search, simply append your search parameters to the back of the original command.
 
-=== Undo the previous command: 'undo'
+Only contacts that matches all the search parameters will be displayed to you in the form of a list.
+Searching is done through substring matching, so you do not need to enter the full name, just part of the name will do.
 
-Undo the commands that you have entered in chronological order.
+Format: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`client list n/John`
+|=====
+
+[cols="^,<5a", frame=none]
+|=====
+|image:exampleimage.png[width="64", role="center"]
+|`vendor list p/98765432`
+|=====
+
+=== Undo the previous command: `undo`
+
+Undo the commands that you have entered in chronological order for this particular session. Once you logout or exit the application, you cannot `undo` a command from the last session.
 
 Format: `undo`
 
 [NOTE]
-====
 The application will only undo commands that modifies the list of contacts: `add`, `update`, `delete`, `clear`
-====
+
 [NOTE]
-====
-The application will show either the client list or service
-provider list corresponding to the command that was undone.
-====
+The application will show either the client list or vendor list corresponding to the command that was undone.
 
-{empty} +
+=== Redo the commands undone: `redo`
 
-=== Redo the commands undone: 'redo'
-
-Redo the commands that you have undone by undo in chronological order.
+Redo the commands that you have undone by undo in chronological order for this particular session. Once you logout or exit the application, you cannot `redo` a command from the last session.
 
 Format: `redo`
 
 [NOTE]
-====
 Commands that have been undone will be reset upon a `clear` command.
-====
+
 [NOTE]
-====
-The application will show either the client list or service
-provider list corresponding to the command that was redone.
-====
+The application will show either the client list or vendor list corresponding to the command that was redone.
 
 == Contributions to the Developer Guide
 
@@ -134,32 +126,18 @@ provider list corresponding to the command that was redone.
 |Below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-=== Aspect: What it shows after undo/redo command successfully executes
-
-* *Alternative 1 (current choice):* Shows the list that was changed due to the undo/redo command.
-** Pros: Easy for the user to identify what was changed, whether a client or service provider was modified.
-** Cons: It switches the list out of the current filter and the user have to re-type the list command if he wants to filter the list.
-* *Alternative 2:* Keeps showing what was shown before the command was executed.
-** Pros: Easy to implement.
-** Cons: Hard for the user to identify what was changed in the addressbook.
-* *Alternative 3:* Show what was changed, before and after.
-** Pros: User can easily tell what was changed.
-** Cons: Hard to implement, need to have an additional UI components to show what was changed and need additional components to store the list before it was changed.
-
-{empty} +
-
 === List Feature
-*_Heart²_* allows you view all the clients or the service providers with a simple command: `list`.
+*_Heart²_* allows you view all the clients or the vendors with a simple command: `list`.
 
-When listing contacts, you would have to specify whether the contact is a client or a service provider
+When listing contacts, you would have to specify whether the contact is a client or a vendor
 by prefixing it to list:
 
 * `client list`
-* `serviceprovider list`
+* `vendor list`
 
 Below shows an example of how listing all clients works:
 
-._The UI showing listing all clients._
+._The UI showing how to list all clients._
 image::ListAllClients.png[width="800"]
 
 {empty} +
@@ -171,11 +149,11 @@ belong to a category and only contacts which contains all of the keywords in the
 ====
 Categories include:
 
-* `n/` NAME
-* `p/` PHONE_NUMBER
-* `e/` EMAIL_ADDRESS
-* `a/` ADDRESS
-* `t/` TAGS
+* `n/ NAME`
+* `p/ PHONE_NUMBER`
+* `e/ EMAIL_ADDRESS`
+* `a/ ADDRESS`
+* `t/ TAGS`
 ====
 
 Below shows an example of how list filtering works:
@@ -187,14 +165,23 @@ image::ListClientsWithKeywords.png[width="800"]
 
 ==== Implementation
 
-The keywords from the command to be used for filtering is parsed by the `ListCommandParser` and passed to a `Predicate`
-that is implemented as `ContactContainsKeywordsPredicate`.
+The keywords from the command to be used for filtering is parsed by the `ListCommandParser` into a `ContactInformation`
+and passed to a `Predicate` to be used for filtering. The `Predicate` is implemented as `ContactContainsKeywordsPredicate`.
 
-We then use a `FilteredList` and pass the combination of 2 `Predicates` into it, one to filter the type of contact,
-clients or service providers and the other is to filter by keywords.
-// TODO: ADD UML DIAGRAM
+Below is a sequence diagram showing the creation of the `ListCommand`.
+
+._The Sequence Diagram of the creation of a list command._
+image::ListSequenceDiagram1.png[width="800"]
 
 {empty} +
+
+We use a `FilteredList` and pass the combination of 2 `Predicates` into it, one to filter the type of contact,
+clients or vendors and the other is to filter by keywords, which is the `ContactContainsKeywordsPredicate` from the `ListCommandParser`.
+
+Below is a sequence diagram showing the execution of the `ListCommand`.
+
+._The Sequence Diagram of the execution of a list command._
+image::ListSequenceDiagram2.png[width="800"]
 
 ==== Design considerations
 
@@ -225,53 +212,3 @@ Gives better control over the searching.
 * *Alternative 2:* Any match.
 ** Pros: Users are able to obtain a wider search result. Easier to use.
 ** Cons: Irrelevant results that contains only one or a few keywords will be shown as well.
-
-{empty} +
-
-=== Use case: List all the Clients or Service Providers
-
-*MSS*
-
-1.  User enters the list command and requests to view either all the Clients, or all the Service Providers.
-2.  System returns either a list with all the Clients' information, or all the Service Providers' information.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. There is no Client or no Service Provider available
-+
-[none]
-** 2a1. System returns an empty list.
-
-+
-Use case ends.
-
-{empty} +
-
-=== Use case: Filter and show Client’s or Service Provider’s info according to the filter
-
-*MSS*
-
-1.  User enters the list command and requests to view either Client’s or Service Provider’s information with some
-keywords provided indicated by prefixes.
-2.  The System displays a list of Clients or Service Providers whose information matches what was provided.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. User enters a prefix that does not exist.
-+
-[none]
-** 1a1. System prompts the User the correct format of the command and prefixes that can be used.
-
-* 1b. User enters an empty prefix.
-+
-[none]
-** 1b1. System prompts the User the correct format of the command and prefixes that can be used.
-
-+
-Use case ends.
