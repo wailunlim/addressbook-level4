@@ -414,7 +414,15 @@ It only shows you the clients whose budgets can afford the service of the partic
 
 === Listing entered commands: `history`
 
-Lists all the commands that you have entered in reverse chronological order for this particular session. Histories are deleted upon logging out or exiting the app. By default, command containing the word `login` will not be save to history. This is to protect user password from being revealed. The command `logout` will also not be save to history as the session has ended due to logging out.
+Lists all the commands that you have entered in reverse chronological order for this particular session. Histories are deleted upon logging out or exiting the app.
+
+By default, the following commands will have their parameters censored when saving to history. This is because these commands contain sensitive information such as user password.
+
+* `login`
+* `register account`
+* `change password`
+
+The command `logout` will not be save to history as the session has ended due to logging out.
 
 Format: `history`
 
