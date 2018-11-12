@@ -70,7 +70,7 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 
 === Listing and searching for contacts: `list`
 
-You can view all the contact of a specific type in a list by specifying the contact type to be shown.
+You can view all the contacts of a specific type in a list by specifying the contact type to be shown.
 
 Format: `<CONTACT_TYPE> list`
 
