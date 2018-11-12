@@ -133,34 +133,46 @@ Below is a summary of the commands available for you to use.
 
 *Before logging in*
 
-* To get help: `help`
-* To log in: `login u/USERNAME p/PASSWORD`
-* To close the application: `exit`
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To get help | `help`
+|To log in | `login u/USERNAME p/PASSWORD`
+|To close the application | `exit`
+|===
 
 *After logging in*
 
-* To register a new account: `register account u/USERNAME p/PASSWORD r/ROLE`
-* To change your account password: `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
-* To add a contact: `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
-* To add a service requirement: `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
-* To update a specific contact: `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
-* To list contacts that matches the inputs: `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
-* To find a match that fits a particular contact's requirements: `<CONTACT_TYPE>#<ID> automatch`
-* To view a specific contact: `<CONTACT_TYPE>#<ID> view`
-* To delete a specific contact: `<CONTACT_TYPE>#<ID> delete`
-* To delete all contacts: `clear`
-* To list all the commands entered in this session: `history`
-* To undo the previous command: `undo`
-* To redo the previous undone command: `redo`
-* To get help: `help`
-* To log out of your account: `logout`
-* To close the application: `exit`
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To register a new account | `register account u/USERNAME p/PASSWORD r/ROLE`
+|To change your account password | `change password o/YOUR_OLD_PASSWORD n/YOUR_NEW_PASSWORD`
+|To add a contact | `<CONTACT_TYPE> add n/FULL_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]…​`
+|To add a service requirement | `<CONTACT_TYPE>#<ID> addservice s/SERVICE_TYPE c/SERVICE_COST`
+|To update a specific contact | `<CONTACT_TYPE>#<ID> update [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To list contacts that matches the inputs | `<CONTACT_TYPE> list [n/FULL_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/HOME_ADDRESS] [t/TAG]...`
+|To find a match that fits a particular contact's requirements | `<CONTACT_TYPE>#<ID> automatch`
+|To view a specific contact | `<CONTACT_TYPE>#<ID> view`
+|To delete a specific contact | `<CONTACT_TYPE>#<ID> delete`
+|To delete all contacts | `clear`
+|To list all the commands entered in this session | `history`
+|To undo the previous command | `undo`
+|To redo the previous undone command | `redo`
+|To get help | `help`
+|To log out of your account | `logout`
+|To close the application | `exit`
+|===
 
 *Coming in v2.0*
 
-* To retrieve forgotten password: `forget password`
-* To assigning vendors to clients: `client# assign vendor#`
-* To assigning clients to vendors: `vendor# assign client#`
+[cols="^30,^70", options="header"]
+|===
+|FEATURE |FORMAT
+|To retrieve forgotten password | `forget password`
+|To assigning vendors to clients | `client# assign vendor#`
+|To assigning clients to vendors | `vendor# assign client#`
+|===
 
 == Contributions to the Developer Guide
 
