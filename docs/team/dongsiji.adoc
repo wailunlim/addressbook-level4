@@ -215,3 +215,67 @@ Gives better control over the searching.
 * *Alternative 2:* Any match.
 ** Pros: Users are able to obtain a wider search result. Easier to use.
 ** Cons: Irrelevant results that contains only one or a few keywords will be shown as well.
+
+=== Undo and Redo Aspect: What it shows after undo/redo command successfully executes
+
+* *Alternative 1 (current choice):* Shows the list that was changed due to the undo/redo command.
+** Pros: Easy for the user to identify what was changed, whether a client or vendor was modified.
+** Cons: It switches the list out of the current filter and the user have to re-type the list command if he wants to filter the list.
+* *Alternative 2:* Keeps showing what was shown before the command was executed.
+** Pros: Easy to implement.
+** Cons: Hard for the user to identify what was changed in the addressbook.
+* *Alternative 3:* Show what was changed, before and after.
+** Pros: User can easily tell what was changed.
+** Cons: Hard to implement, need to have an additional UI components to show what was changed and need additional components to store the list before it was changed.
+
+=== Use Cases
+
+==== Use case: List all the Clients or Vendors
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
+*MSS*
+
+1.  User enters the list command and requests to view either all the Clients, or all the Vendors.
+2.  System returns either a list with all the Clients' information, or all the Vendors' information.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no Client or no Vendor available
++
+[none]
+** 2a1. System returns an empty list.
+
++
+Use case ends.
+
+==== Use case: Filter and show Client’s or Vendor’s info according to the filter
+
+*Preconditions*: User is logged in with a `SUPER_USER` account.
+
+*MSS*
+
+1.  User enters the list command and requests to view either Client’s or Vendor’s information with some
+keywords provided indicated by prefixes.
+2.  The System displays a list of Clients or Vendors whose information matches what was provided.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters a prefix that does not exist.
++
+[none]
+** 1a1. System prompts the User the correct format of the command and prefixes that can be used.
+
+* 1b. User enters an empty prefix.
++
+[none]
+** 1b1. System prompts the User the correct format of the command and prefixes that can be used.
+
++
+Use case ends.
