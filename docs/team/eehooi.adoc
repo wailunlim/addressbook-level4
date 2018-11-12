@@ -61,7 +61,7 @@ Detailed understanding of how `Event` and event `Subscribers` worked was also cr
 Activation [https://github.com/CS2103-AY1819S1-F10-3/main/pull/148[#148], https://github.com/CS2103-AY1819S1-F10-3/main/pull/154[#154]],
 Enhancement [https://github.com/CS2103-AY1819S1-F10-3/main/pull/163[#163], https://github.com/CS2103-AY1819S1-F10-3/main/pull/207[#207],
 https://github.com/CS2103-AY1819S1-F10-3/main/pull/231[#231], https://github.com/CS2103-AY1819S1-F10-3/main/pull/276[#276]],
-Logout integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/189[#189]]
+Logout Integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/189[#189]]
 
 
 === Other contributions
@@ -79,7 +79,7 @@ Logout integration [https://github.com/CS2103-AY1819S1-F10-3/main/pull/189[#189]
 ** *Minor UI Contributions*
 *** Update tag color to fit in with *_Heart²_*'s theme [https://github.com/CS2103-AY1819S1-F10-3/main/pull/44[#44]]
 *** Generate URL string of `Contact` details for `BrowserPanel` [https://github.com/CS2103-AY1819S1-F10-3/main/pull/208[#208]]
-*** Updated *_Heart²_* launch logo. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/296[#296]]
+*** Updated *_Heart²_*'s launch logo. [https://github.com/CS2103-AY1819S1-F10-3/main/pull/296[#296]]
 ** *Create Sample Data for `.jar` launch* [https://github.com/CS2103-AY1819S1-F10-3/main/pull/301[#301]]
 ** *Community*
 *** Actively looked through and approved PRs.

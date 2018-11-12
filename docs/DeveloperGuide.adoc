@@ -815,7 +815,7 @@ In addition, both the service cost and type has to be stated in the command.
 ==== Search Result Display
 After the user enters the `automatch` command into the `CommandBox`, individual `ServiceListPanel` s would be deployed to list the search results in a tabular form:
 
-.Automatch table view
+.Automatch Table View
 image::Ui.png[width"800"]
 
 ===== Profile
