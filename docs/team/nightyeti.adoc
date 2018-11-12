@@ -69,7 +69,7 @@ image::others.png[width="400"]
 
 * *Community*:
 ** Contributed 40+ link:https://github.com/CS2103-AY1819S1-F10-3/main/pulls?q=is%3Apr+is%3Aclosed+author%3ANightYeti[pull requests] on Github.
-** Reviewed 40+ link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?q=reviewed-by%3ANightYeti[pull requests] by other authors on Github.
+** Reviewed 50+ link:https://github.com/CS2103-AY1819S1-F10-3/main/issues?q=reviewed-by%3ANightYeti[pull requests] by other authors on Github.
 
 * *Presentation*:
 ** Gave 2 product demos of the application to the entire class, the first targeting general audiences, and the second targeting company's higher management.
