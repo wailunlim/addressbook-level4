@@ -34,7 +34,7 @@ and it also has a Graphic User Interface (GUI) created with JavaFX for users who
 * *Functionality*: The user is able to use the `list` command to list all clients or vendors. They are also able to use the command to search through clients and vendors by providing the relevant keywords that they want to search for.
 * *Justification*: By having both the searching and listing functionality in one command the user will have less commands to familiarise with and it increases the ease of use of the application.
 * *Highlights*: To revamp the list command, I need to have a deep understanding of how the commands work as well as how the parser works, which I spent time to familiarise myself with. I also had to change how some of the information was stored in the application, so that the relevant information could be retrieved easily when needed.
-* *Functional Code Contributed*: link:https://github.com/dongsiji/main/blob/dongsiji-pp/docs/team/dongsijiContributedCodeList.adoc[all code]
+* *Functional Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/blob/master/docs/team/dongsijiContributedCodeList.adoc[all code]
 * *Test Code Contributed*: link:https://github.com/CS2103-AY1819S1-F10-3/main/pull/150[all tests]
 
 === Minor Enhancement
