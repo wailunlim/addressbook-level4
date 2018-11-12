@@ -458,7 +458,7 @@ Below is a summary of the commands available for you to use.
 
 *Before logging in*
 
-[width="100%",cols="10%,90%",options="header",]
+[cols="^30,^70", options="header"]
 |===
 |FEATURE |FORMAT
 |To get help | `help`
